@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap (V2.0)
+# Sitemap: https://guiadodesconto.com.br/sitemap.xml

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Conheça o Oferta Certa - encontre as melhores ofertas da Amazon, Mercado Livre e Shopee em um só lugar.">
+    <title>Sobre Nós | Oferta Certa</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=5">
+
+    <style>
+        /* Estilos específicos da página Sobre */
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .about-section {
+            margin-bottom: 50px;
+        }
+
+        .about-section h2 {
+            font-size: 1.8rem;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-section h2 i {
+            color: #667eea;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid #667eea;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .quote-box p {
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #374151;
+            margin: 0;
+        }
+
+        .partners-badges {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .partner-badge {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        .partner-badge.amazon {
+            border: 2px solid #FF9900;
+            color: #FF9900;
+        }
+
+        .partner-badge.ml {
+            border: 2px solid #ffe600;
+            color: #333;
+        }
+
+        .partner-badge.shopee {
+            border: 2px solid #ee4d2d;
+            color: #ee4d2d;
+        }
+
+        .transparency-box {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .transparency-box h4 {
+            color: #059669;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .transparency-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .transparency-box li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #374151;
+        }
+
+        .transparency-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .cta-section p {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo" style="text-decoration: none;">
+                <i class="fas fa-gift"></i>
+                <span><span style="color: #ee4d2d;">Oferta</span> <strong>Certa</strong></span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1><i class="fas fa-info-circle"></i> Sobre o Oferta Certa</h1>
+        <p>Encontre as melhores ofertas em um só lugar</p>
+    </section>
+
+    <!-- Content -->
+    <main class="about-content">
+
+        <!-- Missão -->
+        <section class="about-section">
+            <h2><i class="fas fa-bullseye"></i> Nossa Missão</h2>
+            <p>O <strong>Oferta Certa</strong> nasceu com um propósito simples: <em>facilitar sua busca pelas melhores
+                    ofertas</em> nas maiores plataformas de e-commerce do Brasil.</p>
+            <p>Sabemos que comparar preços e encontrar boas oportunidades pode ser cansativo. Por isso, organizamos as
+                ofertas por categorias, facilitando sua navegação e economizando seu tempo.</p>
+
+            <div class="quote-box">
+                <p>"Não vendemos produtos. Ajudamos você a encontrar as melhores oportunidades de compra nas lojas que
+                    você já conhece e confia."</p>
+            </div>
+        </section>
+
+        <!-- Parceiros -->
+        <section class="about-section">
+            <h2><i class="fas fa-handshake"></i> Nossos Parceiros</h2>
+            <p>Trabalhamos com as maiores plataformas de e-commerce do Brasil:</p>
+
+            <div class="partners-badges">
+                <div class="partner-badge amazon">
+                    <i class="fab fa-amazon"></i> Amazon
+                </div>
+                <div class="partner-badge ml">
+                    <i class="fas fa-handshake"></i> Mercado Livre
+                </div>
+                <div class="partner-badge shopee">
+                    <i class="fas fa-shopping-bag"></i> Shopee
+                </div>
+            </div>
+        </section>
+
+        <!-- Como Funciona -->
+        <section class="about-section">
+            <h2><i class="fas fa-cogs"></i> Como Funciona</h2>
+            <p>É muito simples:</p>
+            <ol style="padding-left: 25px; line-height: 1.8; color: #4b5563;">
+                <li><strong>Escolha uma categoria</strong> que te interessa (Tecnologia, Casa, Moda, etc.)</li>
+                <li><strong>Clique no botão</strong> da categoria desejada</li>
+                <li><strong>Você será redirecionado</strong> para a loja parceira com os melhores produtos</li>
+                <li><strong>Finalize sua compra</strong> com segurança na loja oficial</li>
+            </ol>
+        </section>
+
+        <!-- Transparência -->
+        <section class="about-section">
+            <h2><i class="fas fa-shield-alt"></i> Nosso Compromisso com a Transparência</h2>
+            <p>O Oferta Certa é remunerado através de um <strong>modelo de afiliação</strong>. Isso significa que, ao
+                clicar em uma categoria e ser redirecionado para o site do parceiro, utilizamos um código de
+                rastreamento (tag/ID de afiliado).</p>
+
+            <div class="transparency-box">
+                <h4><i class="fas fa-check-circle"></i> Importante saber:</h4>
+                <ul>
+                    <li><strong>Você não paga nada a mais por isso.</strong> O preço final do produto é exatamente o
+                        mesmo que você encontraria acessando o site do parceiro diretamente.</li>
+                    <li><strong>Nossa remuneração</strong> é uma pequena comissão paga pelo parceiro pela indicação da
+                        venda. Isso nos permite manter a plataforma funcionando.</li>
+                    <li><strong>Não somos uma loja.</strong> Não vendemos produtos, não processamos pagamentos e não
+                        fazemos entregas. Apenas facilitamos sua busca.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h3>Oferta Certa</h3>
+            <p>Sua busca por ofertas, simplificada.</p>
+            <a href="index.html" class="btn-primary">
+                <i class="fas fa-home"></i> Voltar às Ofertas
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-gift"></i>
+                        <span><span style="color: #FF9900;">Oferta</span> <strong>Certa</strong></span>
+                    </div>
+                    <p style="text-align: center;">Encontramos as melhores ofertas para você<br>economizar.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Úteis</h4>
+                    <a href="sobre.html">Sobre</a>
+                    <a href="mailto:contato@guiadodesconto.com.br">Contato</a>
+                    <a href="privacidade.html">Política de Privacidade</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Rede Social</h4>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/oferta.certa10" target="_blank" rel="noopener"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Guia do Desconto. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
