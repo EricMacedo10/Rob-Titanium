@@ -1,8 +1,9 @@
 # 🎯 Robô Titanium - Guia do Desconto
 
-> Sistema automatizado de comparação de preços e geração de links de afiliado para Amazon, Mercado Livre e Shopee.
+> Sistema 100% automatizado de comparação de preços e geração de links de afiliado para Amazon, Mercado Livre e Shopee. Atualizações automáticas 3x ao dia via GitHub Actions.
 
-[![Status](https://img.shields.io/badge/status-production-success)](https://guiadodesconto.com.br)
+[![Status](https://img.shields.io/badge/status-automated-success)](https://guiadodesconto.com.br)
+[![Automation](https://img.shields.io/badge/updates-3x%2Fday-blue)](https://github.com/EricMacedo10/Rob-Titanium/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ---
@@ -48,7 +49,9 @@ O **Robô Titanium** é um sistema completo de comparação de preços que:
 - ✅ Geração automática de links de afiliado
 - ✅ Autenticação SHA256 (Shopee API)
 - ✅ OAuth 2.0 (Mercado Livre)
-- ✅ Atualização automática de dados
+- ✅ **Atualização automática 3x/dia via GitHub Actions**
+- ✅ **Upload automático via FTP para Hostinger**
+- ✅ **Selenium headless otimizado para CI**
 
 ### **Integrações**
 - 🟢 **Amazon Associates**: Tag `guiadodesco00-20`
