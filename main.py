@@ -1,77 +1,3 @@
-import json
-import time
-import random
-from datetime import datetime
-from scraper.settings import TARGETS, MIN_DELAY, MAX_DELAY
-from scraper.link_builder import build_affiliate_link
-from scraper.upload import upload_to_hostinger
-from scraper.amazon import search_amazon  # Scraper Amazon
-
-def main():
-    start_time = datetime.now()
-    print("="*60)
-    print("🤖 Robô Titanium Iniciado [MODO ULTRACONSERVADOR]")
-    print(f"📅 Data/Hora: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"📋 Lista de alvos: {len(TARGETS)} produtos para monitorar.")
-    print("="*60)
-    
-    products_found = []
-    errors = []
-
-    for target in TARGETS:
-        # 1. Delay de Segurança (Anti-Ban)
-        wait_time = random.uniform(MIN_DELAY, MAX_DELAY)
-        print(f"⏳ Aguardando {wait_time:.1f}s para segurança...")
-        time.sleep(wait_time)
-
-        # 2. Busca (Scraping)
-        term = target['term']
-        store = target['store']
-        max_price = target.get('max_price', 1000)
-        
-        product = None
-        
-        if store == 'amazon':
-            product = search_amazon(term)
-            
-        elif store == 'mercadolivre':
-            # Usa scraper do ML (requer Selenium)
-            try:
-                from scraper.mercadolivre import search_mercadolivre
-                from scraper.amazon import get_driver
-                
-                print(f"🔍 Buscando no Mercado Livre: {term}")
-                driver = get_driver()
-                
-                try:
-                    product = search_mercadolivre(term, driver, max_price=int(max_price))
-                finally:
-                    driver.quit()
-                    
-            except Exception as e:
-                error_msg = f"Erro ao buscar no ML ({term}): {e}"
-                print(f"⚠ {error_msg}")
-                errors.append(error_msg)
-                continue
-                
-        # elif store == 'shopee': product = search_shopee(term) # Aguardando API (23/01)
-        else:
-            print(f"⚠ Loja {store} ainda não implementada.")
-            continue
-
-        if product:
-            # 3. Filtro de Preço (Compara apenas parte inteira)
-            price_integer = int(product['price'])
-            max_price_integer = int(target['max_price'])
-            
-            print(f"   💰 Preço: R$ {product['price']:.2f} (parte inteira: {price_integer}) | Máximo: {max_price_integer}")
-            
-            if price_integer <= max_price_integer:
-                print(f"🔥 OFERTA APROVADA: {product['title'][:30]}... por R$ {product['price']:.2f}")
-                
-                # 4. Link de Afiliado (com suporte a ML via meli_api)
-                product['link'] = build_affiliate_link(
-                    product['link'], 
                     target['store'],
                     keyword=term  # Passa palavra-chave para ML
                 )
@@ -82,6 +8,9 @@ def main():
         else:
              print(f"💨 Produto não encontrado ou erro na busca.")
 
+
+
+
     # 5. Salvar JSON Local
     local_path = 'site/data.json'
     print("\n" + "="*60)
@@ -91,6 +20,9 @@ def main():
         print(f"💾 Arquivo {local_path} atualizado com {len(products_found)} ofertas reais.")
     else:
         print("⚠ Nenhuma oferta nova encontrada. Arquivo data.json mantido.")
+
+
+
 
     # 6. Upload FTP para Hostinger
     if products_found:
@@ -109,7 +41,7 @@ def main():
                 ftp_host=ftp_host,
                 ftp_user=ftp_user,
                 ftp_pass=ftp_pass,
-                remote_path='/public_html/data.json'
+                remote_path='public_html/data.json'
             )
             if upload_success:
                 print("🎉 Site atualizado com sucesso!")
@@ -138,6 +70,9 @@ def main():
     print("=" * 60)
     print("🎉 Robô Titanium finalizado!")
     print("=" * 60)
+
+
+
 
 if __name__ == "__main__":
     main()
