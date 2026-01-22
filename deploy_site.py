@@ -86,17 +86,22 @@ def upload_directory(ftp: ftplib.FTP, local_dir: Path, remote_base: str = '') ->
                 failed += 1
         
         elif item.is_dir():
-            # Create directory and recurse
+            # Create directory (don't navigate into it)
             print(f"📁 Creating directory: {remote_path}")
-            if ensure_remote_dir(ftp, remote_path):
-                # Upload contents
-                sub_uploaded, sub_failed = upload_directory(ftp, item, remote_path)
-                uploaded += sub_uploaded
-                failed += sub_failed
-                # Go back to parent
-                ftp.cwd('..')
-            else:
-                print(f"   ⚠️  Skipping directory {remote_path}")
+            try:
+                ftp.mkd(remote_path)
+                print(f"   ✅ Directory created")
+            except ftplib.error_perm as e:
+                # Directory might already exist
+                if "exists" in str(e).lower() or "file exists" in str(e).lower():
+                    print(f"   ℹ️  Directory already exists")
+                else:
+                    print(f"   ⚠️  Warning: {e}")
+            
+            # Upload contents recursively (using absolute paths)
+            sub_uploaded, sub_failed = upload_directory(ftp, item, remote_path)
+            uploaded += sub_uploaded
+            failed += sub_failed
     
     return uploaded, failed
 
