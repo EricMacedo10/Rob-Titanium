@@ -1,0 +1,72 @@
+name: 🚀 Deploy Site to Hostinger
+
+on:
+  # Manual trigger only (safe deployment)
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy" to confirm'
+        required: true
+        default: 'deploy'
+
+jobs:
+  deploy:
+    name: Deploy to Hostinger via FTP
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-dotenv
+      
+      - name: 🚀 Deploy to Hostinger
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          echo "🌐 Iniciando deploy para Hostinger..."
+          python deploy_site.py
+      
+      - name: ✅ Verify Deployment
+        run: |
+          echo "🔍 Verificando se o site está acessível..."
+          
+          # Check data.json
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://guiadodesconto.com.br/data.json)
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ data.json acessível (HTTP $HTTP_CODE)"
+          else
+            echo "❌ data.json não acessível (HTTP $HTTP_CODE)"
+            exit 1
+          fi
+          
+          # Check homepage
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://guiadodesconto.com.br/)
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Homepage acessível (HTTP $HTTP_CODE)"
+          else
+            echo "❌ Homepage não acessível (HTTP $HTTP_CODE)"
+            exit 1
+          fi
+          
+          echo "🎉 Deploy verificado com sucesso!"
+      
+      - name: 📊 Deployment Summary
+        if: always()
+        run: |
+          echo "### 📊 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Site:** https://guiadodesconto.com.br" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY

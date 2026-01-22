@@ -168,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparisonResults = document.getElementById('comparison-results');
 
     // === Data Loading ===
-    // MVP v1.0: Desativado carregamento de produtos
-    // loadDeals();
+    // MVP v1.0: Ativado carregamento automático de produtos
+    loadDeals();
 
     function loadDeals() {
         fetch('data.json')
