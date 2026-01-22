@@ -12,18 +12,33 @@ from scraper.utils import add_affiliate_tag
 
 # Inicializa o Browser (Singleton para não abrir mil janelas)
 def get_driver():
+    import os
+    
+    # Detecta se está rodando em CI (GitHub Actions, etc.)
+    is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+    
     options = Options()
-    # options.add_argument("--headless") # Headless DESATIVADO para você ver e fazer login se precisar
+    
+    # Modo Headless AUTOMÁTICO em CI
+    if is_ci:
+        print("   🤖 Ambiente CI detectado - Modo Headless ativado")
+        options.add_argument("--headless=new")  # Novo modo headless do Chrome
+        options.add_argument("--no-sandbox")  # Necessário para CI
+        options.add_argument("--disable-dev-shm-usage")  # Evita problemas de memória
+        options.add_argument("--disable-gpu")  # Desabilita GPU em headless
+    else:
+        print("   💻 Ambiente local detectado - Modo visual ativado")
+    
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     
-    # ESTRATÉGIA COOKIE CLONE (Perfil Persistente)
-    # Isso cria uma pasta aqui na raiz chamada "chrome_profile"
-    # Tudo que você fizer no navegador (Login) fica salvo aqui.
-    import os
-    profile_path = os.path.join(os.getcwd(), "chrome_profile")
-    options.add_argument(f"user-data-dir={profile_path}")
+    # ESTRATÉGIA COOKIE CLONE (Perfil Persistente) - Apenas em ambiente local
+    if not is_ci:
+        # Isso cria uma pasta aqui na raiz chamada "chrome_profile"
+        # Tudo que você fizer no navegador (Login) fica salvo aqui.
+        profile_path = os.path.join(os.getcwd(), "chrome_profile")
+        options.add_argument(f"user-data-dir={profile_path}")
     
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
@@ -44,12 +59,18 @@ def search_amazon(term):
         print(f"   ↳ Navegando para: {url}")
         driver.get(url)
         
-        # ⏰ TEMPO PARA LOGIN MANUAL
-        print(f"\n   ⏰ AGUARDANDO 2 MINUTOS PARA VOCÊ FAZER LOGIN...")
-        print(f"   ℹ️  Faça login na Amazon agora se necessário!")
-        print(f"   ℹ️  O robô vai continuar automaticamente em 120 segundos...\n")
-        time.sleep(120)  # 2 minutos para login manual
-        print(f"   ✅ Tempo de login encerrado. Continuando...\n")
+        # ⏰ TEMPO PARA LOGIN MANUAL (apenas em ambiente local)
+        import os
+        is_ci = os.getenv('CI') == 'true' or os.getenv('GITHUB_ACTIONS') == 'true'
+        
+        if not is_ci:
+            print(f"\n   ⏰ AGUARDANDO 2 MINUTOS PARA VOCÊ FAZER LOGIN...")
+            print(f"   ℹ️  Faça login na Amazon agora se necessário!")
+            print(f"   ℹ️  O robô vai continuar automaticamente em 120 segundos...\n")
+            time.sleep(120)  # 2 minutos para login manual
+            print(f"   ✅ Tempo de login encerrado. Continuando...\n")
+        else:
+            print(f"   🤖 Modo CI: Pulando espera de login manual")
         
         # Delay aleatório humano adicional
         time.sleep(random.uniform(3, 7))
