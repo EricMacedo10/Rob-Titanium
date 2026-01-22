@@ -65,11 +65,6 @@ function buildMLAffiliateUrl(searchTerm) {
 }
 
 /**
- * Constrói URL de busca da Shopee (Fallback MVP)
- * @param {string} searchTerm - Termo de busca
- * @returns {string} URL de busca direta
- */
-/**
  * Constrói URL de busca da Shopee (Hybrid: Links Oficiais + Fallback)
  * @param {string} searchTerm - Termo de busca
  * @returns {string} URL verificada
@@ -132,13 +127,9 @@ function titaniumRedirect(categoria, lojaPreferida = null) {
             urlFinal = buildShopeeAffiliateUrl(categoria);
             break;
 
-        case 'amazon':
         default:
-            // Amazon: Standard search with tag
-            const amzConfig = config.AMAZON_AFFILIATE;
-            // Garantir fallabck seguro se tag não existir
-            const amzTag = amzConfig ? amzConfig.tag : "guiadodesco00-20";
-            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${amzTag}`;
+            // Fallback padrão: Amazon
+            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${tag}`;
             break;
     }
 

@@ -148,8 +148,8 @@ def search_mercadolivre(query, driver, max_price=1000):
         dict com dados do primeiro produto válido ou None
     """
     try:
-        # Construir URL de busca
-        search_url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}"
+        # Construir URL de busca com ordenação por menor preço
+        search_url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE"
         print(f"[ML] Buscando: {query}")
         
         driver.get(search_url)

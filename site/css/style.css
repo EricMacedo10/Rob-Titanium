@@ -476,11 +476,12 @@ nav a.active::after {
 /* ========================================
    MVP v1.0 - SEÇÕES DESATIVADAS
    ======================================== */
-.featured-curations,
+/* TEMPORARIAMENTE ATIVADO PARA TESTES */
+/* .featured-curations,
 .voted-deals,
 #deals-grid {
     display: none !important;
-}
+} */
 
 /* === Featured Curations === */
 .featured-curations {

@@ -145,9 +145,9 @@ class ShopeeAffiliateAPI:
         Returns:
             Short link de afiliado ou URL de busca padrão
         """
-        # URL de busca Shopee
+        # URL de busca Shopee com ordenação por menor preço
         base_url = "https://shopee.com.br/search"
-        search_url = f"{base_url}?keyword={search_term.replace(' ', '+')}"
+        search_url = f"{base_url}?keyword={search_term.replace(' ', '+')}&sortBy=price"
         
         # Tentar gerar short link
         short_link = self.generate_short_link(search_url)

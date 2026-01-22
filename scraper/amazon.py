@@ -54,7 +54,7 @@ def search_amazon(term):
         driver = get_driver()
         
         safe_term = term.replace(" ", "+")
-        url = f"https://www.amazon.com.br/s?k={safe_term}"
+        url = f"https://www.amazon.com.br/s?k={safe_term}&s=price-asc-rank"  # Ordenar por menor preço
         
         print(f"   ↳ Navegando para: {url}")
         driver.get(url)
