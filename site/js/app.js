@@ -162,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === State Management ===
     let allDeals = [];
     let currentSort = 'votes';
+    let currentStoreFilter = 'all'; // NEW: Store filter state
     let userVotes = JSON.parse(localStorage.getItem('userVotes') || '{}');
     let isSearching = false;
 
@@ -230,6 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
             currency: 'BRL'
         }).format(deal.price);
 
+        // Truncate title to 60 characters with tooltip
+        const MAX_TITLE_LENGTH = 60;
+        const fullTitle = deal.title;
+        const displayTitle = fullTitle.length > MAX_TITLE_LENGTH
+            ? fullTitle.substring(0, MAX_TITLE_LENGTH) + '...'
+            : fullTitle;
+
         // Store badge styling
         let storeIcon = '';
         let storeColor = '';
@@ -262,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="fas fa-chevron-down"></i>
                     </button>
                 </div>
-                <img src="${deal.image}" alt="${deal.title}" loading="lazy">
+                <img src="${deal.image}" alt="${fullTitle}" loading="lazy">
                 <div class="store-badge" style="background:${storeColor}">
                     ${storeIcon} ${deal.store}
                 </div>
@@ -271,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="reason-badge">
                     <i class="fa-solid fa-chart-line"></i> ${deal.reason}
                 </div>
-                <h3 class="card-title">${deal.title}</h3>
+                <h3 class="card-title" title="${fullTitle}">${displayTitle}</h3>
                 <div class="price-container">
                     <div class="old-price">R$ ${deal.old_price}</div>
                     <div class="new-price">${formattedPrice} <small>à vista</small></div>
@@ -600,31 +608,102 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // === Store Filter Functions ===
+    function createStoreFilterButtons(container) {
+        const filterHTML = `
+            <div class="store-filters" style="margin-bottom: 20px; text-align: center;">
+                <span style="margin-right: 10px; font-weight: 600;">Filtrar por loja:</span>
+                <button class="store-filter-btn active" data-store="all">Todas</button>
+                <button class="store-filter-btn" data-store="amazon">Amazon</button>
+                <button class="store-filter-btn" data-store="mercadolivre">Mercado Livre</button>
+                <button class="store-filter-btn" data-store="shopee">Shopee</button>
+            </div>
+        `;
+        container.insertAdjacentHTML('afterbegin', filterHTML);
+
+        // Add event listeners to filter buttons
+        const filterButtons = container.querySelectorAll('.store-filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentStoreFilter = btn.dataset.store;
+
+                // Re-render with current category and new filter
+                const currentCategory = container.dataset.currentCategory;
+                if (currentCategory) {
+                    filterAndRenderByCategory(currentCategory);
+                }
+            });
+        });
+    }
+
+    function filterByStore(deals, store) {
+        if (store === 'all') return deals;
+        return deals.filter(deal => deal.store.toLowerCase().includes(store.toLowerCase()));
+    }
+
+    function filterAndRenderByCategory(category) {
+        const filtered = allDeals.filter(deal =>
+            deal.category.toLowerCase() === category.toLowerCase()
+        );
+
+        // Apply store filter
+        const storeFiltered = filterByStore(filtered, currentStoreFilter);
+
+        // Sort by price
+        const sortedByPrice = storeFiltered.sort((a, b) => a.price - b.price);
+
+        // Update title
+        const sectionTitle = document.querySelector('.voted-deals .section-title');
+        const categoryNames = {
+            'tecnologia': 'Tecnologia',
+            'casa': 'Casa & Decoração',
+            'moda': 'Moda & Beleza',
+            'esportes': 'Esportes & Lazer'
+        };
+        const storeNames = {
+            'all': 'Todas as Lojas',
+            'amazon': 'Amazon',
+            'mercadolivre': 'Mercado Livre',
+            'shopee': 'Shopee'
+        };
+        sectionTitle.textContent = `${categoryNames[category]} - ${storeNames[currentStoreFilter]} (Menor Preço)`;
+
+        renderDeals(sortedByPrice);
+    }
+
     // === Category Hub Navigation ===
     hubCards.forEach(card => {
         card.addEventListener('click', () => {
             const category = card.dataset.category;
-            const filtered = allDeals.filter(deal =>
-                deal.category.toLowerCase() === category.toLowerCase()
-            );
+            currentStoreFilter = 'all'; // Reset filter
 
             // Scroll to deals section
-            document.querySelector('.voted-deals').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const dealsSection = document.querySelector('.voted-deals');
+            if (dealsSection) {
+                dealsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
 
-            // Update section title
-            const sectionTitle = document.querySelector('.voted-deals .section-title');
-            const categoryNames = {
-                'tecnologia': 'Tecnologia',
-                'casa': 'Casa & Decoração',
-                'moda': 'Moda & Beleza',
-                'esportes': 'Esportes & Lazer'
-            };
-            sectionTitle.textContent = `Ofertas em ${categoryNames[category]}`;
+                // Store current category for filter buttons
+                dealsSection.dataset.currentCategory = category;
 
-            renderDeals(filtered);
+                // Create or update filter buttons
+                let existingFilters = dealsSection.querySelector('.store-filters');
+                if (existingFilters) {
+                    existingFilters.remove();
+                }
+                const container = dealsSection.querySelector('.container');
+                if (container) {
+                    createStoreFilterButtons(container);
+                    container.dataset.currentCategory = category;
+                }
+
+                // Render products
+                filterAndRenderByCategory(category);
+            }
         });
     });
 
