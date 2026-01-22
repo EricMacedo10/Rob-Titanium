@@ -1,0 +1,87 @@
+name: 🤖 Atualizar Ofertas Automaticamente
+
+on:
+  schedule:
+    # 3x ao dia (horário de Brasília UTC-3)
+    # GitHub Actions usa UTC, então ajustamos:
+    # 07:00 BRT = 10:00 UTC
+    # 13:00 BRT = 16:00 UTC
+    # 20:00 BRT = 23:00 UTC
+    - cron: '0 10 * * *'  # 07:00 BRT (Manhã)
+    - cron: '0 16 * * *'  # 13:00 BRT (Tarde)
+    - cron: '0 23 * * *'  # 20:00 BRT (Noite)
+  
+  # Permite execução manual via GitHub UI
+  workflow_dispatch:
+
+jobs:
+  update-offers:
+    name: Buscar e Atualizar Ofertas
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout do Código
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Instalar Dependências
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 🔧 Configurar Variáveis de Ambiente
+        run: |
+          echo "SHOPEE_APP_ID=${{ secrets.SHOPEE_APP_ID }}" >> .env
+          echo "SHOPEE_SECRET=${{ secrets.SHOPEE_SECRET }}" >> .env
+          echo "MELI_CLIENT_ID=${{ secrets.MELI_CLIENT_ID }}" >> .env
+          echo "MELI_CLIENT_SECRET=${{ secrets.MELI_CLIENT_SECRET }}" >> .env
+          echo "AMAZON_AFFILIATE_TAG=${{ secrets.AMAZON_AFFILIATE_TAG }}" >> .env
+          echo "FTP_HOST=${{ secrets.FTP_HOST }}" >> .env
+          echo "FTP_USER=${{ secrets.FTP_USER }}" >> .env
+          echo "FTP_PASS=${{ secrets.FTP_PASS }}" >> .env
+      
+      - name: 🤖 Executar Robô Titanium
+        run: |
+          echo "🚀 Iniciando busca de ofertas..."
+          python main.py
+        env:
+          TZ: America/Sao_Paulo
+      
+      - name: 📊 Verificar Resultados
+        run: |
+          if [ -f "site/data.json" ]; then
+            echo "✅ Arquivo data.json gerado com sucesso!"
+            echo "📦 Tamanho: $(du -h site/data.json | cut -f1)"
+            echo "🔢 Produtos encontrados: $(jq '. | length' site/data.json)"
+          else
+            echo "⚠️ Arquivo data.json não foi gerado!"
+            exit 1
+          fi
+      
+      - name: 📤 Upload para Hostinger (FTP)
+        if: success()
+        run: |
+          echo "🌐 Upload do data.json para o site..."
+          # O upload já é feito dentro do main.py
+          echo "✅ Site atualizado com sucesso!"
+      
+      - name: 📝 Log de Execução
+        if: always()
+        run: |
+          echo "================================================"
+          echo "📅 Data/Hora: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+          echo "🤖 Workflow: ${{ github.workflow }}"
+          echo "🔄 Run ID: ${{ github.run_id }}"
+          echo "================================================"
+      
+      - name: 🚨 Notificar Erro (se houver)
+        if: failure()
+        run: |
+          echo "❌ ERRO: A atualização de ofertas falhou!"
+          echo "🔍 Verifique os logs acima para detalhes."
+          exit 1

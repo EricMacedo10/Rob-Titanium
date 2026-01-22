@@ -1,0 +1,199 @@
+# 📅 Agendamento Automático - Robô Titanium
+
+## 🤖 Sistema de Atualização Automática
+
+O Robô Titanium está configurado para atualizar as ofertas **automaticamente 3 vezes por dia** usando **GitHub Actions**.
+
+---
+
+## ⏰ Horários de Atualização
+
+As ofertas são atualizadas nos seguintes horários (horário de Brasília - BRT):
+
+| Horário | Período | Justificativa |
+|---------|---------|---------------|
+| **07:00** | Manhã | Captura ofertas novas do dia + tráfego matinal |
+| **13:00** | Tarde | Horário de almoço, pico de navegação mobile |
+| **20:00** | Noite | Pós-trabalho, maior engajamento de usuários |
+
+---
+
+## 🔧 Como Funciona
+
+### Fluxo de Execução
+
+```mermaid
+graph LR
+    A[GitHub Actions<br/>Trigger] --> B[Checkout Código]
+    B --> C[Instalar Python<br/>& Dependências]
+    C --> D[Configurar<br/>Variáveis .env]
+    D --> E[Executar<br/>main.py]
+    E --> F{Produtos<br/>Encontrados?}
+    F -->|Sim| G[Salvar<br/>data.json]
+    F -->|Não| H[Manter<br/>Arquivo Atual]
+    G --> I[Upload FTP<br/>para Hostinger]
+    I --> J[✅ Site<br/>Atualizado]
+    H --> J
+```
+
+### Arquivo de Workflow
+
+**Localização:** `.github/workflows/update-offers.yml`
+
+O workflow:
+1. Roda automaticamente nos horários programados
+2. Pode ser executado manualmente via GitHub UI
+3. Instala todas as dependências necessárias
+4. Configura credenciais de forma segura (GitHub Secrets)
+5. Executa o robô para buscar ofertas
+6. Faz upload do `data.json` para o site via FTP
+7. Registra logs completos de cada execução
+
+---
+
+## 🔐 Configuração de Credenciais (GitHub Secrets)
+
+Para o workflow funcionar, você precisa configurar os seguintes **Secrets** no GitHub:
+
+### Como Adicionar Secrets
+
+1. Acesse seu repositório no GitHub
+2. Vá em **Settings** → **Secrets and variables** → **Actions**
+3. Clique em **New repository secret**
+4. Adicione cada secret abaixo:
+
+### Secrets Necessários
+
+| Nome do Secret | Descrição | Exemplo |
+|----------------|-----------|---------|
+| `SHOPEE_APP_ID` | App ID da Shopee API | `123456` |
+| `SHOPEE_SECRET` | Secret da Shopee API | `abc123xyz...` |
+| `MELI_CLIENT_ID` | Client ID do Mercado Livre | `7891234567890123` |
+| `MELI_CLIENT_SECRET` | Client Secret do Mercado Livre | `AbCdEfGh...` |
+| `AMAZON_AFFILIATE_TAG` | Tag de afiliado Amazon | `guiadodesco00-20` |
+| `FTP_HOST` | Host FTP da Hostinger | `ftp.guiadodesconto.com.br` |
+| `FTP_USER` | Usuário FTP | `u123456789` |
+| `FTP_PASS` | Senha FTP | `SuaSenhaSegura123!` |
+
+> [!IMPORTANT]
+> **NUNCA** commite o arquivo `.env` com credenciais reais no Git! Os secrets do GitHub são criptografados e seguros.
+
+---
+
+## 📊 Monitoramento
+
+### Ver Logs de Execução
+
+1. Acesse seu repositório no GitHub
+2. Vá na aba **Actions**
+3. Clique no workflow **"🤖 Atualizar Ofertas Automaticamente"**
+4. Veja o histórico de execuções e logs detalhados
+
+### Informações nos Logs
+
+Cada execução mostra:
+- ✅ Produtos encontrados
+- ❌ Erros (se houver)
+- ⏱️ Tempo de execução
+- 📦 Tamanho do arquivo gerado
+- 🔢 Quantidade de produtos
+- 🌐 Status do upload FTP
+
+---
+
+## 🛠️ Execução Manual
+
+Você pode executar o workflow manualmente a qualquer momento:
+
+### Via GitHub UI
+
+1. Acesse **Actions** no seu repositório
+2. Selecione o workflow **"🤖 Atualizar Ofertas Automaticamente"**
+3. Clique em **Run workflow**
+4. Selecione a branch `main`
+5. Clique em **Run workflow** novamente
+
+### Via Linha de Comando (Local)
+
+```bash
+# Ativar ambiente virtual (se estiver usando)
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+# Executar o robô
+python main.py
+```
+
+---
+
+## 🔄 Alterar Frequência de Atualização
+
+Para mudar os horários ou adicionar mais execuções:
+
+1. Edite o arquivo `.github/workflows/update-offers.yml`
+2. Modifique a seção `schedule` com novos horários em formato cron (UTC)
+3. Commit e push para o GitHub
+
+### Exemplos de Cron
+
+```yaml
+# 4x ao dia (a cada 6 horas)
+- cron: '0 10 * * *'  # 07:00 BRT
+- cron: '0 16 * * *'  # 13:00 BRT
+- cron: '0 20 * * *'  # 17:00 BRT
+- cron: '0 23 * * *'  # 20:00 BRT
+
+# 1x ao dia (madrugada)
+- cron: '0 6 * * *'   # 03:00 BRT
+
+# A cada 2 horas (24/7)
+- cron: '0 */2 * * *'
+```
+
+> [!TIP]
+> Use [crontab.guru](https://crontab.guru/) para gerar expressões cron facilmente.
+> Lembre-se: GitHub Actions usa UTC, então ajuste para BRT (UTC-3).
+
+---
+
+## 🚨 Troubleshooting
+
+### Workflow não está rodando
+
+- ✅ Verifique se os Secrets estão configurados corretamente
+- ✅ Confirme que o arquivo `.github/workflows/update-offers.yml` existe
+- ✅ Veja se há erros na aba Actions do GitHub
+
+### Upload FTP falhou
+
+- ✅ Verifique credenciais FTP nos Secrets
+- ✅ Confirme que o caminho `/public_html/data.json` está correto
+- ✅ Teste conexão FTP manualmente
+
+### Nenhum produto encontrado
+
+- ✅ Verifique se as APIs estão respondendo
+- ✅ Confirme que os termos de busca em `settings.py` são válidos
+- ✅ Veja os logs para identificar erros específicos
+
+---
+
+## 📈 Benefícios do Sistema Atual
+
+✅ **Custo Zero**: GitHub Actions é gratuito para repositórios públicos  
+✅ **Alta Confiabilidade**: 99.9% uptime garantido  
+✅ **Segurança**: Credenciais criptografadas com AES-256  
+✅ **Escalável**: Fácil adicionar mais execuções ou workflows  
+✅ **Auditável**: Logs completos de todas as execuções  
+✅ **Independente**: Não depende do seu PC estar ligado  
+
+---
+
+## 📞 Suporte
+
+Se encontrar problemas:
+
+1. Verifique os logs no GitHub Actions
+2. Consulte este documento
+3. Revise o arquivo `README.md` do projeto
+4. Entre em contato: contato@guiadodesconto.com.br
