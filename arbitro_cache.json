@@ -1,0 +1,53 @@
+{
+  "iphone 15": {
+    "timestamp": 1769118972.19199,
+    "resultado": {
+      "termo_busca": "iPhone 15",
+      "melhor_produto": {
+        "titulo": "iPhone 15 - Shopee",
+        "preco": 0,
+        "loja": "Shopee",
+        "link": "https://s.shopee.com.br/7fTmWP94kK",
+        "imagem": ""
+      },
+      "todos_produtos": [
+        {
+          "id_interno": 0,
+          "titulo": "iPhone 15 - Shopee",
+          "preco": 0,
+          "loja": "Shopee",
+          "link_afiliado": "https://s.shopee.com.br/7fTmWP94kK",
+          "disponivel": true
+        },
+        {
+          "id": "amz_70937",
+          "title": "Película De Vidro 3D Tela Toda Para iPhone 15",
+          "price": 8.0,
+          "old_price": "9.60",
+          "discount": 20,
+          "store": "Amazon",
+          "category": "tech",
+          "image": "https://m.media-amazon.com/images/I/61kV-SM2rhL._AC_UL320_.jpg",
+          "link": "https://www.amazon.com.br/Pel%C3%ADcula-Vidro-Tela-iPhone-15/dp/B0F15VRKL3/ref=sr_1_1?dib=eyJ2IjoiMSJ9.YHWkw7gZwQm8y58CpJA_BAdPzOGi4GRTx4sqaN-UhwNYPLKNF22Wo3WKtGL9oPiZ6KjwJpFQ6xQuU9lKB2ysU6vjmOsFBdganDwm8aV-DnUiAxq4xxQ50GE0bWF5ro1acVLYf5-qEvxAsAzYNbNdaCZjwXPsvP-zGcupLayM7C9VqBc4pPC4nI2xVrBC-mcS0IrSzMkYJJxBXz8Pyq5D0DBgudJAGZbJljSLJbbruvsMKSrvo05pB2O8PaKhhpAIHCiFeGbpprJpT9ZYGu4YWG4pi1y0r6Zgj4YSalTrWco.nYDGJ_x71FqWlyznNCKwbcG-qTTP-BgkifTcU7kxWnY&dib_tag=se&keywords=iPhone+15&qid=1769118961&sr=8-1&tag=guiadodesco00-20",
+          "reason": "Oferta Verificada",
+          "id_interno": 1,
+          "link_afiliado": "https://www.amazon.com.br/Pel%C3%ADcula-Vidro-Tela-iPhone-15/dp/B0F15VRKL3/ref=sr_1_1?dib=eyJ2IjoiMSJ9.YHWkw7gZwQm8y58CpJA_BAdPzOGi4GRTx4sqaN-UhwNYPLKNF22Wo3WKtGL9oPiZ6KjwJpFQ6xQuU9lKB2ysU6vjmOsFBdganDwm8aV-DnUiAxq4xxQ50GE0bWF5ro1acVLYf5-qEvxAsAzYNbNdaCZjwXPsvP-zGcupLayM7C9VqBc4pPC4nI2xVrBC-mcS0IrSzMkYJJxBXz8Pyq5D0DBgudJAGZbJljSLJbbruvsMKSrvo05pB2O8PaKhhpAIHCiFeGbpprJpT9ZYGu4YWG4pi1y0r6Zgj4YSalTrWco.nYDGJ_x71FqWlyznNCKwbcG-qTTP-BgkifTcU7kxWnY&dib_tag=se&keywords=iPhone+15&qid=1769118961&sr=8-1&tag=guiadodesco00-20",
+          "disponivel": true,
+          "preco": 8.0,
+          "titulo": "Película De Vidro 3D Tela Toda Para iPhone 15",
+          "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "titulo": "iPhone 15 - Mercado Livre",
+          "preco": 0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "",
+          "disponivel": false,
+          "erro": "Não implementado ainda"
+        }
+      ],
+      "timestamp": "2026-01-22T18:56:12.191950"
+    }
+  }
+}

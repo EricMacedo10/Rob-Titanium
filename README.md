@@ -43,6 +43,8 @@ O **Robô Titanium** é um sistema completo de comparação de preços que:
 - ✅ Design responsivo e moderno
 - ✅ SEO otimizado
 - ✅ Headers de segurança implementados
+- ✅ **Campanha Sazonal**: Volta às Aulas (Banners Dinâmicos)
+- ✅ **Filtro Inteligente**: Ordenação automática "Menor Preço"
 
 ### **Backend (Robô)**
 - ✅ Scraping de preços (Amazon, Mercado Livre, Shopee)

@@ -53,7 +53,8 @@ function buildMLAffiliateUrl(searchTerm) {
         'matt_tool': config.userId,              // ID do afiliado (obrigatório)
         'matt_word': searchTerm,                  // Palavra-chave
         'matt_source': config.source,             // Fonte do tráfego
-        'tracking_id': generateTrackingId()       // ID único de rastreamento
+        'tracking_id': generateTrackingId(),      // ID único de rastreamento
+        '_Sort': 'price_asc'                      // ✅ Filtro Menor Preço
     });
 
     const fullUrl = `${baseUrl}?${params.toString()}`;
@@ -89,7 +90,7 @@ function buildShopeeAffiliateUrl(searchTerm) {
     const baseUrl = "https://shopee.com.br/search";
     const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/g, "+");
     console.log(`[Shopee] Usando fallback search para "${termKey}"`);
-    return `${baseUrl}?keyword=${encodedTerm}`;
+    return `${baseUrl}?keyword=${encodedTerm}&sortBy=price&order=asc`; // ✅ Filtro Menor Preço
 }
 
 /**
@@ -113,8 +114,8 @@ function titaniumRedirect(categoria, lojaPreferida = null) {
 
     switch (loja) {
         case 'amazon':
-            // Amazon: busca com tag de afiliado
-            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${tag}`;
+            // Amazon: busca com tag de afiliado + filtro menor preço
+            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${tag}&s=price-asc-rank`;
             break;
 
         case 'mercadolivre':

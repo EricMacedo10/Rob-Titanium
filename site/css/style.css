@@ -477,11 +477,11 @@ nav a.active::after {
    MVP v1.0 - SEÇÕES DESATIVADAS
    ======================================== */
 /* TEMPORARIAMENTE ATIVADO PARA TESTES */
-/* .featured-curations,
+.featured-curations,
 .voted-deals,
 #deals-grid {
     display: none !important;
-} */
+}
 
 /* === Featured Curations === */
 .featured-curations {
@@ -1279,4 +1279,132 @@ nav a.active::after {
         height: 26px;
         max-width: 80px;
     }
+}
+
+/* ========================================
+   SEASONAL CAMPAIGN - VOLTA ÀS AULAS
+   ======================================== */
+.seasonal-campaign {
+    padding: 0 0 40px 0;
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
+}
+
+.seasonal-campaign .container {
+    padding: 0 20px;
+}
+
+.campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .campaign-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.campaign-banner {
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 200px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    color: var(--text-dark);
+}
+
+.campaign-banner:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.campaign-banner .banner-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.banner-logo {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 8px;
+    /* filter removed to show original logos */
+}
+
+.campaign-banner h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: white;
+}
+
+.campaign-banner p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.banner-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: white;
+    color: var(--text-dark);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    margin-top: 8px;
+}
+
+.banner-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific Banner Styles */
+.amazon-banner {
+    background: linear-gradient(135deg, #FF9900 0%, #FFB84D 100%);
+}
+
+.amazon-banner .banner-btn {
+    color: #FF9900;
+}
+
+.ml-banner {
+    background: linear-gradient(135deg, #ffe600 0%, #ffee54 100%);
+}
+
+.ml-banner h3,
+.ml-banner p {
+    color: #2D3277;
+}
+
+.ml-banner .banner-btn {
+    color: #2D3277;
+}
+
+.shopee-banner {
+    background: linear-gradient(135deg, #ee4d2d 0%, #ff7350 100%);
+}
+
+.shopee-banner .banner-btn {
+    color: #ee4d2d;
 }
