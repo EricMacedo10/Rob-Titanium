@@ -316,49 +316,74 @@ nav a.active::after {
 
 
 /* Search Container */
+/* Search Container */
+/* Search Container */
 .search-container {
+    max-width: 650px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+
+.search-box {
     background: white;
-    border-radius: 16px;
-    padding: 8px;
+    border-radius: 50px;
+    /* Pill shape */
+    padding: 6px;
+    /* Tighter padding */
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    /* Ensure button goes to end */
     gap: 12px;
     box-shadow: var(--shadow-lg);
-    max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    /* Force full width */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Subtle border */
+    box-sizing: border-box;
     position: relative;
 }
 
 .search-icon {
     color: var(--text-gray);
     font-size: 1.2rem;
-    margin-left: 12px;
+    margin-left: 16px;
+    /* More space */
 }
 
 #search-input {
     flex: 1;
+    min-width: 0;
+    /* Critical for flex child */
     border: none;
     outline: none;
     font-size: 1.1rem;
     padding: 12px 8px;
     font-family: var(--font-primary);
+    background: transparent;
 }
 
 .btn-search {
     background: var(--primary-blue);
     color: white;
     border: none;
-    padding: 14px 32px;
-    border-radius: 12px;
+    padding: 12px 36px;
+    /* Balanced padding */
+    border-radius: 50px;
+    /* Match container */
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2);
 }
 
 .btn-search:hover {
     background: #1976D2;
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    /* Subtle lift */
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.3);
 }
 
 .search-suggestions {
@@ -477,11 +502,17 @@ nav a.active::after {
    MVP v1.0 - SEÇÕES DESATIVADAS
    ======================================== */
 /* TEMPORARIAMENTE ATIVADO PARA TESTES */
-.featured-curations,
+/* TEMPORARIAMENTE ATIVADO PARA TESTES */
+.featured-curations {
+    display: none !important;
+}
+
+/* 
 .voted-deals,
 #deals-grid {
     display: none !important;
-}
+} 
+*/
 
 /* === Featured Curations === */
 .featured-curations {
@@ -562,28 +593,57 @@ nav a.active::after {
     gap: 20px;
 }
 
+/* Sort & Filter Buttons Container */
 .sort-buttons {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    background: #f8fafc;
+    padding: 6px;
+    border-radius: 50px;
+    border: 1px solid var(--border-light);
 }
 
 .sort-btn {
-    background: white;
-    border: 2px solid var(--border-light);
+    background: transparent;
+    border: none;
     color: var(--text-gray);
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 10px 24px;
+    border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.sort-btn:hover,
+.sort-btn i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.sort-btn:hover {
+    color: var(--primary-blue);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.sort-btn:hover i {
+    transform: scale(1.2);
+}
+
 .sort-btn.active {
-    background: var(--primary-blue);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #764ba2 100%);
     color: white;
-    border-color: var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.sort-btn.active:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* Store Filter Buttons */
@@ -713,23 +773,29 @@ nav a.active::after {
     position: absolute;
     top: 12px;
     left: 12px;
+    background: white;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
-    border-radius: 8px;
-    padding: 8px;
+    padding: 4px;
     box-shadow: var(--shadow-sm);
+    z-index: 10;
+    /* Fix overlap issue */
 }
 
 .vote-btn {
-    background: transparent;
+    background: none;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
     color: var(--text-gray);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
     transition: var(--transition);
-    padding: 4px;
 }
 
 .vote-btn:hover {
@@ -745,6 +811,11 @@ nav a.active::after {
     font-weight: 700;
     font-size: 0.9rem;
     color: var(--text-dark);
+    margin: 2px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
 }
 
 .card-body {
@@ -761,6 +832,7 @@ nav a.active::after {
     color: var(--text-dark);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-weight: 600;
@@ -789,6 +861,109 @@ nav a.active::after {
     color: var(--text-gray);
     text-decoration: line-through;
     margin-bottom: 4px;
+}
+
+/* Fallback Card Styling */
+.fallback-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Store Specific Backgrounds */
+.fallback-card.mercadolivre {
+    background: #ffe600;
+}
+
+.fallback-card.amazon {
+    background: #FF9900;
+}
+
+.fallback-card.shopee {
+    background: #ee4d2d;
+}
+
+/* Fallback Icon Styling */
+.fallback-card i {
+    font-size: 4rem;
+    color: white;
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/*.fallback-card.mercadolivre i {
+    color: #2d3277;
+}*/
+
+/* Fallback Logo Images (ML & Shopee) */
+.fallback-logo {
+    width: 60%;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    /* Convert colored logos to White for Shopee/Amazon style */
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+/* ML Logo Special Treatment (Blue on Yellow) */
+.fallback-card.mercadolivre .fallback-logo {
+    /* Use original logo color or custom blue filter if needed. 
+       For now, let's reset filters to show original logo colors on yellow. */
+    filter: none;
+    width: 50%;
+}
+
+/* Shopee Logo Special Treatment */
+/*.fallback-card.shopee .fallback-logo {
+    filter: brightness(0) invert(1);
+}*/
+
+/* Shopee Composite Logo (Icon + Text) */
+.shopee-logo-composite {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+}
+
+.shopee-logo-composite i {
+    font-size: 4.5rem;
+    color: white;
+    /* White bag */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.shopee-logo-composite .shopee-s {
+    position: absolute;
+    color: #ee4d2d;
+    /* Shopee Orange/Red */
+    font-weight: 800;
+    font-size: 2rem;
+    padding-top: 8px;
+    /* Visual adjustment to center inside bag */
+    z-index: 3;
+}
+
+/* Decorative Background Logo/Icon opacity */
+.fallback-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    width: 100px;
+    height: 100px;
+    background: inherit;
+    filter: brightness(1.2);
+    border-radius: 50%;
+    z-index: 1;
 }
 
 .new-price {
@@ -1407,4 +1582,15 @@ nav a.active::after {
 
 .shopee-banner .banner-btn {
     color: #ee4d2d;
+}
+
+/* Footer Disclaimer */
+.price-disclaimer {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 12px;
+    line-height: 1.4;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }

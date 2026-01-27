@@ -1,0 +1,14 @@
+­ƒÜÇ TESTING LOCAL API ENDPOINT...
+­ƒôí Sending GET request to http://localhost:5000/api/search...
+­ƒôÑ Status Code: 200
+
+Ô£à API RESPONSE RECEIVED!
+   Query: iphone 15
+   Total Results: 3
+
+   ­ƒôª ITEM #1
+      Store: None (Original: Shopee)
+      Title: None
+      Price: None
+ÔØî CONNECTION ERROR: 'NoneType' object is not subscriptable
+   Is the Flask server running? (python main.py)

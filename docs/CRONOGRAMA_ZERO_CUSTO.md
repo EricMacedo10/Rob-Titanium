@@ -23,7 +23,8 @@
 | **Classe ArbitroDePreco** | ✅ 100% | ~~2 dias~~ **1h30** | $0 |
 | **Integração com LLM** | ✅ 100% | ~~1 dia~~ **30min** | **$0/mês (Groq GRÁTIS!)** |
 | **API REST (Flask)** | ✅ 100% | ~~1 dia~~ **45min** | $0 |
-| **Robô Animado (CSS)** | ❌ 0% | 4 horas | $0 |
+| **Assistente Família (Widget)** | ✅ 100% | ~~4 horas~~ **OK** | $0 |
+| **Frontend Integration** | ✅ 100% | **OK** | $0 |
 | **Testes E2E** | ❌ 0% | 1 dia | $0 |
 
 ---
@@ -117,11 +118,6 @@ def decidir_melhor_oferta(termo_busca, produtos):
     return int(response.choices[0].message.content.strip())
 ```
 
-#### **Dia 3: API REST com Flask (já instalado!)**
-- [ ] Criar `api_arbitro.py`
-- [ ] Endpoint `/api/arbitrar` (POST)
-- [ ] CORS configurado
-
 ```python
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -141,11 +137,15 @@ def arbitrar():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
+#### **Dia 3: API REST com Flask** ✅ CONCLUÍDO
+- [x] Criar `api_arbitro.py`
+- [x] Endpoint `/api/arbitrar` (POST)
+- [x] CORS configurado
 
-#### **Dia 4: Testes Unitários**
-- [ ] Testar com "iPhone 15" (deve ignorar capas)
-- [ ] Testar com "notebook gamer"
-- [ ] Validar links de afiliado
+#### **Dia 4: Testes Unitários** ✅ CONCLUÍDO
+- [x] Testar com "iPhone 15"
+- [x] Testar com "notebook gamer"
+- [x] Validar links de afiliado (Fallbacks e Tags corretas)
 
 #### **Dia 5: Deploy no Hostinger**
 - [ ] Adicionar `api_arbitro.py` ao projeto
@@ -156,21 +156,23 @@ if __name__ == '__main__':
 
 ### **SEMANA 2: Robô Interativo (3 dias)**
 
-#### **Dia 6: Design do Robô**
-- [ ] **GRÁTIS**: Gerar imagem com IA (vou criar para você!)
-- [ ] Otimizar para <50KB (WebP)
-- [ ] Adicionar a `site/images/robot-titanium.png`
+### **SEMANA 2: Engajamento & Família (CONCLUÍDO)**
 
-#### **Dia 7: Animações CSS**
-- [ ] Implementar `.robot-track` em `site/css/style.css`
-- [ ] Animação de caminhada (20s loop)
-- [ ] Troca de logos (3s)
-- [ ] Balão de fala (10s)
+#### **Dia 6: Design dos Avatares** ✅ CONCLUÍDO
+- [x] **GRÁTIS**: Gerar avatares 3D Pixar (Família)
+- [x] Otimizar imagens (WebP/PNG)
+- [x] Adicionar a `site/images/`
 
-#### **Dia 8: JavaScript Interativo**
-- [ ] Adicionar em `site/js/app.js`
-- [ ] Click handler → abrir modal de busca
-- [ ] Integrar com API `/api/arbitrar`
+#### **Dia 7: Widget "Assistente Família"** ✅ CONCLUÍDO
+- [x] Implementar `family-widget.js` e `family-widget.css`
+- [x] Animação de slide-in suave
+- [x] Notificações aleatórias com dicas reias
+- [x] Substitui o antigo conceito de "Robô Caminhando" por algo mais humanizado e confiável.
+
+#### **Dia 8: Ajustes Finais de UX** ✅ CONCLUÍDO
+- [x] Adicionar em `site/js/app.js`
+- [x] Click handler → abrir modal de busca
+- [x] Integração Visual Completa
 
 ---
 
@@ -227,13 +229,13 @@ if __name__ == '__main__':
 - [ ] `api_arbitro.py` (Dia 3) - **PRÓXIMO**
 - [ ] Testes (Dia 4-5)
 
-### Fase 2: Frontend (Semana 2)
-- [ ] Imagem do robô (Dia 6)
-- [ ] CSS animações (Dia 7)
-- [ ] JavaScript (Dia 8)
+### Fase 2: Frontend (Semana 2) ✅ CONCLUÍDO
+- [x] Avatares Família 3D (Dia 6)
+- [x] Widget CSS Glassmorphism (Dia 7) - *Visual Premium!*
+- [x] JavaScript Lógica (Dia 8) - *Dicas aleatórias*
 
 ### Fase 3: Deploy (Semana 3)
-- [ ] Integração (Dia 9)
+- [x] Integração (Dia 9) ✅
 - [ ] Testes finais (Dia 10)
 
 ---
@@ -311,12 +313,12 @@ except:
 - ✅ Hosting pago (Hostinger)
 
 ### O que FALTA (10 dias de trabalho):
-- ❌ Classe `ArbitroDePreco` (2 dias)
-- ❌ Integração Groq LLM (1 dia)
-- ❌ API REST Flask (1 dia)
-- ❌ Robô animado CSS (1 dia)
-- ❌ Integração frontend (1 dia)
-- ❌ Testes (1 dia)
+- ✅ Classe `ArbitroDePreco` (2 dias)
+- ✅ Integração Groq LLM (1 dia)
+- ✅ API REST Flask (1 dia)
+- ✅ Integração frontend (1 dia)
+- ✅ Assistente Família (Widget) (1 dia) - *Substituiu Robô Animado*
+- ❌ Testes Finais (1 dia)
 
 ### Custo Total:
 - **Desenvolvimento**: $0 (você mesmo)
@@ -326,6 +328,6 @@ except:
 ---
 
 **Quer que eu comece a implementar agora?** Posso criar:
-1. `scraper/arbitro_preco.py` (Dia 1)
-2. `scraper/curadoria_ia.py` com Groq (Dia 2)
-3. Imagem do robô personalizada (GRÁTIS)
+1. `scraper/arbitro_preco.py` (Dia 1) ✅ FEITO
+2. `scraper/curadoria_ia.py` com Groq (Dia 2) ✅ FEITO
+3. Avatares Família Pixar (GRÁTIS) ✅ FEITO

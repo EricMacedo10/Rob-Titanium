@@ -35,19 +35,12 @@ from scraper.arbitro_preco import ArbitroDePreco
 
 app = Flask(__name__)
 
-# CORS: Permitir apenas domínios específicos em produção
-ALLOWED_ORIGINS = [
-    "https://guiadodesconto.com.br",
-    "http://localhost:3000",  # Dev frontend
-    "http://127.0.0.1:5000"   # Dev local
-]
-
+# CORS: Configuração Permissiva para Desenvolvimento (Aceita file:// e localhost)
 CORS(app, resources={
     r"/api/*": {
-        "origins": ALLOWED_ORIGINS,
+        "origins": "*",  # Permite qualquer origem (incluindo file://)
         "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "max_age": 3600
+        "allow_headers": ["Content-Type", "Authorization"]
     }
 })
 
@@ -219,7 +212,7 @@ def api_status():
         "endpoints": {
             "/health": "Health check",
             "/api/status": "API status",
-            "/api/arbitrar": "Comparar preços (POST)"
+            "/api/search": "Comparar preços (GET ?q=termo)"
         },
         "rate_limit": {
             "max_requests": 10,
@@ -228,41 +221,27 @@ def api_status():
         "timestamp": datetime.now().isoformat()
     }), 200
 
-@app.route('/api/arbitrar', methods=['POST'])
+@app.route('/api/search', methods=['GET'])
 @rate_limit(max_requests=10, window=60)  # 10 req/min por IP
-def arbitrar_preco():
+def search_products():
     """
-    Endpoint principal: compara preços nas 3 lojas
+    Endpoint principal: busca e compara preços nas 3 lojas
     
-    Request Body:
-    {
-        "termo": "iPhone 15"
-    }
+    Query Params:
+        q: Termo de busca (ex: "iPhone 15")
     
     Response:
     {
-        "termo_busca": "iPhone 15",
-        "melhor_produto": {
-            "titulo": "...",
-            "preco": 4200.00,
-            "loja": "Amazon",
-            "link": "https://..."
-        },
-        "todos_produtos": [...],
+        "query": "iPhone 15",
+        "results": [...],
+        "best_price": {...},
         "timestamp": "2026-01-22T19:00:00"
     }
     """
     
     try:
-        # 1. Validar Content-Type
-        if not request.is_json:
-            return jsonify({
-                "erro": "Content-Type deve ser application/json"
-            }), 400
-        
-        # 2. Extrair e validar termo
-        data = request.get_json()
-        termo = data.get('termo', '').strip()
+        # 1. Extrair e validar termo (Query Param)
+        termo = request.args.get('q', '').strip()
         
         is_valid, error_msg = validate_search_term(termo)
         if not is_valid:
@@ -272,18 +251,73 @@ def arbitrar_preco():
         
         logger.info(f"Processando busca: '{termo}'")
         
-        # 3. Processar com o árbitro
+        # 2. Processar com o árbitro
         resultado = arbitro.processar_pedido(termo)
         
-        # 4. Verificar se houve erro
+        # 3. Verificar se houve erro
         if "erro" in resultado:
-            logger.warning(f"Erro na busca: {resultado['erro']}")
+            msg = resultado['erro']
+            # Se for apenas "não encontrou", retornar 200 com lista vazia
+            if "Nenhum produto" in msg or "não encontrado" in msg:
+                logger.info(f"Busca sem resultados: {msg}")
+                return jsonify({
+                    "query": termo,
+                    "results": [],
+                    "best_price": None,
+                    "timestamp": datetime.now().isoformat()
+                }), 200
+            
+            # Outros erros reais (ex: falha na API)
+            logger.warning(f"Erro na busca: {msg}")
             return jsonify(resultado), 404
         
-        # 5. Retornar resultado
+        # 4. Retornar resultado
         logger.info(f"Busca concluída: {resultado['melhor_produto']['loja']} - R$ {resultado['melhor_produto']['preco']:.2f}")
         
-        return jsonify(resultado), 200
+        # Adaptar resposta para o formato esperado pelo frontend (se necessário)
+        # O Frontend espera chaves em INGLÊS (store, price, title, link)
+        # O Backend produz chaves em PORTUGUÊS (loja, preco, titulo, link_afiliado)
+        
+        def adapt_to_frontend(produto):
+            if not produto: return {}
+            
+            # Normalizar chaves (Backend mistura Português/Inglês)
+            preco = produto.get('preco') or produto.get('price') or 0
+            link = produto.get('link_afiliado') or produto.get('link') or ''
+            loja = produto.get('loja') or produto.get('store') or ''
+            titulo = produto.get('titulo') or produto.get('title') or ''
+            imagem = produto.get('imagem') or produto.get('image') or ''
+            
+            # Sanitize values to prevent JSON errors (Infinity/NaN)
+            try:
+                price_val = float(preco)
+                if price_val == float('inf') or price_val == float('-inf'):
+                    price_val = 0
+            except:
+                price_val = 0
+                
+            old_price_val = price_val * 1.2
+            
+            return {
+                "store": loja,
+                "price": price_val,
+                "old_price": old_price_val, 
+                "title": titulo,
+                "link": link,
+                "image": imagem,
+                "discount": 20, 
+                "available": produto.get('disponivel', True),
+                "reason": "Melhor Preço"
+            }
+
+        response_data = {
+            "query": resultado.get('termo_busca', termo),
+            "results": [adapt_to_frontend(p) for p in resultado.get('todos_produtos', [])],
+            "best_price": adapt_to_frontend(resultado.get('melhor_produto', {})),
+            "timestamp": resultado.get('timestamp')
+        }
+        
+        return jsonify(response_data), 200
         
     except ValueError as e:
         logger.error(f"Validation error: {e}")

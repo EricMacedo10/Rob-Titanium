@@ -1,0 +1,32 @@
+­ƒÄÑ STARTING VISUAL VERIFICATION...
+­ƒîì Navigating to http://localhost:8000...
+­ƒöÄ Typing 'iphone 15' in search box...
+ÔÅ│ Waiting for results...
+ÔØî Timeout waiting for results: Message: 
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6e1b25715
+	0x7ff6e1b25770
+	0x7ff6e18d108d
+	0x7ff6e192c3be
+	0x7ff6e192c6cc
+	0x7ff6e197d2f7
+	0x7ff6e1979e45
+	0x7ff6e191cc28
+	0x7ff6e191db33
+	0x7ff6e1e0e9f0
+	0x7ff6e1e08ded
+	0x7ff6e1e2969a
+	0x7ff6e1b411e5
+	0x7ff6e1b499cc
+	0x7ff6e1b2ebf4
+	0x7ff6e1b2eda6
+	0x7ff6e1b14e87
+	0x7ffe155ce8d7
+	0x7ffe1650c53c
+
+
+­ƒôï BROWSER CONSOLE LOGS:
+   SEVERE: http://localhost:8000/js/app.js?v=debug5 707:42 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+   SEVERE: http://localhost:8000/favicon.ico - Failed to load resource: the server responded with a status of 404 (File not found)
+   SEVERE: http://localhost:8000/js/app.js?v=debug5 432:20 "Erro na busca:" SyntaxError: Unexpected token 'I', ..."","preco":Infinity,""... is not valid JSON

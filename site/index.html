@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/family-widget.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 
 <body>
@@ -52,8 +53,21 @@
                     class="fab fa-shopify store-icon shopee-icon"></i> Shopee, <i
                     class="fas fa-handshake store-icon ml-icon"></i> Mercado Livre e na <i
                     class="fab fa-amazon store-icon amazon-icon"></i> Amazon.</h1>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Digite o produto (ex: iPhone 15, Air Fryer...)"
+                        autocomplete="off">
+                    <button class="btn-search">Buscar</button>
+                    <!-- Suggestions -->
+                    <div id="search-suggestions" class="search-suggestions"></div>
+                </div>
+            </div>
+
             <!-- Logos das Lojas Parceiras -->
-            <div class="partners-logos">
+            <div class="partners-logos" style="margin-top: 30px;">
                 <p class="partners-label">Nossas Lojas Parceiras</p>
                 <div class="logos-container">
                     <div class="partner-logo">
@@ -196,9 +210,9 @@
             <div class="section-header">
                 <h2 class="section-title">Ofertas Votadas pela Comunidade</h2>
                 <div class="sort-buttons">
-                    <button class="sort-btn active" data-sort="votes">Mais Votadas</button>
-                    <button class="sort-btn" data-sort="discount">Maior Desconto</button>
-                    <button class="sort-btn" data-sort="recent">Recentes</button>
+                    <button class="sort-btn active" data-sort="votes"><i class="fas fa-fire"></i> Mais Votadas</button>
+                    <button class="sort-btn" data-sort="discount"><i class="fas fa-percent"></i> Maior Desconto</button>
+                    <button class="sort-btn" data-sort="recent"><i class="fas fa-clock"></i> Recentes</button>
                 </div>
             </div>
 
@@ -239,13 +253,19 @@
                 </div>
             </div>
             <div class="footer-bottom">
+                <p class="price-disclaimer">
+                    Os preços e condições de pagamento são válidos para o momento da consulta e podem sofrer alterações
+                    sem aviso prévio.
+                    <br>Em caso de divergência, vale sempre o preço final na loja parceira.
+                </p>
                 <p>&copy; 2026 Guia do Desconto. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="js/app.js?v=3"></script>
+    <script src="js/app.js?v=debug9"></script>
+    <script src="js/family-widget.js"></script>
 
 </body>
 

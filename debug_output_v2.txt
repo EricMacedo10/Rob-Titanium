@@ -1,0 +1,46 @@
+INFO:scraper.mercadolivre_api:[ML] Starting Selenium Search for: iPhone 15
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Driver [C:\Users\ericm\.wdm\drivers\chromedriver\win64\144.0.7559.96\chromedriver-win32/chromedriver.exe] found in cache
+INFO:scraper.mercadolivre_api:[ML] Found 3 products
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Driver [C:\Users\ericm\.wdm\drivers\chromedriver\win64\144.0.7559.96\chromedriver-win32/chromedriver.exe] found in cache
+­ƒÜÇ Starting Debug Session...
+
+==================================================
+Testing Mercado Livre Scraper
+==================================================
+   ­ƒñû Modo Headless ativado
+Count: 3
+ - Apple iPhone 15 (128 GB) - Azul - Distribuidor Autorizado
+   Price: 3899.0
+   Link: https://click1.mercadolivre.com.br/mclics/clicks/e...
+ - Apple iPhone 15 (256 GB) - Preto - Distribuidor Autorizado
+   Price: 4589.0
+   Link: https://click1.mercadolivre.com.br/mclics/clicks/e...
+ - Apple iPhone 15 (512 GB) - Preto - Distribuidor Autorizado
+   Price: 5903.0
+   Link: https://click1.mercadolivre.com.br/mclics/clicks/e...
+
+==================================================
+Testing Shopee Scraper
+==================================================
+[Shopee] Searching for 'iPhone 15' with Selenium...
+[Shopee] Fatal error: name 'get_driver' is not defined
+Count: 0
+
+==================================================
+Testing Amazon Scraper
+==================================================
+   ­ƒöÑ Iniciando Motor Blindado (Selenium)...
+   ­ƒñû Modo Headless ativado
+   Ôå│ Navegando para: https://www.amazon.com.br/s?k=iPhone+15&s=price-asc-rank
+   ÔÜá´©Å  Amazon detectou bot (Soft Block). Tentando reload...
+   Ôä╣ Itens encontrados no HTML: 51
+      ­ƒÄë PRODUTO EXTRA├ìDO COM SUCESSO!
+ - Pel├¡cula De Vidro 3D Tela Toda Para iPhone 15
+   Price: 8.0
+   Link: https://www.amazon.com.br/Pel%C3%ADcula-Vidro-Tela...

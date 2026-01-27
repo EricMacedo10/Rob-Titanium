@@ -11,14 +11,9 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 # Adicionar diretório pai ao path para imports funcionarem
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Importar módulos existentes
+from scraper.mercadolivre_api import search_mercadolivre
+from scraper.shopee_affiliate import get_shopee_affiliate_link, search_shopee
 from scraper.curadoria_ia import decidir_com_fallback
-from scraper.shopee_affiliate import get_shopee_affiliate_link
-from scraper.amazon import search_amazon
-# ML precisa de driver Selenium, vamos implementar versão simplificada
-
 
 class ArbitroDePreco:
     """
@@ -28,6 +23,7 @@ class ArbitroDePreco:
     def __init__(self):
         self.cache_file = "arbitro_cache.json"
         self.cache = self._load_cache()
+
     
     def _load_cache(self) -> dict:
         """Carrega cache de buscas anteriores"""
@@ -64,47 +60,23 @@ class ArbitroDePreco:
         
         print(f"[Cache] ❌ Miss. Buscando nas lojas...")
         return None
-    
-    async def buscar_shopee(self, termo: str) -> Optional[dict]:
-        """
-        Busca na Shopee e gera link de afiliado
-        """
-        print(f"\n[Shopee] Buscando '{termo}'...")
-        
-        try:
-            # Gerar link de afiliado (já temos isso pronto!)
-            link = get_shopee_affiliate_link(termo)
-            
-            # Por enquanto, retornar estrutura básica
-            # TODO: Implementar scraping real de preço
-            produto = {
-                "id_interno": 0,
-                "titulo": f"{termo} - Shopee",
-                "preco": 0,  # Placeholder
-                "loja": "Shopee",
-                "link_afiliado": link,
-                "disponivel": True
-            }
-            
-            print(f"[Shopee] ✅ Link gerado: {link[:60]}...")
-            return produto
-            
-        except Exception as e:
-            print(f"[Shopee] ❌ Erro: {e}")
-            return {
-                "id_interno": 0,
-                "titulo": f"{termo} - Shopee",
-                "preco": float('inf'),
-                "loja": "Shopee",
-                "link_afiliado": "",
-                "disponivel": False,
-                "erro": str(e)
-            }
+
+    # Import Amazon wrapper locally or assume it's imported at top
+    # But wait, looking at imports in Step 270, 'search_amazon' is MISSING too!
+    # I need to add the import at the top as well?
+    # No, I can't add imports with this tool easily in the same call (non-contiguous).
+    # I will assume I need to fix imports later or now. 
+    # Actually, import scan in Step 270 line 14-15 shows ONLY ML and Shopee.
+    # Amazon import is MISSING.
+    # I will add Amazon import inside the method to avoid 'insert' mess, or fix imports separately.
+    # 'from scraper.amazon import search_amazon' was removed.
     
     async def buscar_amazon(self, termo: str) -> Optional[dict]:
         """
         Busca na Amazon usando Selenium
         """
+        from scraper.amazon import search_amazon
+        
         print(f"\n[Amazon] Buscando '{termo}'...")
         
         try:
@@ -145,41 +117,7 @@ class ArbitroDePreco:
                 "disponivel": False,
                 "erro": str(e)
             }
-    
-    async def buscar_mercadolivre(self, termo: str) -> Optional[dict]:
-        """
-        Busca no Mercado Livre
-        """
-        print(f"\n[ML] Buscando '{termo}'...")
-        
-        try:
-            # TODO: Implementar busca real
-            # Por enquanto, placeholder
-            produto = {
-                "id_interno": 2,
-                "titulo": f"{termo} - Mercado Livre",
-                "preco": 0,  # Placeholder
-                "loja": "Mercado Livre",
-                "link_afiliado": "",
-                "disponivel": False,
-                "erro": "Não implementado ainda"
-            }
-            
-            print(f"[ML] ⚠️ Placeholder (não implementado)")
-            return produto
-            
-        except Exception as e:
-            print(f"[ML] ❌ Erro: {e}")
-            return {
-                "id_interno": 2,
-                "titulo": f"{termo} - Mercado Livre",
-                "preco": float('inf'),
-                "loja": "Mercado Livre",
-                "link_afiliado": "",
-                "disponivel": False,
-                "erro": str(e)
-            }
-    
+
     async def buscar_paralelo(self, termo: str) -> List[dict]:
         """
         Busca em todas as lojas em paralelo (assíncrono)
@@ -201,10 +139,92 @@ class ArbitroDePreco:
         for r in resultados:
             if isinstance(r, dict):
                 produtos.append(r)
+            elif r is None:
+                continue # Ignorar resultados vazios (lojas offline/sem produto)
             elif isinstance(r, Exception):
-                print(f"[Erro] {r}")
+                print(f"[Erro] Falha em uma das lojas: {r}")
         
+        print(f"\n[Resumo] Produtos encontrados: {len(produtos)}")
+        for p in produtos:
+            print(f"   ► {p.get('loja')}: R$ {p.get('preco', 0):.2f} - {p.get('titulo')[:30]}...")
+
         return produtos
+
+    async def buscar_mercadolivre(self, termo: str) -> Optional[dict]:
+        """
+        Busca no Mercado Livre usando API oficial
+        """
+        print(f"\n[ML] Buscando '{termo}'...")
+        
+        try:
+            # Executar função síncrona em executor
+            loop = asyncio.get_event_loop()
+            produtos = await loop.run_in_executor(None, search_mercadolivre, termo)
+            
+            if produtos:
+                melhor_ml = produtos[0] # Pega o primeiro (mais barato/relevante)
+                print(f"[ML] ✅ Produto encontrado: R$ {melhor_ml['preco']:.2f}")
+                return melhor_ml
+            else:
+                print(f"[ML] ⚠️ Nenhum produto encontrado")
+                return {
+                    "id_interno": 2,
+                    "titulo": f"{termo} - Mercado Livre",
+                    "preco": float('inf'),
+                    "loja": "Mercado Livre",
+                    "link_afiliado": "",
+                    "disponivel": False
+                }
+                
+        except Exception as e:
+            print(f"[ML] ❌ Erro: {e}")
+            return {
+                "id_interno": 2,
+                "titulo": f"{termo} - Mercado Livre",
+                "preco": float('inf'),
+                "loja": "Mercado Livre",
+                "link_afiliado": "",
+                "disponivel": False,
+                "erro": str(e)
+            }
+
+    async def buscar_shopee(self, termo: str) -> Optional[dict]:
+        """
+        Busca na Shopee usando API v4 (Real)
+        """
+        print(f"\n[Shopee] Buscando '{termo}'...")
+        
+        try:
+            # Executar função síncrona em executor
+            loop = asyncio.get_event_loop()
+            produtos = await loop.run_in_executor(None, search_shopee, termo)
+            
+            if produtos:
+                melhor_shopee = produtos[0]
+                print(f"[Shopee] ✅ Produto encontrado: R$ {melhor_shopee['preco']:.2f}")
+                return melhor_shopee
+            else:
+                print(f"[Shopee] ⚠️ Nenhum produto encontrado")
+                return {
+                    "id_interno": 0,
+                    "titulo": f"{termo} - Shopee",
+                    "preco": float('inf'),
+                    "loja": "Shopee",
+                    "link_afiliado": "",
+                    "disponivel": False
+                }
+            
+        except Exception as e:
+            print(f"[Shopee] ❌ Erro: {e}")
+            return {
+                "id_interno": 0,
+                "titulo": f"{termo} - Shopee",
+                "preco": float('inf'),
+                "loja": "Shopee",
+                "link_afiliado": "",
+                "disponivel": False,
+                "erro": str(e)
+            }
     
     def processar_pedido(self, termo: str) -> dict:
         """

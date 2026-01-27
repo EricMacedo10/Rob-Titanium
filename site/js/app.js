@@ -107,6 +107,10 @@ function titaniumRedirect(categoria, lojaPreferida = null) {
         loja = TITANIUM_CONFIG.PRIORIDADE.find(l => TITANIUM_CONFIG.STATUS[l]);
     }
 
+    // Normalizar nome da loja para garantir o match no switch
+    // Ex: "Mercado Livre" -> "mercadolivre"
+    loja = loja.toLowerCase().replace(/\s+/g, '');
+
     const tag = TITANIUM_CONFIG.TAGS[loja];
     let urlFinal = "";
 
@@ -147,9 +151,61 @@ function titaniumRedirect(categoria, lojaPreferida = null) {
 // Expor função globalmente para uso no HTML
 window.titaniumRedirect = titaniumRedirect;
 
+/**
+ * Handles image load errors by replacing the image with a store-branded fallback card
+ * @param {HTMLImageElement} imgElement - The image element that failed to load
+ * @param {string} storeName - The name of the store (Amazon, Mercado Livre, Shopee)
+ * @param {string} productTitle - The title of the product
+ */
+window.handleImageError = function (imgElement, storeName, productTitle) {
+    const storeLower = storeName.toLowerCase().replace(/\s+/g, '');
+
+    // Determine content based on store
+    let contentHTML = '';
+
+    if (storeLower.includes('amazon')) {
+        // Amazon keeps the FontAwesome icon as user liked it
+        contentHTML = '<i class="fa-brands fa-amazon"></i>';
+    } else if (storeLower.includes('mercadolivre')) {
+        // Mercado Livre uses the image logo
+        contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
+    } else if (storeLower.includes('shopee')) {
+        // Shopee: Construct a "Logo" using Icon + Text to ensure it looks good (White Bag + Color S)
+        contentHTML = `
+            <div class="shopee-logo-composite">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="shopee-s">S</span>
+            </div>`;
+    } else {
+        // Default fallback
+        contentHTML = '<i class="fa-solid fa-shopping-bag"></i>';
+    }
+
+    // Create fallback HTML
+    const fallbackHTML = `
+        <div class="fallback-card ${storeLower}">
+            ${contentHTML}
+        </div>
+    `;
+
+    // Replace the parent container's content (assuming img is wrapped in .image-container)
+    if (imgElement.parentElement.classList.contains('image-container')) {
+        imgElement.parentElement.innerHTML = fallbackHTML;
+    } else {
+        // Fallback if structure is different
+        const wrapper = document.createElement('div');
+        wrapper.className = 'image-container';
+        wrapper.style.width = '100%';
+        wrapper.style.height = '100%';
+        wrapper.innerHTML = fallbackHTML;
+        imgElement.replaceWith(wrapper);
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // === API Configuration ===
-    const API_BASE_URL = 'http://localhost:5000';
+    // Force IPv4 to avoid localhost resolution issues
+    const API_BASE_URL = 'http://127.0.0.1:5000';
 
     // === State Management ===
     let allDeals = [];
@@ -212,10 +268,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Known placeholder/error images that return 200 OK but should be treated as broken
+    const BLOCKED_IMAGES = [
+        "https://http2.mlstatic.com/D_NQ_NP_2X_959089-MLA69565561075_052023-F.webp", // ML Generic Placeholder
+        "https://http2.mlstatic.com/D_NQ_NP_2X_959089-MLA69565561075_052023-O.webp", // ML Generic Placeholder (Original)
+        "https://via.placeholder.com/300" // Example for testing
+    ];
+
     function createDealCard(deal) {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.dataset.id = deal.id;
+
+        // Check if image is in blocklist
+        let forceFallback = false;
+        if (!deal.image || BLOCKED_IMAGES.some(blocked => deal.image.includes(blocked))) {
+            forceFallback = true;
+        }
 
         // Format price
         const formattedPrice = new Intl.NumberFormat('pt-BR', {
@@ -250,6 +319,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const userVote = userVotes[deal.id] || 0;
         const voteCount = (deal.votes || 0) + (userVote === 1 ? 1 : userVote === -1 ? -1 : 0);
 
+        // Check for blocked images
+
+        // Pre-calculate fallback HTML if forced
+        let imageHTML = '';
+        if (forceFallback) {
+            const storeLower = deal.store.toLowerCase().replace(/\s+/g, '');
+            let contentHTML = '';
+
+            if (storeLower.includes('amazon')) {
+                contentHTML = '<i class="fa-brands fa-amazon"></i>';
+            } else if (storeLower.includes('mercadolivre')) {
+                contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
+            } else if (storeLower.includes('shopee')) {
+                // Shopee: Construct a "Logo" using Icon + Text to ensure it looks good (White Bag + Color S)
+                contentHTML = `
+                    <div class="shopee-logo-composite">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="shopee-s">S</span>
+                    </div>`;
+            } else {
+                contentHTML = '<i class="fa-solid fa-shopping-bag"></i>';
+            }
+
+            imageHTML = `
+                <div class="image-container" style="width: 100%; height: 100%;">
+                    <div class="fallback-card ${storeLower}">
+                        ${contentHTML}
+                    </div>
+                </div>`;
+        } else {
+            imageHTML = `
+                <div class="image-container" style="width: 100%; height: 100%;">
+                    <img src="${deal.image}" alt="${fullTitle}" loading="lazy" onerror="handleImageError(this, '${deal.store}', '${fullTitle}')">
+                </div>`;
+        }
+
         card.innerHTML = `
             <div class="card-header">
                 <span class="discount-badge">-${deal.discount}%</span>
@@ -257,12 +362,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="vote-btn vote-up ${userVote === 1 ? 'active' : ''}" data-id="${deal.id}">
                         <i class="fas fa-chevron-up"></i>
                     </button>
-                    <span class="vote-count">${voteCount}</span>
+                    <span class="vote-count" title="Temperatura da Oferta (Saldo de Votos)">🔥 ${voteCount}</span>
                     <button class="vote-btn vote-down ${userVote === -1 ? 'active' : ''}" data-id="${deal.id}">
                         <i class="fas fa-chevron-down"></i>
                     </button>
                 </div>
-                <img src="${deal.image}" alt="${fullTitle}" loading="lazy">
+                ${imageHTML}
                 <div class="store-badge" style="background:${storeColor}">
                     ${storeIcon} ${deal.store}
                 </div>
@@ -381,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function searchRealTime() {
+        // alert("DEBUG: Iniciando busca..."); // Debug
         const query = searchInput.value.trim();
 
         if (!query || query.length < 3) {
@@ -389,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (isSearching) {
-            return; // Evita múltiplas buscas simultâneas
+            return;
         }
 
         isSearching = true;
@@ -400,19 +506,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="loading-state real-time-search">
                 <i class="fa-solid fa-circle-notch fa-spin"></i>
                 <p>Buscando "<strong>${query}</strong>" nas 3 lojas...</p>
-                <div class="search-progress">
-                    <span class="store-status" data-store="amazon">🟡 Amazon</span>
-                    <span class="store-status" data-store="ml">🟡 Mercado Livre</span>
-                    <span class="store-status" data-store="shopee">🟡 Shopee</span>
-                </div>
             </div>
         `;
 
         // Scroll para resultados
-        document.querySelector('.voted-deals').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+        document.querySelector('.voted-deals').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         try {
             const response = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(query)}`);
@@ -426,6 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Erro na busca:', error);
+            alert('❌ Erro na busca: ' + error.message);
             dealsGrid.innerHTML = `
                 <div class="loading-state error-state">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -440,11 +539,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderSearchResults(data) {
+        // console.log(`DEBUG RENDER: Recebi dados! Query: ${data.query}`);
+
         const { query, results, best_price, from_cache } = data;
 
         // Atualiza título da seção
         const sectionTitle = document.querySelector('.voted-deals .section-title');
-        sectionTitle.innerHTML = `Resultados para "<span style="color: #667eea;">${query}</span>"${from_cache ? ' <small>(cache)</small>' : ''}`;
+        if (sectionTitle) {
+            sectionTitle.innerHTML = `Resultados para "<span style="color: #667eea;">${query}</span>"${from_cache ? ' <small>(cache)</small>' : ''}`;
+        }
 
         if (!results || results.length === 0) {
             dealsGrid.innerHTML = `
@@ -459,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Renderiza cards de comparação
         dealsGrid.innerHTML = '';
 
-        results.forEach(result => {
+        results.forEach((result, index) => {
             const card = createSearchResultCard(result, best_price);
             dealsGrid.appendChild(card);
         });
@@ -511,10 +614,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             }).format(result.price);
 
+            // Check if image is in blocklist
+            let forceFallback = false;
+            if (!result.image || BLOCKED_IMAGES.some(blocked => result.image.includes(blocked))) {
+                forceFallback = true;
+            }
+
+            // Pre-calculate fallback HTML if forced
+            let imageHTML = '';
+            if (forceFallback) {
+                const storeLower = result.store.toLowerCase().replace(/\s+/g, '');
+                let contentHTML = '';
+
+                if (storeLower.includes('amazon')) {
+                    contentHTML = '<i class="fa-brands fa-amazon"></i>';
+                } else if (storeLower.includes('mercadolivre')) {
+                    contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
+                } else if (storeLower.includes('shopee')) {
+                    contentHTML = `
+                    <div class="shopee-logo-composite">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="shopee-s">S</span>
+                    </div>`;
+                } else {
+                    contentHTML = '<i class="fa-solid fa-shopping-bag"></i>';
+                }
+
+                imageHTML = `
+                    <div class="image-container" style="width: 100%; height: 100%;">
+                        <div class="fallback-card ${storeLower}">
+                            ${contentHTML}
+                        </div>
+                    </div>`;
+            } else {
+                imageHTML = `
+                    <div class="image-container" style="width: 100%; height: 100%;">
+                        <img src="${result.image}" alt="${result.title}" loading="lazy" onerror="handleImageError(this, '${result.store}', '${result.title}')">
+                    </div>`;
+            }
+
             card.innerHTML = `
                 <div class="card-header">
                     ${isBestPrice ? '<span class="best-price-badge">🏆 Melhor Preço</span>' : ''}
-                    ${result.image ? `<img src="${result.image}" alt="${result.title}" loading="lazy">` : '<div class="no-image"><i class="fas fa-image"></i></div>'}
+                    ${imageHTML}
                     <div class="store-badge" style="background:${storeColor}">
                         ${storeIcon} ${result.store}
                     </div>
@@ -762,6 +904,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // === Known Placeholder Images (Soft 404s) ===
+    const KNOWN_PLACEHOLDER_IMAGES = [
+        "https://http2.mlstatic.com/D_NQ_NP_2X_959089-MLA69565561075_052023-F.webp", // ML generic broken image
+        "https://http2.mlstatic.com/resources/frontend/statics/not-found-image.png"
+    ];
+
     function getFallbackData() {
         return [
             {
@@ -774,7 +922,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "tecnologia",
                 "tags": ["alexa", "smart speaker", "echo"],
                 "image": "https://m.media-amazon.com/images/I/714Rq4k05UL._AC_SX679_.jpg",
-                "link": "https://amzn.to/EXAMPLE",
+                "link": "https://www.amazon.com.br/dp/B09B8YGX5Y?tag=guiadodesco00-20",
                 "reason": "Menor preço em 30 dias",
                 "votes": 42,
                 "added_date": "2026-01-15"
@@ -788,8 +936,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 "store": "Mercado Livre",
                 "category": "tecnologia",
                 "tags": ["smartphone", "samsung", "5g"],
-                "image": "https://http2.mlstatic.com/D_NQ_NP_2X_959089-MLA69565561075_052023-F.webp",
-                "link": "https://mercadolivre.com.br/EXAMPLE",
+                // FORCE ERROR TO SHOW FALLBACK CARD
+                "image": "",
+                "link": "https://www.mercadolivre.com.br/p/MLB23117466?matt_tool=188269638&matt_source=guiadodesconto",
                 "reason": "Queda brusca de 15%",
                 "votes": 38,
                 "added_date": "2026-01-15"
@@ -804,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "casa",
                 "tags": ["air fryer", "cozinha", "eletrodoméstico"],
                 "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lmkwx6l8v28f24",
-                "link": "https://shopee.com.br/EXAMPLE",
+                "link": "https://shopee.com.br/product/12345/67890?utm_source=ericmacedo",
                 "reason": "Oferta Relâmpago",
                 "votes": 56,
                 "added_date": "2026-01-15"
@@ -819,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "tecnologia",
                 "tags": ["kindle", "e-reader", "livros"],
                 "image": "https://m.media-amazon.com/images/I/71B1wF42X3L._AC_SX679_.jpg",
-                "link": "https://amzn.to/EXAMPLE2",
+                "link": "https://www.amazon.com.br/dp/B09SWW583J?tag=guiadodesco00-20",
                 "reason": "Frete Grátis Prime",
                 "votes": 29,
                 "added_date": "2026-01-14"
@@ -834,7 +983,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "casa",
                 "tags": ["liquidificador", "cozinha", "philips"],
                 "image": "https://m.media-amazon.com/images/I/61kWZ8qVJPL._AC_SX679_.jpg",
-                "link": "https://amzn.to/EXAMPLE3",
+                "link": "https://www.amazon.com.br/dp/B076MB2C36?tag=guiadodesco00-20",
                 "reason": "Preço histórico",
                 "votes": 31,
                 "added_date": "2026-01-15"
@@ -849,7 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "esportes",
                 "tags": ["tênis", "nike", "corrida"],
                 "image": "https://cf.shopee.com.br/file/sg-11134201-22110-abc123def456",
-                "link": "https://shopee.com.br/EXAMPLE4",
+                "link": "https://shopee.com.br/product/2222/33333?utm_source=ericmacedo",
                 "reason": "Desconto exclusivo",
                 "votes": 47,
                 "added_date": "2026-01-15"
