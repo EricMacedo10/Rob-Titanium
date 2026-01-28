@@ -5,8 +5,8 @@
 
 const FAMILY_CONFIG = {
     avatars: {
-        eric_group: 'images/eric-girls-cartoon-v3.png?v=final3',
-        wife_group: 'images/mom-cartoon-v3.png?v=final3'
+        eric_group: 'images/family-cartoon-2d.png',
+        wife_group: 'images/family-cartoon-2d.png'
     },
     messages: [
         {
