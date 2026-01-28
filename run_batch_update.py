@@ -90,10 +90,30 @@ def main():
         # Strategy: 
         # - Keep recent Trends (id starts with trend_) 
         # - Discard old Fixed products (id starts with prod_) to replace with new ones
-        # This prevents accumulation of duplicates
+        # - PREVENT DUPLICATES: Check if new fixed product is already in trends
         
         trends_only = [p for p in current_data if str(p.get('id', '')).startswith('trend_')]
-        final_list = trends_only + fixed_products
+        
+        # Create set of normalized titles from trends for fast lookup
+        trend_titles = {str(p.get('title', '')).lower().strip() for p in trends_only}
+        
+        unique_fixed = []
+        for p in fixed_products:
+            p_title = str(p.get('title', '')).lower().strip()
+            # Validate image and title
+            if not p.get('image') or not p_title:
+                continue
+
+            if p_title not in trend_titles:
+                unique_fixed.append(p)
+                trend_titles.add(p_title) # Prevent internal duplicates too
+            else:
+                print(f"⚠️ Duplicata removida: {p.get('title')}")
+                
+        final_list = trends_only + unique_fixed
+        
+        # Final sanity check: remove items with no image just in case
+        final_list = [p for p in final_list if p.get('image')]
         
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)

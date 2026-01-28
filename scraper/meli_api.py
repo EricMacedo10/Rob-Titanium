@@ -35,8 +35,8 @@ def get_affiliate_user_id():
         print(f"[ML Affiliate] User ID carregado: {_CACHED_USER_ID}")
         return _CACHED_USER_ID
     
-    print("[ML Affiliate] AVISO: User ID não encontrado nos tokens")
-    return None
+    print("[ML Affiliate] AVISO: User ID não encontrado nos tokens. Usando fallback.")
+    return "188269638" # ID fixo do afiliado ericmacedo
 
 
 def build_ml_affiliate_link(product_url, keyword=None):
