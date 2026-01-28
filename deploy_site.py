@@ -173,6 +173,10 @@ def main():
         print(f"❌ Files failed: {failed}")
         print(f"⏱️  Duration: {duration:.1f}s")
         print("=" * 60)
+
+        # Verify upload by listing again
+        print("\n📂 Final Directory Listing:")
+        ftp.dir()
         
         # Close connection
         ftp.quit()
