@@ -5,3 +5,5 @@ webdriver-manager
 flask
 flask-cors
 pyperclip
+groq
+python-dotenv

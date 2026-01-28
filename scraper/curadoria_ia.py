@@ -11,8 +11,15 @@ from dotenv import load_dotenv
 # Carregar variáveis de ambiente
 load_dotenv()
 
-# Inicializar cliente Groq
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+# Inicializar cliente Groq de forma segura
+client = None
+if os.getenv("GROQ_API_KEY"):
+    try:
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    except Exception as e:
+        print(f"⚠️ Aviso: Falha ao inicializar Groq: {e}")
+
 
 
 def decidir_melhor_oferta(termo_busca: str, produtos: list) -> int:
@@ -63,6 +70,9 @@ Não explique, não adicione texto, apenas o número.
 RESPOSTA:"""
 
     try:
+        if not client:
+            raise Exception("GROQ_API_KEY não configurada")
+
         print(f"[IA] Consultando Groq Llama 3.3 70B...")
         
         response = client.chat.completions.create(
