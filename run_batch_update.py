@@ -6,6 +6,7 @@ import random
 from scraper.settings import TARGETS
 from scraper.arbitro_preco import ArbitroDePreco
 from scraper.ml_trends import update_site_with_trends
+from scraper.upload import upload_to_hostinger
 
 DATA_FILE = 'site/data.json'
 
@@ -102,6 +103,17 @@ def main():
         print(f"   Fixos: {len(fixed_products)}")
         print(f"   Total: {len(final_list)}")
     
+    # 4. Upload to Hostinger
+    print("\n>>> Iniciando Upload FTP...")
+    ftp_host = os.getenv('FTP_HOST')
+    ftp_user = os.getenv('FTP_USER')
+    ftp_pass = os.getenv('FTP_PASS')
+    
+    if ftp_host and ftp_user and ftp_pass:
+        upload_to_hostinger(DATA_FILE, ftp_host, ftp_user, ftp_pass)
+    else:
+        print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
+
     print("\n🏁 EXECUÇÃO CONCLUÍDA!")
 
 if __name__ == "__main__":
