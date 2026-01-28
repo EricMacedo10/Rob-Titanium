@@ -131,9 +131,21 @@ def main():
         ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
         print("✅ Connected!")
         
+        print(f"📍 Initial PWD: {ftp.pwd()}")
+        print("📂 Listing root directory:")
+        ftp.dir()
+
         # Change to remote directory
         print(f"\n📂 Navigating to {REMOTE_DIR}...")
         ensure_remote_dir(ftp, REMOTE_DIR)
+        print(f"📍 Target PWD: {ftp.pwd()}")
+        
+        # Upload debug file
+        with open('deploy_debug.txt', 'w') as f:
+            f.write(f'Deployment test: {time.ctime()}')
+        with open('deploy_debug.txt', 'rb') as f:
+            ftp.storbinary('STOR deploy_debug.txt', f)
+        print("✅ debug file uploaded")
         
         # Upload files
         print(f"\n📦 Starting file upload...")
