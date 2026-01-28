@@ -135,10 +135,21 @@ def main():
         print("📂 Listing root directory:")
         ftp.dir()
 
-        # Change to remote directory
-        print(f"\n📂 Navigating to {REMOTE_DIR}...")
-        ensure_remote_dir(ftp, REMOTE_DIR)
+        # Check if we are already in public_html
+        current_pwd = ftp.pwd()
+        if current_pwd == '/public_html' or current_pwd.endswith('/public_html'):
+            print(f"\nℹ️  Already in public_html ({current_pwd}). Uploading to current directory.")
+            target_dir = '.'
+        else:
+            target_dir = REMOTE_DIR
+            
+        # Change to remote directory if needed
+        if target_dir != '.':
+            print(f"\n📂 Navigating to {target_dir}...")
+            ensure_remote_dir(ftp, target_dir)
+        
         print(f"📍 Target PWD: {ftp.pwd()}")
+
         
         # Upload debug file
         with open('deploy_debug.txt', 'w') as f:
