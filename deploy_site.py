@@ -128,7 +128,7 @@ def main():
     try:
         # Connect to FTP
         print("\n🔌 Establishing FTP connection...")
-        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=30)
+        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
         print("✅ Connected!")
         
         # Change to remote directory
