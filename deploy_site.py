@@ -21,7 +21,7 @@ RETRY_DELAY = 5  # seconds
 # Exclusions - data.json is managed by update-offers workflow
 EXCLUDE_PATTERNS = [
     '.git', '.github', 'node_modules', '*.pyc', '__pycache__',
-    '.DS_Store', '.env', 'Thumbs.db', 'data.json'
+    '.DS_Store', '.env', 'Thumbs.db', 'data.json', 'notifications.json'
 ]
 
 def should_exclude(path: Path) -> bool:
