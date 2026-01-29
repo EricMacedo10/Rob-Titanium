@@ -17,7 +17,7 @@ RETRY_DELAY = 5  # seconds
 # Exclusions
 EXCLUDE_PATTERNS = [
     '.git', '.github', 'node_modules', '*.pyc', '__pycache__',
-    '.DS_Store', '.env', 'Thumbs.db', 'data.json'
+    '.DS_Store', '.env', 'Thumbs.db'
 ]
 
 def should_exclude(path: Path) -> bool:
@@ -105,22 +105,6 @@ def upload_directory(ftp: ftplib.FTP, local_dir: Path, remote_base: str = '') ->
     
     return uploaded, failed
 
-def connect_with_retry(ftp_host, ftp_user, ftp_pass, max_retries=3):
-    """Connect to FTP with retry logic"""
-    for attempt in range(1, max_retries + 1):
-        try:
-            print(f"🔌 Tentativa {attempt}/{max_retries} - Conectando...")
-            ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
-            return ftp
-        except Exception as e:
-            print(f"⚠️  Erro na tentativa {attempt}: {e}")
-            if attempt < max_retries:
-                print(f"⏳ Aguardando {RETRY_DELAY}s...")
-                time.sleep(RETRY_DELAY)
-            else:
-                raise e
-    return None
-
 def main():
     print("=" * 60)
     print("🚀 DEPLOY SITE TO HOSTINGER")
@@ -142,28 +126,42 @@ def main():
     print(f"🌐 Remote directory: {REMOTE_DIR}")
     
     try:
-        # Connect to FTP with retry
-        ftp = connect_with_retry(ftp_host, ftp_user, ftp_pass)
-        if not ftp:
-            print("❌ Falha ao conectar após múltiplas tentativas")
-            return False
+        # Connect to FTP
+        print("\n🔌 Establishing FTP connection...")
+        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
+        print("✅ Connected!")
         
+        print("🕵️‍♂️ Finding correct web root...")
+        
+        # 1. Try to reach the root first
         current = ftp.pwd()
-        print(f"✅ Conectado! Diretório atual: {current}")
-        
-        # The FTP user already starts in /public_html - no navigation needed!
-        # Just verify we're in the right place
-        if 'public_html' in current:
-            print("📍 Já estamos no diretório correto!")
-        else:
-            # Fallback: try to navigate to public_html
+        if current == '/public_html' or current.endswith('/public_html'):
             try:
-                ftp.cwd('public_html')
-                print(f"📂 Navegou para: {ftp.pwd()}")
+                ftp.cwd('..')
+                print("⬆️  Moved up to root /")
             except:
-                print(f"ℹ️  Usando diretório atual: {current}")
+                pass
+                
+        # 2. Try the definitive Hostinger domain path
+        # Based on Pathfinder logs: /domains exists
+        target_path = 'domains/guiadodesconto.com.br/public_html'
+        
+        try:
+            print(f"📂 Attempting to navigate to: /{target_path}")
+            ftp.cwd(target_path)
+            print(f"✅ SUCCESS! Found definitive web root.")
+            target_dir = '.' # We are already there
+        except ftplib.error_perm:
+             print(f"⚠️  Could not find /{target_path}")
+             # Fallback to the initial listing's public_html if the domain path fails
+             print("🔄 Falling back to standard public_html...")
+             try: 
+                ftp.cwd('/public_html')
+             except:
+                pass
+             target_dir = '.'
 
-        print(f"📍 PWD Final: {ftp.pwd()}")
+        print(f"📍 Final Target PWD: {ftp.pwd()}")
 
         
         # Upload debug file

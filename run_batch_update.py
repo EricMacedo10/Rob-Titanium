@@ -92,13 +92,8 @@ def main():
         # - Keep recent Trends (id starts with trend_) 
         # - Discard old Fixed products (id starts with prod_) to replace with new ones
         # - PREVENT DUPLICATES: Check if new fixed product is already in trends
-        # - CLEANUP: Remove Mercado Livre products (Temporary)
         
-        trends_only = [
-            p for p in current_data 
-            if str(p.get('id', '')).startswith('trend_') 
-            and p.get('store') != 'Mercado Livre'
-        ]
+        trends_only = [p for p in current_data if str(p.get('id', '')).startswith('trend_')]
         
         # Create set of normalized titles from trends for fast lookup
         trend_titles = {str(p.get('title', '')).lower().strip() for p in trends_only}
