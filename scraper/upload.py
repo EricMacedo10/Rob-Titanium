@@ -1,7 +1,7 @@
 import ftplib
 import os
 
-def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_path='public_html/data.json'):
+def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_path='data.json'):
     """
     Envia o arquivo data.json atualizado para a Hostinger via FTP.
     """
