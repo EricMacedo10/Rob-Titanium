@@ -24,15 +24,25 @@ def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
         driver.get(url)
         
         # Wait for content
-        time.sleep(3)
+        time.sleep(5)
         
-        soup = BeautifulSoup(driver.page_source, "html.parser")
+        page_source = driver.page_source
+        soup = BeautifulSoup(page_source, "html.parser")
+        
+        # Debug: Check if we are blocked
+        page_title = soup.title.string if soup.title else "No Title"
+        logger.info(f"[ML] Page Title: {page_title}")
+        
         products = []
         
-        # Try finding cards (support both layouts)
-        cards = soup.select('.poly-card') # New layout
+        # Try finding cards (support multiple layouts)
+        cards = soup.select('.poly-card') # New 2024 layout
         if not cards:
-             cards = soup.select('.ui-search-layout__item') # Legacy
+             cards = soup.select('li.ui-search-layout__item') # Classic List 
+        if not cards:
+             cards = soup.select('div.ui-search-result__wrapper') # Grid
+             
+        logger.info(f"[ML] Cards found: {len(cards)}")
              
         for item in cards:
             if len(products) >= limit: break
