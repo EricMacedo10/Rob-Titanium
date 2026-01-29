@@ -35,14 +35,14 @@ def update_manual_targets():
                 # Format for site/data.json
                 formatted = {
                     "id": f"prod_{int(time.time())}_{i}",
-                    "title": prod['nome'],
+                    "title": prod.get('titulo', prod.get('nome', 'Sem Título')), # Fix: Arbitro uses 'titulo'
                     "price": prod['preco'],
                     "old_price": prod['preco'] * 1.25, # Fake old price
                     "discount": 20,
                     "store": prod['loja'],
                     "category": target.get('category', 'geral'),
-                    "image": prod['imagem'],
-                    "link": prod['link'],
+                    "image": prod.get('imagem', prod.get('image', '')), # Fix: Handle both keys
+                    "link": prod.get('link', prod.get('link_afiliado', '')),
                     "reason": resultado.get('analise_ia', {}).get('motivo', 'Melhor oferta encontrada')
                 }
                 new_products.append(formatted)
