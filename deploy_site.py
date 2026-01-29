@@ -14,10 +14,10 @@ REMOTE_DIR = 'public_html'
 MAX_RETRIES = 3
 RETRY_DELAY = 5  # seconds
 
-# Exclusions
+# Exclusions - data.json is managed by update-offers workflow
 EXCLUDE_PATTERNS = [
     '.git', '.github', 'node_modules', '*.pyc', '__pycache__',
-    '.DS_Store', '.env', 'Thumbs.db'
+    '.DS_Store', '.env', 'Thumbs.db', 'data.json'
 ]
 
 def should_exclude(path: Path) -> bool:
