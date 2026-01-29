@@ -181,10 +181,11 @@ def main():
         if os.path.exists(notif_file):
              upload_to_hostinger(notif_file, ftp_host, ftp_user, ftp_pass, remote_path='notifications.json')
 
-        # FORÇAR ATUALIZAÇÃO DO JS E CSS (Garantir correção de bugs front-end)
+        # FORÇAR ATUALIZAÇÃO DOS ASSETS (Garantir correção de bugs e cache-busting)
         assets = {
             'site/js/app.js': 'js/app.js',
-            'site/css/style.css': 'css/style.css'
+            'site/css/style.css': 'css/style.css',
+            'site/index.html': 'index.html'
         }
         for local, remote in assets.items():
             if os.path.exists(local):

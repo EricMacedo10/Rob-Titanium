@@ -264,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Sort deals
         const sortedDeals = sortDeals(deals, currentSort);
 
-        // Limit to 6 products for consistent 3x2 grid layout
-        const displayDeals = sortedDeals.slice(0, 6);
+        // Limit to 18 products for a rich display
+        const displayDeals = sortedDeals.slice(0, 18);
 
         displayDeals.forEach(deal => {
             const card = createDealCard(deal);
@@ -291,11 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
             forceFallback = true;
         }
 
-        // Format price
-        const formattedPrice = new Intl.NumberFormat('pt-BR', {
+        // Format prices
+        const formatter = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-        }).format(deal.price);
+        });
+
+        const formattedPrice = formatter.format(deal.price);
+        const formattedOldPrice = deal.old_price ? formatter.format(deal.old_price) : '';
 
         // Truncate title to 60 characters with tooltip
         const MAX_TITLE_LENGTH = 60;
@@ -355,8 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         } else {
             imageHTML = `
-                <div class="image-container" style="width: 100%; height: 100%;">
-                    <img src="${deal.image}" alt="${fullTitle}" loading="lazy" onerror="handleImageError(this, '${deal.store}', '${fullTitle}')">
+                <div class="image-container" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img src="${deal.image}" alt="${fullTitle}" loading="lazy" onerror="handleImageError(this, '${deal.store}', '${fullTitle}')" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>`;
         }
 
@@ -383,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <h3 class="card-title" title="${fullTitle}">${displayTitle}</h3>
                 <div class="price-container">
-                    <div class="old-price">R$ ${deal.old_price}</div>
+                    <div class="old-price">${formattedOldPrice}</div>
                     <div class="new-price">${formattedPrice} <small>à vista</small></div>
                 </div>
                 <a href="${deal.link}" target="_blank" class="btn-deal">
@@ -811,19 +814,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update title
         const sectionTitle = document.querySelector('.voted-deals .section-title');
-        const categoryNames = {
-            'tecnologia': 'Tecnologia',
-            'casa': 'Casa & Decoração',
-            'moda': 'Moda & Beleza',
-            'esportes': 'Esportes & Lazer'
-        };
-        const storeNames = {
-            'all': 'Todas as Lojas',
-            'amazon': 'Amazon',
-            'mercadolivre': 'Mercado Livre',
-            'shopee': 'Shopee'
-        };
-        sectionTitle.textContent = `${categoryNames[category]} - ${storeNames[currentStoreFilter]} (Menor Preço)`;
+        if (sectionTitle) {
+            const categoryNames = {
+                'tecnologia': 'Tecnologia',
+                'casa': 'Casa & Decoração',
+                'moda': 'Moda & Beleza',
+                'esportes': 'Esportes & Lazer',
+                'recent': 'Ofertas Recentes'
+            };
+            const storeNames = {
+                'all': 'Todas as Lojas',
+                'amazon': 'Amazon',
+                'mercadolivre': 'Mercado Livre',
+                'shopee': 'Shopee'
+            };
+            const catName = categoryNames[category] || 'Ofertas';
+            const storeName = storeNames[currentStoreFilter] || 'Todas as Lojas';
+            sectionTitle.textContent = `${catName} - ${storeName} (Menor Preço)`;
+        }
 
         renderDeals(sortedByPrice);
     }
@@ -885,10 +893,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Filter deals by title or category
-            const matches = allDeals.filter(deal =>
-                deal.title.toLowerCase().includes(query) ||
-                (deal.category && deal.category.toLowerCase().includes(query))
-            );
+            const matches = allDeals.filter(deal => {
+                if (!deal || !deal.title) return false;
+                const titleMatch = deal.title.toLowerCase().includes(query);
+                const categoryMatch = deal.category && deal.category.toLowerCase().includes(query);
+                const storeMatch = deal.store && deal.store.toLowerCase().includes(query);
+                return titleMatch || categoryMatch || storeMatch;
+            });
 
             if (matches.length === 0) {
                 dealsGrid.innerHTML = `
