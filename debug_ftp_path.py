@@ -40,7 +40,8 @@ def main():
 
     try:
         print(f"📡 Connecting to {ftp_host}...")
-        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
+        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
+        ftp.set_pasv(True)
         print("✅ Connected!")
         
         # 1. Inspect Initial Login Directory
