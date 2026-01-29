@@ -66,12 +66,13 @@ def main():
     
     # 1. Update ML Trends
     print(">>> Executando ML Trends...")
-    try:
-        # update_site_with_trends reads limits internally and updates data.json
-        # We perform it first so we have a base
-        update_site_with_trends(DATA_FILE)
-    except Exception as e:
-        print(f"❌ Falha ao atualizar trends: {e}")
+    print("⚠️ ML Trends Temporariamente Desativado (Aguardando Proxy)")
+    # try:
+    #     # update_site_with_trends reads limits internally and updates data.json
+    #     # We perform it first so we have a base
+    #     update_site_with_trends(DATA_FILE)
+    # except Exception as e:
+    #     print(f"❌ Falha ao atualizar trends: {e}")
         
     # 2. Update Manual Targets
     print("\n>>> Executando Targets Manuais...")
