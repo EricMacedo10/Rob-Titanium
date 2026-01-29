@@ -722,13 +722,14 @@ nav a.active::after {
 }
 
 .card-header {
-    height: 220px;
-    background: var(--bg-light);
-    padding: 20px;
+    height: 250px;
+    background: white;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    border-bottom: 1px solid var(--border-light);
 }
 
 .card-header img {
@@ -736,6 +737,8 @@ nav a.active::after {
     max-height: 100%;
     object-fit: contain;
     transition: var(--transition);
+    mix-blend-mode: multiply;
+    /* Helps white backgrounds blend */
 }
 
 .product-card:hover .card-header img {
