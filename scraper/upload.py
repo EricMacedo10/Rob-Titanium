@@ -28,7 +28,18 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
         
         # Show current directory
         pwd = session.pwd()
-        print(f"   📍 Diretório atual (pwd): {pwd}")
+        print(f"   📍 Diretório inicial (pwd): {pwd}")
+
+        # Tenta entrar na pasta public_html se existir (Padrão Hostinger)
+        try:
+            files_root = []
+            session.retrlines('NLST', files_root.append)
+            if 'public_html' in files_root:
+                print("   📂 Encontrada pasta 'public_html'. Entrando nela...")
+                session.cwd('public_html')
+                print(f"   📍 Novo diretório: {session.pwd()}")
+        except Exception as e:
+            print(f"   ⚠️  Erro ao verificar/entrar em public_html: {e}")
         
         # List files before upload
         print(f"   📂 Listando arquivos no diretório...")
