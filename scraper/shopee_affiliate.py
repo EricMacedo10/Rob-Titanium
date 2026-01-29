@@ -157,14 +157,19 @@ def get_shopee_affiliate_link(search_term: str) -> str:
         return f"https://shopee.com.br/search?keyword={search_term.replace(' ', '+')}"
 
 def search_shopee(query: str, limit: int = 3) -> list:
-    """Função principal de busca (Substitui Selenium)"""
+    """Função principal de busca (Via API Oficial)"""
     print(f"[Shopee] Searching for '{query}' via API...")
     try:
         api = ShopeeAffiliateAPI()
+        # API Oficial APROVADA - Validado em 29/01/2026
         results = api.search_products(query, limit=limit)
         
-        print(f"[Shopee] Found {len(results)} items via API")
-        return results
+        if results:
+            print(f"[Shopee] Found {len(results)} items via API")
+            return results
+        else:
+            print("[Shopee] API returned 0 items.")
+            return []
         
     except Exception as e:
         print(f"[Shopee] API Search Failed: {e}")

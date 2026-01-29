@@ -16,54 +16,73 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
-    """Busca produtos usando a API Oficial do Mercado Livre"""
-    """Busca produtos usando a API Oficial do Mercado Livre"""
-    """Busca produtos usando a API Oficial do Mercado Livre"""
+    """
+    Busca produtos usando Requests + Headers (Simulação de Browser).
+    Bypass no bloqueio da API Oficial e mais leve que Selenium.
+    """
     try:
-        url = "https://api.mercadolibre.com/sites/MLB/search"
+        # URL de Busca (HTML)
+        url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE"
+        
+        # Headers "Mágicos" validados em testes (Bypass WAF)
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-            "Accept": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
             "Referer": "https://www.mercadolivre.com.br/",
-            "Origin": "https://www.mercadolivre.com.br",
-            "Sec-Ch-Ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
-            "Sec-Ch-Ua-Mobile": "?0",
-            "Sec-Ch-Ua-Platform": '"Windows"',
-            "Sec-Fetch-Dest": "empty",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "cross-site"
-        }
-        if token:
-            headers["Authorization"] = f"Bearer {token}"
-            
-        params = {
-            "q": query,
-            "sort": "price_asc",
-            "limit": limit,
-            "status": "active"
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-User": "?1"
         }
         
-        # Primeira tentativa (com token, se fornecido)
-        response = requests.get(url, headers=headers, params=params)
+        logger.info(f"[ML Optimized] Fetching: {url}")
+        response = requests.get(url, headers=headers, timeout=10)
         
-        # Se der Forbidden/Unauthorized e tínhamos token, tenta sem token (Anônimo)
-        if token and response.status_code in [401, 403]:
-            logger.warning(f"[ML API] Token recusado ({response.status_code}). Tentando anonimamente...")
-            headers.pop("Authorization", None)
-            response = requests.get(url, headers=headers, params=params)
-            
         if response.status_code != 200:
-            logger.error(f"[ML API] Erro: {response.text}")
+            logger.error(f"[ML Optimized] Failed: {response.status_code}")
             return []
-            
-        data = response.json()
+
+        # Parse HTML
+        soup = BeautifulSoup(response.text, "html.parser")
         items = []
         
-        for result in data.get("results", []):
+        # Seletores compatíveis com layouts 2024/2025
+        cards = soup.select('.poly-card') or \
+                soup.select('li.ui-search-layout__item') or \
+                soup.select('div.ui-search-result__wrapper')
+                
+        logger.info(f"[ML Optimized] Cards found: {len(cards)}")
+        
+        for item in cards:
+            if len(items) >= limit: break
             try:
-                # Affiliate Link
-                permalink = result.get("permalink")
+                # 1. Title & Link
+                title_el = item.select_one('.poly-component__title') or \
+                           item.select_one('.ui-search-item__group__element.ui-search-link') or \
+                           item.select_one('a.ui-search-link')
+                           
+                if not title_el: continue
+                title = title_el.get_text(strip=True)
+                permalink = title_el.get('href', '')
+                
+                # 2. Price
+                price_el = item.select_one('.poly-price__current .andes-money-amount__fraction') or \
+                           item.select_one('.ui-search-price__part .andes-money-amount__fraction') or \
+                           item.select_one('.andes-money-amount__fraction')
+                           
+                if not price_el: continue
+                price = float(price_el.get_text(strip=True).replace('.', ''))
+                
+                # 3. Image
+                img_el = item.select_one('.poly-component__picture') or \
+                         item.select_one('.ui-search-result__image img') or \
+                         item.select_one('img')
+                image = img_el.get('data-src') or img_el.get('src') or ''
+                
+                # 4. Construir Link Afiliado Manualmente (Não precisamos depender da API para isso)
                 try:
                     params_aff = {
                         'matt_tool': '188269638',
@@ -76,15 +95,12 @@ def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
                     affiliate_link = f"{permalink}{separator}{urlencode(params_aff)}"
                 except:
                     affiliate_link = permalink
-                
-                # Image High Res
-                image = result.get("thumbnail", "").replace("-I.jpg", "-O.jpg")
-                
+
                 items.append({
                     "id_interno": 2,
-                    "id_original": result.get("id"),
-                    "titulo": result.get("title"),
-                    "preco": float(result.get("price")),
+                    "id_original": f"ml_{int(time.time()*1000)}_{len(items)}",
+                    "titulo": title,
+                    "preco": price,
                     "loja": "Mercado Livre",
                     "link_afiliado": affiliate_link,
                     "imagem": image,
@@ -93,10 +109,10 @@ def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
             except Exception as e:
                 continue
                 
-        logger.info(f"[ML API] Found {len(items)} products")
         return items
+        
     except Exception as e:
-        logger.error(f"[ML API] Failed: {e}")
+        logger.error(f"[ML Optimized] Error: {e}")
         return []
 
 def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:

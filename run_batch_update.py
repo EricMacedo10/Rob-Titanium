@@ -7,6 +7,7 @@ from scraper.settings import TARGETS
 from scraper.arbitro_preco import ArbitroDePreco
 from scraper.ml_trends import update_site_with_trends
 from scraper.upload import upload_to_hostinger
+from scraper.phrase_generator import generate_dynamic_phrases
 
 DATA_FILE = 'site/data.json'
 
@@ -116,14 +117,16 @@ def main():
         # Final sanity check: remove items with no image just in case
         final_list = [p for p in final_list if p.get('image')]
         
+
+        
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)
             
         print(f"✅ {DATA_FILE} atualizado com sucesso!")
-        print(f"   Trends: {len(trends_only)}")
-        print(f"   Fixos: {len(fixed_products)}")
-        print(f"   Total: {len(final_list)}")
-    
+        print("\n>>> Gerando Frases Dinâmicas...")
+        generate_dynamic_phrases(final_list)
+        # --------------------------------------
+
     # 4. Upload to Hostinger
     print("\n>>> Iniciando Upload FTP...")
     ftp_host = os.getenv('FTP_HOST')
@@ -131,7 +134,13 @@ def main():
     ftp_pass = os.getenv('FTP_PASS')
     
     if ftp_host and ftp_user and ftp_pass:
-        upload_to_hostinger(DATA_FILE, ftp_host, ftp_user, ftp_pass)
+        # Upload data.json (Produtos)
+        upload_to_hostinger(DATA_FILE, ftp_host, ftp_user, ftp_pass, remote_path='data.json')
+        
+        # Upload notifications.json (Frases) - Se existir
+        notif_file = 'site/notifications.json'
+        if os.path.exists(notif_file):
+             upload_to_hostinger(notif_file, ftp_host, ftp_user, ftp_pass, remote_path='notifications.json')
     else:
         print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
 
