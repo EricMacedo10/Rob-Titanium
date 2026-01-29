@@ -126,42 +126,26 @@ def main():
     print(f"🌐 Remote directory: {REMOTE_DIR}")
     
     try:
-        # Connect to FTP
-        print("\n🔌 Establishing FTP connection...")
-        ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
-        print("✅ Connected!")
-        
-        print("🕵️‍♂️ Finding correct web root...")
-        
-        # 1. Try to reach the root first
-        current = ftp.pwd()
-        if current == '/public_html' or current.endswith('/public_html'):
+        # Connect to FTP with retry
+        ftp = None
+        for attempt in range(1, 4):
             try:
-                ftp.cwd('..')
-                print("⬆️  Moved up to root /")
-            except:
-                pass
-                
-        # 2. Try the definitive Hostinger domain path
-        # Based on Pathfinder logs: /domains exists
-        target_path = 'domains/guiadodesconto.com.br/public_html'
+                print(f"🔌 Tentativa {attempt}/3 - Conectando...")
+                ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
+                print(f"✅ Conectado! Diretório: {ftp.pwd()}")
+                break
+            except Exception as e:
+                print(f"⚠️  Erro: {e}")
+                if attempt < 3:
+                    print(f"⏳ Aguardando 5s...")
+                    time.sleep(5)
         
-        try:
-            print(f"📂 Attempting to navigate to: /{target_path}")
-            ftp.cwd(target_path)
-            print(f"✅ SUCCESS! Found definitive web root.")
-            target_dir = '.' # We are already there
-        except ftplib.error_perm:
-             print(f"⚠️  Could not find /{target_path}")
-             # Fallback to the initial listing's public_html if the domain path fails
-             print("🔄 Falling back to standard public_html...")
-             try: 
-                ftp.cwd('/public_html')
-             except:
-                pass
-             target_dir = '.'
-
-        print(f"📍 Final Target PWD: {ftp.pwd()}")
+        if not ftp:
+            print("❌ Falha ao conectar após 3 tentativas")
+            return False
+        
+        # User already starts in /public_html - no navigation needed
+        print(f"📍 PWD: {ftp.pwd()}")
 
         
         # Upload debug file
