@@ -62,6 +62,60 @@ def ensure_remote_dir(ftp: ftplib.FTP, remote_dir: str) -> bool:
             print(f"   ❌ Error creating directory {remote_dir}: {e}")
             return False
 
+def clean_obsolete_files(ftp: ftplib.FTP, local_dir: Path, remote_dir: str = '.'):
+    """
+    Remove files from server that don't exist locally.
+    Preserves data.json (managed by update-offers workflow).
+    """
+    print("\n🧹 Cleaning obsolete files...")
+    
+    # Files to preserve (never delete)
+    PRESERVE = ['data.json', 'deploy_debug.txt', '.htaccess']
+    
+    try:
+        # Get list of remote files
+        remote_files = []
+        ftp.retrlines('LIST', lambda x: remote_files.append(x))
+        
+        deleted = 0
+        for line in remote_files:
+            parts = line.split()
+            if len(parts) < 9:
+                continue
+            
+            name = ' '.join(parts[8:])  # Handle filenames with spaces
+            is_dir = line.startswith('d')
+            
+            # Skip preserved files
+            if name in PRESERVE:
+                continue
+                
+            local_path = local_dir / name
+            
+            # If file doesn't exist locally, delete from server
+            if not local_path.exists():
+                try:
+                    if is_dir:
+                        # Recursively delete directory
+                        print(f"   🗑️  Deleting obsolete dir: {name}/")
+                        try:
+                            ftp.rmd(name)
+                        except:
+                            pass  # Non-empty dirs will fail, that's ok
+                    else:
+                        print(f"   🗑️  Deleting obsolete file: {name}")
+                        ftp.delete(name)
+                        deleted += 1
+                except Exception as e:
+                    print(f"   ⚠️  Could not delete {name}: {e}")
+        
+        print(f"   ✅ Cleaned {deleted} obsolete files")
+        return deleted
+        
+    except Exception as e:
+        print(f"   ⚠️  Cleanup error: {e}")
+        return 0
+
 def upload_directory(ftp: ftplib.FTP, local_dir: Path, remote_base: str = '') -> Tuple[int, int]:
     """
     Recursively upload directory
@@ -154,6 +208,9 @@ def main():
         with open('deploy_debug.txt', 'rb') as f:
             ftp.storbinary('STOR deploy_debug.txt', f)
         print("✅ debug file uploaded")
+        
+        # Clean obsolete files before uploading new ones
+        clean_obsolete_files(ftp, SITE_DIR)
         
         # Upload files
         print(f"\n📦 Starting file upload...")
