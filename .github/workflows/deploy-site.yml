@@ -1,12 +1,19 @@
 name: 🚀 Deploy Site to Hostinger
 
 on:
-  # Manual trigger only (safe deployment)
+  # Automatic deploy on push to site folder
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'deploy_site.py'
+  
+  # Manual trigger
   workflow_dispatch:
     inputs:
       confirm:
         description: 'Type "deploy" to confirm'
-        required: true
+        required: false
         default: 'deploy'
 
 jobs:
