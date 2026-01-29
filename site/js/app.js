@@ -486,8 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function searchRealTime() {
-        // alert("DEBUG: Iniciando busca..."); // Debug
-        const query = searchInput.value.trim();
+        const query = searchInput.value.toLowerCase().trim();
 
         if (!query || query.length < 3) {
             showNotification('Digite pelo menos 3 caracteres para buscar', 'warning');
@@ -505,26 +504,39 @@ document.addEventListener('DOMContentLoaded', () => {
         dealsGrid.innerHTML = `
             <div class="loading-state real-time-search">
                 <i class="fa-solid fa-circle-notch fa-spin"></i>
-                <p>Buscando "<strong>${query}</strong>" nas 3 lojas...</p>
+                <p>Buscando "<strong>${query}</strong>"...</p>
             </div>
         `;
 
         // Scroll para resultados
         document.querySelector('.voted-deals').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+        // Simula delay de rede para UX
+        await new Promise(r => setTimeout(r, 500));
+
         try {
-            const response = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(query)}`);
+            // Busca estática no array allDeals (CLIENT-SIDE)
+            // Isso funciona em hospedagem estática (Hostinger) sem backend Python rodando
+            const filtered = allDeals.filter(deal => {
+                const title = (deal.title || '').toLowerCase();
+                const tags = Array.isArray(deal.tags) ? deal.tags.join(' ').toLowerCase() : '';
+                const category = (deal.category || '').toLowerCase();
 
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
+                return title.includes(query) || tags.includes(query) || category.includes(query);
+            });
 
-            const data = await response.json();
+            // Estrutura de resposta compatível com renderSearchResults
+            const data = {
+                query: query,
+                results: filtered,
+                best_price: null, // Sem comparação em tempo real no estático
+                from_cache: true
+            };
+
             renderSearchResults(data);
 
         } catch (error) {
             console.error('Erro na busca:', error);
-            alert('❌ Erro na busca: ' + error.message);
             dealsGrid.innerHTML = `
                 <div class="loading-state error-state">
                     <i class="fas fa-exclamation-triangle"></i>
