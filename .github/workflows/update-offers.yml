@@ -1,6 +1,8 @@
 name: 🤖 Atualizar Ofertas Automaticamente
 
 on:
+  push:
+    branches: [ main ]
   schedule:
     # Atualização a cada 3 horas (Horário de Brasília UTC-3)
     # GitHub Actions usa UTC:
