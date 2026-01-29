@@ -36,6 +36,13 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
         session.retrlines('NLST', files_before.append)
         if 'data.json' in files_before:
             print(f"   ✅ data.json existe no servidor")
+            # Try to DELETE the file first before uploading
+            print(f"   🗑️  Deletando arquivo antigo...")
+            try:
+                session.delete('data.json')
+                print(f"   ✅ Arquivo antigo deletado!")
+            except Exception as del_e:
+                print(f"   ⚠️  Falha ao deletar: {del_e}")
         else:
             print(f"   ⚠️  data.json NÃO existe no servidor ainda")
         
