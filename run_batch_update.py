@@ -80,6 +80,8 @@ def main():
     fixed_products = update_manual_targets()
     
     # 3. Merge Strategies
+    final_list = []  # Initialize here to prevent NameError later
+    
     if fixed_products:
         print(f"\nMesclando {len(fixed_products)} novos produtos fixos...")
         
