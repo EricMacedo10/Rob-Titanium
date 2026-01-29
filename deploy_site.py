@@ -135,10 +135,22 @@ def main():
         print("📂 Listing root directory:")
         ftp.dir()
 
-        # Check if we are already in public_html
-        current_pwd = ftp.pwd()
-        if current_pwd == '/public_html' or current_pwd.endswith('/public_html'):
-            print(f"\nℹ️  Already in public_html ({current_pwd}). Uploading to current directory.")
+        # Check if we need to go deeper into public_html
+        # Log showed: PWD=/public_html but listing contains ANOTHER public_html
+        # This implies we are in the account root (named public_html by chance?) or just confused.
+        # But if 'public_html' exists in the current folder, we MUST go in there.
+        
+        file_list = []
+        try:
+            file_list = ftp.nlst()
+        except:
+            pass
+            
+        if 'public_html' in file_list:
+             print(f"\n👉 Found 'public_html' subdirectory. Navigating explicitly into it.")
+             target_dir = 'public_html'
+        elif current_pwd == '/public_html' or current_pwd.endswith('/public_html'):
+            print(f"\nℹ️  Already in public_html ({current_pwd}) and no nested public_html found. Uploading here.")
             target_dir = '.'
         else:
             target_dir = REMOTE_DIR
