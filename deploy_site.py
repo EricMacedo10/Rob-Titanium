@@ -17,7 +17,7 @@ RETRY_DELAY = 5  # seconds
 # Exclusions
 EXCLUDE_PATTERNS = [
     '.git', '.github', 'node_modules', '*.pyc', '__pycache__',
-    '.DS_Store', '.env', 'Thumbs.db'
+    '.DS_Store', '.env', 'Thumbs.db', 'data.json'
 ]
 
 def should_exclude(path: Path) -> bool:

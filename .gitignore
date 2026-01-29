@@ -52,3 +52,4 @@ meli_tokens.json
 # Temporary files
 *.tmp
 *.bak
+site/data.json
