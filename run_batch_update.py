@@ -77,10 +77,14 @@ def main():
         
     # 2. Update Manual Targets
     print("\n>>> Executando Targets Manuais...")
-    fixed_products = update_manual_targets()
+    fixed_products = []
+    try:
+        fixed_products = update_manual_targets()
+    except Exception as e:
+        print(f"❌ Erro fatal durante a busca de targets: {e}")
     
     # 3. Merge Strategies
-    final_list = []  # Initialize here to prevent NameError later
+    final_list = []
     
     if fixed_products:
         print(f"\nMesclando {len(fixed_products)} novos produtos fixos...")
@@ -161,6 +165,8 @@ def main():
     ftp_user = os.getenv('FTP_USER')
     ftp_pass = os.getenv('FTP_PASS')
     
+    print(f"   DEBUG: Host={'Configurado' if ftp_host else 'MISSING'}, User={'Configurado' if ftp_user else 'MISSING'}")
+
     if ftp_host and ftp_user and ftp_pass:
         # Upload data.json (Produtos)
         upload_to_hostinger(DATA_FILE, ftp_host, ftp_user, ftp_pass, remote_path='data.json')

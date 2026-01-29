@@ -229,8 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDeals();
 
     function loadDeals() {
-        fetch('data.json')
-            .then(response => response.json())
+        // Cache busting with timestamp
+        const cacheBuster = `?t=${new Date().getTime()}`;
+        fetch('data.json' + cacheBuster)
+            .then(response => {
+                if (!response.ok) throw new Error('Falha ao carregar data.json');
+                return response.json();
+            })
             .then(data => {
                 allDeals = data;
                 renderDeals(allDeals);
@@ -444,34 +449,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    sortButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            sortButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentSort = btn.dataset.sort;
-            renderDeals(allDeals);
+    if (sortButtons && sortButtons.length > 0) {
+        sortButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sortButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSort = btn.dataset.sort;
+                renderDeals(allDeals);
+            });
         });
-    });
+    }
 
     // === Search Functionality ===
 
     // Busca local (autocomplete enquanto digita)
-    searchInput.addEventListener('input', debounce((e) => {
-        const query = e.target.value.toLowerCase().trim();
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce((e) => {
+            const query = e.target.value.toLowerCase().trim();
 
-        if (query.length < 2) {
-            searchSuggestions.classList.remove('active');
-            return;
-        }
+            if (query.length < 2) {
+                if (searchSuggestions) searchSuggestions.classList.remove('active');
+                return;
+            }
 
-        const filtered = allDeals.filter(deal =>
-            deal.title.toLowerCase().includes(query) ||
-            (deal.tags && deal.tags.some(tag => tag.toLowerCase().includes(query))) ||
-            deal.category.toLowerCase().includes(query)
-        );
+            const filtered = allDeals.filter(deal =>
+                deal.title.toLowerCase().includes(query) ||
+                (deal.tags && deal.tags.some(tag => tag.toLowerCase().includes(query))) ||
+                deal.category.toLowerCase().includes(query)
+            );
 
-        showSuggestions(filtered.slice(0, 5));
-    }, 300));
+            showSuggestions(filtered.slice(0, 5));
+        }, 300));
+    }
 
     // Busca em tempo real (ao clicar no botão ou Enter)
     if (searchButton) {

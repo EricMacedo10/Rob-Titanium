@@ -1,0 +1,28 @@
+{
+    "notifications": [
+        {
+            "id": 1,
+            "text": "Aproveite as ofertas do dia! Os estoques podem acabar a qualquer momento.",
+            "time": "Agora",
+            "icon": "fa-comment"
+        },
+        {
+            "id": 1,
+            "text": "Nossa família selecionou o que há de melhor para você economizar.",
+            "time": "Agora",
+            "icon": "fa-comment"
+        },
+        {
+            "id": 1,
+            "text": "Se virem o ícone de 🔥, é porque a oferta está muito quente!",
+            "time": "Agora",
+            "icon": "fa-fire"
+        },
+        {
+            "id": 1,
+            "text": "Hoje é dia de casa! Confira as melhores opções.",
+            "time": "Agora",
+            "icon": "fa-comment"
+        }
+    ]
+}

@@ -7,6 +7,10 @@ import os
 import time
 from pathlib import Path
 from typing import List, Tuple
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configuration
 SITE_DIR = Path('site')
