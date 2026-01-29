@@ -130,7 +130,7 @@ class ArbitroDePreco:
         resultados = await asyncio.gather(
             self.buscar_shopee(termo),
             self.buscar_amazon(termo),
-            self.buscar_mercadolivre(termo),
+            # self.buscar_mercadolivre(termo),
             return_exceptions=True  # Não falhar se uma loja der erro
         )
         

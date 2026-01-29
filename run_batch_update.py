@@ -114,9 +114,35 @@ def main():
                 
         final_list = trends_only + unique_fixed
         
-        # Final sanity check: remove items with no image just in case
-        final_list = [p for p in final_list if p.get('image')]
+        # Final Filtering & Sanitation
+        sanitized_list = []
+        seen_titles = set()
         
+        for p in final_list:
+            # 1. Validation Logic
+            title = p.get('title')
+            price = p.get('price')
+            link = p.get('link') or p.get('link_afiliado')
+            image = p.get('image') or p.get('imagem')
+            
+            # Skip INVALID products (Protection against failed scrapes)
+            if not title: continue
+            if not price or price == float('inf') or price <= 0: continue
+            if not link or "http" not in link: continue
+            if not image or "http" not in image: continue
+            
+            # 2. Duplicate Prevention
+            norm_title = title.lower().strip()
+            if norm_title in seen_titles: continue
+            seen_titles.add(norm_title)
+            
+            # 3. Standardize Keys
+            p['image'] = image # Ensure 'image' key exists for frontend
+            p['link'] = link   # Ensure 'link' key exists
+            
+            sanitized_list.append(p)
+            
+        final_list = sanitized_list
 
         
         with open(DATA_FILE, 'w', encoding='utf-8') as f:

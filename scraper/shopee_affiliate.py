@@ -179,4 +179,4 @@ if __name__ == "__main__":
     print("🧪 Testing Shopee API...")
     results = search_shopee("iPhone 15")
     for r in results:
-        print(f"- {r['titulo']} | R$ {r['preco']:.2f} | {r['link_afiliado']}")
+        print(f"- {r['titulo']} | R$ {r['preco']:.2f} | Img: {r['imagem']} | Link: {r['link_afiliado']}")
