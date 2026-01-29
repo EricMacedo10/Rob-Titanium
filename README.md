@@ -19,6 +19,7 @@
 - [Deploy](#deploy)
 - [Segurança](#segurança)
 - [Roadmap](#roadmap)
+- [Erros e Soluções](#erros-e-soluções)
 
 ---
 
@@ -256,6 +257,10 @@ SHOPEE_SECRET=sua_secret_key
 **Países alcançados**: 5+ (EUA, Suíça, Irlanda, Alemanha, Dinamarca)
 
 ---
+
+## 🛠️ Erros e Soluções
+
+Para detalhes técnicos sobre desafios enfrentados e como foram resolvidos, consulte o [Guia de Erros e Soluções](docs/ERRORS_AND_SOLUTIONS.md).
 
 ## 📝 Licença
 
