@@ -854,44 +854,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // === Price Comparison Widget ===
-    document.querySelector('.btn-compare').addEventListener('click', () => {
-        const query = comparisonInput.value.toLowerCase().trim();
+    const btnCompare = document.querySelector('.btn-compare');
+    if (btnCompare) {
+        btnCompare.addEventListener('click', () => {
+            const query = comparisonInput.value.toLowerCase().trim();
 
-        if (!query) {
-            alert('Por favor, digite o nome de um produto');
-            return;
-        }
+            if (!query) {
+                alert('Por favor, digite o nome de um produto');
+                return;
+            }
 
-        const matches = allDeals.filter(deal =>
-            deal.title.toLowerCase().includes(query)
-        );
+            const matches = allDeals.filter(deal =>
+                deal.title.toLowerCase().includes(query)
+            );
 
-        if (matches.length === 0) {
-            comparisonResults.innerHTML = `
+            if (matches.length === 0) {
+                comparisonResults.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; color: #6B7280;">
                     Produto não encontrado. Tente outro termo de busca.
                 </div>
             `;
-            return;
-        }
-
-        // Group by store
-        const byStore = {};
-        matches.forEach(deal => {
-            const store = deal.store.toLowerCase();
-            if (!byStore[store] || deal.price < byStore[store].price) {
-                byStore[store] = deal;
+                return;
             }
-        });
 
-        // Find best price
-        const prices = Object.values(byStore).map(d => d.price);
-        const bestPrice = Math.min(...prices);
+            // Group by store
+            const byStore = {};
+            matches.forEach(deal => {
+                const store = deal.store.toLowerCase();
+                if (!byStore[store] || deal.price < byStore[store].price) {
+                    byStore[store] = deal;
+                }
+            });
 
-        // Render comparison
-        comparisonResults.innerHTML = Object.values(byStore).map(deal => {
-            const isBest = deal.price === bestPrice;
-            return `
+            // Find best price
+            const prices = Object.values(byStore).map(d => d.price);
+            const bestPrice = Math.min(...prices);
+
+            // Render comparison
+            comparisonResults.innerHTML = Object.values(byStore).map(deal => {
+                const isBest = deal.price === bestPrice;
+                return `
                 <div class="comparison-item ${isBest ? 'best' : ''}">
                     <h4>${deal.store}</h4>
                     <div class="price">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(deal.price)}</div>
@@ -900,8 +902,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 </div>
             `;
-        }).join('');
-    });
+            }).join('');
+        });
+    } // Close if (btnCompare)
 
     // === Utility Functions ===
     function debounce(func, wait) {
