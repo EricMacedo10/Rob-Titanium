@@ -39,3 +39,14 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
     *   Testar em ambiente IDÊNTICO ao de produção (mesmo servidor, mesmas restrições de rede/DNS).
     *   Não confiar apenas no localhost (que tem internet livre e DNS local).
     *   Simular restrições de rede e falhas de serviços externos antes do Go-Live.
+
+## 🚨 Monitoramento e Excelência Operacional (Lições Aprendidas)
+1. **Fail Fast (Falhe Rápido):** Se o core do negócio (encontrar produtos) falhar totalmente, o script DEVE quebrar (exit code 1) para disparar alertas. Não mascare erros críticos com logs silenciosos.
+2. **Estratégia Híbrida:** Nunca dependa de um único ponto de falha. Se a API OFICIAL bloquear, tenha um FALLBACK (Scraping ou Selenium) pronto para assumir.
+3. **Dinamicidade:** O sistema deve parecer vivo (frases dinâmicas, horários variados) para engajar o usuário.
+
+---
+**💡 COMO ATIVAR ESTE MODO:**
+Para garantir que eu siga este fluxo, basta iniciar suas sessões dizendo:
+> *"Ative o Modo Senior Workflow"* ou *"Siga o protocolo SKILL_SENIOR"*
+Isso garante que eu releia este arquivo e alinhe minha postura imediatamente.
