@@ -26,6 +26,26 @@ def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
         # Wait for content
         time.sleep(5)
         
+        # Anti-Bot Check: If redirected to Home, try searching via Input
+        current_url = driver.current_url
+        logger.info(f"[ML] Current URL: {current_url}")
+        
+        if "mercadolivre.com.br/" in current_url and "lista." not in current_url and "search" not in current_url:
+            logger.warning("[ML] Redirected to Home/Generic Page. Attempting Search Bar Fallback...")
+            try:
+                from selenium.webdriver.common.by import By
+                from selenium.webdriver.common.keys import Keys
+                
+                search_input = driver.find_element(By.CSS_SELECTOR, "input.nav-search-input")
+                search_input.clear()
+                search_input.send_keys(query)
+                search_input.send_keys(Keys.RETURN)
+                
+                time.sleep(5)
+                logger.info(f"[ML] Fallback URL: {driver.current_url}")
+            except Exception as e:
+                logger.error(f"[ML] Fallback Search Failed: {e}")
+                
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, "html.parser")
         
