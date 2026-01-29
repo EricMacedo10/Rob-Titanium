@@ -4,16 +4,91 @@ Substitui a API pública depreciada (403 Forbidden).
 """
 import logging
 import time
+import requests
 from typing import Dict, List
 from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
 from scraper.browser import get_driver
+from scraper import meli_token_manager 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def search_via_api(query: str, token: str, limit: int = 3) -> List[Dict]:
+    """Busca produtos usando a API Oficial do Mercado Livre"""
+    try:
+        url = "https://api.mercadolibre.com/sites/MLB/search"
+        headers = {"Authorization": f"Bearer {token}"}
+        params = {
+            "q": query,
+            "sort": "price_asc",
+            "limit": limit,
+            "status": "active"
+        }
+        
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code != 200:
+            logger.error(f"[ML API] Erro: {response.text}")
+            return []
+            
+        data = response.json()
+        items = []
+        
+        for result in data.get("results", []):
+            try:
+                # Affiliate Link
+                permalink = result.get("permalink")
+                try:
+                    params_aff = {
+                        'matt_tool': '188269638',
+                        'matt_word': query,
+                        'matt_source': 'guiadodesconto',
+                        'tracking_id': f"gdd-{int(time.time())}", 
+                        '_Sort': 'price_asc'
+                    }
+                    separator = "&" if "?" in permalink else "?"
+                    affiliate_link = f"{permalink}{separator}{urlencode(params_aff)}"
+                except:
+                    affiliate_link = permalink
+                
+                # Image High Res
+                image = result.get("thumbnail", "").replace("-I.jpg", "-O.jpg")
+                
+                items.append({
+                    "id_interno": 2,
+                    "id_original": result.get("id"),
+                    "titulo": result.get("title"),
+                    "preco": float(result.get("price")),
+                    "loja": "Mercado Livre",
+                    "link_afiliado": affiliate_link,
+                    "imagem": image,
+                    "disponivel": True
+                })
+            except Exception as e:
+                continue
+                
+        logger.info(f"[ML API] Found {len(items)} products")
+        return items
+    except Exception as e:
+        logger.error(f"[ML API] Failed: {e}")
+        return []
+
 def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
+    # 1. Tenta via API Oficial (Se tiver token)
+    try:
+        token = meli_token_manager.get_valid_token()
+        if token:
+            logger.info(f"[ML] Usando API Oficial para: {query}")
+            results = search_via_api(query, token, limit)
+            if results: 
+                return results
+            else:
+                logger.warning("[ML] API retornou 0, tentando Selenium...")
+    except Exception as e:
+        logger.warning(f"[ML] API falhou ({e}), tentando Selenium...")
+
+    # 2. Fallback Selenium
     driver = None
     try:
         logger.info(f"[ML] Starting Selenium Search for: {query}")

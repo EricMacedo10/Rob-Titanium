@@ -43,7 +43,13 @@ def refresh_access_token():
     Usa o Refresh Token para pegar um novo Access Token
     """
     tokens = load_tokens()
-    if not tokens or 'refresh_token' not in tokens:
+    refresh_token = tokens.get('refresh_token') if tokens else None
+    
+    # Fallback: Environment Variable (GitHub Actions)
+    if not refresh_token:
+        refresh_token = os.environ.get("MELI_REFRESH_TOKEN")
+        
+    if not refresh_token:
         raise Exception("Nenhum refresh_token encontrado. Faça a autenticação inicial.")
 
     url = "https://api.mercadolibre.com/oauth/token"
@@ -55,21 +61,23 @@ def refresh_access_token():
         "grant_type": "refresh_token",
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
-        "refresh_token": tokens['refresh_token']
+        "refresh_token": refresh_token
     }
     
     response = requests.post(url, headers=headers, data=data)
     if response.status_code == 200:
         new_tokens = response.json()
         
-        # O ML as vezes retorna um novo refresh_token, as vezes não.
-        # Devemos atualizar o que vier.
-        tokens.update(new_tokens)
-        tokens['updated_at'] = time.time()
-        
-        save_tokens(tokens)
-        print("Token renovado com sucesso!")
-        return tokens['access_token']
+        # Se carregou do arquivo, atualiza o arquivo
+        if tokens:
+            tokens.update(new_tokens)
+            tokens['updated_at'] = time.time()
+            save_tokens(tokens)
+        else:
+            # Se veio de Env Var, não salvamos em arquivo (readonly environment), mas retornamos
+            pass
+            
+        return new_tokens['access_token']
     else:
         raise Exception(f"Erro ao renovar token: {response.text}")
 
@@ -78,31 +86,45 @@ def get_valid_token():
     Retorna um token válido, renovando se necessário.
     """
     tokens = load_tokens()
-    if not tokens:
-        return None
-        
-    now = time.time()
-    updated_at = tokens.get('updated_at', 0)
-    expires_in = tokens.get('expires_in', 21600) # 6 horas padrão
     
-    # Se passou mais de 5 horas, renova (margem de segurança)
-    if (now - updated_at) > (expires_in - 3600):
-        try:
-            return refresh_access_token()
-        except Exception as e:
-            print(f"Erro na renovação automática: {e}")
-            return None
-            
-    return tokens.get('access_token')
+    # Se tem arquivo local, valida expiração
+    if tokens:
+        now = time.time()
+        updated_at = tokens.get('updated_at', 0)
+        expires_in = tokens.get('expires_in', 21600) 
+        
+        if (now - updated_at) > (expires_in - 3600):
+            try:
+                return refresh_access_token()
+            except Exception as e:
+                print(f"Erro na renovação automática: {e}")
+                return None
+        return tokens.get('access_token')
+    
+    # Se não tem arquivo, tenta renovar direto usando Env Var (stateless mode)
+    if os.environ.get("MELI_REFRESH_TOKEN"):
+         try:
+             return refresh_access_token()
+         except Exception as e:
+             print(f"Erro na renovação via Env Var: {e}")
+             return None
+             
+    return None
 
 def save_tokens(tokens):
-    with open(TOKEN_FILE, "w") as f:
-        json.dump(tokens, f, indent=4)
+    try:
+        with open(TOKEN_FILE, "w") as f:
+            json.dump(tokens, f, indent=4)
+    except:
+        pass # Pode falhar em ambientes readonly
 
 def load_tokens():
     if os.path.exists(TOKEN_FILE):
-        with open(TOKEN_FILE, "r") as f:
-            return json.load(f)
+        try:
+            with open(TOKEN_FILE, "r") as f:
+                return json.load(f)
+        except:
+            return None
     return None
 
 if __name__ == "__main__":
