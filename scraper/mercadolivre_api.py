@@ -15,11 +15,14 @@ from scraper import meli_token_manager
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def search_via_api(query: str, token: str, limit: int = 3) -> List[Dict]:
+def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
     """Busca produtos usando a API Oficial do Mercado Livre"""
     try:
         url = "https://api.mercadolibre.com/sites/MLB/search"
-        headers = {"Authorization": f"Bearer {token}"}
+        headers = {}
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            
         params = {
             "q": query,
             "sort": "price_asc",
@@ -27,7 +30,15 @@ def search_via_api(query: str, token: str, limit: int = 3) -> List[Dict]:
             "status": "active"
         }
         
+        # Primeira tentativa (com token, se fornecido)
         response = requests.get(url, headers=headers, params=params)
+        
+        # Se der Forbidden/Unauthorized e tínhamos token, tenta sem token (Anônimo)
+        if token and response.status_code in [401, 403]:
+            logger.warning(f"[ML API] Token recusado ({response.status_code}). Tentando anonimamente...")
+            headers.pop("Authorization", None)
+            response = requests.get(url, headers=headers, params=params)
+            
         if response.status_code != 200:
             logger.error(f"[ML API] Erro: {response.text}")
             return []
