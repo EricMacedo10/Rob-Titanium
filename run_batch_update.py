@@ -144,7 +144,14 @@ def main():
     else:
         print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
 
-    print("\n🏁 EXECUÇÃO CONCLUÍDA!")
+    if not final_list:
+        print("❌ ERRO CRÍTICO: Nenhum produto encontrado (Lista Vazia)!")
+        print("   Isso pode indicar falha geral nas APIs ou Bloqueio.")
+        print("   Forçando falha no Workflow para disparar Alerta.")
+        import sys
+        sys.exit(1)
+
+    print("\n🏁 EXECUÇÃO CONCLUÍDA com SUCESSO!")
 
 if __name__ == "__main__":
     main()
