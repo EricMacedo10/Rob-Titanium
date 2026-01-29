@@ -1,13 +1,10 @@
 import ftplib
 import os
 
-# Hostinger path for guiadodesconto.com.br
-TARGET_DIR = 'domains/guiadodesconto.com.br/public_html'
-
 def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_filename='data.json'):
     """
     Envia o arquivo data.json atualizado para a Hostinger via FTP.
-    Navega até o diretório correto antes de fazer upload.
+    O usuário FTP já inicia em public_html, então upload direto.
     """
     if not ftp_user or ftp_user == "seu_usuario_ftp":
         print("⚠ FTP não configurado. O arquivo foi salvo apenas localmente.")
@@ -17,17 +14,8 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_fi
     
     try:
         session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
-        print(f"✅ Conectado! PWD inicial: {session.pwd()}")
-        
-        # Navigate to correct directory (like deploy_site.py does)
-        print(f"📂 Navegando para: /{TARGET_DIR}")
-        try:
-            session.cwd(TARGET_DIR)
-            print(f"✅ Diretório encontrado! PWD: {session.pwd()}")
-        except ftplib.error_perm as e:
-            print(f"❌ Erro ao navegar: {e}")
-            session.quit()
-            return False
+        current_dir = session.pwd()
+        print(f"✅ Conectado! Diretório atual: {current_dir}")
         
         # Force delete existing file to ensure update
         try:
@@ -37,7 +25,7 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_fi
         except Exception:
             print("ℹ Arquivo não existia (prosseguindo...)")
 
-        # Upload
+        # Upload directly (user already in public_html)
         print(f"📤 Enviando: {local_file_path} -> {remote_filename}")
         with open(local_file_path, 'rb') as file:
             session.storbinary(f'STOR {remote_filename}', file)
@@ -55,4 +43,5 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_fi
     except Exception as e:
         print(f"❌ Erro no upload FTP: {e}")
         return False
+
 
