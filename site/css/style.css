@@ -771,6 +771,8 @@ nav a.active::after {
     border: 1px solid rgba(255, 255, 255, 0.2);
     animation: badgePulse 2s infinite ease-in-out;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: none;
+    /* Replaced by titanium version */
 }
 
 .discount-badge:hover {
@@ -791,6 +793,80 @@ nav a.active::after {
         transform: scale(1);
     }
 }
+
+.discount-badge-titanium {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    perspective: 1000px;
+    pointer-events: none;
+}
+
+.titanium-star {
+    position: relative;
+    background: linear-gradient(135deg, #EE4D2D 0%, #FF9900 50%, #FFE600 100%);
+    color: white;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 8px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+    animation: floatStar 3s infinite ease-in-out;
+    transform-style: preserve-3d;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.titanium-hand {
+    margin-top: -12px;
+    color: #374151;
+    font-size: 1.8rem;
+    transform: rotate(-10deg);
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    animation: handTilt 4s infinite ease-in-out;
+}
+
+.star-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes floatStar {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(5deg) scale(1.1);
+    }
+}
+
+@keyframes handTilt {
+
+    0%,
+    100% {
+        transform: rotate(-10deg) translateX(0);
+    }
+
+    50% {
+        transform: rotate(-8deg) translateX(2px);
+    }
+}
+
+/* Fallback for simple badge if needed */
+/* The original .discount-badge is now hidden by default */
 
 .store-badge {
     position: absolute;

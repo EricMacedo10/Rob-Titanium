@@ -365,7 +365,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
             <div class="card-header">
-                <span class="discount-badge">-${deal.discount}%</span>
+                <div class="discount-badge-titanium">
+                    <div class="titanium-star">
+                        <span class="star-text">-${deal.discount}%</span>
+                    </div>
+                    <div class="titanium-hand">
+                        <i class="fa-solid fa-hand-holding"></i>
+                    </div>
+                </div>
                 <div class="vote-container">
                     <button class="vote-btn vote-up ${userVote === 1 ? 'active' : ''}" data-id="${deal.id}">
                         <i class="fas fa-chevron-up"></i>
