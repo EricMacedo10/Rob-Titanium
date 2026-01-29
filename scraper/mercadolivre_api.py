@@ -17,9 +17,13 @@ logger = logging.getLogger(__name__)
 
 def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
     """Busca produtos usando a API Oficial do Mercado Livre"""
+    """Busca produtos usando a API Oficial do Mercado Livre"""
     try:
         url = "https://api.mercadolibre.com/sites/MLB/search"
-        headers = {}
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "application/json"
+        }
         if token:
             headers["Authorization"] = f"Bearer {token}"
             
