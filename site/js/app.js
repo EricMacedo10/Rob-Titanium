@@ -902,12 +902,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (matches.length === 0) {
+                // Update section title to show the query
+                const sectionTitle = document.querySelector('.section-title');
+                if (sectionTitle) sectionTitle.innerHTML = `Busca por: "<strong>${query}</strong>"`;
+
                 dealsGrid.innerHTML = `
-                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                        <i class="fas fa-search" style="font-size: 3rem; color: #e5e7eb; margin-bottom: 20px;"></i>
-                        <h3>Nenhum resultado encontrado</h3>
-                        <p style="color: #6b7280;">Não encontramos ofertas para "<strong>${query}</strong>".</p>
-                        <button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; cursor: pointer;">Ver Ofertas Recentes</button>
+                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: #f9fafb; border-radius: 20px; border: 2px dashed #e5e7eb;">
+                        <i class="fas fa-search" style="font-size: 3.5rem; color: #d1d5db; margin-bottom: 25px;"></i>
+                        <h3 style="font-size: 1.5rem; color: #374151; margin-bottom: 10px;">Ainda não temos essa oferta salva...</h3>
+                        <p style="color: #6b7280; max-width: 500px; margin: 0 auto 30px;">
+                            Não encontramos "<strong>${query}</strong>" no nosso cache local, mas podemos buscar em tempo real para você!
+                        </p>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="titaniumRedirect('${query}')" style="background: var(--primary-blue); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);">
+                                <i class="fas fa-rocket"></i> Buscar na Amazon/Shopee/ML
+                            </button>
+                            <button onclick="window.location.reload()" style="background: white; color: #374151; padding: 15px 30px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer;">
+                                Voltar ao Início
+                            </button>
+                        </div>
                     </div>
                 `;
             } else {
