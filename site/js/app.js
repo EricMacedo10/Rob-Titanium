@@ -853,55 +853,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // === Price Comparison Widget ===
-    document.querySelector('.btn-compare').addEventListener('click', () => {
-        const query = comparisonInput.value.toLowerCase().trim();
+    // === Main Search Functionality ===
+    function performSearch() {
+        if (!searchInput) return;
 
-        if (!query) {
-            alert('Por favor, digite o nome de um produto');
-            return;
-        }
+        const query = searchInput.value.toLowerCase().trim();
 
-        const matches = allDeals.filter(deal =>
-            deal.title.toLowerCase().includes(query)
-        );
+        // Show loading state
+        dealsGrid.innerHTML = `
+            <div class="loading-state">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <p>Buscando por "${query}"...</p>
+            </div>
+        `;
 
-        if (matches.length === 0) {
-            comparisonResults.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; color: #6B7280;">
-                    Produto não encontrado. Tente outro termo de busca.
-                </div>
-            `;
-            return;
-        }
+        // Small delay to simulate search and allow UI update
+        setTimeout(() => {
+            if (!query) {
+                // If empty, reload recent deals
+                filterAndRenderByCategory('recent');
+                return;
+            }
 
-        // Group by store
-        const byStore = {};
-        matches.forEach(deal => {
-            const store = deal.store.toLowerCase();
-            if (!byStore[store] || deal.price < byStore[store].price) {
-                byStore[store] = deal;
+            // Filter deals by title or category
+            const matches = allDeals.filter(deal =>
+                deal.title.toLowerCase().includes(query) ||
+                (deal.category && deal.category.toLowerCase().includes(query))
+            );
+
+            if (matches.length === 0) {
+                dealsGrid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: #e5e7eb; margin-bottom: 20px;"></i>
+                        <h3>Nenhum resultado encontrado</h3>
+                        <p style="color: #6b7280;">Não encontramos ofertas para "<strong>${query}</strong>".</p>
+                        <button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; cursor: pointer;">Ver Ofertas Recentes</button>
+                    </div>
+                `;
+            } else {
+                // Update section title
+                const sectionTitle = document.querySelector('.section-title');
+                if (sectionTitle) sectionTitle.innerHTML = `Resultados para "<strong>${query}</strong>"`;
+
+                renderDeals(matches);
+            }
+        }, 300);
+    }
+
+    if (searchButton && searchInput) {
+        searchButton.addEventListener('click', performSearch);
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
             }
         });
-
-        // Find best price
-        const prices = Object.values(byStore).map(d => d.price);
-        const bestPrice = Math.min(...prices);
-
-        // Render comparison
-        comparisonResults.innerHTML = Object.values(byStore).map(deal => {
-            const isBest = deal.price === bestPrice;
-            return `
-                <div class="comparison-item ${isBest ? 'best' : ''}">
-                    <h4>${deal.store}</h4>
-                    <div class="price">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(deal.price)}</div>
-                    <a href="${deal.link}" target="_blank" style="color: #2196F3; text-decoration: none; font-size: 0.9rem; margin-top: 8px; display: block;">
-                        Ver oferta <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-            `;
-        }).join('');
-    });
+    }
 
     // === Utility Functions ===
     function debounce(func, wait) {
