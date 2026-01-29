@@ -758,13 +758,38 @@ nav a.active::after {
     position: absolute;
     top: 12px;
     right: 12px;
-    background: #FF4757;
+    background: linear-gradient(135deg, #FF4757 0%, #FF6B81 100%);
     color: white;
-    font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    box-shadow: var(--shadow-sm);
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: badgePulse 2s infinite ease-in-out;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.discount-badge:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .store-badge {
