@@ -137,6 +137,11 @@ def main():
             if not link or "http" not in link: continue
             if not image or "http" not in image: continue
             
+            # Temporariamente remover Mercado Livre da exibição final se estiver travado
+            if p.get('store') == 'Mercado Livre':
+                continue
+            
+            
             # 2. Duplicate Prevention
             norm_title = title.lower().strip()
             if norm_title in seen_titles: continue
@@ -175,6 +180,17 @@ def main():
         notif_file = 'site/notifications.json'
         if os.path.exists(notif_file):
              upload_to_hostinger(notif_file, ftp_host, ftp_user, ftp_pass, remote_path='notifications.json')
+
+        # FORÇAR ATUALIZAÇÃO DO JS E CSS (Garantir correção de bugs front-end)
+        assets = {
+            'site/js/app.js': 'js/app.js',
+            'site/css/style.css': 'css/style.css'
+        }
+        for local, remote in assets.items():
+            if os.path.exists(local):
+                print(f"\n>>> Sincronizando Asset: {remote}")
+                upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote)
+
     else:
         print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
 

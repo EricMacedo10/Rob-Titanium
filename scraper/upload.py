@@ -31,31 +31,38 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
         print(f"   📍 Diretório inicial (pwd): {pwd}")
 
         # Tenta entrar na pasta public_html se existir (Padrão Hostinger)
-        try:
-            files_root = []
-            session.retrlines('NLST', files_root.append)
-            if 'public_html' in files_root:
-                print("   📂 Encontrada pasta 'public_html'. Entrando nela...")
-                session.cwd('public_html')
-                print(f"   📍 Novo diretório: {session.pwd()}")
-        except Exception as e:
-            print(f"   ⚠️  Erro ao verificar/entrar em public_html: {e}")
+        paths_to_try = [
+            'public_html',
+            'domains/guiadodesconto.com.br/public_html',
+            'www'
+        ]
         
-        # List files before upload
-        print(f"   📂 Listando arquivos no diretório...")
-        files_before = []
-        session.retrlines('NLST', files_before.append)
-        if 'data.json' in files_before:
-            print(f"   ✅ data.json existe no servidor")
-            # Try to DELETE the file first before uploading
-            print(f"   🗑️  Deletando arquivo antigo...")
+        entered = False
+        for p in paths_to_try:
             try:
-                session.delete('data.json')
-                print(f"   ✅ Arquivo antigo deletado!")
-            except Exception as del_e:
-                print(f"   ⚠️  Falha ao deletar: {del_e}")
+                session.cwd(p)
+                print(f"   📂 Entrou em: {p} (PWD: {session.pwd()})")
+                entered = True
+                break
+            except:
+                continue
+        
+        if not entered:
+            print("   ⚠️  Nenhuma das pastas padrão (public_html, domains...) foi encontrada. Ficando na raiz.")
+
+        # List files for debugging (using LIST for more detail)
+        print(f"   📂 Listando arquivos no diretório...")
+        files_detailed = []
+        session.retrlines('LIST', files_detailed.append)
+        for line in files_detailed:
+            print(f"      {line}")
+        
+        # Check if data.json exists in the list (for logging only)
+        # We don't need to delete, STOR overwrites.
+        if any('data.json' in line for line in files_detailed):
+            print(f"   ✅ data.json já existe no servidor (será sobrescrito)")
         else:
-            print(f"   ⚠️  data.json NÃO existe no servidor ainda")
+            print(f"   ⚠️  data.json não encontrado (será criado)")
         
         # Upload the file
         print(f"   📤 Enviando arquivo...")
