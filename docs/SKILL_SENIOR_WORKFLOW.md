@@ -45,6 +45,31 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
 2. **Estratégia Híbrida:** Nunca dependa de um único ponto de falha. Se a API OFICIAL bloquear, tenha um FALLBACK (Scraping ou Selenium) pronto para assumir.
 3. **Dinamicidade:** O sistema deve parecer vivo (frases dinâmicas, horários variados) para engajar o usuário.
 
+## 🏗️ Arquitetura à Prova de Falhas (Blindagem Titanium)
+Para garantir a credibilidade do site e evitar quebras estruturais que possam afastar clientes:
+
+1.  **Filtro Antimanchas (Sanitização no Robô):**
+    *   **Validação em Camada:** O robô deve checar Título, Preço, Link e Imagem antes de aceitar um produto.
+    *   **Fail-Safe:** Se o robô não encontrar nenhum produto válido (Bloqueio total), ele deve cancelar o upload automático para não zerar o site.
+    *   **Preservação:** Manter o `data.json` anterior em caso de erro crítico no novo processamento.
+
+2.  **Independência de Layout (HTML Estático):**
+    *   Logotipo, Banners (ex: Volta às Aulas), Categorias e Rodapé devem ser parte do HTML estático.
+    *   Se o banco de dados (JSON) falhar, o cliente ainda deve conseguir navegar via "Links Inteligentes".
+    *   Utilizar placeholders ou estados de "loading" profissionais enquanto os produtos carregam.
+
+3.  **Regra de Ouro: "Nunca Teste em Produção":**
+    *   Toda nova lógica (novas APIs ou mudanças no Scraping) deve ser validada localmente primeiro.
+    *   Verificação Visual manual antes de commitar para o GitHub Actions.
+    *   Novos recursos complexos (ex: Busca Realtime) só sobem após aprovação em ambiente controlado.
+
+## ⚖️ Blindagem Ética e Comercial (Compliance)
+Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
+
+1.  **Camada de Recência (Freshness):** Atualização multi-diária mandatória para sincronizar preços e disponibilidade. O que não é validado na rodada atual, não é postado.
+2.  **Camada de Curadoria (Árbitro IA):** Filtros inteligentes que descartam ofertas suspeitas, erros de digitação de preços ou produtos sem imagem de alta qualidade.
+3.  **Camada de Transparência (Disclaimer):** Inclusão automática de avisos de volatilidade ("Preço sujeito a alteração") e CTAs que levam à validação final no site parceiro.
+
 ---
 **💡 COMO ATIVAR ESTE MODO:**
 Para garantir que eu siga este fluxo, basta iniciar suas sessões dizendo:

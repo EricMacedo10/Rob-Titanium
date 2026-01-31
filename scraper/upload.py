@@ -64,10 +64,23 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
         else:
             print(f"   ⚠️  data.json não encontrado (será criado)")
         
+        # Navegar ou Criar Pasta (social/)
+        if '/' in remote_path:
+            folder = remote_path.split('/')[0]
+            try:
+                session.cwd(folder)
+            except:
+                print(f"   📁 Criando pasta remota: {folder}")
+                session.mkd(folder)
+                session.cwd(folder)
+            remote_filename = remote_path.split('/')[-1]
+        else:
+            remote_filename = remote_path
+
         # Upload the file
-        print(f"   📤 Enviando arquivo...")
+        print(f"   📤 Enviando arquivo como {remote_filename}...")
         with open(local_file_path, 'rb') as file:
-            result = session.storbinary(f'STOR {remote_path}', file)
+            result = session.storbinary(f'STOR {remote_filename}', file)
             print(f"   📨 Resposta do servidor: {result}")
         
         # Verify file was uploaded - check size

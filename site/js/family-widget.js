@@ -12,32 +12,52 @@ const FAMILY_CONFIG = {
         {
             avatar: 'eric_group',
             name: 'Família',
+            text: 'O Robô Titanium acabou de varrer a Amazon e achou preços surreais! 🤯'
+        },
+        {
+            avatar: 'wife_group',
+            name: 'Família',
+            text: 'Minha dica: as avaliações no Mercado Livre ajudam muito a decidir. ⭐'
+        },
+        {
+            avatar: 'eric_group',
+            name: 'Família',
+            text: 'Encontrei um cupom escondido na Shopee hoje cedo. Fiquem de olho! 🕵️‍♂️'
+        },
+        {
+            avatar: 'wife_group',
+            name: 'Família',
+            text: 'Fizemos uma curadoria especial de Volta às Aulas. Tudo com desconto! 🎒'
+        },
+        {
+            avatar: 'eric_group',
+            name: 'Família',
+            text: 'Não compre sem comparar! O Robô faz isso por você em segundos. ⏱️'
+        },
+        {
+            avatar: 'wife_group',
+            name: 'Família',
+            text: 'Essa semana a Amazon está imbatível na entrega. Pedi ontem, chegou hoje! 📦'
+        },
+        {
+            avatar: 'eric_group',
+            name: 'Família',
+            text: 'Monitoramos milhões de produtos 24h por dia para você não perder nada. 🛡️'
+        },
+        {
+            avatar: 'wife_group',
+            name: 'Família',
+            text: 'Gente, cuidado com picos de preço! O site te avisa a hora certa de comprar. 📉'
+        },
+        {
+            avatar: 'eric_group',
+            name: 'Família',
             text: 'Ei! Sabia que nós verificamos os preços a cada 3 horas? Pode confiar! 🤖'
         },
         {
             avatar: 'wife_group',
             name: 'Família',
-            text: 'Gente, olha esse iPhone! O preço caiu muito hoje! 🔥'
-        },
-        {
-            avatar: 'eric_group',
-            name: 'Família',
-            text: 'Dica de Mestre: Use o botão de busca ali em cima, ele acha ofertas escondidas.'
-        },
-        {
-            avatar: 'wife_group',
-            name: 'Família',
             text: 'Amamos comprar na Amazon pela entrega rápida. Já testaram?'
-        },
-        {
-            avatar: 'wife_group',
-            name: 'Família',
-            text: 'Avisa o pessoal que as ofertas da Shopee estão com cupom de frete grátis!'
-        },
-        {
-            avatar: 'eric_group',
-            name: 'Família',
-            text: 'Se virem o ícone de 🔥, é porque a oferta está muito quente!'
         }
     ],
     initialDelay: 3000, // 3 seconds before first message

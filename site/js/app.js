@@ -8,7 +8,7 @@ const TITANIUM_CONFIG = {
     TAGS: {
         amazon: "guiadodesco00-20",     // ✅ Amazon Associates
         mercadolivre: "ericmacedo",     // ✅ ML Afiliados (via Share Flow)
-        shopee: null                     // ⏳ Aguardando API (23/01)
+        shopee: "ericmacedo"            // ✅ Tag Shopee (Mantida p/ compatibilidade)
     },
     // Mercado Livre - Configuração OAuth
     ML_AFFILIATE: {
@@ -40,29 +40,30 @@ function generateTrackingId() {
 
 /**
  * Constrói URL do Mercado Livre com todos os parâmetros de afiliado
- * Isso garante que o cookie de afiliado seja setado no browser
  * @param {string} searchTerm - Termo de busca
  * @returns {string} URL completa com parâmetros de afiliado
  */
 function buildMLAffiliateUrl(searchTerm) {
     const config = TITANIUM_CONFIG.ML_AFFILIATE;
-    const baseUrl = `https://lista.mercadolivre.com.br/${encodeURIComponent(searchTerm)}`;
 
-    // Parâmetros de afiliado do ML
+    // Normaliza termo para o padrão de URL do ML (troca espaço por hífen)
+    const normalizedTerm = encodeURIComponent(searchTerm).replace(/%20/g, '-');
+
+    // URL de busca com ordenação por Menor Preço nativa (_OrderId_PRICE)
+    const baseUrl = `https://lista.mercadolivre.com.br/${normalizedTerm}_OrderId_PRICE`;
+
+    // Parâmetros de afiliado oficiais (Matt-Tool System)
     const params = new URLSearchParams({
-        'matt_tool': config.userId,              // ID do afiliado (obrigatório)
-        'matt_word': searchTerm,                  // Palavra-chave
-        'matt_source': config.source,             // Fonte do tráfego
-        'tracking_id': generateTrackingId(),      // ID único de rastreamento
-        '_Sort': 'price_asc'                      // ✅ Filtro Menor Preço
+        'matt_tool': config.userId,              // ✅ Seu ID de Afiliado: 188269638
+        'matt_word': searchTerm,                 // Termo buscado para tracking
+        'matt_source': config.source,            // 'guiadodesconto'
+        'tracking_id': generateTrackingId()      // ID único para cada clique
     });
 
-    const fullUrl = `${baseUrl}?${params.toString()}`;
+    const finalUrl = `${baseUrl}?${params.toString()}`;
 
-    console.log('[ML Affiliate] URL gerada:', fullUrl);
-    console.log('[ML Affiliate] User ID:', config.userId);
-
-    return fullUrl;
+    console.log('[Titanium ML] Link Inteligente (Price Sort) gerado:', finalUrl);
+    return finalUrl;
 }
 
 /**
@@ -74,7 +75,9 @@ function buildShopeeAffiliateUrl(searchTerm) {
     // 1. Mapa de Links Oficiais (Gerados via API SHA256)
     const officialLinks = {
         "decoração casa": "https://s.shopee.com.br/4fq94GOI3B",
-        "equipamento academia": "https://s.shopee.com.br/14JVgor5V"
+        "equipamento academia": "https://s.shopee.com.br/14JVgor5V",
+        "voltas às aulas": "https://s.shopee.com.br/10pW2pX5h0",
+        "mochila escolar": "https://s.shopee.com.br/7Uyp9pC7wz"
     };
 
     // 2. Normaliza termo para busca (lowercase + trim)
@@ -89,8 +92,9 @@ function buildShopeeAffiliateUrl(searchTerm) {
     // 4. Fallback: Busca Direta (Search URL)
     const baseUrl = "https://shopee.com.br/search";
     const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/g, "+");
-    console.log(`[Shopee] Usando fallback search para "${termKey}"`);
-    return `${baseUrl}?keyword=${encodedTerm}&sortBy=price&order=asc`; // ✅ Filtro Menor Preço
+    const tag = TITANIUM_CONFIG.TAGS.shopee || "shopee_affiliate";
+    console.log(`[Shopee] Usando fallback search para "${termKey}" com tag ${tag}`);
+    return `${baseUrl}?keyword=${encodedTerm}&sortBy=price&order=asc&utm_source=${tag}`; // ✅ Tag Injetada
 }
 
 /**
@@ -164,20 +168,16 @@ window.handleImageError = function (imgElement, storeName, productTitle) {
     let contentHTML = '';
 
     if (storeLower.includes('amazon')) {
-        // Amazon keeps the FontAwesome icon as user liked it
         contentHTML = '<i class="fa-brands fa-amazon"></i>';
     } else if (storeLower.includes('mercadolivre')) {
-        // Mercado Livre uses the image logo
         contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
     } else if (storeLower.includes('shopee')) {
-        // Shopee: Construct a "Logo" using Icon + Text to ensure it looks good (White Bag + Color S)
         contentHTML = `
             <div class="shopee-logo-composite">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span class="shopee-s">S</span>
             </div>`;
     } else {
-        // Default fallback
         contentHTML = '<i class="fa-solid fa-shopping-bag"></i>';
     }
 
@@ -185,6 +185,7 @@ window.handleImageError = function (imgElement, storeName, productTitle) {
     const fallbackHTML = `
         <div class="fallback-card ${storeLower}">
             ${contentHTML}
+            <div class="fallback-text">Imagem indisponível</div>
         </div>
     `;
 
@@ -192,7 +193,6 @@ window.handleImageError = function (imgElement, storeName, productTitle) {
     if (imgElement.parentElement.classList.contains('image-container')) {
         imgElement.parentElement.innerHTML = fallbackHTML;
     } else {
-        // Fallback if structure is different
         const wrapper = document.createElement('div');
         wrapper.className = 'image-container';
         wrapper.style.width = '100%';
@@ -224,27 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparisonInput = document.getElementById('comparison-input');
     const comparisonResults = document.getElementById('comparison-results');
 
-    // === Data Loading ===
-    // MVP v1.0: Ativado carregamento automático de produtos
-    loadDeals();
+    // loadDeals();
 
     function loadDeals() {
-        // Cache busting with timestamp
-        const cacheBuster = `?t=${new Date().getTime()}`;
-        fetch('data.json' + cacheBuster)
-            .then(response => {
-                if (!response.ok) throw new Error('Falha ao carregar data.json');
-                return response.json();
-            })
-            .then(data => {
-                allDeals = data;
-                renderDeals(allDeals);
-            })
-            .catch(error => {
-                console.warn('Usando dados de demonstração (modo local)');
-                allDeals = getFallbackData();
-                renderDeals(allDeals);
-            });
+        console.log('[Titanium v3] Carregamento dinâmico desativado em favor do Hub de Categorias.');
     }
 
     // === Render Functions ===
@@ -520,25 +503,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterAndRenderByCategory(category) {
-        const filtered = allDeals.filter(deal =>
-            deal.category.toLowerCase() === category.toLowerCase()
-        );
+        console.log(`[Titanium] Filtrando categoria: ${category} | Loja: ${currentStoreFilter}`);
+
+        const filtered = allDeals.filter(deal => {
+            if (!deal.category) return false;
+            return deal.category.toLowerCase() === category.toLowerCase();
+        });
 
         // Apply store filter
         const storeFiltered = filterByStore(filtered, currentStoreFilter);
 
         // Sort by price
-        const sortedByPrice = storeFiltered.sort((a, b) => a.price - b.price);
+        const sortedByPrice = storeFiltered.sort((a, b) => (a.price || 0) - (b.price || 0));
 
         // Update title
         const sectionTitle = document.querySelector('.voted-deals .section-title');
         if (sectionTitle) {
             const categoryNames = {
                 'tecnologia': 'Tecnologia',
-                'casa': 'Casa & Decoração',
-                'moda': 'Moda & Beleza',
+                'casa': 'Casa',
+                'decoracao': 'Decoração',
+                'moda': 'Moda',
+                'beleza': 'Beleza',
                 'esportes': 'Esportes & Lazer',
-                'recent': 'Ofertas Recentes'
+                'recent': 'Ofertas Recentes',
+                'volta-aulas': 'Volta às Aulas'
             };
             const storeNames = {
                 'all': 'Todas as Lojas',
@@ -551,7 +540,25 @@ document.addEventListener('DOMContentLoaded', () => {
             sectionTitle.textContent = `${catName} - ${storeName} (Menor Preço)`;
         }
 
-        renderDeals(sortedByPrice);
+        if (sortedByPrice.length === 0) {
+            dealsGrid.innerHTML = `
+                <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px 20px; background: #f9fafb; border-radius: 15px;">
+                    <i class="fas fa-ghost" style="font-size: 3rem; color: #d1d5db; margin-bottom: 20px;"></i>
+                    <h3 style="color: #374151;">Ops! Sem ofertas locais nesta categoria...</h3>
+                    <p style="color: #6b7280; margin-bottom: 20px;">Mas não se preocupe! O Robô Titanium pode buscar ofertas frescas agora mesmo:</p>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="titaniumRedirect('${category}', 'mercadolivre')" style="background: #FFE600; color: #333; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">
+                            <i class="fas fa-rocket"></i> Buscar no Mercado Livre
+                        </button>
+                        <button onclick="titaniumRedirect('${category}', 'amazon')" style="background: #FF9900; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">
+                            <i class="fa-brands fa-amazon"></i> Buscar na Amazon
+                        </button>
+                    </div>
+                </div>
+            `;
+        } else {
+            renderDeals(sortedByPrice);
+        }
     }
 
     // === Category Hub Navigation ===
@@ -629,14 +636,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="fas fa-search" style="font-size: 3.5rem; color: #d1d5db; margin-bottom: 25px;"></i>
                         <h3 style="font-size: 1.5rem; color: #374151; margin-bottom: 10px;">Ainda não temos essa oferta salva...</h3>
                         <p style="color: #6b7280; max-width: 500px; margin: 0 auto 30px;">
-                            Não encontramos "<strong>${query}</strong>" no nosso cache local, mas podemos buscar em tempo real para você!
+                            Não encontramos "<strong>${query}</strong>" no nosso cache local, mas o <strong>Robô Titanium</strong> pode buscar em tempo real para você no Mercado Livre!
                         </p>
                         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                            <button onclick="titaniumRedirect('${query}')" style="background: var(--primary-blue); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);">
-                                <i class="fas fa-rocket"></i> Buscar na Amazon/Shopee/ML
+                            <button onclick="titaniumRedirect('${query}', 'mercadolivre')" style="background: #FFE600; color: #333; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255, 230, 0, 0.3);">
+                                <i class="fas fa-rocket"></i> Buscar no Mercado Livre (Menor Preço)
                             </button>
-                            <button onclick="window.location.reload()" style="background: white; color: #374151; padding: 15px 30px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer;">
-                                Voltar ao Início
+                            <button onclick="titaniumRedirect('${query}', 'amazon')" style="background: #FF9900; color: white; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);">
+                                <i class="fa-brands fa-amazon"></i> Buscar na Amazon
                             </button>
                         </div>
                     </div>
@@ -723,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "casa",
                 "tags": ["air fryer", "cozinha", "eletrodoméstico"],
                 "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lmkwx6l8v28f24",
-                "link": "https://shopee.com.br/product/12345/67890?utm_source=ericmacedo",
+                "link": "https://shopee.com.br/product/12345/67890?utm_source=shopee_affiliate",
                 "reason": "Oferta Relâmpago",
                 "votes": 56,
                 "added_date": "2026-01-15"
@@ -768,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "category": "esportes",
                 "tags": ["tênis", "nike", "corrida"],
                 "image": "https://cf.shopee.com.br/file/sg-11134201-22110-abc123def456",
-                "link": "https://shopee.com.br/product/2222/33333?utm_source=ericmacedo",
+                "link": "https://shopee.com.br/product/2222/33333?utm_source=shopee_affiliate",
                 "reason": "Desconto exclusivo",
                 "votes": 47,
                 "added_date": "2026-01-15"

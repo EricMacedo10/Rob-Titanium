@@ -646,15 +646,15 @@
     }
   },
   "mochila escolar": {
-    "timestamp": 1769726368.007925,
+    "timestamp": 1769813031.648079,
     "resultado": {
       "termo_busca": "mochila escolar",
       "melhor_produto": {
-        "titulo": "Mochila Promoção Escolar Pronta Entrega Reforçada Unissex Premium Resistente Estampada Escola MR",
-        "preco": 30.9,
-        "loja": "Shopee",
-        "link": "https://s.shopee.com.br/BNwnxNj1s",
-        "imagem": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjkbml690zd270"
+        "titulo": "Mochilinha Bag Infantil Personalizado com Nome e Idade Astronaura Mochila",
+        "preco": 7.0,
+        "loja": "Amazon",
+        "link": "https://www.amazon.com.br/Mochilinha-Infantil-Personalizado-Astronaura-Unidades/dp/B0DJFWX7KB/ref=sr_1_1?dib=eyJ2IjoiMSJ9.nw8TyLQJAtEl0dCQo4n-USx6Uazl1I1fKOT23fbGG29j_G-U9-auuEeFH0TrNJEwh9RFrEagtJgapkO3qYUwOg9Nb4rxMpPLP62lFIMqSnRZtuSxxoZyZvjOV5hWsyo_-0avbI6st23j4nwrHufj1VjUiSxiH1pas4hWBuVJlM-XI1dH_JMPt4at1Y03fxE_PylyhWXyu_-_lMXqBu8NRDlNEUBc2Alr3vSDkAUW9KNOpximPgzielfgSnX7-krlLpLM0XLsW7884-GH3n9sX0Sl1KrcMziQpw23mH3oYLA.prL4eQDYCLb64nMeb5dyvv-iBo7zVTL_gc7enfgi-QE&dib_tag=se&keywords=mochila+escolar&qid=1769813017&sr=8-1&tag=guiadodesco00-20",
+        "imagem": "https://m.media-amazon.com/images/I/51ZWwwaAW5L._AC_UL320_.jpg"
       },
       "todos_produtos": [
         {
@@ -662,74 +662,104 @@
           "titulo": "Mochila Promoção Escolar Pronta Entrega Reforçada Unissex Premium Resistente Estampada Escola MR",
           "preco": 30.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/BNwnxNj1s",
+          "link_afiliado": "https://s.shopee.com.br/5fiuxG4YdL",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjkbml690zd270",
           "disponivel": true
         },
         {
+          "id": "amz_75555",
+          "title": "Mochilinha Bag Infantil Personalizado com Nome e Idade Astronaura Mochila",
+          "price": 7.0,
+          "old_price": "8.40",
+          "discount": 20,
+          "store": "Amazon",
+          "category": "tech",
+          "image": "https://m.media-amazon.com/images/I/51ZWwwaAW5L._AC_UL320_.jpg",
+          "link": "https://www.amazon.com.br/Mochilinha-Infantil-Personalizado-Astronaura-Unidades/dp/B0DJFWX7KB/ref=sr_1_1?dib=eyJ2IjoiMSJ9.nw8TyLQJAtEl0dCQo4n-USx6Uazl1I1fKOT23fbGG29j_G-U9-auuEeFH0TrNJEwh9RFrEagtJgapkO3qYUwOg9Nb4rxMpPLP62lFIMqSnRZtuSxxoZyZvjOV5hWsyo_-0avbI6st23j4nwrHufj1VjUiSxiH1pas4hWBuVJlM-XI1dH_JMPt4at1Y03fxE_PylyhWXyu_-_lMXqBu8NRDlNEUBc2Alr3vSDkAUW9KNOpximPgzielfgSnX7-krlLpLM0XLsW7884-GH3n9sX0Sl1KrcMziQpw23mH3oYLA.prL4eQDYCLb64nMeb5dyvv-iBo7zVTL_gc7enfgi-QE&dib_tag=se&keywords=mochila+escolar&qid=1769813017&sr=8-1&tag=guiadodesco00-20",
+          "reason": "Oferta Verificada",
           "id_interno": 1,
-          "titulo": "mochila escolar - Amazon",
-          "preco": Infinity,
-          "loja": "Amazon",
-          "link_afiliado": "",
-          "disponivel": false
+          "link_afiliado": "https://www.amazon.com.br/Mochilinha-Infantil-Personalizado-Astronaura-Unidades/dp/B0DJFWX7KB/ref=sr_1_1?dib=eyJ2IjoiMSJ9.nw8TyLQJAtEl0dCQo4n-USx6Uazl1I1fKOT23fbGG29j_G-U9-auuEeFH0TrNJEwh9RFrEagtJgapkO3qYUwOg9Nb4rxMpPLP62lFIMqSnRZtuSxxoZyZvjOV5hWsyo_-0avbI6st23j4nwrHufj1VjUiSxiH1pas4hWBuVJlM-XI1dH_JMPt4at1Y03fxE_PylyhWXyu_-_lMXqBu8NRDlNEUBc2Alr3vSDkAUW9KNOpximPgzielfgSnX7-krlLpLM0XLsW7884-GH3n9sX0Sl1KrcMziQpw23mH3oYLA.prL4eQDYCLb64nMeb5dyvv-iBo7zVTL_gc7enfgi-QE&dib_tag=se&keywords=mochila+escolar&qid=1769813017&sr=8-1&tag=guiadodesco00-20",
+          "disponivel": true,
+          "preco": 7.0,
+          "titulo": "Mochilinha Bag Infantil Personalizado com Nome e Idade Astronaura Mochila",
+          "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813014435_0",
+          "titulo": "Mochila Escolar Feminina Infantil Com Chaveiro Pompom Preto Mochila Grande Com Acessorio",
+          "preco": 99.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=vpNz1vXeu3umgUjouDGeTcSHXTBJaGBJsj283todifx7pIYheW46riHZZpSg067lKoRITf1s40I7U6T19%2FDueVlY081ZuTodU%2BjJeO4p814JQn7A5mC1J%2FlnURIpH6umV%2F%2B0KVU0xLskrOENa7zrT8Ir7xoo6HDWbKLjNookE1iGXfpJ%2FV8MXi%2BURI89O%2BzARgFIkr%2BtNQ3O4m%2FptOtA1QMtGvSPICx%2Bd6BvSijB8hjoAVklgfRfYlUVHDcunsQYMksZIcyfBm1ZFn3yns1td85fGjqOrrISLXpAhawRBH%2F%2BBq3XaMNHV2ndElzGFKyy5H%2FWHzKeIYBtca%2BVbskCEGRRqAH6mcdbCUIyo%2FdfOwU14NeYKNL7BRz8HCNDEQzQ9QYRM90jxUt%2BQhoNiMmLaL5f6OnPHbwdY1CC3lBiPGh28sESgLmw3xTHs%2Betg5Kabv0RUZfkeiaDfxjGj2MVgXk8EMmo1cvnk2I0a7jcz%2FPNsMI5zmZI43Sk60zmbwC2wDzj8L0w4UTl958FpSMjpQ%2Bqkv5vGA3Wo8Lss7PUEO1%2FcalJsNbT3wbWCTcFKnj7Z%2Be810EYY6BMpWvU0JgjgfosWdPeX8uGRllrtDasxhKwCAT5tr4CpBbddE5nRbdb8BgKqkqnZAkvxDR%2BCs0TVUbx%2B0Dd58sgI54VSIaiHXNvwxnkZh3w3W1n7O3k5qsE9d298whQcYR4Te0HB1MZgXs2DdItddE38ETZoVmqzHCdIQhT9pwOad6KT8DtNXHQ5bCXaYCRzSb3pX%2BCaHbxHyN1oXfxRbehpE8JPCXgPGD2oZJA%2B6mACYqMImXQIAYpAopLVBVg3LaT0%2BeYcyx1SicHc1Slc8uSni07hHw6yaPaD1LEH5eeHYgO9925TF5C8KeWx7sRd81ryRVrJBmgw78fpfkaraLvUci%2FozsHqujvD8gLD1OWfGwpiZ8GRs79e%2BnG0SUm9oYt0ja0uEZFbJorplQAGcDVO0oRDi8h%2F57kL8d%2Fcg%3D%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB64103768&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=78de3549-c95f-4310-b78a-b2aa9da83b4f&wid=MLB6154065026&sid=search&matt_tool=188269638&matt_word=mochila+escolar&matt_source=guiadodesconto&tracking_id=gdd-1769813014&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_620203-MLA104329513980_012026-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:39:28.007906"
+      "timestamp": "2026-01-30T19:43:51.648072"
     }
   },
   "caderno universitário": {
-    "timestamp": 1769726387.687151,
+    "timestamp": 1769813069.0918,
     "resultado": {
       "termo_busca": "caderno universitário",
       "melhor_produto": {
-        "titulo": "Tilibra - Caderno Espiral Capa Flexível 1/4 Zip Preto 48 Folhas",
-        "preco": 4.0,
+        "titulo": "Caderno Brochura 1/4 C. D. 48 Fls. Stiff Azul – Jandaia",
+        "preco": 3.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Caderno-Espiral-Flex%C3%ADvel-Preto-Folhas/dp/B0BHL46MYQ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.uaO_ZbPdIFj7HRkW6wytWzQjnwmh5816MXJPEZW81oMRlqg4jwRyac2NJp4W-TGtW2vGgs8kGkKD7j8zYWRN4SnfChcKsb5robiaqlUcoJ3rcD1qd-GYdbp03PvkKw1HP34A3m2hkNRH6sT9Wx4g7ptiOidYeu2ArllX6JYMXZj35k9Pvz35-6VYr7kknWTGPPbqmrNuC289qjLPkOy_ry0hRY7y1_RukizQLAA9bb17EELEyqHPnfB-Ipqw8gPqR9wpyOtyDLaE_-6bxJMGkV8z7fwazcg9hPKN0E57kMc.lqNoK6jqq_2QUvAJRSbSTx8xBO8fbb1_Vt26bdukGHU&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769726379&sr=8-1&tag=guiadodesco00-20",
-        "imagem": "https://m.media-amazon.com/images/I/51YNoo6JiRL._AC_UL320_.jpg"
+        "link": "https://www.amazon.com.br/Caderno-Brochura-Fls-Stiff-Azul/dp/B078TXW6SJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3hoiV6pxOP58b68XAjRSiNAzXtn2xEe19x0DY-oWhSkEEXkiMweUFzRoXsGGVstHC_T_z_jBE_ndFFWPhHs1L_3Mq51_JofQRY-KQOzuBBxm3_TLpPHdIQzoy8mO0S167AZJYMQMvJITWSMV1vwAeX0fgEdKtRZsvXsD_L3QcBxLf2vuWCP6xD8ceH_MyKvicOcUmOwlf0AjTLzTB1YBmp59hSBO1h_S8W_h8B0bfTpT7QqGjwTHyI25YZFocPx7k2aOWXo-H7Sy1Fa2D3qZgyqvdZ9K2L3-sibqo4oX7Ak._VeGbIkrs-04VrsTGzQc-Hqbg2CwSx3MdJ8Zrervk44&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769813042&sr=8-1&tag=guiadodesco00-20",
+        "imagem": "https://m.media-amazon.com/images/I/31gvZga9YYL._AC_UL320_.jpg"
       },
       "todos_produtos": [
         {
           "id_interno": 0,
-          "titulo": "Caderno Smart Stitch Universitário C/Folhas Tira e Põe- DAC",
+          "titulo": "Caderno Smart Universitário Black c/Folhas Tira e Põe - DAC",
           "preco": 72.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/60Ljki56tH",
-          "imagem": "https://cf.shopee.com.br/file/sg-11134201-7reos-m1x86tqc236m10",
+          "link_afiliado": "https://s.shopee.com.br/2VltBTFjh0",
+          "imagem": "https://cf.shopee.com.br/file/sg-11134201-7ra3q-m54t1x6bdzx314",
           "disponivel": true
         },
         {
-          "id": "amz_26456",
-          "title": "Tilibra - Caderno Espiral Capa Flexível 1/4 Zip Preto 48 Folhas",
-          "price": 4.0,
-          "old_price": "4.80",
+          "id": "amz_69488",
+          "title": "Caderno Brochura 1/4 C. D. 48 Fls. Stiff Azul – Jandaia",
+          "price": 3.0,
+          "old_price": "3.60",
           "discount": 20,
           "store": "Amazon",
           "category": "tech",
-          "image": "https://m.media-amazon.com/images/I/51YNoo6JiRL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Caderno-Espiral-Flex%C3%ADvel-Preto-Folhas/dp/B0BHL46MYQ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.uaO_ZbPdIFj7HRkW6wytWzQjnwmh5816MXJPEZW81oMRlqg4jwRyac2NJp4W-TGtW2vGgs8kGkKD7j8zYWRN4SnfChcKsb5robiaqlUcoJ3rcD1qd-GYdbp03PvkKw1HP34A3m2hkNRH6sT9Wx4g7ptiOidYeu2ArllX6JYMXZj35k9Pvz35-6VYr7kknWTGPPbqmrNuC289qjLPkOy_ry0hRY7y1_RukizQLAA9bb17EELEyqHPnfB-Ipqw8gPqR9wpyOtyDLaE_-6bxJMGkV8z7fwazcg9hPKN0E57kMc.lqNoK6jqq_2QUvAJRSbSTx8xBO8fbb1_Vt26bdukGHU&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769726379&sr=8-1&tag=guiadodesco00-20",
+          "image": "https://m.media-amazon.com/images/I/31gvZga9YYL._AC_UL320_.jpg",
+          "link": "https://www.amazon.com.br/Caderno-Brochura-Fls-Stiff-Azul/dp/B078TXW6SJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3hoiV6pxOP58b68XAjRSiNAzXtn2xEe19x0DY-oWhSkEEXkiMweUFzRoXsGGVstHC_T_z_jBE_ndFFWPhHs1L_3Mq51_JofQRY-KQOzuBBxm3_TLpPHdIQzoy8mO0S167AZJYMQMvJITWSMV1vwAeX0fgEdKtRZsvXsD_L3QcBxLf2vuWCP6xD8ceH_MyKvicOcUmOwlf0AjTLzTB1YBmp59hSBO1h_S8W_h8B0bfTpT7QqGjwTHyI25YZFocPx7k2aOWXo-H7Sy1Fa2D3qZgyqvdZ9K2L3-sibqo4oX7Ak._VeGbIkrs-04VrsTGzQc-Hqbg2CwSx3MdJ8Zrervk44&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769813042&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Caderno-Espiral-Flex%C3%ADvel-Preto-Folhas/dp/B0BHL46MYQ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.uaO_ZbPdIFj7HRkW6wytWzQjnwmh5816MXJPEZW81oMRlqg4jwRyac2NJp4W-TGtW2vGgs8kGkKD7j8zYWRN4SnfChcKsb5robiaqlUcoJ3rcD1qd-GYdbp03PvkKw1HP34A3m2hkNRH6sT9Wx4g7ptiOidYeu2ArllX6JYMXZj35k9Pvz35-6VYr7kknWTGPPbqmrNuC289qjLPkOy_ry0hRY7y1_RukizQLAA9bb17EELEyqHPnfB-Ipqw8gPqR9wpyOtyDLaE_-6bxJMGkV8z7fwazcg9hPKN0E57kMc.lqNoK6jqq_2QUvAJRSbSTx8xBO8fbb1_Vt26bdukGHU&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769726379&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Caderno-Brochura-Fls-Stiff-Azul/dp/B078TXW6SJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3hoiV6pxOP58b68XAjRSiNAzXtn2xEe19x0DY-oWhSkEEXkiMweUFzRoXsGGVstHC_T_z_jBE_ndFFWPhHs1L_3Mq51_JofQRY-KQOzuBBxm3_TLpPHdIQzoy8mO0S167AZJYMQMvJITWSMV1vwAeX0fgEdKtRZsvXsD_L3QcBxLf2vuWCP6xD8ceH_MyKvicOcUmOwlf0AjTLzTB1YBmp59hSBO1h_S8W_h8B0bfTpT7QqGjwTHyI25YZFocPx7k2aOWXo-H7Sy1Fa2D3qZgyqvdZ9K2L3-sibqo4oX7Ak._VeGbIkrs-04VrsTGzQc-Hqbg2CwSx3MdJ8Zrervk44&dib_tag=se&keywords=caderno+universit%C3%A1rio&qid=1769813042&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
-          "preco": 4.0,
-          "titulo": "Tilibra - Caderno Espiral Capa Flexível 1/4 Zip Preto 48 Folhas",
+          "preco": 3.0,
+          "titulo": "Caderno Brochura 1/4 C. D. 48 Fls. Stiff Azul – Jandaia",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813040862_0",
+          "titulo": "Confetti - Caderno Escolar Universitário Flores Bege",
+          "preco": 68.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=ypCmK4Mu8BSzEOdPOcN6p%2FqoQQ35dxsp%2FkOVTK%2BojApFXnMnt3oR55QAfxdr9k7edQoUGEIC4ny9ySvwMlx5Nx3BstnYoTi8R3wX5ahM%2B%2FvrW1AgSZU%2BENTUXSBZCgnzLgYkO5fH%2Bcm2bbcJ73eYK2VgFWuRkmFsqp9vZroKDgGQ6rCUIHVBgT1ETs%2BmoohVrqXnYVHWapOcPkpnQ5v52l4%2FinaK%2Bh0I1sha29gLIYBEUC2LlrHJTf9RI3XSjOkfzFva5EL8aaJ30XA%2FR9ySw%2Ft8LS3VKC8mIEPZ3q4OWDrYNTbEouAs0%2FjPkkBDZj%2BbmDsOr2Z3JDA0AHhqLdV6zdbqontXmsaxlEpudAMg7ixqqmFheibNT5xDpW9fJVogJeBXp8jkJt9diZdwSCAz%2BVRGueKGSJ%2BY3uE8f1jDCBScDqareekg%2FpvHh%2BngzWeF2VkU%2F6e21WYoPeGPQZNaGtgBylZOeaQP2m9pCizQaIbm0Fj%2B%2FZmNFhtZwqmqmBC9DR0b60oGnNSUye4zrYgtrQNLjTRMYMFH7IlzPKwAdSlBeYOMoW9yunePxtnunriWntV0VFFlJNLwivBqdrm868YSzSYLP9QIdBsyecd6eMOUq2Tbhneun5rctjENPQejZdkEnoMknfWvuxrRFBZWED%2Bj8pxhzsxnELA6xjDRZCdNdKFh%2FSaFswOt%2BBG8SFhSwOWf%2FI3yS%2B1z2DEL9aoVAJk56H%2B%2F3Vx%2F18quCLq3BBTMR19jn5sQUqRJxVg1NGvQ7naQOXW9W5dA8FteA0Sok%2Fna2DDdhK96cTqqjH%2F7iNK9EpYMVUfMabsGaWmYkEEGvz99IceM4zUG0JyEKtCMNOUPexTExrcFaCt80%2FhYWnfaeAj5deou9UmFOcZHoCAwNOK68GSCnuMEBfhVrMwAIIiBtDZLtQCFQg7dv8OiBRcMbnjiSCKT5vw%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB62833271&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=9bc0a299-fe05-47d8-8904-3593c9306cb1&wid=MLB4345342443&sid=search&matt_tool=188269638&matt_word=caderno+universit%C3%A1rio&matt_source=guiadodesconto&tracking_id=gdd-1769813040&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_851040-MLA100377443933_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:39:47.687126"
+      "timestamp": "2026-01-30T19:44:29.091791"
     }
   },
   "estojo escolar": {
-    "timestamp": 1769726407.419161,
+    "timestamp": 1769813098.550402,
     "resultado": {
       "termo_busca": "estojo escolar",
       "melhor_produto": {
         "titulo": "ESTOJO MULTIUSO LINHO SERENA SORTIDO",
         "preco": 3.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GayXX4eFo33brAuVFntw3P_0KS6yuai5FzUQUAEsAorWO_3TxIR0wFPWcqEObsA57_ylxt2MIEmpRywwijGLHqR3HO9FD2_XFvb7K16Q5mSqDrrtkgHWaFWyCvLZbOGds2bT3OVeqLMMc5mIr9ViNnPU2O9_Wu4pTHOvFSIZ5nBMRB3w97iaYQ55KddSXkpl-TzUvqLwsnZvWhLeSVcZfuhdYcCj0HjNLe5Yl1l2xMoaAxlA70Mw5zgPGYfaJMLC-5vRZL0dpejtGmCGOxZ1xgU.1QmUYWYpLZge3uhCQVI2pKstjp7hymERF1SqWvm9UhQ&dib_tag=se&keywords=estojo+escolar&qid=1769726398&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GUxFKlg65IIKzOelbVhQkMrATTL8-eJdP-VSm4_u7LzYKxvrteNYDpiHp7_EBB3uhWDzfP8iqtfqIQ_CKzKKS4jXjeq5F_SNH6qlk5cpY7I_DEP3l8uNvjH73f0AJUZPyGpWuK5dxvndfl2pQ0kyzHfRp8HnFcFqWzcv-Hsjnwz_T0fB8hOXUZtg0TKmqQosCxlliltmJnmedoV76-a7M3F9n1Yr63tQVVYQrCO5zNA2oChiZSUraUpOl7gg4Y3RBLYc426EmhN740w6LsvGrnQ.ZuOxT69jihfLZFKzJ-ApOOSyYO6TA7VxBaU2aG46_Ec&dib_tag=se&keywords=estojo+escolar&qid=1769813082&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/41DvRR-qirL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -738,12 +768,12 @@
           "titulo": "Estojo Escolar Multiuso Linho Serena Varias Cores",
           "preco": 6.99,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/1qWAn4l2Gu",
+          "link_afiliado": "https://s.shopee.com.br/8zzMvSca0D",
           "imagem": "https://cf.shopee.com.br/file/73c29bb2a416834d637f8013b85ea073",
           "disponivel": true
         },
         {
-          "id": "amz_96277",
+          "id": "amz_93429",
           "title": "ESTOJO MULTIUSO LINHO SERENA SORTIDO",
           "price": 3.0,
           "old_price": "3.60",
@@ -751,28 +781,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/41DvRR-qirL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GayXX4eFo33brAuVFntw3P_0KS6yuai5FzUQUAEsAorWO_3TxIR0wFPWcqEObsA57_ylxt2MIEmpRywwijGLHqR3HO9FD2_XFvb7K16Q5mSqDrrtkgHWaFWyCvLZbOGds2bT3OVeqLMMc5mIr9ViNnPU2O9_Wu4pTHOvFSIZ5nBMRB3w97iaYQ55KddSXkpl-TzUvqLwsnZvWhLeSVcZfuhdYcCj0HjNLe5Yl1l2xMoaAxlA70Mw5zgPGYfaJMLC-5vRZL0dpejtGmCGOxZ1xgU.1QmUYWYpLZge3uhCQVI2pKstjp7hymERF1SqWvm9UhQ&dib_tag=se&keywords=estojo+escolar&qid=1769726398&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GUxFKlg65IIKzOelbVhQkMrATTL8-eJdP-VSm4_u7LzYKxvrteNYDpiHp7_EBB3uhWDzfP8iqtfqIQ_CKzKKS4jXjeq5F_SNH6qlk5cpY7I_DEP3l8uNvjH73f0AJUZPyGpWuK5dxvndfl2pQ0kyzHfRp8HnFcFqWzcv-Hsjnwz_T0fB8hOXUZtg0TKmqQosCxlliltmJnmedoV76-a7M3F9n1Yr63tQVVYQrCO5zNA2oChiZSUraUpOl7gg4Y3RBLYc426EmhN740w6LsvGrnQ.ZuOxT69jihfLZFKzJ-ApOOSyYO6TA7VxBaU2aG46_Ec&dib_tag=se&keywords=estojo+escolar&qid=1769813082&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GayXX4eFo33brAuVFntw3P_0KS6yuai5FzUQUAEsAorWO_3TxIR0wFPWcqEObsA57_ylxt2MIEmpRywwijGLHqR3HO9FD2_XFvb7K16Q5mSqDrrtkgHWaFWyCvLZbOGds2bT3OVeqLMMc5mIr9ViNnPU2O9_Wu4pTHOvFSIZ5nBMRB3w97iaYQ55KddSXkpl-TzUvqLwsnZvWhLeSVcZfuhdYcCj0HjNLe5Yl1l2xMoaAxlA70Mw5zgPGYfaJMLC-5vRZL0dpejtGmCGOxZ1xgU.1QmUYWYpLZge3uhCQVI2pKstjp7hymERF1SqWvm9UhQ&dib_tag=se&keywords=estojo+escolar&qid=1769726398&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/ESTOJO-MULTIUSO-LINHO-SERENA-SORTIDO/dp/B07JK985T7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.tX1PyItx65bNiiojq2D0GUxFKlg65IIKzOelbVhQkMrATTL8-eJdP-VSm4_u7LzYKxvrteNYDpiHp7_EBB3uhWDzfP8iqtfqIQ_CKzKKS4jXjeq5F_SNH6qlk5cpY7I_DEP3l8uNvjH73f0AJUZPyGpWuK5dxvndfl2pQ0kyzHfRp8HnFcFqWzcv-Hsjnwz_T0fB8hOXUZtg0TKmqQosCxlliltmJnmedoV76-a7M3F9n1Yr63tQVVYQrCO5zNA2oChiZSUraUpOl7gg4Y3RBLYc426EmhN740w6LsvGrnQ.ZuOxT69jihfLZFKzJ-ApOOSyYO6TA7VxBaU2aG46_Ec&dib_tag=se&keywords=estojo+escolar&qid=1769813082&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 3.0,
           "titulo": "ESTOJO MULTIUSO LINHO SERENA SORTIDO",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813082168_0",
+          "titulo": "Estojo Necessaire Bag organizador multiuso cor preto Everbags",
+          "preco": 32.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=soL%2FMQlzquEmbTs%2FaesYbjnPNzO9FT2pC31jtoc9qnNEq3kRLsocHoGRXvnbyRaW6dlBHvd1iIgy3%2B7rBKCqTsVze6dKgclGRJOWpTMnkX1gwtd%2FOPxpBepsyQFiBOuaS7VhsESDMVZSljJ4RXFnpQBolma%2FXR3ZwwtVuUsqp5CAr9Rn59V7ChNNBCiDIKk1gtFO90K42e3rbIs5EepKQreJt1fDFAfsWZtblH6fdEdVqEchgY7Ovr%2FRGw48%2BL5b4qjz%2FGwCi2ASA%2BQ0E9z%2BfFDUqIgEzt%2BKTe1MjvhVIZTDQQ3UV0Hv3%2B%2Bx4BRaek9ACmfJV9L3tuYkuG9ACgTnrCPj8Ish0b5TONNs17H84zyjcaGuy6e3uNF4I%2BVewpPomhLAhM%2BtsuOMOSyz103wrivV%2Fxxj%2Fwz%2Fi3VO1C9lSp3UWAPERN%2FGQI%2F0qQQTqYX9xHpjsm5QBntq1IfVo0WjftGdQZR5I9rZ8au1eKIj523eFGnZIBQ5Zu8EkzwJ4sxgeBPtBrjLVRVcP%2FtvHrWUSg4IHFjD%2FYEqofI%2B0ivJeTquCHG6JnH8lDqVom01HwnwWDRhc7koCvE%2FTSVfnfFaht7tqN%2F%2F9D49GBzrbgy9PVFF6vOL7emkogFP%2FatO7%2BS1dtrntrIrMVz1RcBbYrfjk0knuGPvI1XpIIXlo%2Bk9B9Co9o236NIrV8D07yR%2BaLELrgwVncbO89Ce%2FIET0b8CBeS6XSWwOf6W%2F78Kc04u8gJoiknsAo%2F14MUB2NoT0m8dvGkrhq%2FY5uonUG5Uvpr0r5zEvbmzAMF030JM1wC%2FT%2F5Lc9Z5ByhT8Hy0pJnF2s2%2BxXQW8HJesDobI2jbKm%2FMh5DT6r6s%2BSV8X21KSpOEe2bWByH9KKoVkY516sG2SV7a9%2Bb87D%2BgJKPxvs%2BKvpHaxJUxlqW20W9RvleouZLHYYLyhfzlBDIvOBVpjoTtYPGEyJRArvo%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB36306612&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=6eb54202-0757-4748-885d-d79f804d3fa4&wid=MLB3941676251&sid=search&matt_tool=188269638&matt_word=estojo+escolar&matt_source=guiadodesconto&tracking_id=gdd-1769813082&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_880975-MLA100084821183_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:40:07.419143"
+      "timestamp": "2026-01-30T19:44:58.550396"
     }
   },
   "fone bluetooth": {
-    "timestamp": 1769726428.056259,
+    "timestamp": 1769813122.320179,
     "resultado": {
       "termo_busca": "fone bluetooth",
       "melhor_produto": {
         "titulo": "Borrachas Silicone Ear Tip Earpads Ear Pads Samsung Gear Circle Bluetooth Earphone SM-R130)) 1 PAR ((((PRETO))",
         "preco": 12.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjElD5Jx3y6l8XJdkUx2rDWXvRNUJSvcFr1j9r4ApszAcVczEwb8XkYr_eGKM-X3xMFhaVdvxZ_olLr_B5SSshwYm1-6z2ekuQR8or19mukcxS3BWRVtvhEsfEWKIfTJfKL_R5cmI6FsFUrIUPHyvcNbSQ35WGMPakz6jMbZdtp08.jZ9y3CZ7dsnkMZdDHrHy7KvmAFw6ttYeNpLoQ6ZvNWU&dib_tag=se&keywords=fone+bluetooth&qid=1769726417&sr=8-2&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjjUsL4uIBoXur06Mi77JNtDsonry2qgB8lE2vhVz17nZWp1QHMAxuc_3QpSY4bhYxtpiXrXrtrCbb5T3GRjC4RRjuGOCtsrXgaoku8sDrmiFyA8KqPb1FGFtfeAGDaUq9iBDVEdBRrNa_fIXyNUtOK9IE6mOH8SwX0pl11gpghfk.Dihen35BqNdZ7FpVZn_EkNhAlIUOkBkjpFnoLc-rroo&dib_tag=se&keywords=fone+bluetooth&qid=1769813109&sr=8-2&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/51x-AVqGJUL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -781,12 +821,12 @@
           "titulo": "Fone de Ouvido Bluetooth Sem Fio M. Mouse + Relógio Infantil Analógico P/Crianças  - Divertido e Funcional",
           "preco": 129.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/7fTxjootMM",
+          "link_afiliado": "https://s.shopee.com.br/6AfBYHmcvI",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98o-m5erqljgqnqqff",
           "disponivel": true
         },
         {
-          "id": "amz_61190",
+          "id": "amz_66685",
           "title": "Borrachas Silicone Ear Tip Earpads Ear Pads Samsung Gear Circle Bluetooth Earphone SM-R130)) 1 PAR ((((PRETO))",
           "price": 12.0,
           "old_price": "14.40",
@@ -794,28 +834,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/51x-AVqGJUL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjElD5Jx3y6l8XJdkUx2rDWXvRNUJSvcFr1j9r4ApszAcVczEwb8XkYr_eGKM-X3xMFhaVdvxZ_olLr_B5SSshwYm1-6z2ekuQR8or19mukcxS3BWRVtvhEsfEWKIfTJfKL_R5cmI6FsFUrIUPHyvcNbSQ35WGMPakz6jMbZdtp08.jZ9y3CZ7dsnkMZdDHrHy7KvmAFw6ttYeNpLoQ6ZvNWU&dib_tag=se&keywords=fone+bluetooth&qid=1769726417&sr=8-2&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjjUsL4uIBoXur06Mi77JNtDsonry2qgB8lE2vhVz17nZWp1QHMAxuc_3QpSY4bhYxtpiXrXrtrCbb5T3GRjC4RRjuGOCtsrXgaoku8sDrmiFyA8KqPb1FGFtfeAGDaUq9iBDVEdBRrNa_fIXyNUtOK9IE6mOH8SwX0pl11gpghfk.Dihen35BqNdZ7FpVZn_EkNhAlIUOkBkjpFnoLc-rroo&dib_tag=se&keywords=fone+bluetooth&qid=1769813109&sr=8-2&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjElD5Jx3y6l8XJdkUx2rDWXvRNUJSvcFr1j9r4ApszAcVczEwb8XkYr_eGKM-X3xMFhaVdvxZ_olLr_B5SSshwYm1-6z2ekuQR8or19mukcxS3BWRVtvhEsfEWKIfTJfKL_R5cmI6FsFUrIUPHyvcNbSQ35WGMPakz6jMbZdtp08.jZ9y3CZ7dsnkMZdDHrHy7KvmAFw6ttYeNpLoQ6ZvNWU&dib_tag=se&keywords=fone+bluetooth&qid=1769726417&sr=8-2&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Borrachas-Silicone-Earpads-Bluetooth-Earphone/dp/B0796XR8QP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.1VQeA1aAxwj9jLIgefqffBe5qZFBc-oGIJMVi606z53Bc71ocvnJfiMQ2hLr85WeZ5lk0eJDXpEtjfQX-eCwAezxvEoClshajYinAkTSB7dBCyct3NGr83OfjIwkNQqjjUsL4uIBoXur06Mi77JNtDsonry2qgB8lE2vhVz17nZWp1QHMAxuc_3QpSY4bhYxtpiXrXrtrCbb5T3GRjC4RRjuGOCtsrXgaoku8sDrmiFyA8KqPb1FGFtfeAGDaUq9iBDVEdBRrNa_fIXyNUtOK9IE6mOH8SwX0pl11gpghfk.Dihen35BqNdZ7FpVZn_EkNhAlIUOkBkjpFnoLc-rroo&dib_tag=se&keywords=fone+bluetooth&qid=1769813109&sr=8-2&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 12.0,
           "titulo": "Borrachas Silicone Ear Tip Earpads Ear Pads Samsung Gear Circle Bluetooth Earphone SM-R130)) 1 PAR ((((PRETO))",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813109557_0",
+          "titulo": "Fone Ouvido Sem Fio Bluetooth Eletro Mex J-60w, Compacto E Confortável, Graves Poderosos E Impactantes Bluetooth 6.0, 30h De Reprodução Resistência, Corrida, Sono, Preto",
+          "preco": 66.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=%2BsHQ%2BxYAXWX4YsgCRmH%2FYSxCzItzthMmcc7lcAkF%2B0KNAFUQqgFsngV3TaL7rpytnv9FnqiYKL52ineICxzMFS%2FpXgFW%2F2CLPrL9TfkkRwviEkK1c9LZAapGw6TdT%2FFmSHsXTXzOrkZm%2Fph%2FaR4wYj%2BN%2FWYX3yb%2FLPR659JexQsAJgCgps22PL2xC9UmJhhIMpnRRzDVOLZdIfF4P9aGV%2FTrueAbJap8O5am5GEoB1bNvJBrLLIRfdtBDRbIbtGPdjS%2FFrPfGGQp6IqdU1jJdhJAE9aiqpNKQUb%2BuVPib28Ta1aFDSCJnnuEPP60akOp%2Fam0qQr3cESmdbHNd5S0JLyRm7cA3AWxIbBTLRpdacxjLpv3gMWNYaZjhvnlMAsrWflz302bnD76SZuRJ1ndXVSsaQ6wfr%2FJMlOvW7ucH%2FPp%2Fh5V7PnRIop38uubKveyg0kAy023qyjkE%2BFGV%2BktxVSQPfOmoz8RkT%2BK30i7byJ3MfNQd3xDiLiwZXVAsnmm2hEtwfea78Of3ya2kaIJn8s9XBYC90pbYbMXUcG869PoPGWHnJJXwmSSHOdwOor8SsQQUPTC561z8grBHBxpHy3Ix9bgvO7vzBEgEThqDYodTEEzyP2Tij7AFlObnXlOkAv1WmRQUlAKmBSZHOFkzN8xltypXaGwBcPne7WkeukzU%2BX%2B5KIA6X1%2FsDVQkUMS0SIQO4twTQgpz%2B57ovpZWUGn2%2BRHc19Bp4eVAs4aAJGEQIfqRu4ozevTW9hZKK621e417KSK%2BaRzEnigUOxOkjDDKD1wWk%2FFYCVcb4C5CKbRqfDFAtT0lNzyC90SSZ5zDfz8xOisJNLPpLlHHI1qNQ5UatqaxR1dtNwFwNc1NVqGdlrVbto%2BNdHgVjj0oPCYfRmBS4nlgTN5KwMmZwRV9NJL3w%2F9ZYELnOQH21vUVG%2B1MTAR9j2rAKT7%2FapLDKI4LkuZkmMMtU5jN0kTkFUS4KhrNe%2FmLMZEmIuhOS%2BmQLaVwhhPPKbnMpc%2F95UU9gH%2BZ2FlSQhb6DjL1rwu%2FBEfLxDBRpTjAQb7H08gDKkrCfS9hkIqXzjseJguxY78%2F32IJGUIR3HRrw%3D%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB64539596&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=b586786f-2394-4822-b707-53843a50c2a6&wid=MLB6182758244&sid=search&matt_tool=188269638&matt_word=fone+bluetooth&matt_source=guiadodesconto&tracking_id=gdd-1769813109&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_963252-MLA105262306647_012026-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:40:28.056252"
+      "timestamp": "2026-01-30T19:45:22.320161"
     }
   },
   "mouse gamer": {
-    "timestamp": 1769726446.212833,
+    "timestamp": 1769813143.138636,
     "resultado": {
       "termo_busca": "mouse gamer",
       "melhor_produto": {
         "titulo": "Mouse Pad Ergonômico com Apoio de Punho em Gel, Reduz a Tensão na Mão, Antiderrapante, Minimalista, Escritório, Gamer, Trabalho, Linha Super Premium - Cores Sortidas Preta ou Azul",
-        "preco": 9.0,
+        "preco": 7.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_3?dib=eyJ2IjoiMSJ9.mRpM7aZ9Smyr0CFBTocbJ8HnX5JpZwlMPSWpTyb0h_mfZrLZnfPDAvZs6lwlJ0j762yQffvM6UxP4exInB_j9XXXOTx9-E-fsGpNHzUhDfFWPODqq0FHamCEIAxxJ0kWPod4I0RcgLOIXGx2wH_LPueVlMyXp6OHBG_DqITG1o18PczEsyx0efI8olbbLNZh_n6DAz41gs66tJha4baPUvv4Ob1z0gJYY0Y1rT4Wy-rB2hDeuSrpGUddlG5V5d56nqtZiLRui3-X0-vU-wRjGUjMbctC2n4VkKrK9TOoO7c.B-iQW-Vqyt-TlJ3Qisj4OCiCeI4sc4M0IBiDZtyZe5w&dib_tag=se&keywords=mouse+gamer&qid=1769726437&sr=8-3&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_1?dib=eyJ2IjoiMSJ9.Uurw3rQjBj8sSASASTsiUW8L-RxwVR-cX-zBsVqLrXyfZrLZnfPDAvZs6lwlJ0j7w1XAxkKTYAi9KNo_AQslZi-zdullwVTqERd4O5lHHM7xrUkN9ACx2qxuwlel0pYMDh3Ir1f1dSLQeBSPSiixbx7HQjDYk7vndonqiTM333qCEauRsmT5fJRG7sVkKU6X3ZRGrccca_fru5sE5pwae4G2YG3zAYigkimKPvm13g5rvncSvpA3UW5t16yRpeGm72rdSFgYmld_AXS4Q364mWvhplIGfDOyKORhapo0bvs.EQvD2JATR_KdLkFcvKf9EN7IxScbZ1XNe_B0YDvNDSw&dib_tag=se&keywords=mouse+gamer&qid=1769813132&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/31OL0Skm-vL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -824,42 +874,52 @@
           "titulo": "Mouse Gamer RGB 4 Botões 1000 DPI JK 1604A R8",
           "preco": 49.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/9zrsW864Xp",
+          "link_afiliado": "https://s.shopee.com.br/2qOjaBglwZ",
           "imagem": "https://cf.shopee.com.br/file/d276ccfe78b8e6501ca070be314d55f1",
           "disponivel": true
         },
         {
-          "id": "amz_83120",
+          "id": "amz_66746",
           "title": "Mouse Pad Ergonômico com Apoio de Punho em Gel, Reduz a Tensão na Mão, Antiderrapante, Minimalista, Escritório, Gamer, Trabalho, Linha Super Premium - Cores Sortidas Preta ou Azul",
-          "price": 9.0,
-          "old_price": "10.80",
+          "price": 7.0,
+          "old_price": "8.40",
           "discount": 20,
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/31OL0Skm-vL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_3?dib=eyJ2IjoiMSJ9.mRpM7aZ9Smyr0CFBTocbJ8HnX5JpZwlMPSWpTyb0h_mfZrLZnfPDAvZs6lwlJ0j762yQffvM6UxP4exInB_j9XXXOTx9-E-fsGpNHzUhDfFWPODqq0FHamCEIAxxJ0kWPod4I0RcgLOIXGx2wH_LPueVlMyXp6OHBG_DqITG1o18PczEsyx0efI8olbbLNZh_n6DAz41gs66tJha4baPUvv4Ob1z0gJYY0Y1rT4Wy-rB2hDeuSrpGUddlG5V5d56nqtZiLRui3-X0-vU-wRjGUjMbctC2n4VkKrK9TOoO7c.B-iQW-Vqyt-TlJ3Qisj4OCiCeI4sc4M0IBiDZtyZe5w&dib_tag=se&keywords=mouse+gamer&qid=1769726437&sr=8-3&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_1?dib=eyJ2IjoiMSJ9.Uurw3rQjBj8sSASASTsiUW8L-RxwVR-cX-zBsVqLrXyfZrLZnfPDAvZs6lwlJ0j7w1XAxkKTYAi9KNo_AQslZi-zdullwVTqERd4O5lHHM7xrUkN9ACx2qxuwlel0pYMDh3Ir1f1dSLQeBSPSiixbx7HQjDYk7vndonqiTM333qCEauRsmT5fJRG7sVkKU6X3ZRGrccca_fru5sE5pwae4G2YG3zAYigkimKPvm13g5rvncSvpA3UW5t16yRpeGm72rdSFgYmld_AXS4Q364mWvhplIGfDOyKORhapo0bvs.EQvD2JATR_KdLkFcvKf9EN7IxScbZ1XNe_B0YDvNDSw&dib_tag=se&keywords=mouse+gamer&qid=1769813132&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_3?dib=eyJ2IjoiMSJ9.mRpM7aZ9Smyr0CFBTocbJ8HnX5JpZwlMPSWpTyb0h_mfZrLZnfPDAvZs6lwlJ0j762yQffvM6UxP4exInB_j9XXXOTx9-E-fsGpNHzUhDfFWPODqq0FHamCEIAxxJ0kWPod4I0RcgLOIXGx2wH_LPueVlMyXp6OHBG_DqITG1o18PczEsyx0efI8olbbLNZh_n6DAz41gs66tJha4baPUvv4Ob1z0gJYY0Y1rT4Wy-rB2hDeuSrpGUddlG5V5d56nqtZiLRui3-X0-vU-wRjGUjMbctC2n4VkKrK9TOoO7c.B-iQW-Vqyt-TlJ3Qisj4OCiCeI4sc4M0IBiDZtyZe5w&dib_tag=se&keywords=mouse+gamer&qid=1769726437&sr=8-3&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Ergon%C3%B4mico-Antiderrapante-Minimalista-Escrit%C3%B3rio-Trabalho/dp/B0F48GRKW3/ref=sr_1_1?dib=eyJ2IjoiMSJ9.Uurw3rQjBj8sSASASTsiUW8L-RxwVR-cX-zBsVqLrXyfZrLZnfPDAvZs6lwlJ0j7w1XAxkKTYAi9KNo_AQslZi-zdullwVTqERd4O5lHHM7xrUkN9ACx2qxuwlel0pYMDh3Ir1f1dSLQeBSPSiixbx7HQjDYk7vndonqiTM333qCEauRsmT5fJRG7sVkKU6X3ZRGrccca_fru5sE5pwae4G2YG3zAYigkimKPvm13g5rvncSvpA3UW5t16yRpeGm72rdSFgYmld_AXS4Q364mWvhplIGfDOyKORhapo0bvs.EQvD2JATR_KdLkFcvKf9EN7IxScbZ1XNe_B0YDvNDSw&dib_tag=se&keywords=mouse+gamer&qid=1769813132&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
-          "preco": 9.0,
+          "preco": 7.0,
           "titulo": "Mouse Pad Ergonômico com Apoio de Punho em Gel, Reduz a Tensão na Mão, Antiderrapante, Minimalista, Escritório, Gamer, Trabalho, Linha Super Premium - Cores Sortidas Preta ou Azul",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813132783_0",
+          "titulo": "Mouse Sem Fio Recarregável Rgb Maxnova Ergonômico Usb Gamer Branco",
+          "preco": 19.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=QcO%2FhkWYPGgzpeFMMDP2clUIAGeapG2pWBjLw0iF%2FQGZTF5Y59BHoiDt3MW4%2FyXEApoIvaVoEY%2FPIVofmM58yrju7O5AXfa9V7NQ1O%2F8Tdls8cbbCkaaSgwDJZyALilslbEEaSI87Kqca%2BKqtkr31zNsyEBCbZwihs5d58KIPlRYowT3cUKwFjcnzbj7sKa2kN0fc2T4w3yZnDWf7YqG14YGCV4njQPpif3nGtordwcpgxKWfyB6exrcy1SmKVkGw8EQZ7GgenHWmmbrykhtGlD%2B2JnPfLONOkNJ9Rq4uTMahi1tdXlE%2FpZZJfZvNrLHN4NOEO4VwRv8kEeZL6LbDFFNdRZ1EH%2FVkDUOcpbB9TE6L%2BI9xrbrO7GNT6MPr2qtILIOKT9kb98ScpbH3IfCCMiQ7UAZgWoZdtDN4aRCZ5l6F%2FNbvxXUbTTE0nCccNrzTB3FQ5Zz7S8iSMKreQbfSd6DLZQyil4P2UywSEKy9J5a0AnO1oJNTj%2FetrUCcE7hvvM4BktSZgP2gTCma6ttOnWmYNrEAn%2FICoEpKBGcRKZjHehG5ozVSt8CUByxIf%2B%2FINDwZuUk9S35cdMHW2CjI%2FQOrSa%2BHSeggHT9AEl3rVFaIYbuP87VBxvgwdPXI2tKEe%2FCuw6p6qbWE8Ily2msDjuZK20JVyhVaOWu%2BAGUAphx1Ors0j0LomfZ2EZS5yMS9Q91QRihyvIWKIS1NHFBYHmvktamOE3g3ER5zH%2B%2FrYe7asruvl9gwWtSoB3VWaCmO0xralgKZn%2FHrO0jFkiE93LfJY0AsKtKvqC6uXniOBFMA%2BS3HHikv%2BMnBgxlGOIBs%2BlosG4SY5C4wJDMaL874XLWOOj59xb%2FLyglnfvRZQs2suzpt8iifXrVvXmB89QofNiu6qTP1ijeQVL6gM%2FhQ2Vn26DS8%2BxnaZTg9eXw6AELcmzZgpsjJdYhQpIAcs%2BigMcljTs3cyFY#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB61226803&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=8f13bcb4-226b-4cd1-b467-38d22505d244&wid=MLB5671762048&sid=search&matt_tool=188269638&matt_word=mouse+gamer&matt_source=guiadodesconto&tracking_id=gdd-1769813132&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_897908-MLA99588739122_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:40:46.212826"
+      "timestamp": "2026-01-30T19:45:43.138625"
     }
   },
   "teclado gamer": {
-    "timestamp": 1769726465.250591,
+    "timestamp": 1769813165.892687,
     "resultado": {
       "termo_busca": "teclado gamer",
       "melhor_produto": {
-        "titulo": "5+ Teclado 5 Gamer Start 2.0 - Preto/Vermelho,",
-        "preco": 24.0,
+        "titulo": "Teclado Multimidia Daily USB ABNT II",
+        "preco": 26.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Teclado-Gamer-Start-2-0-Vermelho/dp/B09XJH5ZFJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.YQIn2E27JXHoHBswgBqhTFaVW1E7LfZ1C7y222T2PQsd7oQglL5hQr9I7sgyCe0KKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.A29QsxnEf294DxtdUkjhyjYfA9PnzkJ4CkUvy3jMkLw&dib_tag=se&keywords=teclado+gamer&qid=1769726456&sr=8-1&tag=guiadodesco00-20",
-        "imagem": "https://m.media-amazon.com/images/I/51NcCbZtmtL._AC_UL320_.jpg"
+        "link": "https://www.amazon.com.br/Teclado-Teclas-Multim%C3%ADdia-Preto-Abnt2/dp/B08LSR83X2/ref=sr_1_3?dib=eyJ2IjoiMSJ9.n38cRuSjIWOuNgiYfCDCEIQBpJZcXe4AhUDDcQFQuvKt-fNmqgaw44dNcaXtAOiOKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.iLA-dJ0KoZb6-tvA7fEALPBt9EIggjqFaHvLpgflLY8&dib_tag=se&keywords=teclado+gamer&qid=1769813155&sr=8-3&tag=guiadodesco00-20",
+        "imagem": "https://m.media-amazon.com/images/I/51jMDst+blL._AC_UL320_.jpg"
       },
       "todos_produtos": [
         {
@@ -867,41 +927,51 @@
           "titulo": "Kit Mobilador Gamer Barato RGB 6 Itens Para Celular Mouse Teclado Mecanico Mouse Pad Tripé HUb USB",
           "preco": 29.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/8zzLKJVKse",
+          "link_afiliado": "https://s.shopee.com.br/W0onvJyqe",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-81z1k-mfyqv4px5yps98",
           "disponivel": true
         },
         {
-          "id": "amz_68929",
-          "title": "5+ Teclado 5 Gamer Start 2.0 - Preto/Vermelho,",
-          "price": 24.0,
-          "old_price": "28.80",
+          "id": "amz_33083",
+          "title": "Teclado Multimidia Daily USB ABNT II",
+          "price": 26.0,
+          "old_price": "31.20",
           "discount": 20,
           "store": "Amazon",
           "category": "tech",
-          "image": "https://m.media-amazon.com/images/I/51NcCbZtmtL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Teclado-Gamer-Start-2-0-Vermelho/dp/B09XJH5ZFJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.YQIn2E27JXHoHBswgBqhTFaVW1E7LfZ1C7y222T2PQsd7oQglL5hQr9I7sgyCe0KKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.A29QsxnEf294DxtdUkjhyjYfA9PnzkJ4CkUvy3jMkLw&dib_tag=se&keywords=teclado+gamer&qid=1769726456&sr=8-1&tag=guiadodesco00-20",
+          "image": "https://m.media-amazon.com/images/I/51jMDst+blL._AC_UL320_.jpg",
+          "link": "https://www.amazon.com.br/Teclado-Teclas-Multim%C3%ADdia-Preto-Abnt2/dp/B08LSR83X2/ref=sr_1_3?dib=eyJ2IjoiMSJ9.n38cRuSjIWOuNgiYfCDCEIQBpJZcXe4AhUDDcQFQuvKt-fNmqgaw44dNcaXtAOiOKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.iLA-dJ0KoZb6-tvA7fEALPBt9EIggjqFaHvLpgflLY8&dib_tag=se&keywords=teclado+gamer&qid=1769813155&sr=8-3&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Teclado-Gamer-Start-2-0-Vermelho/dp/B09XJH5ZFJ/ref=sr_1_1?dib=eyJ2IjoiMSJ9.YQIn2E27JXHoHBswgBqhTFaVW1E7LfZ1C7y222T2PQsd7oQglL5hQr9I7sgyCe0KKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.A29QsxnEf294DxtdUkjhyjYfA9PnzkJ4CkUvy3jMkLw&dib_tag=se&keywords=teclado+gamer&qid=1769726456&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Teclado-Teclas-Multim%C3%ADdia-Preto-Abnt2/dp/B08LSR83X2/ref=sr_1_3?dib=eyJ2IjoiMSJ9.n38cRuSjIWOuNgiYfCDCEIQBpJZcXe4AhUDDcQFQuvKt-fNmqgaw44dNcaXtAOiOKjZxdonHm0JkHrHKc_Ehr2yZ3jGK7shzdM9dTpSPdhCGSQOv5Fu_BQCdRzezzCXl_6vuIJ5GDcBdhlswI92V06tm5fdDtBc9ddPpkXyhoxNVlXOxOvQ7WwAU5cwwvpYiA_0-nklYQj4udSNDwFlbTpm9pBJ_0tgEeq4cVHnopdcZ6kwdkp5E7jIyGyPe17msou1xSLDGZYsJ0VCHKe4tfYpBCiqgxJQ7vsqN00nCsXk.iLA-dJ0KoZb6-tvA7fEALPBt9EIggjqFaHvLpgflLY8&dib_tag=se&keywords=teclado+gamer&qid=1769813155&sr=8-3&tag=guiadodesco00-20",
           "disponivel": true,
-          "preco": 24.0,
-          "titulo": "5+ Teclado 5 Gamer Start 2.0 - Preto/Vermelho,",
+          "preco": 26.0,
+          "titulo": "Teclado Multimidia Daily USB ABNT II",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813153057_0",
+          "titulo": "Teclado Gamer OEX TC303 Flat RGB Português Anti-Ghosting Membrana Preto",
+          "preco": 85.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=AEN71A0mHq6jGJ%2BKifxPMcGTZiCDnXw6%2FuO9yd17LBdn0IP%2BRiRpTjaUqeka6D5sJqMRIJ6bgAwA56fg%2FXLaMgJFDUVbBcpKi4Y0lc1JVm8oFfinGipfWyQHrENVCO6Pg75hbmHr7MDm17Tz7Wogan0zSSM6fPAL9GwBRJ7e5H1x3bI7Pxv%2BFSvNPSdquuZIW4OtSxLSV2QmJWJc7PqWoKwSQ3amtvg081zc5xuENHgjid8OGEd%2BZda%2Fd9i1s1wDBt9MPF5EahDdNUDzB87DkNcirmCqVbNt%2BAfBFOnt%2FuFqjm3CFQWtuTbv7KTQdr1hxWvvpwKD3QOVTrN2x0HKvn6nDuOF4GB9QafvcBY0riepunPp6fPyT9flClerLHymzAAONV1Mc4HjP5LIqpRH8jxAgFfpPF6USbEqsOTb23ujJ%2BS2fxoeJR8yyw1GQqFC%2BSyLm4wJoXOBR53TkLb5L%2FjzsDAHwFe1v%2BsysPlGlyt88b0PNffSkgsvkJwIMdmBEbooUGKTu05y5Fs3yEExyGPYY92U39fjwY2FlI0K99fPaCi9K0%2BAHAv0wtOmBdurcoeNma3lkfyNCCbAX0gfiz9VnjX09GlJZLJOvcLq%2FTzRm%2Fo6zDCtZy9EHsJC%2B9PGm%2BKXAzHQDO0FAm2bMr8DyHx1eo3V%2BMVu%2FplMJkpi8vRkNyRZHG%2BHatqoMuiUFaFwUwUxyjWjTQ8awInIcRxf2gEFQDQeCb%2Ft8q%2F8BR8OFyJMihXoKuObhVbA%2Fi7lsUvXD2ICllnec5Bwui51SccUOLfTkgiUrsZUbA7Ey46Q6p1LGNwgtDv6t5wpum7VlAgkUHTU6L5eueXWsQHGLmrAH82pY1AYfdQTz4gzEaEoj7FA8TGDQRAm0F1KkW7gXcAJkYhYvvJ5MUCU6oMR4MiLulHTEJE2g6RDy7l8yd2WysEQWwicykifrgZOt6gSzRZo4U9IakCcrqI54QqL#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB22476480&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=ff35eed6-3d0d-437f-9dd2-63ad43ac3bf4&wid=MLB6136381234&sid=search&matt_tool=188269638&matt_word=teclado+gamer&matt_source=guiadodesconto&tracking_id=gdd-1769813153&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_713267-MLA99995912609_112025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:41:05.250584"
+      "timestamp": "2026-01-30T19:46:05.892664"
     }
   },
   "air fryer": {
-    "timestamp": 1769726490.783701,
+    "timestamp": 1769813190.210655,
     "resultado": {
       "termo_busca": "air fryer",
       "melhor_produto": {
         "titulo": "Forma Cesta de Silicone Para Air Fryer Reutilizável Antiaderente Com Alça (cores variadas)",
         "preco": 3.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26X2VsoG4fYQ-QyQEDdgYL1LnT3y-j6QyPXHDYyWDHN1WCrK4S2AvTvvkMV1VKybT53J7sNLQngzbXpvVSAiZnWncftqR5Icx_l3m_QdXR6SG2i_afY0XypSuaBAfGpnT-LiwiXFbec6yKWMzL8eBXIF3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.CSdpJenh2t1eG0EZ12Yf5agnsYPRL9Hmh84njhVM60c&dib_tag=se&keywords=air+fryer&qid=1769726481&sr=8-2&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26cPKMAUKu2e9hr0uDqPwhWnRxFTXl0sZnVdt1iJHq2gZVOuYue8CvX_iLuk7qV4HHYQUAxr7_h2sERQRK9rvBjs-WQkod3Hn0q8OYnhkxEjovvifIiWFoKFJuH1MMCwDCMa4MoAu0EJlaq1foF-2uSZ3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.SPE7SbntpQBddGgFWKJXpAvButwcNbPnSlRITwvpEt0&dib_tag=se&keywords=air+fryer&qid=1769813177&sr=8-2&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/41cR+ESDJ+L._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -910,12 +980,12 @@
           "titulo": "Kit Até 3 Spray Limpa Air Fryer 250ml – Dissolve gordura, seguro p/ antiaderente, fácil e eficaz.",
           "preco": 39.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/6VI0Lk0W6t",
+          "link_afiliado": "https://s.shopee.com.br/8V36KeOSMM",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98o-mdqzvus9ay8he0",
           "disponivel": true
         },
         {
-          "id": "amz_80528",
+          "id": "amz_64329",
           "title": "Forma Cesta de Silicone Para Air Fryer Reutilizável Antiaderente Com Alça (cores variadas)",
           "price": 3.0,
           "old_price": "3.60",
@@ -923,28 +993,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/41cR+ESDJ+L._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26X2VsoG4fYQ-QyQEDdgYL1LnT3y-j6QyPXHDYyWDHN1WCrK4S2AvTvvkMV1VKybT53J7sNLQngzbXpvVSAiZnWncftqR5Icx_l3m_QdXR6SG2i_afY0XypSuaBAfGpnT-LiwiXFbec6yKWMzL8eBXIF3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.CSdpJenh2t1eG0EZ12Yf5agnsYPRL9Hmh84njhVM60c&dib_tag=se&keywords=air+fryer&qid=1769726481&sr=8-2&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26cPKMAUKu2e9hr0uDqPwhWnRxFTXl0sZnVdt1iJHq2gZVOuYue8CvX_iLuk7qV4HHYQUAxr7_h2sERQRK9rvBjs-WQkod3Hn0q8OYnhkxEjovvifIiWFoKFJuH1MMCwDCMa4MoAu0EJlaq1foF-2uSZ3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.SPE7SbntpQBddGgFWKJXpAvButwcNbPnSlRITwvpEt0&dib_tag=se&keywords=air+fryer&qid=1769813177&sr=8-2&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26X2VsoG4fYQ-QyQEDdgYL1LnT3y-j6QyPXHDYyWDHN1WCrK4S2AvTvvkMV1VKybT53J7sNLQngzbXpvVSAiZnWncftqR5Icx_l3m_QdXR6SG2i_afY0XypSuaBAfGpnT-LiwiXFbec6yKWMzL8eBXIF3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.CSdpJenh2t1eG0EZ12Yf5agnsYPRL9Hmh84njhVM60c&dib_tag=se&keywords=air+fryer&qid=1769726481&sr=8-2&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Forma-Silicone-Reutiliz%C3%A1vel-Antiaderente-variadas/dp/B0BZ9R3JJC/ref=sr_1_2?dib=eyJ2IjoiMSJ9.Yqlu6huS1ZDgpHV19h-26cPKMAUKu2e9hr0uDqPwhWnRxFTXl0sZnVdt1iJHq2gZVOuYue8CvX_iLuk7qV4HHYQUAxr7_h2sERQRK9rvBjs-WQkod3Hn0q8OYnhkxEjovvifIiWFoKFJuH1MMCwDCMa4MoAu0EJlaq1foF-2uSZ3sD7RdsFFH0acSYaps1sO4e1spM00xbDvTE9JUeR5-uSKfTGikKFQCWQDE45yx-lRdzyPDfkQHCNV7zpk37KZb7fiK3eW4bEGUSfouLoYK5UFwU5GKyEqBM_VNxVH-bE.SPE7SbntpQBddGgFWKJXpAvButwcNbPnSlRITwvpEt0&dib_tag=se&keywords=air+fryer&qid=1769813177&sr=8-2&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 3.0,
           "titulo": "Forma Cesta de Silicone Para Air Fryer Reutilizável Antiaderente Com Alça (cores variadas)",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813177100_0",
+          "titulo": "Fritadeira Air Fryer 4,5l Widemax Com Interior De Alumínio 1500w Midea",
+          "preco": 256.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=cofCZE8LkXzcG4Ju2WZ0PyEydYZlDVavsIa0XzviKMPXSWH5%2BmAeqzcrp2%2Bxze77wpg3a4NEYztM5AXIttDJpIfn00rI2S0Blw%2B%2BQCUZeF8M%2F%2BS2MSnIn5pLWZ89oT42tBZKtTkZ9yxVVaztgKP5grvEUqLiszj%2BpzQe7ZRNFgfXecBy0AmXKkCBM2y4%2FLmccM4aOLSW%2BnfyB%2FNLrBBsZ1GZkA%2FWOh4I1Gk05%2BaoddB6I8xum2QaLo%2FpsFs0q3kGWycPW53ky9ZNUet%2FXs1TEPuw25%2Bje8Ea0crxJ5CC7OrLDwyHSis%2BJw9gPUonEXxi7B%2F6ML6npMudEew3Dr3Lw9qNFKKiT0IuFR8Povv%2F1CpIHEUpGRGuMW28HcpKhW6aaZHZaDRW9tNrBpNEjP08CVhX0aIa%2FMa4A4no0fmTKH%2FQIwwEtCCfTOUa3dhu7zIjSAcJoWoGq8HesrzG80n3RLbv42rb5SGKzeJw%2BxJjfEHSgOERMZVunPTEf9DnaNiwTM8nX91PA2XKgJTzXTrjMjsMOn9D22Lk51AhQNHtuFea85cEfcuixuIr0TYg9q68StCO9EpIfPqnd7%2FWR3elS57ddELLsBEuSAYHkyYCLHTkWwS68%2FD1Ko4t0qde602yzac37DFBPpwpFgz0%2BQUfb2pYF9aqvrzlttGP6NrLRoBZs7lV0kJA9WaODnk4USz9BQijU8RiZj5K2KP5Z587f5kG5dFM9Bnp7zdl0BYQxbSHBV2Xq2GsPTuq%2BjmiT8n0poIjerN%2FaMMycehtgh2plxx4VmxRePiALljFHevtP36dLPGHt9kqtC8aVZnjv0FKFlhpITHWTAq0Pg86UvEE6TNewDxr7Vjvjt5uqHa7TRpLQdmnlFA0YdfDHTNHkh63foUdpZPcq7LvpiUEN6nuVuAbKjT93c8wTqqkak%2Bhadth4gQEQ%2FDfONZ90oIHiIKwGJMCcKNibPRqQTpT8Q%3D%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB51032488&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=8b0567a5-e025-45ff-b550-b2b820bf04d6&wid=MLB5457116760&sid=search&matt_tool=188269638&matt_word=air+fryer&matt_source=guiadodesconto&tracking_id=gdd-1769813177&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_733418-MLA99504461002_112025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:41:30.783684"
+      "timestamp": "2026-01-30T19:46:30.210639"
     }
   },
   "liquidificador": {
-    "timestamp": 1769726512.188877,
+    "timestamp": 1769813213.360437,
     "resultado": {
       "termo_busca": "liquidificador",
       "melhor_produto": {
         "titulo": "Liquidificador, POLIPLAC",
         "preco": 12.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKSStxSomO_kHRIvpaGcGI1oVByVyKU5MZ3DmOOHHx5KdA1NodrK1VO39PvqMIttUfis3gtdEX990x0Cae3Ga6sPXh57YYYrAcZMop7x4NiECvpH5erK2ZNNYAIQUZiHQZ5TkMWxJ5Jk-TLTePApgN7Z13fddUDiECxTC1waBwn98ItzkA1fdAIHWS2GPhiGdXIcENE_rS0UhKTzflWiwIA0.I1Pn8cz4z0CXrVdi1CNJKgB6DeyizXcWPXAizgbe5jI&dib_tag=se&keywords=liquidificador&qid=1769726501&sr=8-2&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKQzipDn-0z4uYalEYgm5C8xWAQCqVvFOhbtAVl4kchs-H--UFbBfgC74xH1YYZz08P3g-Lf6RMJXM_7crCwdSuQ-Z6KdGOOg9nWXfOuhPrzy2dEe32wwnP66k2gMEa5S6sZjaPSfYK4nVuJpR99HjtbLZ7eL9SG0Q7uDtU6JOlO_cYcg-6q3LtiJIPQbC6XccYcENE_rS0UhKTzflWiwIA0.-NmK-jOS4jxlE6VfwAsLrjuk2uhzIVV3totuk7umZ4A&dib_tag=se&keywords=liquidificador&qid=1769813201&sr=8-2&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/517bdDEvASL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -953,12 +1033,12 @@
           "titulo": "Espremedor Turbo Citrus Premium com Cone para LIMÃO E-02 Mondial Preto - 220V",
           "preco": 59.99,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/14WbpFaNm",
+          "link_afiliado": "https://s.shopee.com.br/2LSSzLcKDI",
           "imagem": "https://cf.shopee.com.br/file/7e6b72bf1365752d7fc03dfbb099306e",
           "disponivel": true
         },
         {
-          "id": "amz_92205",
+          "id": "amz_79118",
           "title": "Liquidificador, POLIPLAC",
           "price": 12.0,
           "old_price": "14.40",
@@ -966,28 +1046,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/517bdDEvASL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKSStxSomO_kHRIvpaGcGI1oVByVyKU5MZ3DmOOHHx5KdA1NodrK1VO39PvqMIttUfis3gtdEX990x0Cae3Ga6sPXh57YYYrAcZMop7x4NiECvpH5erK2ZNNYAIQUZiHQZ5TkMWxJ5Jk-TLTePApgN7Z13fddUDiECxTC1waBwn98ItzkA1fdAIHWS2GPhiGdXIcENE_rS0UhKTzflWiwIA0.I1Pn8cz4z0CXrVdi1CNJKgB6DeyizXcWPXAizgbe5jI&dib_tag=se&keywords=liquidificador&qid=1769726501&sr=8-2&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKQzipDn-0z4uYalEYgm5C8xWAQCqVvFOhbtAVl4kchs-H--UFbBfgC74xH1YYZz08P3g-Lf6RMJXM_7crCwdSuQ-Z6KdGOOg9nWXfOuhPrzy2dEe32wwnP66k2gMEa5S6sZjaPSfYK4nVuJpR99HjtbLZ7eL9SG0Q7uDtU6JOlO_cYcg-6q3LtiJIPQbC6XccYcENE_rS0UhKTzflWiwIA0.-NmK-jOS4jxlE6VfwAsLrjuk2uhzIVV3totuk7umZ4A&dib_tag=se&keywords=liquidificador&qid=1769813201&sr=8-2&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKSStxSomO_kHRIvpaGcGI1oVByVyKU5MZ3DmOOHHx5KdA1NodrK1VO39PvqMIttUfis3gtdEX990x0Cae3Ga6sPXh57YYYrAcZMop7x4NiECvpH5erK2ZNNYAIQUZiHQZ5TkMWxJ5Jk-TLTePApgN7Z13fddUDiECxTC1waBwn98ItzkA1fdAIHWS2GPhiGdXIcENE_rS0UhKTzflWiwIA0.I1Pn8cz4z0CXrVdi1CNJKgB6DeyizXcWPXAizgbe5jI&dib_tag=se&keywords=liquidificador&qid=1769726501&sr=8-2&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Poliplac-4187-Liquidificador-POLIPLAC/dp/B097J9N3K3/ref=sr_1_2?dib=eyJ2IjoiMSJ9.2XKoh9yBjiAtpAb3Y4QVVEUD6EcaSC9fbupTWHtyu8uY2y_LV_R7pMwllxVzEvpZVFcPnaSI1APdiZ8tH-2ZKQzipDn-0z4uYalEYgm5C8xWAQCqVvFOhbtAVl4kchs-H--UFbBfgC74xH1YYZz08P3g-Lf6RMJXM_7crCwdSuQ-Z6KdGOOg9nWXfOuhPrzy2dEe32wwnP66k2gMEa5S6sZjaPSfYK4nVuJpR99HjtbLZ7eL9SG0Q7uDtU6JOlO_cYcg-6q3LtiJIPQbC6XccYcENE_rS0UhKTzflWiwIA0.-NmK-jOS4jxlE6VfwAsLrjuk2uhzIVV3totuk7umZ4A&dib_tag=se&keywords=liquidificador&qid=1769813201&sr=8-2&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 12.0,
           "titulo": "Liquidificador, POLIPLAC",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813201364_0",
+          "titulo": "Liquidificador Electrolux Efficient EBL1000 2.7l 5 Velocidades Cinza",
+          "preco": 163.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=Og7upzMdK7JZIw0UoVOTCRKZNKny%2FlgSSgtDwkc8yTJBxQ99MN4iT7wNvFF7IQHNDALjms0rrgpO%2By4ysruhagMIynDQljD846ekiriR3VHvceVEC5oFce116taZtMv1yAHvyxfDRGV1xmN73AYP2e42%2BVINo0USRiwCV%2B%2Bm7rEA15XpVHkKb%2FXaLF0SDmJpGgU8%2F56%2BEB30v9%2FlQcTe5zEMXkdbXC9jvKF8evDcZsRJLvPDgsP2fJigToBhH4sAhjAXWtpkZ3ot4vLDUabJmC5WPDzpqJEHOZQ3Z%2FdIFOJtCllBzL7DYkkFRJ104oXXCC3uPFkgVjuCWWwunHTJFMLPssaIfcWC9z56wkG%2Bu2U73GyzVqwYr%2F5gDq%2FzH5%2Fn1jJSNzLEDf95Z%2BwWPkZVEhq8000G3OKDSfA%2FFrzxD2G2y%2F%2Bdchp6m2MxvqTm7O2EtyGLvWnn8L09f861ZtM9uHEthMTX8TW8ZadSWjvO6dfWhesCqK%2BVXU8H75kW2djMnnYL6wLeaVpSb7k13p1A2xZpkKloO%2F6YQAtnf8GTRQCooMygUpsfvyhru4DuQVfxx%2FCAPUFooR8tNdOEcCt2wYVJG2Tq0f2PRPUfrxqtb82X9YJrkock1c4TtTmJEZLju58g33w4QFpS1mBD6s9uDJ8lVcy%2F%2BxhK8KfZBL0WPPBa0QriRF2OX6Z8S7tdTaQHIaJfkifVrwTxy0JCwlRG7bSQVVI6lfa8bWFPuYBDrI0n3jNt8xHbyI0lxZ0NVwQ7Dvw%2Fi22lREB12IsDJtDoeCaVWJ6T00p26UJKcxsJzjPzaMUdwTeZ2WL4GacedjNKp2tlFyXbjOINMGPjR3FM66j5lnSJXj3B0RX2u%2Bb%2BX7iOvh7w8UXLk4k%2FsPkM8FTWS9DNCWHd0Ypqh1Z7qjThIgG2GHdXqifcYbS7%2BDdS3f5ZRWBJnf5W3zg7n2CYQtl9X6mSgKo%2FmbxbEK0%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB54846497&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=c69577ce-fc35-4bc6-9397-80e12007b099&wid=MLB5903050862&sid=search&matt_tool=188269638&matt_word=liquidificador&matt_source=guiadodesconto&tracking_id=gdd-1769813201&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_611730-MLA99499899026_112025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:41:52.188863"
+      "timestamp": "2026-01-30T19:46:53.360426"
     }
   },
   "panela elétrica": {
-    "timestamp": 1769726535.396249,
+    "timestamp": 1769813234.944714,
     "resultado": {
       "termo_busca": "panela elétrica",
       "melhor_produto": {
         "titulo": "CONTROLE DE TEMPERATURA MAGNÉTICO PANELA ELÉTRICA DE ARROZ",
         "preco": 23.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELCUWSRS-02zA7NnE4z53d9JNOSzrvWa1X-Qg4yzTNGSvt2ZEgXD2uCZjo5sKHj-K9a8nQSXzfypX0xGvI-MCSc8X6x2r_34MlcHr_Dla6imldViuU0RvSJChsEY0ulm8JWNT5OZWvHn4Rt6XZqQzL5NdGyCBSoxZ5B-UislHGejZxzshE7Za1K34S-5uesw3FLBTKyPYJ1c2RNQniAr1_cF6zs6-Ngx8K1Jz-WcPIJd6TqoZjTqDfuaGf7qN-2CWTbP93YfXBsBCcajlVaTflno.niF9LJnjFt_8Rt4av4UL8YarVRs5NIG7LolKiUZa_s4&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769726528&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELN1HQ0235Ak1EUrFNnRzz9IINP0EtJs2dIkw2bBi5ubPltnTyQZAiD5qxNbKct2uai3TvQSCuWi_d35XbxUL8U6f9UhosdJzYw9sGPyef9ukaG7srQYjH6gJuRGAk6yPMUEMcN8lXFGV-B_peMTok7lt0RglTb01wFkYHjAIT5um7ip0pfY_dZKvzRQVL_e8lgUMAnXE7KAsgwzPnIDFpB55QVFJDKujBucnr7QsjI7oqRGaDzOXsa7XhcKC86ZP8mdv8f68qxM3nicQbAGFhEA.CPJl-prY3OQwFjQoppjK9OLMoUkbMr0vN2y1g5m1OxE&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769813225&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/61wwVW5LBaL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -996,12 +1086,12 @@
           "titulo": "Panela de Pressão 4,5 Litros Alegrete + Brinde Frigideira Anti-Aderente",
           "preco": 129.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/2VlraRabEv",
+          "link_afiliado": "https://s.shopee.com.br/6pusLdu3Zg",
           "imagem": "https://cf.shopee.com.br/file/8f9454d18dd1809a98c63557475678f9",
           "disponivel": true
         },
         {
-          "id": "amz_38166",
+          "id": "amz_96765",
           "title": "CONTROLE DE TEMPERATURA MAGNÉTICO PANELA ELÉTRICA DE ARROZ",
           "price": 23.0,
           "old_price": "27.60",
@@ -1009,28 +1099,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/61wwVW5LBaL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELCUWSRS-02zA7NnE4z53d9JNOSzrvWa1X-Qg4yzTNGSvt2ZEgXD2uCZjo5sKHj-K9a8nQSXzfypX0xGvI-MCSc8X6x2r_34MlcHr_Dla6imldViuU0RvSJChsEY0ulm8JWNT5OZWvHn4Rt6XZqQzL5NdGyCBSoxZ5B-UislHGejZxzshE7Za1K34S-5uesw3FLBTKyPYJ1c2RNQniAr1_cF6zs6-Ngx8K1Jz-WcPIJd6TqoZjTqDfuaGf7qN-2CWTbP93YfXBsBCcajlVaTflno.niF9LJnjFt_8Rt4av4UL8YarVRs5NIG7LolKiUZa_s4&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769726528&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELN1HQ0235Ak1EUrFNnRzz9IINP0EtJs2dIkw2bBi5ubPltnTyQZAiD5qxNbKct2uai3TvQSCuWi_d35XbxUL8U6f9UhosdJzYw9sGPyef9ukaG7srQYjH6gJuRGAk6yPMUEMcN8lXFGV-B_peMTok7lt0RglTb01wFkYHjAIT5um7ip0pfY_dZKvzRQVL_e8lgUMAnXE7KAsgwzPnIDFpB55QVFJDKujBucnr7QsjI7oqRGaDzOXsa7XhcKC86ZP8mdv8f68qxM3nicQbAGFhEA.CPJl-prY3OQwFjQoppjK9OLMoUkbMr0vN2y1g5m1OxE&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769813225&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELCUWSRS-02zA7NnE4z53d9JNOSzrvWa1X-Qg4yzTNGSvt2ZEgXD2uCZjo5sKHj-K9a8nQSXzfypX0xGvI-MCSc8X6x2r_34MlcHr_Dla6imldViuU0RvSJChsEY0ulm8JWNT5OZWvHn4Rt6XZqQzL5NdGyCBSoxZ5B-UislHGejZxzshE7Za1K34S-5uesw3FLBTKyPYJ1c2RNQniAr1_cF6zs6-Ngx8K1Jz-WcPIJd6TqoZjTqDfuaGf7qN-2CWTbP93YfXBsBCcajlVaTflno.niF9LJnjFt_8Rt4av4UL8YarVRs5NIG7LolKiUZa_s4&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769726528&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/CONTROLE-TEMPERATURA-MAGN%C3%89TICO-PANELA-EL%C3%89TRICA/dp/B0FT4PSMJD/ref=sr_1_1?dib=eyJ2IjoiMSJ9.BKl9JAYPGGsPPyPKZiKELN1HQ0235Ak1EUrFNnRzz9IINP0EtJs2dIkw2bBi5ubPltnTyQZAiD5qxNbKct2uai3TvQSCuWi_d35XbxUL8U6f9UhosdJzYw9sGPyef9ukaG7srQYjH6gJuRGAk6yPMUEMcN8lXFGV-B_peMTok7lt0RglTb01wFkYHjAIT5um7ip0pfY_dZKvzRQVL_e8lgUMAnXE7KAsgwzPnIDFpB55QVFJDKujBucnr7QsjI7oqRGaDzOXsa7XhcKC86ZP8mdv8f68qxM3nicQbAGFhEA.CPJl-prY3OQwFjQoppjK9OLMoUkbMr0vN2y1g5m1OxE&dib_tag=se&keywords=panela+el%C3%A9trica&qid=1769813225&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 23.0,
           "titulo": "CONTROLE DE TEMPERATURA MAGNÉTICO PANELA ELÉTRICA DE ARROZ",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813223048_0",
+          "titulo": "Panela De Pressão Elétrica Walita Daily Philips Ri3103 Metal Cor Preto/Prata Frequência 60 Hz",
+          "preco": 519.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=dOVosZh9y4nwMSLbjrGY%2BauY5ZdCuOVwdYPR%2F75Sxo3l018MRUw2PjQQDeHLHTKHQxJfZqDoNvXKHxxF%2FtXHDUoPMm9Uuukngmpx3Eti89UqbfiQowYjvibVeS3zlJmo5TkXc7xm3ANeMLtxU1V9xBGcQzSR0Oa0HkxNTHO3ED38RyCH%2FCSotpWFoayGEBUtVuZ0%2BwvVlpJPmrZs5hv1KjjwaWt%2BZ1XRNtK0twpdeUyXC9kQj7%2BVFz1xOwP1WPqU3Zt6k7uJz4TYWclNk3WB0izErkE727mF3rbYGt%2B4PE2l9rhRzgxSCmfS4uSUZk7aMX1n%2BxFXsjfw3fl8Ugwt7pF1vC1GVaH%2FokYOV%2B09nlMe780QXkQTeTaSr6QD%2BPD9ekTpAgXrDB2N%2BKu06jx3AuGtxsw4je0wW2O78cgwfkzAxzhRJP3OQ4w3%2BL0mkjnNErc5lHZ07UkUwaUWSFRH%2FBKfYoJ6kwVX%2FxTWX7Bji8EHVE9CY88nJIYt1WO4Y%2BXriIeDBY5oAm%2F%2FDWr7ELWwPcODmxg99DFMJTISnkgpLPQN9qbrUCArxcIH3QwKQaVbfPsQOFfr60eaW7%2FYFHbkfOQ5QidPHi8vR5b%2BfFBt80NAK%2BCVHWoWjSPYC5jFhN16Vtq%2F5KyrO87JwpdrbdpPnuhUU2%2BD%2FxgY%2FNQWtCFhDD6TQzIoMlHqs8g6zLm0D8tv5OxDHwH5LrvVbXC29iwS%2FOlAiQOyNbWi3yLpW%2BfxEhhunzMcckEg8AacKZkdX3AT3AGl%2BxnFyDYcFzODkI8IjknYJDDEOGSSqyz%2Bfaflw%2FlRPd4tDK9SnU7nMrI6CbQ20XgPzWOtmGemkSm1dpNAK1K6hz9wL3gncZiZmooAmmdDG43%2BzPmaPoAN8QmeyPhztWQvHipBsVIAKD1wsaiF4K2iKNrdvqh2aMBO%2BGnMkUXOlGqf3jVtGknXZo%2Blk71wrogk1ycnzCf%2BJeZ0LWqhcSX9UiGES%2B%2FZvZDfBmFIchw%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB15508470&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=d357df80-3e3f-4687-827d-fe0e51a109e0&wid=MLB1925574384&sid=search&matt_tool=188269638&matt_word=panela+el%C3%A9trica&matt_source=guiadodesconto&tracking_id=gdd-1769813223&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_849598-MLA100066474017_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:42:15.396240"
+      "timestamp": "2026-01-30T19:47:14.944698"
     }
   },
   "halteres": {
-    "timestamp": 1769726554.653589,
+    "timestamp": 1769813257.999865,
     "resultado": {
       "termo_busca": "halteres",
       "melhor_produto": {
         "titulo": "Halter de Ferro Fundido Pintado - 1 Kg",
         "preco": 11.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.kY5SdTy20Ua8DO0gNBwS9kmp2dkUpAb2rTYp2ElzN_4&dib_tag=se&keywords=halteres&qid=1769726545&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.Z45MrNB7kMoLR7aXfBS03Fxc5Hoo1xaU7Z0ADhmWXdw&dib_tag=se&keywords=halteres&qid=1769813245&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/31G5ooeL5fL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -1039,12 +1139,12 @@
           "titulo": "Vestido Curto Floral Azul – Malha Fria Fluity, Alça Halter, Estilo Fresh Chic",
           "preco": 49.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/40afNE7wfd",
+          "link_afiliado": "https://s.shopee.com.br/qdfCdlIAa",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98o-m9cflqitaddl82",
           "disponivel": true
         },
         {
-          "id": "amz_53525",
+          "id": "amz_82141",
           "title": "Halter de Ferro Fundido Pintado - 1 Kg",
           "price": 11.0,
           "old_price": "13.20",
@@ -1052,28 +1152,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/31G5ooeL5fL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.kY5SdTy20Ua8DO0gNBwS9kmp2dkUpAb2rTYp2ElzN_4&dib_tag=se&keywords=halteres&qid=1769726545&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.Z45MrNB7kMoLR7aXfBS03Fxc5Hoo1xaU7Z0ADhmWXdw&dib_tag=se&keywords=halteres&qid=1769813245&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.kY5SdTy20Ua8DO0gNBwS9kmp2dkUpAb2rTYp2ElzN_4&dib_tag=se&keywords=halteres&qid=1769726545&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Halter-Ferro-Fundido-Pintado-Kg/dp/B085S73P5J/ref=sr_1_1?dib=eyJ2IjoiMSJ9.GnkghE9-pmKO2EUnc3bFEZ60gcqbsRM2mVySBSCMI_coIGzldXHV1FjtiH0FuCQvVB_qS2Fno76QoWr_VDd6wWjsy9bNP7UFn3pDK6Kt7-4XiZroHCV6Qzd6CuSEEwSf9FA0z5tUzvsRbI86y9lM-7cwtqw0voGIzSKvuTHxIgO7YAYUdCi6hg9bitfUidhK2jGCsAuCpHvf3dAWZrM2Oyfre8XeYyM5tDfellLL9iW-gyCp-WDXWDfA-dPh16J3gYJQsMolQ8cIH_Qu1IiaW5xIqt7fBR0wm5QuduSsjxU.Z45MrNB7kMoLR7aXfBS03Fxc5Hoo1xaU7Z0ADhmWXdw&dib_tag=se&keywords=halteres&qid=1769813245&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 11.0,
           "titulo": "Halter de Ferro Fundido Pintado - 1 Kg",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813244060_0",
+          "titulo": "Kit Halteres 6 Em 1 Peso Musculação Até 40kg Ajustável Halter, Kettlebell, Anilha Cor Preto-Vermelho",
+          "preco": 575.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=VayTa%2BP19eTFzXtkwE8yBqeYOpmjpOiK3WFBUnwYXPbgjeS199w7iPuE86tQb0XjaGEGTS3butW3jkgsr3flcVSuGsbfUrsMpnarj50wHv22EVyA5G4HRsmVWCKVN1XDiXkMMPbuLAGTfJ2xgZPjQ%2BJsK6C3Y9fB06mvUvG%2FNgk97BcZ0xW%2FXmzg8kh6AHOVjdiRT9Leg65q7UqcDp4znqwmlhSpuJmO%2FY1b1Xn8MOxRVn70nm0SWum9jrlW2746DETGABC1X%2BxxBGxsoKPYBpIgbpcXKZoeQ20A5EDXxHszJP6ifAkyHnEqa46tJTz8DcahSC2Bx%2B1cdn4k9UdvbmFUO5FDRQ55JUC149dchqSuhp%2F1nx47EmVF0UG%2F4wVrZ4JB%2B2ZSq%2BAb1s3dfs5X7%2BhwKNZubt573sfq80f8OHQjpmlkaE7%2FpV7FpPXZri4hPntQUdXI8oifz8qDxGgdJuKsJVKFlKIO4OZnW4V0D7i0AisUEJBpwrC3FB1toTHGwTistTsGHCoufw5YWVVwS9vzB5yURrnVMkYNWR5FdZmlAAK0vClmKeyaAh0rxrKc%2B9PJh2lpuRYOCrc7ig0UrpKmQHHt7vBYsDiY6c7Ew9WDmeVWyXOdzoazjQbINXWZyOxrIsm9OQiSOupp9hW6qRHXfe%2BIAfgXJBxXAtlQWkQyMJru663orUtUmBlTL%2FSm3buUi1QgUPmkfrVm4DvWRVvHuFDx1OV9o6NJJj5jl%2BQ8tqvKFLabGq5AuRY%2FKbsJnuSjuLol5Su0Z2wOB0UsetyzoaON8OXafGxdg%2BoWoEqwmtOEbEk7Upuuvwkza0TawSN8B2Z%2FTbXdfSCIXF7Sz%2FWw1PNBCSaee%2Fg3nYF5JrExknb6M%2BZQPmUpjuAYLjNuCsiR4XxYVlc71bbomgo89x7aR6fsdJjBtBkfNSLRd5avK2OPaeYJmtAFty4xPJoB27Z%2FAbKiU91dvz6Yqaa0gflkPnwpg2XgBTCUCzwqdpvoKBHxrQwLSZw%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB26591487&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=2e978a16-2baa-49bd-ac17-1b09c0001b4f&wid=MLB3459229185&sid=search&matt_tool=188269638&matt_word=halteres&matt_source=guiadodesconto&tracking_id=gdd-1769813244&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_723293-MLA101063609196_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:42:34.653580"
+      "timestamp": "2026-01-30T19:47:37.999855"
     }
   },
   "tapete yoga": {
-    "timestamp": 1769726581.96203,
+    "timestamp": 1769813278.260083,
     "resultado": {
       "termo_busca": "tapete yoga",
       "melhor_produto": {
         "titulo": "Colchonete Multifuncional para Exercícios, Espuma Alta Densidade, Impermeável, P/Yoga Academia Fitness, Tapete P/Treinamento, Compacto e Resistente",
         "preco": 18.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EM1yK5II7J2sax661Cfnj-0.pXiZBQcPHGSYTsbbnzaJ-Z1q6kFnwMRIwcPm8IUoteU&dib_tag=se&keywords=tapete+yoga&qid=1769726572&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EDB8Nlg8MYFu31GFxmmkxrw.oqESQB7tLWBcFmMCnIwKDsGDSifcPhjZyB3JaK5WROo&dib_tag=se&keywords=tapete+yoga&qid=1769813269&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/61ouHqL4wmL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -1082,12 +1192,12 @@
           "titulo": "ALMOFADA COLCHONETE ESPREGUIÇADEIRA IMPERMEÁVEL COM ZIPER 180X60 PRAIA PISCINA TOMAR SOL",
           "preco": 310.41,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/6puqkSN9ZW",
+          "link_afiliado": "https://s.shopee.com.br/9AIn7ywxFY",
           "imagem": "https://cf.shopee.com.br/file/br-11134207-81z1k-mehl0genx4hv37",
           "disponivel": true
         },
         {
-          "id": "amz_59222",
+          "id": "amz_49357",
           "title": "Colchonete Multifuncional para Exercícios, Espuma Alta Densidade, Impermeável, P/Yoga Academia Fitness, Tapete P/Treinamento, Compacto e Resistente",
           "price": 18.0,
           "old_price": "21.60",
@@ -1095,42 +1205,52 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/61ouHqL4wmL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EM1yK5II7J2sax661Cfnj-0.pXiZBQcPHGSYTsbbnzaJ-Z1q6kFnwMRIwcPm8IUoteU&dib_tag=se&keywords=tapete+yoga&qid=1769726572&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EDB8Nlg8MYFu31GFxmmkxrw.oqESQB7tLWBcFmMCnIwKDsGDSifcPhjZyB3JaK5WROo&dib_tag=se&keywords=tapete+yoga&qid=1769813269&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EM1yK5II7J2sax661Cfnj-0.pXiZBQcPHGSYTsbbnzaJ-Z1q6kFnwMRIwcPm8IUoteU&dib_tag=se&keywords=tapete+yoga&qid=1769726572&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Colchonete-Multifuncional-Exerc%C3%ADcios-Imperme%C3%A1vel-Treinamento/dp/B0FJMRK13Z/ref=sr_1_1?dib=eyJ2IjoiMSJ9.oGttCRXE3M8bkEog9N4iVUx-AFDnbtOSNq88TSvXmRKZskYG5yzFJetkWwdQGGK1c7FExQjwSpO77dZl9iOF0w2rVPauced4Lm7mZBxCWuBDz2iAfrNKGQCzcyNF2RqOJeW_8lHohwxXWUN_nVGQCS-NCG8IeEDwhtl2zy8YpwAzcdrH4nHx82oGvEfN-ymT3Fzh3XaYQf5yNPoxaCv6GA2ESY-1tIpEh9eidIvGPWi8QbD59nfYhHgR3Yh8g2u9kTHvRIW1hsW9XyxxpWx6EDB8Nlg8MYFu31GFxmmkxrw.oqESQB7tLWBcFmMCnIwKDsGDSifcPhjZyB3JaK5WROo&dib_tag=se&keywords=tapete+yoga&qid=1769813269&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 18.0,
           "titulo": "Colchonete Multifuncional para Exercícios, Espuma Alta Densidade, Impermeável, P/Yoga Academia Fitness, Tapete P/Treinamento, Compacto e Resistente",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813267769_0",
+          "titulo": "Tapete Yoga Mat Borracha Natural Pu Himalaya Pro 5mm Cor Ameixa",
+          "preco": 432.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=Hi42AILizyxIMEk0ErQeUarABSY4s2HzTtq0I141IxamHqpDamVIwk65VTalGXbEvyhwzXWS8y9OezbXexGaXu%2Bkhiap9pb7wIFsr7uVLXrYF3j6zx4UjF2W7NpLaBJ710qQi8KUYrLA1htFPoM6ThuI5Tb6NXSSQ0t5PWmNrNWQDq0%2FLU%2BamH7zbV2c8vZSK34UBP6RiLLq54t2sdRmjk%2BqL9wp0mvhSanQFgTPWvF13TM9YVUjeG2NFE5QInljuozGDA9KL00KqZ9EJMkp9CxR4wK2eqMQMGEpsfmhMOl%2Fav74VlGPQLSQ7oZWPEsZBFl7a2gAYfrOH2217IDmddEsgSOgPD6ZN%2Bxpolpydd6Gwz4k84Ht9YhEYGsaJDX2SScYidF5U%2FLQiylBygCUqBUqlp%2FfY0DR39Xs7NHKmckhCAsJ9nrdTtPMXL1Jj2I5bnb%2B3NR9S%2BDLs8v%2ByeswN%2FDSIjaU7ctLCb51asrFJkecYA%2Fn16vMC6pzMav%2FopqzJtU30eDu1QtmARgHml1vjzhHuAn3vz5YktSUHEh8oVs1DNdgThsHoVVIHYaI7wboiZ%2FsmYbVc4dtBsXHCYt%2BRo22q%2Fkt7P216FabNkdiQgB5qYtgshvugSbCPdNISPqrbExocGax%2FpY13xCRAAZClyjKJahb9l63YWVXAMA8Cc2%2BCnsmbbitIZtp8DwH2FkKeqiX8Dj1eVZHeZkQmXlZaXKzYoTg8dQcrvZadL%2BIYlgOaZQFgZRVUcCMd%2BTUykxxqAFbL%2BAACsL4CyHm1B7GTPTsNJqKgy%2Bvha9XFtmZDwCkIiCBo6bmyQqoP41GrS4I4jDMDO7%2FLbBvhmnS32F28ykDf%2FpdaFVYum2YO4MVpKbKQy0NdfmGRMKJu74nRsKHmChl4p0TcLqkoU%2F%2BzjYsSrNbXM%2BvDZoH03ibQUUof61dpR%2BmiEksIr5BKbOQHKqdwxDl7ws%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB65046060&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=7cc30d98-b751-49a8-8618-f227f50818b4&wid=MLB4450045883&sid=search&matt_tool=188269638&matt_word=tapete+yoga&matt_source=guiadodesconto&tracking_id=gdd-1769813267&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_628631-MLA106093997605_012026-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:43:01.962023"
+      "timestamp": "2026-01-30T19:47:58.260072"
     }
   },
   "kit maquiagem": {
-    "timestamp": 1769726605.544835,
+    "timestamp": 1769813302.902709,
     "resultado": {
       "termo_busca": "kit maquiagem",
       "melhor_produto": {
         "titulo": "Macrilan Esponja Puff - Ep01",
         "preco": 6.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3NvUeGuwHqoIq_V6RpObGoKh-QXfYZiwBkmUWNsTlNM61lNH4Vslva8n_C3x5fcr2_KJd8ssld78WoF2-hYopn1jHtjXCp0FqeMHh0aD2pqgS_1Bd6ontdT3guZSxxmpWb2dJ02p7B1J0Vb566XQYD4xGTAH7RN4QUL5WK_-ZQzaxKymB84-5BaC0AaIpdB7XnT9n5RpOeGvJOm22CENTOgYn2WrdVW1WOeOZTfOrMU3cACyYcB8vr7i-tqtzp1OFBTSdVg8rvgNMBR9_N-6O8lzjZG7CDL8kWR9DKcayf8.TOoDap4EuOm8cr1_hLOlPDedwBLteMqLvBOfSTNLCAU&dib_tag=se&keywords=kit+maquiagem&qid=1769726597&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.n-WIwBY1n14e9iV5Mh1IpA2I4MM3nR60RXyDxbyAwm8juB5lCTNNkChF0PJJcnStSuywwYiZIZ6YDYpHvfU9uz7sM7GCaJ1CKwqdaTC4Mkp4XdS0iCe7B8rCEspjc6pziRkustE0ZmKxYY_sW9swAgbo3FX6F21-o9nJx5gKqulm_pjt56XrTHOJ2GxXekNVYSwWbxTquMTu_I9pUvbYKIxrrCIQ8QTR2u8SHIscPRNWRxN0-pbTo1k9i2KXfSFglqRYDA9GfQ410QOt7NxHyqsNbvingtMdA9nOK0rpE7w.t1jK7tmAZcJhWe3AkvFyL_iPHY_ULlugDm1F_fMyMCQ&dib_tag=se&keywords=kit+maquiagem&qid=1769813288&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/61zPqQEApDL._AC_UL320_.jpg"
       },
       "todos_produtos": [
         {
           "id_interno": 0,
-          "titulo": "Kit 2 Algodões Prensado  Manicure e Nail Designer Algodão Maquiagem",
-          "preco": 19.99,
+          "titulo": "Kit 6 Unidades De Dappen Copo Vidro Mistura Porcelana Henna",
+          "preco": 19.9,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/4VWvyCQpQv",
-          "imagem": "https://cf.shopee.com.br/file/sg-11134201-7rdym-lzjipulpf1ka6f",
+          "link_afiliado": "https://s.shopee.com.br/2VltBki4DN",
+          "imagem": "https://cf.shopee.com.br/file/sg-11134201-7rdw5-lzj4chsij7ra71",
           "disponivel": true
         },
         {
-          "id": "amz_52228",
+          "id": "amz_74960",
           "title": "Macrilan Esponja Puff - Ep01",
           "price": 6.0,
           "old_price": "7.20",
@@ -1138,28 +1258,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/61zPqQEApDL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3NvUeGuwHqoIq_V6RpObGoKh-QXfYZiwBkmUWNsTlNM61lNH4Vslva8n_C3x5fcr2_KJd8ssld78WoF2-hYopn1jHtjXCp0FqeMHh0aD2pqgS_1Bd6ontdT3guZSxxmpWb2dJ02p7B1J0Vb566XQYD4xGTAH7RN4QUL5WK_-ZQzaxKymB84-5BaC0AaIpdB7XnT9n5RpOeGvJOm22CENTOgYn2WrdVW1WOeOZTfOrMU3cACyYcB8vr7i-tqtzp1OFBTSdVg8rvgNMBR9_N-6O8lzjZG7CDL8kWR9DKcayf8.TOoDap4EuOm8cr1_hLOlPDedwBLteMqLvBOfSTNLCAU&dib_tag=se&keywords=kit+maquiagem&qid=1769726597&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.n-WIwBY1n14e9iV5Mh1IpA2I4MM3nR60RXyDxbyAwm8juB5lCTNNkChF0PJJcnStSuywwYiZIZ6YDYpHvfU9uz7sM7GCaJ1CKwqdaTC4Mkp4XdS0iCe7B8rCEspjc6pziRkustE0ZmKxYY_sW9swAgbo3FX6F21-o9nJx5gKqulm_pjt56XrTHOJ2GxXekNVYSwWbxTquMTu_I9pUvbYKIxrrCIQ8QTR2u8SHIscPRNWRxN0-pbTo1k9i2KXfSFglqRYDA9GfQ410QOt7NxHyqsNbvingtMdA9nOK0rpE7w.t1jK7tmAZcJhWe3AkvFyL_iPHY_ULlugDm1F_fMyMCQ&dib_tag=se&keywords=kit+maquiagem&qid=1769813288&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.3NvUeGuwHqoIq_V6RpObGoKh-QXfYZiwBkmUWNsTlNM61lNH4Vslva8n_C3x5fcr2_KJd8ssld78WoF2-hYopn1jHtjXCp0FqeMHh0aD2pqgS_1Bd6ontdT3guZSxxmpWb2dJ02p7B1J0Vb566XQYD4xGTAH7RN4QUL5WK_-ZQzaxKymB84-5BaC0AaIpdB7XnT9n5RpOeGvJOm22CENTOgYn2WrdVW1WOeOZTfOrMU3cACyYcB8vr7i-tqtzp1OFBTSdVg8rvgNMBR9_N-6O8lzjZG7CDL8kWR9DKcayf8.TOoDap4EuOm8cr1_hLOlPDedwBLteMqLvBOfSTNLCAU&dib_tag=se&keywords=kit+maquiagem&qid=1769726597&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Macrilan-Esponja-Puff-EP01/dp/B08FYC6SXT/ref=sr_1_1?dib=eyJ2IjoiMSJ9.n-WIwBY1n14e9iV5Mh1IpA2I4MM3nR60RXyDxbyAwm8juB5lCTNNkChF0PJJcnStSuywwYiZIZ6YDYpHvfU9uz7sM7GCaJ1CKwqdaTC4Mkp4XdS0iCe7B8rCEspjc6pziRkustE0ZmKxYY_sW9swAgbo3FX6F21-o9nJx5gKqulm_pjt56XrTHOJ2GxXekNVYSwWbxTquMTu_I9pUvbYKIxrrCIQ8QTR2u8SHIscPRNWRxN0-pbTo1k9i2KXfSFglqRYDA9GfQ410QOt7NxHyqsNbvingtMdA9nOK0rpE7w.t1jK7tmAZcJhWe3AkvFyL_iPHY_ULlugDm1F_fMyMCQ&dib_tag=se&keywords=kit+maquiagem&qid=1769813288&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 6.0,
           "titulo": "Macrilan Esponja Puff - Ep01",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813292549_0",
+          "titulo": "Bruma Facial Fix Tudo Dailus Fixador de Maquiagem Tranparente 150ml",
+          "preco": 45.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=3dha5zZ2P%2BIF1du1R5euM5f9zbl9XiU4x9lbThtZFSLJHgfqW99%2FPS9H3KNntcTq97aRK8dootqDktZwwWUDr%2BVAoG9rPefAzqKzOhYoqvzr3S6JJvtFDULGEx1sC0fCsoS8iYAK71cK0J4oVm%2FBmYnYYVgsa5847G2M5UNt3P7kfu%2BA1ThvQ8JXHQl8tfikn7te4KhAKNiLylSa2BO9yr3SoXNRRKcROz%2B3HNywN67gioygRol5PcnFnNLRqmGCUGNYcR1rIyfwrvpYnb54pQ4addqQIoAM61gZZ6z7qEE2ygvvWQu7kPlmy0d08B%2ByM0TkPo14AVdVvYiW8mPkXCT3P5ZcDV%2F4H12yCFHN7yY1wS04vHbzSlVRX9B2UovBuKwJU6A5rILjrK9QBufzdqv5YaEPHarXt5M2Q80u4laDMfXKoNH3Sd5kDop5bss02ASySibfd67S7tLg%2Bt7xhUET9Ypw4cbhYuPQ68YKuoEAK4wxKN66M80jWudUijbRBwp9%2FLripGJPyhAdS7VTaq1Pu6ERDrdO59TEvpph0xc4hZWvRGQm%2F61wLgEhdhck1MPyI4Y6i6qoiLN%2B3wyDd24cwHBsy%2Fjvvwf9biUZ%2Bz9IfEd2fs9KEUDCOI3kvZwWPSL4o2gpYy8zBfaVzgXLZD6m4o2dezaix0rvtXkj6HuCX8n%2FM%2FWV5n4JPr2VVNOGZ8h69KbYTwD1iuULRwzi8mMbpU7kC1zqImLwF4LAMQAaYsojO%2BNzcdz6mA5DwPCkYufFbeY%2B5q5gubU3ZHb0TYWBhxY1%2BNA0rA47ZNbWBy%2B6QzFeZ17TSy0%2FuwQKE4Q0E12lfRuvwRG61x0kMLibI5k%2BANp4uxH5CLoYeFRLCtnAFZB5jBf5D4QaX2KqoyZgj%2F%2BFKNHOiBBvd%2Bekz6ZO87HSUsjfJSkTUJsvHgxc1zRzAmMHDGhmW3bQQy4kJT3old7RaRlPSPz4XQ%3D%3D#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB57409212&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=a987e2c6-8c62-467d-9a25-fc57a6359ed3&wid=MLB6191354912&sid=search&matt_tool=188269638&matt_word=kit+maquiagem&matt_source=guiadodesconto&tracking_id=gdd-1769813292&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_765658-MLA92718598558_092025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:43:25.544829"
+      "timestamp": "2026-01-30T19:48:22.902700"
     }
   },
   "secador cabelo": {
-    "timestamp": 1769726632.183166,
+    "timestamp": 1769813325.688372,
     "resultado": {
       "termo_busca": "secador cabelo",
       "melhor_produto": {
         "titulo": "Secador de Cabelo Profissional Potência 400W Compacto Leve Viagem (110V)",
         "preco": 59.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.__SFIj_5VLKW-BgYrRwah4ODDeh69hq9eSXlvQQivzOe1acoDR2dvxttq6N3ZuYnB7e-Pyopg955x7RvzeZprahoCU90QFnHP4WncoL424z7TCPCZWOcQnUX2naRTsXtXorCEjt3-b2NVHegieE5CUY88G-CIkaNx9VViptaiT3ZH9ryvCSILn9apIkKoLI5Y62UDhjfWLmeD0g-ivthg1DbGcoWF9io8OCN6CyTY7MLRjqzNwhsrYr--uLF-1y4mIWZcCTsKleM5-R5jYDqQ79INuP_pfHwUGBTgbAj4I0.VlB4mArwwp1AhBS_s74N_nD6fpVfWYYyISZLeEFXknE&dib_tag=se&keywords=secador+cabello&qid=1769726623&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.bfetyuCkQQlIhTVChyXEsTeF8Lu0El-ckvQlgsrwj8pv3N_ElZPn06pA_06nvblfZXqO00iE5wSibSSia4Pm7Z4IXo00xaLY-ztANaIXQxSG-RFTJgvt3I-3LZUJTUH9Ys9H_qsJXT4g6pz0tYahxvGVrsz8zn9plF_raCZIza8LMlFJYq8XuqQ5hGFNi3wXWSVHoF6h7iMu70HX00zP0y7WhUfiOVLmRrxn4zQcrRBHkhrILXwbI96bAMDe3MqASjKr_UsqszQAcSILPd9eeUNNbAsczd2wm_9LplyUnLY.xjhAYnLGKmVXgBzMXHmPYeunYmgZzCNT-GFfkDhfwU0&dib_tag=se&keywords=secador+cabello&qid=1769813313&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/51WkFndE+eL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -1168,12 +1298,12 @@
           "titulo": "Escova Secadora Alisador Elétrica Quente Cabelo Com 3 Em 1 110V",
           "preco": 123.2,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/806o8eqprE",
+          "link_afiliado": "https://s.shopee.com.br/1LZvndYMay",
           "imagem": "https://cf.shopee.com.br/file/sg-11134201-7rffd-m9am6e2urd2f40",
           "disponivel": true
         },
         {
-          "id": "amz_81713",
+          "id": "amz_11647",
           "title": "Secador de Cabelo Profissional Potência 400W Compacto Leve Viagem (110V)",
           "price": 59.0,
           "old_price": "70.80",
@@ -1181,28 +1311,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/51WkFndE+eL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.__SFIj_5VLKW-BgYrRwah4ODDeh69hq9eSXlvQQivzOe1acoDR2dvxttq6N3ZuYnB7e-Pyopg955x7RvzeZprahoCU90QFnHP4WncoL424z7TCPCZWOcQnUX2naRTsXtXorCEjt3-b2NVHegieE5CUY88G-CIkaNx9VViptaiT3ZH9ryvCSILn9apIkKoLI5Y62UDhjfWLmeD0g-ivthg1DbGcoWF9io8OCN6CyTY7MLRjqzNwhsrYr--uLF-1y4mIWZcCTsKleM5-R5jYDqQ79INuP_pfHwUGBTgbAj4I0.VlB4mArwwp1AhBS_s74N_nD6fpVfWYYyISZLeEFXknE&dib_tag=se&keywords=secador+cabello&qid=1769726623&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.bfetyuCkQQlIhTVChyXEsTeF8Lu0El-ckvQlgsrwj8pv3N_ElZPn06pA_06nvblfZXqO00iE5wSibSSia4Pm7Z4IXo00xaLY-ztANaIXQxSG-RFTJgvt3I-3LZUJTUH9Ys9H_qsJXT4g6pz0tYahxvGVrsz8zn9plF_raCZIza8LMlFJYq8XuqQ5hGFNi3wXWSVHoF6h7iMu70HX00zP0y7WhUfiOVLmRrxn4zQcrRBHkhrILXwbI96bAMDe3MqASjKr_UsqszQAcSILPd9eeUNNbAsczd2wm_9LplyUnLY.xjhAYnLGKmVXgBzMXHmPYeunYmgZzCNT-GFfkDhfwU0&dib_tag=se&keywords=secador+cabello&qid=1769813313&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.__SFIj_5VLKW-BgYrRwah4ODDeh69hq9eSXlvQQivzOe1acoDR2dvxttq6N3ZuYnB7e-Pyopg955x7RvzeZprahoCU90QFnHP4WncoL424z7TCPCZWOcQnUX2naRTsXtXorCEjt3-b2NVHegieE5CUY88G-CIkaNx9VViptaiT3ZH9ryvCSILn9apIkKoLI5Y62UDhjfWLmeD0g-ivthg1DbGcoWF9io8OCN6CyTY7MLRjqzNwhsrYr--uLF-1y4mIWZcCTsKleM5-R5jYDqQ79INuP_pfHwUGBTgbAj4I0.VlB4mArwwp1AhBS_s74N_nD6fpVfWYYyISZLeEFXknE&dib_tag=se&keywords=secador+cabello&qid=1769726623&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Secador-Cabelo-Profissional-Pot%C3%AAncia-Compacto/dp/B0FMTHQD7Q/ref=sr_1_1?dib=eyJ2IjoiMSJ9.bfetyuCkQQlIhTVChyXEsTeF8Lu0El-ckvQlgsrwj8pv3N_ElZPn06pA_06nvblfZXqO00iE5wSibSSia4Pm7Z4IXo00xaLY-ztANaIXQxSG-RFTJgvt3I-3LZUJTUH9Ys9H_qsJXT4g6pz0tYahxvGVrsz8zn9plF_raCZIza8LMlFJYq8XuqQ5hGFNi3wXWSVHoF6h7iMu70HX00zP0y7WhUfiOVLmRrxn4zQcrRBHkhrILXwbI96bAMDe3MqASjKr_UsqszQAcSILPd9eeUNNbAsczd2wm_9LplyUnLY.xjhAYnLGKmVXgBzMXHmPYeunYmgZzCNT-GFfkDhfwU0&dib_tag=se&keywords=secador+cabello&qid=1769813313&sr=8-1&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 59.0,
           "titulo": "Secador de Cabelo Profissional Potência 400W Compacto Leve Viagem (110V)",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813313651_0",
+          "titulo": "Secador de cabelo Valerie's Hair VH 3800 VH3800 preto",
+          "preco": 468.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=yP6C8p5N%2Bd%2BSJUfCNKWYP2abwUiFwIg6h3b%2Biu%2BLRknpltV%2Fhr3B5hoWwmGLiGH164MHhTypxf1RzejNdfbvZe5V4gguoEQ68wlZOK8HRxmBqYVYulOHxt%2BUk01%2BX6DdB6aHFFme%2FAZMwDApkq4QCjqaNDmlmYmZGejf4nEK9S6O842PuD1taLbn1ppuhVhpWSj7H3Vzfu4fGROxepNQGvHR1xWBwPtyYjXIhWeDYRYT5D5XHN7gMadiWfjp7yp2eFFaCeRhZGhLt8ABySPgIiS2%2FvRsDuO0wm3kjKgDFz0RLTBfXD8RZLO70PK4AVkspyKl5pVQsluOcvkmESci8xR%2BBzk94h0NzgYsxCPfuoNDnpyknM%2FXD4bnMVmu5U0YrmnrQt8nWQsVhSaaPBU%2BYYD2pJXY9XpWLEPtXf%2FPeCMClAu4wT07wtAEeKtF2uq12DACOX8jWVmGeVcnJK%2BOtPJlrcEJXi%2F31B6adSs0006JC0V0N7P2rwyLdVg9EpcQv4qD2ytk9nKWJgO%2FPdD4J4idjlbnRO%2F3jvLySMh3HW%2FpnBVH8lmZ%2Ffete8krt8r6rcbWm3%2FoyMTGkgusKUfHEZet1wJBEi4GNVmsir5F8utAt%2FJlsae4LWhAwpzJYfHMFbAOz8oMgFwaIIBV3JlEf4DNWaMGxXjRW4%2FYYHQNqkSSl7bYJV6e5SS7%2FhXlLk4N8N5g9Sd1b2pQ1rEORxrCoKMOf3YD6hTCn%2Bpy%2F8Z0HIsQTCXu%2FG2RnBiJD9E3P0UYPdLiBCHE4vm8pXpw5ziGYE7nZKeCoEMFBeLRIqIiM7XKkKPqL21Pvnje0QbaSzY7HTW36dDp5ouwXu4n8hceXW0ClEUEvkHYHfiuSC2mR5inhZblWMkv3qH2lSJxu0MEqiI1SUO5%2FuE%2FiM%2FxGuMXwV747lB4E4mW3UBCR1YbcWXjFOLfwi2lelogtMYh#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB64592898&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=f8041025-1247-4479-a2fc-0b303d7371e3&wid=MLB6205629592&sid=search&matt_tool=188269638&matt_word=secador+cabelo&matt_source=guiadodesconto&tracking_id=gdd-1769813313&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_909873-MLA105350278109_012026-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:43:52.183156"
+      "timestamp": "2026-01-30T19:48:45.688362"
     }
   },
   "smartwatch": {
-    "timestamp": 1769726656.820626,
+    "timestamp": 1769813353.586377,
     "resultado": {
       "termo_busca": "smartwatch",
       "melhor_produto": {
         "titulo": "Película Protetora Gel Soft-Glass Xiaomi Amazfit GTS",
         "preco": 5.0,
         "loja": "Amazon",
-        "link": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTfpY2a5jWFm5dFbqBon6X2YdhPFnW4jqRjZsg5GRptreUpCLMk-pNglgNHYAc-86NkpqGU_XAWX4vipcrfwr3KHMFgPfiTf1EXE1lUqyttdBMXTXyK-3664mbvcY0JDD9aXpOl5zSLR_X45KF0jFBYn4j8HzuWEQFruWKyrRrNDYxRmfGV4lnD8NRBd9d9T88.nNNMt56R4AUXPotq3gFip6aBbfKjXxZCVs7lZoxC4sg&dib_tag=se&keywords=smartwatch&qid=1769726646&sr=8-1&tag=guiadodesco00-20",
+        "link": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTHq9wIeRVfKbWc-8J65IvsPBqrS0SpooZ_SrMNA2MGXMRq7h-U0aWjpgCzc0AKGo8UEmpuhQgxZv0I7F0EZoc3Pu_OauGkjFgLQAgbZoVxnbUQl19-dXsCkEvgS1SOHo50i7xw5UEd31F82wLPMj16ZngXTVMdpsW9cXI_pkvSNwjw-ashKlHsCjHzqJNyj6Q.5XNMnR95FLZV5_Ve-JKQbKSM4y1MPTFqEnHTY8lvqgw&dib_tag=se&keywords=smartwatch&qid=1769813342&sr=8-1&tag=guiadodesco00-20",
         "imagem": "https://m.media-amazon.com/images/I/4127PaKGCRL._AC_UL320_.jpg"
       },
       "todos_produtos": [
@@ -1211,12 +1351,12 @@
           "titulo": "Pulseira Smartwatch Loop Trail Nylon Velcro Alpine Compatível 38mm 40mm 41mm 42mm W10 mini",
           "preco": 12.99,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/806o8h35aw",
+          "link_afiliado": "https://s.shopee.com.br/4q9ny6KRAg",
           "imagem": "https://cf.shopee.com.br/file/sg-11134201-824hg-meoqtbzl7mro5f",
           "disponivel": true
         },
         {
-          "id": "amz_94962",
+          "id": "amz_79486",
           "title": "Película Protetora Gel Soft-Glass Xiaomi Amazfit GTS",
           "price": 5.0,
           "old_price": "6.00",
@@ -1224,28 +1364,38 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/4127PaKGCRL._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTfpY2a5jWFm5dFbqBon6X2YdhPFnW4jqRjZsg5GRptreUpCLMk-pNglgNHYAc-86NkpqGU_XAWX4vipcrfwr3KHMFgPfiTf1EXE1lUqyttdBMXTXyK-3664mbvcY0JDD9aXpOl5zSLR_X45KF0jFBYn4j8HzuWEQFruWKyrRrNDYxRmfGV4lnD8NRBd9d9T88.nNNMt56R4AUXPotq3gFip6aBbfKjXxZCVs7lZoxC4sg&dib_tag=se&keywords=smartwatch&qid=1769726646&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTHq9wIeRVfKbWc-8J65IvsPBqrS0SpooZ_SrMNA2MGXMRq7h-U0aWjpgCzc0AKGo8UEmpuhQgxZv0I7F0EZoc3Pu_OauGkjFgLQAgbZoVxnbUQl19-dXsCkEvgS1SOHo50i7xw5UEd31F82wLPMj16ZngXTVMdpsW9cXI_pkvSNwjw-ashKlHsCjHzqJNyj6Q.5XNMnR95FLZV5_Ve-JKQbKSM4y1MPTFqEnHTY8lvqgw&dib_tag=se&keywords=smartwatch&qid=1769813342&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTfpY2a5jWFm5dFbqBon6X2YdhPFnW4jqRjZsg5GRptreUpCLMk-pNglgNHYAc-86NkpqGU_XAWX4vipcrfwr3KHMFgPfiTf1EXE1lUqyttdBMXTXyK-3664mbvcY0JDD9aXpOl5zSLR_X45KF0jFBYn4j8HzuWEQFruWKyrRrNDYxRmfGV4lnD8NRBd9d9T88.nNNMt56R4AUXPotq3gFip6aBbfKjXxZCVs7lZoxC4sg&dib_tag=se&keywords=smartwatch&qid=1769726646&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/Pel%C3%ADcula-Protetora-Soft-Glass-Xiaomi-Amazfit/dp/B083WNWJ77/ref=sr_1_1?dib=eyJ2IjoiMSJ9.aSdf97-Sq9dRmiGQgrURSkr1dnwLatICDELZ5oQVDuUiMOYIBMq8cL9fn2ms7HIeCydJUJRG_FX9X-J_ocqVL89pkG-Hlt8LLwHVtsZfUkTHq9wIeRVfKbWc-8J65IvsPBqrS0SpooZ_SrMNA2MGXMRq7h-U0aWjpgCzc0AKGo8UEmpuhQgxZv0I7F0EZoc3Pu_OauGkjFgLQAgbZoVxnbUQl19-dXsCkEvgS1SOHo50i7xw5UEd31F82wLPMj16ZngXTVMdpsW9cXI_pkvSNwjw-ashKlHsCjHzqJNyj6Q.5XNMnR95FLZV5_Ve-JKQbKSM4y1MPTFqEnHTY8lvqgw&dib_tag=se&keywords=smartwatch&qid=1769813342&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 5.0,
           "titulo": "Película Protetora Gel Soft-Glass Xiaomi Amazfit GTS",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813340786_0",
+          "titulo": "Relógio Smartwatch Bettdow FB041 GPS Alexa 5M/IP68 À Prova D'Água",
+          "preco": 221.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=B5B9nqa2nuUjXsoP3NdD3%2BvSsYSaauFy1rwFe9awBRTiAO1%2FoW0WhuHegcMS6KNeVpL6vsnB%2FOgevH8xEqfGoT71IQk55l%2B2PruHERrtbI5f1FFRgvuCfVVtbjevx7UhKeeYtiNSHeXoI0JnSYSuskTfAc3edzRfv5wl7U1kfyVtj515pLHroNLYM3TWuQlplY54zq1lncCj6AOLYoI4r5wXlHCftfEDTCemM%2BFFjI57Xa3%2BwDXFUTUlZO3gvDgFXOrsQt7I9rgDf6w%2BzcQRwLm5RJMyVxrfY6sIakOdq12sLzNzx1%2BhFhtKyJvzRp1i8CYEzCk8imo5jBTH8Cd47ykg6IkO1BKJ3dAENy2e5b5SGPCdxRgeso8f8bWR6W9H9ItPKyQ9WTNUnobdGhJABiA%2F2XP7Rr%2BlDEYY1A6pBtjI%2FXCY%2BAaAb3RukngcUDp%2BC7tsYVqS0iEkstRxVCnOM7zQbysRpeiWodFHdFUFAB7uu9udGXdZRAzwRSQLmR13S%2Fnd6zrH6YvY7ZGymJm6z0aOzODP8nxz7pzueCIu0ZRCpeTjwUiMgebrybJENYE3Xvd0iuxenWtzodnsdDdUnIy8a2zop%2F6hoR7dtYaw4yZcfvO9Wqzu3hL4Z4eMzPIsbeOxjildv%2BJFYidY%2FZLVOj5QlR12zAlTKRV4hIsqbsjYISGUVbucJnpaO80mf1nwFZqZbNPdZcPbwR4iCaKsSrsLghZcfJttpMr0EI9JyVpqb96fRf3X2pNeOUtf9MP%2BHtqgfso5BimUPOeXEI32IzCMIQanDqg1NFG2vHM8m23FOmAtLMgVSbjRV0o%2F8rRpeIBumy3wlKDCNF9Ot1M57dtZo8YOlvy%2Be15%2FXZ3hSe1WEQWDRH%2BTzKytsLs8FdC4Ls0AbtVAewUeBoNeRFZGPvNdWcggIRhnYPgnvHQsnMydGfxGrp5thFMS%2BFJxFxjZzy3UyCVO#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB62959421&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=b0eede88-2d01-4614-b4b2-14c4d5087027&wid=MLB4353138917&sid=search&matt_tool=188269638&matt_word=smartwatch&matt_source=guiadodesconto&tracking_id=gdd-1769813340&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_809540-MLA100744664393_122025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:44:16.820614"
+      "timestamp": "2026-01-30T19:49:13.586360"
     }
   },
   "cafeteira expresso": {
-    "timestamp": 1769726678.18788,
+    "timestamp": 1769813374.236785,
     "resultado": {
       "termo_busca": "cafeteira expresso",
       "melhor_produto": {
         "titulo": "Cabo Baquelite Para Cafeteira Italiana Expresso 06 Xicaras",
         "preco": 11.17,
         "loja": "Shopee",
-        "link": "https://s.shopee.com.br/2B91BzpDoe",
+        "link": "https://s.shopee.com.br/9zru7cdxgj",
         "imagem": "https://cf.shopee.com.br/file/sg-11134201-7qvg5-ljlncuvwbg910f"
       },
       "todos_produtos": [
@@ -1254,12 +1404,12 @@
           "titulo": "Cabo Baquelite Para Cafeteira Italiana Expresso 06 Xicaras",
           "preco": 11.17,
           "loja": "Shopee",
-          "link_afiliado": "https://s.shopee.com.br/2B91BzpDoe",
+          "link_afiliado": "https://s.shopee.com.br/9zru7cdxgj",
           "imagem": "https://cf.shopee.com.br/file/sg-11134201-7qvg5-ljlncuvwbg910f",
           "disponivel": true
         },
         {
-          "id": "amz_12159",
+          "id": "amz_11451",
           "title": "Copo dosador de café durável à prova de vazamento com capacidade de 58 mm para café em casa e escritório, uso de café expresso preto",
           "price": 12.0,
           "old_price": "14.40",
@@ -1267,17 +1417,27 @@
           "store": "Amazon",
           "category": "tech",
           "image": "https://m.media-amazon.com/images/I/41ogXOLHN3L._AC_UL320_.jpg",
-          "link": "https://www.amazon.com.br/dosador-vazamento-capacidade-escrit%C3%B3rio-expresso/dp/B0G491MLN4/ref=sr_1_1?dib=eyJ2IjoiMSJ9.p7qLn4QGFCQpGC_7-BS542iuY-toZMwdELdKR87LyRhMZpaLsdURJzTABcIYiD1lEmrGooE7yLNm3AgblKL699eK8nq94XdKsq3oIS39jg2jAu-m0jMizkOWv_1kOqwLSnOCOwF3pQoZjNNKGzbasGH_WAknJqDoDMkwCUvez0I9irSFupNzaAPucx7kw9m2Rsy_Yf6rEQ27S1fMgUl63mLVY6zZe4plz7pCT6SQSXbSEakt91eAF72BDIUZzL61Ib8y_XCpJr65raJN_zdsGikB_pxkOpalSgumkZ8ZVCw.YNwOmsiPSBowj0I1bXbIHs81n-YSt7pNr3h1DI2KPos&dib_tag=se&keywords=cafeteira+expresso&qid=1769726667&sr=8-1&tag=guiadodesco00-20",
+          "link": "https://www.amazon.com.br/dosador-vazamento-capacidade-escrit%C3%B3rio-expresso/dp/B0G491MLN4/ref=sr_1_1?dib=eyJ2IjoiMSJ9.p7qLn4QGFCQpGC_7-BS542iuY-toZMwdELdKR87LyRhMZpaLsdURJzTABcIYiD1lEmrGooE7yLNm3AgblKL699eK8nq94XdKsq3oIS39jg2jAu-m0jMizkOWv_1kOqwLSnOCOwF3pQoZjNNKGzbasGH_WAknJqDoDMkwCUvez0I9irSFupNzaAPucx7kw9m2Rsy_Yf6rEQ27S1fMgUl63mLVY6zZe4plz7pCT6SQSXbCKpDkUElrphEdm8KoYZCCoZJlgExcjfCeq3OR7Ol7ZFgFEvHD6HX5C-COtIw_8WQ.Mva_8B0R_kklezPzJiZtCHlakcxAr22Dl_dbirfLz4s&dib_tag=se&keywords=cafeteira+expresso&qid=1769813364&sr=8-1&tag=guiadodesco00-20",
           "reason": "Oferta Verificada",
           "id_interno": 1,
-          "link_afiliado": "https://www.amazon.com.br/dosador-vazamento-capacidade-escrit%C3%B3rio-expresso/dp/B0G491MLN4/ref=sr_1_1?dib=eyJ2IjoiMSJ9.p7qLn4QGFCQpGC_7-BS542iuY-toZMwdELdKR87LyRhMZpaLsdURJzTABcIYiD1lEmrGooE7yLNm3AgblKL699eK8nq94XdKsq3oIS39jg2jAu-m0jMizkOWv_1kOqwLSnOCOwF3pQoZjNNKGzbasGH_WAknJqDoDMkwCUvez0I9irSFupNzaAPucx7kw9m2Rsy_Yf6rEQ27S1fMgUl63mLVY6zZe4plz7pCT6SQSXbSEakt91eAF72BDIUZzL61Ib8y_XCpJr65raJN_zdsGikB_pxkOpalSgumkZ8ZVCw.YNwOmsiPSBowj0I1bXbIHs81n-YSt7pNr3h1DI2KPos&dib_tag=se&keywords=cafeteira+expresso&qid=1769726667&sr=8-1&tag=guiadodesco00-20",
+          "link_afiliado": "https://www.amazon.com.br/dosador-vazamento-capacidade-escrit%C3%B3rio-expresso/dp/B0G491MLN4/ref=sr_1_1?dib=eyJ2IjoiMSJ9.p7qLn4QGFCQpGC_7-BS542iuY-toZMwdELdKR87LyRhMZpaLsdURJzTABcIYiD1lEmrGooE7yLNm3AgblKL699eK8nq94XdKsq3oIS39jg2jAu-m0jMizkOWv_1kOqwLSnOCOwF3pQoZjNNKGzbasGH_WAknJqDoDMkwCUvez0I9irSFupNzaAPucx7kw9m2Rsy_Yf6rEQ27S1fMgUl63mLVY6zZe4plz7pCT6SQSXbCKpDkUElrphEdm8KoYZCCoZJlgExcjfCeq3OR7Ol7ZFgFEvHD6HX5C-COtIw_8WQ.Mva_8B0R_kklezPzJiZtCHlakcxAr22Dl_dbirfLz4s&dib_tag=se&keywords=cafeteira+expresso&qid=1769813364&sr=8-1&tag=guiadodesco00-20",
           "disponivel": true,
           "preco": 12.0,
           "titulo": "Copo dosador de café durável à prova de vazamento com capacidade de 58 mm para café em casa e escritório, uso de café expresso preto",
           "loja": "Amazon"
+        },
+        {
+          "id_interno": 2,
+          "id_original": "ml_1769813363959_0",
+          "titulo": "Cafeteira Espresso Superautomática Philips Walita Ep2330",
+          "preco": 3399.0,
+          "loja": "Mercado Livre",
+          "link_afiliado": "https://click1.mercadolivre.com.br/mclics/clicks/external/MLB/count?a=j6znxZSvuV9Klvlu6arMZYbrt24kvJOInrr6gxQ4p0KQQqIolOHXx88%2Fr4JD52xfyAc6xnkr0JkNrZLd9iRBIYRMe9sFHe6ctDUbIngfgFTr2wcvAq%2FrwgKYSKWMfGlRBnLpZ3taRMmxPeSdCU2NMPTZvxPRQOTkH2m4r3%2Fth0GVPoOdKNX2cK9ODOqU24jOy%2Fa%2FPd6jUpLqWwP3OC9GqnvKpDKXarBgMrDqhRmzwLTZCQDEieruLkudCfBOiV%2F%2FwACWgTtyx69zCsU2ht6yl4pTG91AFh2PoBZsQ1VihKiFMtsQUp3ViKVdbxTCdTtntjjGpAOvPTYHR7XkTI0ucjcNuDNTmuLPg5%2BELpu1SqRupKsMQlY%2B8O4ygagjSWEQVzhJwtLv3q2o5%2F1ioqIabHK%2BrLCLfhBvIwni3HKiiIQ8ui53wnAo9FxMjsh938S87PHqh7S7S2YoM9mk5nC7nRZG3T%2Fn%2FM%2F3EcECQzmASHjGrdL83ds2WfTo5krQjVgiEj5W%2BF%2BYskJQ9fFs%2FIj4RTeKKke03MMRTnihg0WmmP9JsCqky18PVsU8ly%2FAeFlgNhQStlPHVNUsOI5MzcZ9lu7I6%2BzJvgMHSHztuvV%2FoG7ZhY5P0%2FFvFBPBP%2FhQaW%2FWOF8WK47CwQgzYD9%2BFZO9RXfpAFHLAmsKfWAXY4VzwsOKSU3x%2Fl3mxMTvuTUeUJiZf2Z1pFg6VkQVdJ20qlPvn52kuqesac%2Bo2gLxcf0wel8UL7c2fsLzf17MgPsFaHyLvYng02JBsdmSV6HByc%2FR8EpwsglUCJqjKcuW%2Fz7kVMkTfDOCOPNlroZLNKleVwqPnziO5f5Qq8V%2BwQ1akeSTbPK602XnFIKi%2FITsp5gMxck2IgmuAgGD1n23m%2BG3I4gpZ9neCeocM923MlGYXY1n%2FTjGG75xM9egH5%2FbO5L79W98Q%2B4CKfY2a%2FPlXhB3#polycard_client=search-desktop&is_advertising=true&searchVariation=MLB49645923&backend_model=search-backend&search_layout=grid&position=1&type=pad&tracking_id=203ca9d6-4f2c-4fab-9600-31d1fb529570&wid=MLB4298505393&sid=search&matt_tool=188269638&matt_word=cafeteira+expresso&matt_source=guiadodesconto&tracking_id=gdd-1769813363&_Sort=price_asc",
+          "imagem": "https://http2.mlstatic.com/D_Q_NP_2X_910256-MLA99930308533_112025-E.webp",
+          "disponivel": true
         }
       ],
-      "timestamp": "2026-01-29T19:44:38.187872"
+      "timestamp": "2026-01-30T19:49:34.236776"
     }
   }
 }

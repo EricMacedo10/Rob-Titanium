@@ -52,3 +52,7 @@ meli_tokens.json
 # Temporary files
 *.tmp
 *.bak
+*_cache.json
+api_test_*.txt
+debug_output_*.txt
+test_visual_output.txt

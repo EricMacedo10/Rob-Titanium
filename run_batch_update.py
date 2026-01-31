@@ -138,8 +138,9 @@ def main():
             if not image or "http" not in image: continue
             
             # Temporariamente remover Mercado Livre da exibição final se estiver travado
+            # Mercado Livre liberado para Audit 360 e Social Bot
             if p.get('store') == 'Mercado Livre':
-                continue
+                pass 
             
             
             # 2. Duplicate Prevention
@@ -164,7 +165,17 @@ def main():
         generate_dynamic_phrases(final_list)
         # --------------------------------------
 
-    # 4. Upload to Hostinger
+    # ----------------------------------------------------------------------
+    # 4. Fail-Safe & Integrity Check
+    # ----------------------------------------------------------------------
+    if not final_list:
+        print("\n❌ ERRO CRÍTICO: Nenhum produto encontrado (Lista Vazia)!")
+        print("   >>> BLOQUEIO DE UPLOAD ATIVADO: Preservando site funcional.")
+        print("   Isso pode indicar falha geral nas APIs ou bloqueio de IP.")
+        import sys
+        sys.exit(1)
+
+    # 5. Upload to Hostinger (Only if we have data)
     print("\n>>> Iniciando Upload FTP...")
     ftp_host = os.getenv('FTP_HOST')
     ftp_user = os.getenv('FTP_USER')
@@ -176,12 +187,12 @@ def main():
         # Upload data.json (Produtos)
         upload_to_hostinger(DATA_FILE, ftp_host, ftp_user, ftp_pass, remote_path='data.json')
         
-        # Upload notifications.json (Frases) - Se existir
+        # Upload notifications.json (Frases)
         notif_file = 'site/notifications.json'
         if os.path.exists(notif_file):
              upload_to_hostinger(notif_file, ftp_host, ftp_user, ftp_pass, remote_path='notifications.json')
 
-        # FORÇAR ATUALIZAÇÃO DOS ASSETS (Garantir correção de bugs e cache-busting)
+        # Sincronizar Assets Estruturais
         assets = {
             'site/js/app.js': 'js/app.js',
             'site/css/style.css': 'css/style.css',
@@ -191,16 +202,10 @@ def main():
             if os.path.exists(local):
                 print(f"\n>>> Sincronizando Asset: {remote}")
                 upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote)
-
+        
+        print("\n✅ SITE ATUALIZADO COM SUCESSO!")
     else:
         print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
-
-    if not final_list:
-        print("❌ ERRO CRÍTICO: Nenhum produto encontrado (Lista Vazia)!")
-        print("   Isso pode indicar falha geral nas APIs ou Bloqueio.")
-        print("   Forçando falha no Workflow para disparar Alerta.")
-        import sys
-        sys.exit(1)
 
     print("\n🏁 EXECUÇÃO CONCLUÍDA com SUCESSO!")
 

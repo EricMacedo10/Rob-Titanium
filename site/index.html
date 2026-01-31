@@ -25,7 +25,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/family-widget.css?v=3">
-    <link rel="stylesheet" href="css/style.css?v=titanium_v7_final">
+    <link rel="stylesheet" href="css/style.css?v=titanium_v11_hide_search">
 </head>
 
 <body>
@@ -85,148 +85,98 @@
         </div>
     </section>
 
-    <!-- Seasonal Campaign: Volta às Aulas -->
+    <!-- Section: Seasonal Campaign (Volta às Aulas) -->
     <section class="seasonal-campaign">
         <div class="container">
-            <div class="campaign-grid">
-                <!-- Amazon Banner -->
-                <div class="campaign-banner amazon-banner">
-                    <div class="banner-content">
-                        <img src="images/logo-amazon.png" alt="Amazon" class="banner-logo">
-                        <h3>Volta às Aulas</h3>
-                        <p>Ofertas Imperdíveis</p>
-                        <a href="https://amzn.to/49TPCTg" class="banner-btn" target="_blank" rel="noopener">Confira</a>
-                    </div>
+            <div class="section-title-wrapper">
+                <h2 class="section-title">🎒 Especial Volta às Aulas</h2>
+            </div>
+            <div class="hubs-grid seasonal-grid">
+                <!-- ML: Mochila -->
+                <div class="hub-card seasonal" onclick="window.open('https://mercadolivre.com/sec/1dtJSDF', '_blank')">
+                    <img src="images/banner_volta_aulas_mercadolivre.png" alt="Mochilas Mercado Livre">
+                    <h3>Mochilas e Tech</h3>
                 </div>
-                <!-- Mercado Livre Banner -->
-                <div class="campaign-banner ml-banner">
-                    <div class="banner-content">
-                        <img src="images/logo-mercadolivre.png" alt="Mercado Livre" class="banner-logo">
-                        <h3>Volta às Aulas</h3>
-                        <p>Material Escolar</p>
-                        <a href="https://mercadolivre.com/sec/1epUknH" class="banner-btn" target="_blank"
-                            rel="noopener">Confira</a>
-                    </div>
+                <!-- Shopee: Material Escolar -->
+                <div class="hub-card seasonal" onclick="window.open('https://s.shopee.com.br/5VPUpCDD0U', '_blank')">
+                    <img src="images/banner_volta_aulas_shopee.png" alt="Material Escolar Shopee">
+                    <h3>Tudo com Frete Grátis</h3>
                 </div>
-                <!-- Shopee Banner -->
-                <div class="campaign-banner shopee-banner">
-                    <div class="banner-content">
-                        <img src="images/logo-shopee.png" alt="Shopee" class="banner-logo">
-                        <h3>Volta às Aulas</h3>
-                        <p>Tudo para Estudar</p>
-                        <a href="https://s.shopee.com.br/1VtCIzAyVW" class="banner-btn" target="_blank"
-                            rel="noopener">Confira</a>
-                    </div>
+                <!-- Amazon: Dispositivos e Papelaria -->
+                <div class="hub-card seasonal" onclick="window.open('https://amzn.to/4bsh515', '_blank')">
+                    <img src="images/banner_volta_aulas_amazon.png" alt="Especial Amazon">
+                    <h3>Especial Papelaria</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Category Hubs -->
+    <!-- Section: Category Hubs (The Core) -->
     <section class="category-hubs">
         <div class="container">
+            <h2 class="section-title">Explore por Categoria</h2>
             <div class="hubs-grid">
-                <div class="hub-card tech" data-category="tecnologia" onclick="titaniumRedirect('notebook gamer')">
-                    <img src="images/tech-hero.png" alt="Tecnologia">
+                <!-- Row 1 -->
+                <div class="hub-card tech" onclick="titaniumRedirect('notebook informática computadores', 'amazon')">
+                    <img src="images/banner_tecnologia_amazon.png" alt="Tecnologia">
                     <h3>Tecnologia</h3>
                 </div>
-                <div class="hub-card home" data-category="casa" onclick="titaniumRedirect('air fryer')">
-                    <img src="images/home-hero.png?v=2" alt="Casa">
-                    <h3>Casa</h3>
+                <div class="hub-card home" onclick="titaniumRedirect('casa e cozinha', 'mercadolivre')">
+                    <img src="images/banner_casa_mercadolivre.png" alt="Casa e Jardim">
+                    <h3>Casa e Jardim</h3>
                 </div>
-                <div class="hub-card decoration" data-category="decoracao"
-                    onclick="titaniumRedirect('decoração casa', 'shopee')">
-                    <img src="images/decoration-hero.png" alt="Decoração">
-                    <h3>Decoração</h3>
+                <div class="hub-card automotive" onclick="titaniumRedirect('acessórios automotivos', 'shopee')">
+                    <img src="images/banner_automotivo_shopee.png" alt="Automotivo">
+                    <h3>Automotivo</h3>
                 </div>
-                <div class="hub-card fashion" data-category="moda"
-                    onclick="titaniumRedirect('roupa feminina', 'mercadolivre')">
-                    <img src="images/fashion-hero.png" alt="Moda">
+                <div class="hub-card fashion" onclick="titaniumRedirect('moda e acessórios', 'mercadolivre')">
+                    <img src="images/banner_moda_mercadolivre.png" alt="Moda">
                     <h3>Moda</h3>
                 </div>
-                <div class="hub-card beauty" data-category="beleza"
-                    onclick="titaniumRedirect('kit maquiagem', 'mercadolivre')">
-                    <img src="images/beauty-hero.png" alt="Beleza">
+
+                <!-- Row 2 -->
+                <div class="hub-card beauty" onclick="titaniumRedirect('beleza e cosméticos', 'shopee')">
+                    <img src="images/banner_beleza_shopee.png" alt="Beleza">
                     <h3>Beleza</h3>
                 </div>
-                <div class="hub-card sports" data-category="esportes"
-                    onclick="titaniumRedirect('equipamento academia', 'shopee')">
-                    <img src="images/sports-hero.png" alt="Esportes &amp; Lazer">
-                    <h3>Esportes &amp; Lazer</h3>
+                <div class="hub-card sports" onclick="titaniumRedirect('esportes e fitness', 'amazon')">
+                    <img src="images/banner_esportes_amazon.png" alt="Esportes">
+                    <h3>Esportes & Lazer</h3>
+                </div>
+                <div class="hub-card games" onclick="titaniumRedirect('games e consoles', 'mercadolivre')">
+                    <img src="images/banner_games_mercadolivre.png" alt="Games">
+                    <h3>Games</h3>
+                </div>
+                <div class="hub-card pet" onclick="titaniumRedirect('pet shop', 'shopee')">
+                    <img src="images/banner_petshop_shopee.png" alt="Pet Shop">
+                    <h3>Pet Shop</h3>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="hub-card electro" onclick="titaniumRedirect('eletrodomésticos cozinha', 'amazon')">
+                    <img src="images/banner_eletro_amazon.png" alt="Eletrodomésticos">
+                    <h3>Eletrodomésticos</h3>
+                </div>
+                <div class="hub-card tools" onclick="titaniumRedirect('ferramentas e construção', 'mercadolivre')">
+                    <img src="images/banner_ferramentas_mercadolivre.png" alt="Ferramentas">
+                    <h3>Ferramentas</h3>
+                </div>
+                <div class="hub-card stationery" onclick="titaniumRedirect('material escolar papelaria', 'shopee')">
+                    <img src="images/banner_papelaria_shopee.png" alt="Papelaria">
+                    <h3>Papelaria</h3>
+                </div>
+                <div class="hub-card decor" onclick="titaniumRedirect('decoração interior', 'amazon')">
+                    <img src="images/banner_decoracao_amazon.png" alt="Decoração">
+                    <h3>Decoração</h3>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========================================
-         DESATIVADO v1.0 - Curadorias em Destaque
-         Será reativado na v2.0
-         Data: 21/01/2026
-         ======================================== -->
-    <!-- <section class="featured-curations">
+    <!-- Hidden Sections (As per user request to clean up) -->
+    <section class="voted-deals" style="display: none;">
         <div class="container">
-            <h2 class="section-title">Curadorias em Destaque</h2>
-            <div class="curations-grid">
-                <div class="curation-card">
-                    <div class="curation-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <i class="fas fa-blender"></i>
-                    </div>
-                    <div class="curation-content">
-                        <h3>Os 10 Melhores Eletrodomésticos</h3>
-                        <p>Ideias incríveis de presentes</p>
-                        <a href="#" class="curation-link">Confira a lista <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="curation-card">
-                    <div class="curation-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="curation-content">
-                        <h3>Presentes Criativos</h3>
-                        <p>Ideias incríveis de presentes</p>
-                        <a href="#" class="curation-link">Confira a lista <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="curation-card">
-                    <div class="curation-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <i class="fas fa-dumbbell"></i>
-                    </div>
-                    <div class="curation-content">
-                        <h3>Essenciais para Academia</h3>
-                        <p>Itens para seu treino</p>
-                        <a href="#" class="curation-link">Confira a lista <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- ========================================
-         DESATIVADO v1.0 - Ofertas Votadas
-         Será reativado na v2.0
-         Data: 21/01/2026
-         ======================================== -->
-    <section class="voted-deals">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Ofertas Votadas pela Comunidade</h2>
-                <div class="sort-buttons">
-                    <!-- Temporariamente escondidos até implementar funcionalidade real
-                    <button class="sort-btn" data-sort="votes"><i class="fas fa-fire"></i> Mais Votadas</button>
-                    <button class="sort-btn" data-sort="discount"><i class="fas fa-percent"></i> Maior Desconto</button>
-                    -->
-                    <button class="sort-btn active" data-sort="recent"><i class="fas fa-clock"></i> Ofertas
-                        Recentes</button>
-                </div>
-            </div>
-
-            <!-- Deals Grid -->
-            <div id="deals-grid" class="deals-grid">
-                <div class="loading-state">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                    <p>Carregando ofertas em tempo real...</p>
-                </div>
-            </div>
+            <div id="deals-grid" class="deals-grid"></div>
         </div>
     </section>
 
@@ -268,8 +218,8 @@
     </footer>
 
     <!-- Scripts Principais -->
-    <script src="js/app.js?v=titanium_v9_clean"></script>
-    <script src="js/family-widget.js?v=2"></script>
+    <script src="js/app.js?v=titanium_v12_fix_shopee"></script>
+    <script src="js/family-widget.js?v=titanium_v3_new_phrases"></script>
 
 </body>
 

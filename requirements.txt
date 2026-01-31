@@ -7,3 +7,5 @@ flask-cors
 pyperclip
 groq
 python-dotenv
+Pillow
+moviepy
