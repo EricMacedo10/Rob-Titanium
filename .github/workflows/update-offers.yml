@@ -3,15 +3,15 @@ name: 🤖 Atualizar Ofertas Automaticamente
 on:
   push:
     branches: [ main ]
-#   schedule:
-#     # Atualização a cada 3 horas (Horário de Brasília UTC-3)
-#     # GitHub Actions usa UTC:
-#     - cron: '0 10 * * *'  # 07:00 BRT
-#     - cron: '0 13 * * *'  # 10:00 BRT
-#     - cron: '0 16 * * *'  # 13:00 BRT
-#     - cron: '0 19 * * *'  # 16:00 BRT
-#     - cron: '0 22 * * *'  # 19:00 BRT
-#     - cron: '0 01 * * *'  # 22:00 BRT
+  schedule:
+    # Atualização a cada 3 horas (Horário de Brasília UTC-3)
+    # GitHub Actions usa UTC:
+    - cron: '0 10 * * *'  # 07:00 BRT
+    - cron: '0 13 * * *'  # 10:00 BRT
+    - cron: '0 16 * * *'  # 13:00 BRT
+    - cron: '0 19 * * *'  # 16:00 BRT
+    - cron: '0 22 * * *'  # 19:00 BRT
+    - cron: '0 01 * * *'  # 22:00 BRT
   
   # Permite execução manual via GitHub UI
   workflow_dispatch:
