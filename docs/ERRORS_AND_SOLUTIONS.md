@@ -52,5 +52,38 @@ Este documento registra os desafios técnicos encontrados durante o desenvolvime
 - Padronização de containers CSS (250px fixos com fundo branco e `object-fit: contain`).
 - Implementação do `handleImageError` em JS para substituir imagens quebradas por logos estilizados das lojas parceiras.
 
+## 6. Interface Hub: Sincronização de Abas (v1136)
+
+**Erro:** Ao carregar a página, a aba ativa definida pelo rodízio automático não sincronizava visualmente com a imagem do banner inicial.
+
+**Solução:** 
+- Adição de um disparo programático de evento: `activeTab.click()`.
+- Isso garante que a lógica de troca de imagem e redirecionamento seja disparada no segundo zero, mantendo a UI 100% alinhada com o conteúdo.
+
+## 7. Z-Index: Sobreposição de Header (v1137)
+
+**Erro:** As abas flutuantes de marcas do Hub interativo apareciam "na frente" do menu principal (sticky header) durante a rolagem da página.
+
+**Solução:** 
+- Elevação do `z-index` do header para `1000` (camada de prioridade máxima).
+- Ajuste das `.brand-tabs` para `z-index: 80`, garantindo que fiquem acima do banner mas abaixo da navegação principal.
+
+## 8. Design: Visibilidade de Logos (v1139)
+
+**Erro:** Logos com cores claras ou símbolos finos (como o aperto de mãos do Mercado Livre) perdiam definição ou "sumiam" em fundos claros/amarelos.
+
+**Solução:** 
+- Aplicação de filtro `drop-shadow` multi-direcional no CSS.
+- Criação de um contorno (stroke) nítido de 1.5px ao redor dos símbolos usando a cor azul marinho oficial, aumentando drasticamente o contraste e a legibilidade.
+
+## 9. Segurança: Injeção de Scripts e Proteção de Ganhos (v1140)
+
+**Risco:** Vulnerabilidade a ataques de injeção e sequestro de links de afiliados (hijacking).
+
+**Solução (Blindagem Titanium):** 
+- **CSP (Content Security Policy):** Implementação de meta-tags rigorosas que impedem o carregamento de qualquer script não autorizado.
+- **SRI (Subresource Integrity):** Adição de hashes criptográficos aos links do FontAwesome para garantir que os ícones baixados não foram alterados.
+- **Bot Honeypot:** Criação de armadilhas invisíveis para detectar robôs maliciosos tentando copiar o site.
+
 ---
-*Última atualização: 29/01/2026*
+*Última atualização: 05/02/2026*

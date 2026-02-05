@@ -1,0 +1,18 @@
+/* TESTE VERMELHO ULTRA VISÍVEL */
+.interactive-card.titaniumGlowPulse {
+    animation: titaniumGlowPulse 1s ease-out !important;
+    border: 10px solid #FF0000 !important;
+    transform: scale(1.2) !important;
+}
+
+@keyframes titaniumGlowPulse {
+    0% {
+        background: #FF0000 !important;
+    }
+    50% {
+        background: #00FF00 !important;
+    }
+    100% {
+        background: #0000FF !important;
+    }
+}

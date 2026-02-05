@@ -38,13 +38,10 @@ O **Robô Titanium** é um sistema completo de comparação de preços que:
 
 ## ✨ Funcionalidades
 
-### **Frontend (Site)**
-- ✅ 6 Categorias de Produtos (Tecnologia, Casa, Decoração, Moda, Beleza, Esportes)
-- ✅ Redirecionamento inteligente com links de afiliado
-- ✅ Design responsivo e moderno
-- ✅ SEO otimizado
-- ✅ Headers de segurança implementados
-- ✅ **Campanha Sazonal**: Volta às Aulas (Banners Dinâmicos)
+- ✅ **Hub Titanium**: Rodízio automático de 30 minutos (Amazon, ML, Shopee)
+- ✅ **Interface Interativa**: Abas de marcas com brilho e redirecionamento inteligente
+- ✅ **Design Premium**: Logos com contorno (v1139) para máxima visibilidade
+- ✅ **Segurança Avançada**: Blindagem Titanium (CSP, SRI, Honeypot) v1140
 - ✅ **Filtro Inteligente**: Ordenação automática "Menor Preço"
 
 ### **Backend (Robô)**
@@ -211,11 +208,11 @@ SHOPEE_SECRET=sua_secret_key
 ## 🔒 Segurança
 
 ### **Implementado**
-- ✅ Headers de segurança (X-Content-Type-Options, Referrer-Policy)
+- ✅ **Blindagem Titanium (v1140)**: Content Security Policy (CSP) rigorosa
+- ✅ **Integridade de Sub-recursos (SRI)**: Verificação criptográfica de arquivos externos
+- ✅ **Redirecionamento Seguro**: Validação de domínios para proteção de afiliados
+- ✅ **Honeypot para Bots**: Armadilha invisível para detecção de scraping
 - ✅ Credenciais em `.env` (não versionadas)
-- ✅ `.gitignore` configurado
-- ✅ Autenticação SHA256 (Shopee)
-- ✅ OAuth 2.0 (Mercado Livre)
 
 ### **Boas Práticas**
 - 🔐 Nunca commite `.env`

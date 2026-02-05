@@ -8,7 +8,9 @@
         content="Encontre a melhor oferta na Shopee, Mercado Livre e Amazon. Comparamos preços para você economizar.">
     <title>Guia do Desconto | Encontre a Melhor Oferta</title>
 
-    <!-- Security Tags (Hardening) -->
+    <!-- Security Tags (Blindagem Titanium v1140) -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
@@ -21,11 +23,13 @@
         rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/family-widget.css?v=3">
-    <link rel="stylesheet" href="css/style.css?v=titanium_v11_hide_search">
+    <link rel="stylesheet" href="css/style.css?v=1141">
 </head>
 
 <body>
@@ -72,13 +76,13 @@
                 <p class="partners-label">Nossas Lojas Parceiras</p>
                 <div class="logos-container">
                     <div class="partner-logo">
-                        <img src="images/logo-amazon.png" alt="Amazon">
+                        <img src="images/highlight-amazon.png" alt="Amazon">
                     </div>
                     <div class="partner-logo">
-                        <img src="images/logo-mercadolivre.png" alt="Mercado Livre">
+                        <img src="images/highlight-mercadolivre.png" alt="Mercado Livre">
                     </div>
                     <div class="partner-logo">
-                        <img src="images/logo-shopee.png" alt="Shopee">
+                        <img src="images/highlight-shopee.png" alt="Shopee">
                     </div>
                 </div>
             </div>
@@ -86,7 +90,7 @@
     </section>
 
     <!-- Section: Seasonal Campaign (Volta às Aulas) -->
-    <section class="seasonal-campaign">
+    <section class="seasonal-campaign" style="display: none !important;">
         <div class="container">
             <div class="section-title-wrapper">
                 <h2 class="section-title">🎒 Especial Volta às Aulas</h2>
@@ -117,56 +121,202 @@
             <h2 class="section-title">Explore por Categoria</h2>
             <div class="hubs-grid">
                 <!-- Row 1 -->
-                <div class="hub-card tech" onclick="titaniumRedirect('notebook informática computadores', 'amazon')">
-                    <img src="images/banner_tecnologia_amazon.png" alt="Tecnologia">
+                <!-- Categoria: Tecnologia (Interativo) -->
+                <div class="hub-card tech interactive-card" id="tech-hub-card" data-category="tecnologia">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_tecnologia_amazon.png?v=titanium_fix_900" alt="Tecnologia"
+                        id="tech-banner-img">
                     <h3>Tecnologia</h3>
                 </div>
-                <div class="hub-card home" onclick="titaniumRedirect('casa e cozinha', 'mercadolivre')">
-                    <img src="images/banner_casa_mercadolivre.png" alt="Casa e Jardim">
+                <!-- Categoria: Casa e Jardim (Interativo) -->
+                <div class="hub-card home interactive-card" id="home-hub-card" data-category="casa">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_casa_amazon.png?v=titanium_fix_900" alt="Casa e Jardim"
+                        id="home-banner-img">
                     <h3>Casa e Jardim</h3>
                 </div>
-                <div class="hub-card automotive" onclick="titaniumRedirect('acessórios automotivos', 'shopee')">
-                    <img src="images/banner_automotivo_shopee.png" alt="Automotivo">
+                <!-- Categoria: Automotivo (Interativo) -->
+                <div class="hub-card automotive interactive-card" id="automotive-hub-card" data-category="automotivo">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_automotivo_amazon.png?v=1012" alt="Automotivo" id="automotive-banner-img">
                     <h3>Automotivo</h3>
                 </div>
-                <div class="hub-card fashion" onclick="titaniumRedirect('moda e acessórios', 'mercadolivre')">
-                    <img src="images/banner_moda_mercadolivre.png" alt="Moda">
+                <!-- Categoria: Moda (Interativo) -->
+                <div class="hub-card fashion interactive-card" id="fashion-hub-card" data-category="moda">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_moda_amazon.png?v=1013" alt="Moda" id="fashion-banner-img">
                     <h3>Moda</h3>
                 </div>
 
                 <!-- Row 2 -->
-                <div class="hub-card beauty" onclick="titaniumRedirect('beleza e cosméticos', 'shopee')">
-                    <img src="images/banner_beleza_shopee.png" alt="Beleza">
+                <!-- Categoria: Beleza (Interativo) -->
+                <div class="hub-card beauty interactive-card" id="beauty-hub-card" data-category="beleza">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_beleza_amazon.png?v=1014" alt="Beleza" id="beauty-banner-img">
                     <h3>Beleza</h3>
                 </div>
-                <div class="hub-card sports" onclick="titaniumRedirect('esportes e fitness', 'amazon')">
-                    <img src="images/banner_esportes_amazon.png" alt="Esportes">
+                <!-- Categoria: Esportes (Interativo) -->
+                <div class="hub-card sports interactive-card" id="sports-hub-card" data-category="esportes">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_esportes_amazon.png?v=1015" alt="Esportes" id="sports-banner-img">
                     <h3>Esportes & Lazer</h3>
                 </div>
-                <div class="hub-card games" onclick="titaniumRedirect('games e consoles', 'mercadolivre')">
-                    <img src="images/banner_games_mercadolivre.png" alt="Games">
+                <!-- Categoria: Games (Interativo) -->
+                <div class="hub-card games interactive-card" id="games-hub-card" data-category="games">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_games_amazon.png?v=1022" alt="Games" id="games-banner-img">
                     <h3>Games</h3>
                 </div>
-                <div class="hub-card pet" onclick="titaniumRedirect('pet shop', 'shopee')">
-                    <img src="images/banner_petshop_shopee.png" alt="Pet Shop">
+                <!-- Categoria: Pet Shop (Interativo) -->
+                <div class="hub-card pet interactive-card" id="pet-hub-card" data-category="petshop">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_petshop_amazon.png?v=1023" alt="Pet Shop" id="pet-banner-img">
                     <h3>Pet Shop</h3>
                 </div>
 
                 <!-- Row 3 -->
-                <div class="hub-card electro" onclick="titaniumRedirect('eletrodomésticos cozinha', 'amazon')">
-                    <img src="images/banner_eletro_amazon.png" alt="Eletrodomésticos">
+                <!-- Categoria: Eletrodomésticos (Interativo) -->
+                <div class="hub-card electro interactive-card" id="electro-hub-card" data-category="eletrodomesticos">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_eletro_amazon.png?v=1024" alt="Eletrodomésticos" id="electro-banner-img">
                     <h3>Eletrodomésticos</h3>
                 </div>
-                <div class="hub-card tools" onclick="titaniumRedirect('ferramentas e construção', 'mercadolivre')">
-                    <img src="images/banner_ferramentas_mercadolivre.png" alt="Ferramentas">
+                <!-- Categoria: Ferramentas (Interativo) -->
+                <div class="hub-card tools interactive-card" id="tools-hub-card" data-category="ferramentas">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_ferramentas_amazon.png?v=1025" alt="Ferramentas" id="tools-banner-img">
                     <h3>Ferramentas</h3>
                 </div>
-                <div class="hub-card stationery" onclick="titaniumRedirect('material escolar papelaria', 'shopee')">
-                    <img src="images/banner_papelaria_shopee.png" alt="Papelaria">
+                <!-- Categoria: Papelaria (Interativo) -->
+                <div class="hub-card stationery interactive-card" id="stationery-hub-card" data-category="papelaria">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_papelaria_amazon.png?v=1026" alt="Papelaria" id="stationery-banner-img">
                     <h3>Papelaria</h3>
                 </div>
-                <div class="hub-card decor" onclick="titaniumRedirect('decoração interior', 'amazon')">
-                    <img src="images/banner_decoracao_amazon.png" alt="Decoração">
+                <!-- Categoria: Decoração (Interativo) -->
+                <div class="hub-card decor interactive-card" id="decor-hub-card" data-category="decoracao">
+                    <div class="brand-tabs">
+                        <button class="tab-btn active" data-store="amazon" title="Ver na Amazon">
+                            <i class="fab fa-amazon"></i>
+                        </button>
+                        <button class="tab-btn" data-store="mercadolivre" title="Ver no Mercado Livre">
+                            <i class="fas fa-handshake"></i>
+                        </button>
+                        <button class="tab-btn" data-store="shopee" title="Ver na Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </button>
+                    </div>
+                    <img src="images/banner_decoracao_amazon.png?v=1101" alt="Decoração" id="decor-banner-img">
                     <h3>Decoração</h3>
                 </div>
             </div>
@@ -201,7 +351,7 @@
                 <div class="footer-social">
                     <h4>Rede Social</h4>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/oferta.certa10" target="_blank" rel="noopener"
+                        <a href="https://www.instagram.com/oferta.certa10/" target="_blank" rel="noopener"
                             aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -217,9 +367,13 @@
         </div>
     </footer>
 
+    <!-- Bot Honeypot (Security v1140) -->
+    <a href="/admin-login-trap" class="titanium-trap" aria-hidden="true" tabindex="-1" id="titanium-bot-trap">Acesso
+        Administrativo</a>
+
     <!-- Scripts Principais -->
-    <script src="js/app.js?v=titanium_v12_fix_shopee"></script>
-    <script src="js/family-widget.js?v=titanium_v3_new_phrases"></script>
+    <script src="js/app.js?v=1140"></script>
+    <script src="js/family-widget.js?v=1140"></script>
 
 </body>
 

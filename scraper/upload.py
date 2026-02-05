@@ -49,6 +49,20 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
         
         if not entered:
             print("   ⚠️  Nenhuma das pastas padrão (public_html, domains...) foi encontrada. Ficando na raiz.")
+        else:
+            # Se estivermos em modo STAGING, entrar na subpasta de teste
+            env_mode = os.getenv('ENV_MODE', 'STAGING').upper()
+            if env_mode == "STAGING":
+                try:
+                    session.cwd("teste")
+                    print(f"   🧪 Modo STAGING: Entrou na subpasta 'teste' (PWD: {session.pwd()})")
+                except:
+                    try:
+                        session.mkd("teste")
+                        session.cwd("teste")
+                        print(f"   🧪 Modo STAGING: Criou e entrou na subpasta 'teste'")
+                    except Exception as e:
+                        print(f"   ⚠️ Falha ao entrar na pasta de staging: {e}")
 
         # List files for debugging (using LIST for more detail)
         print(f"   📂 Listando arquivos no diretório...")

@@ -35,7 +35,16 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
     *   Alterações estruturais (HTML) e comportamentais (JS) devem ser deployadas juntas.
     *   Se possível, versionar assets (ex: `app.js?v=2`) para quebrar cache de CDN/Browser.
 
-3.  **Ambiente de Staging (Sandbox Real):**
+3.  **⚠️ NUNCA Use `git checkout` em Arquivos com Mudanças Não-Commitadas:**
+    *   **Perigo Crítico:** `git checkout <arquivo>` reverte TODAS as mudanças locais não-commitadas, não apenas as que você quer desfazer.
+    *   **Alternativas Seguras:**
+        *   `git stash` - Salva mudanças temporariamente sem perdê-las
+        *   Edição manual - Delete apenas as linhas específicas que quer remover
+        *   `git diff <arquivo>` - Revise ANTES de reverter para saber o que será perdido
+    *   **Regra de Ouro:** Se há trabalho importante não-commitado, NUNCA execute `git checkout` sem antes fazer backup ou commit.
+    *   **Lição Aprendida (2026-02-05):** Perda de 6 categorias interativas (Games até Decoração) ao tentar reverter apenas mudanças do Carnaval. O comando reverteu TUDO.
+
+4.  **Ambiente de Staging (Sandbox Real):**
     *   Testar em ambiente IDÊNTICO ao de produção (mesmo servidor, mesmas restrições de rede/DNS).
     *   Não confiar apenas no localhost (que tem internet livre e DNS local).
     *   Simular restrições de rede e falhas de serviços externos antes do Go-Live.

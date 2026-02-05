@@ -3,6 +3,19 @@
    ======================================== */
 
 /* === CSS Variables === */
+/* ========================================
+   SECURITY BLINDAGEM (v1140)
+   ======================================== */
+.titanium-trap {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+}
+
 :root {
     /* Colors */
     --primary-blue: #2196F3;
@@ -61,7 +74,7 @@ body {
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     padding: 16px 0;
 }
 
@@ -282,7 +295,7 @@ nav a.active::after {
 }
 
 .highlight {
-    color: #FFD700;
+    color: #FF9900 !important;
     position: relative;
 }
 
@@ -308,10 +321,7 @@ nav a.active::after {
     /* Amazon Orange */
 }
 
-.hero-content .highlight {
-    color: #FF9900;
-    font-weight: 700;
-}
+/* Highlight removal (v1115 fix) */
 
 
 
@@ -1561,11 +1571,10 @@ nav a.active::after {
 }
 
 .partner-logo {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-    padding: 15px 30px;
-    /* Aumentado de 12px 20px */
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     display: flex;
@@ -1574,18 +1583,16 @@ nav a.active::after {
 }
 
 .partner-logo:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px) scale(1.05);
 }
 
 .partner-logo img {
-    height: 55px;
-    /* Aumentado de 42px */
-    width: auto;
-    max-width: 160px;
-    /* Aumentado de 120px */
+    height: 85px !important;
+    width: 85px !important;
     object-fit: contain;
     display: block;
+    /* Premium Outline Contour (v1139) */
+    filter: drop-shadow(1.5px 0 0 #2D3277) drop-shadow(-1.5px 0 0 #2D3277) drop-shadow(0 1.5px 0 #2D3277) drop-shadow(0 -1.5px 0 #2D3277);
 }
 
 /* Responsive adjustments for partners logos */
@@ -1768,4 +1775,159 @@ nav a.active::after {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* === Brand Tabs Container (Premium Refinement v1116) === */
+.brand-tabs {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 80;
+    background: rgba(0, 0, 0, 0.4);
+    /* Darker container for better contrast on white */
+    backdrop-filter: blur(12px);
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    pointer-events: auto !important;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: titaniumBorderPulse 3s infinite ease-in-out;
+}
+
+@keyframes titaniumBorderPulse {
+
+    0%,
+    100% {
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    50% {
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Option 1: Shine Effect (Light Streak) */
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: rotate(30deg);
+    transition: none;
+    animation: titaniumShine 4s infinite;
+    pointer-events: none;
+}
+
+@keyframes titaniumShine {
+    0% {
+        left: -150%;
+    }
+
+    20% {
+        left: 150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Brand Icon Colors (Inactive) */
+.tab-btn[data-store="amazon"] {
+    color: #FF9900;
+    border-color: #FF9900 !important;
+}
+
+.tab-btn[data-store="mercadolivre"] {
+    color: #FFE600;
+    border-color: #FFE600 !important;
+}
+
+.tab-btn[data-store="shopee"] {
+    color: #EE4D2D;
+    border-color: #EE4D2D !important;
+}
+
+/* Active State Colors by Brand */
+.tab-btn.active[data-store="amazon"] {
+    background: #FF9900 !important;
+    border-color: #FF9900 !important;
+    color: #232f3e !important;
+    /* Amazon Dark Blue for contrast */
+    box-shadow: 0 0 20px rgba(255, 153, 0, 0.6);
+}
+
+.tab-btn.active[data-store="mercadolivre"] {
+    background: #FFE600 !important;
+    border-color: #FFE600 !important;
+    color: #2D3277 !important;
+    /* ML Blue for contrast */
+    box-shadow: 0 0 20px rgba(255, 230, 0, 0.6);
+}
+
+.tab-btn.active[data-store="shopee"] {
+    background: #EE4D2D !important;
+    border-color: #EE4D2D !important;
+    color: white !important;
+    box-shadow: 0 0 20px rgba(238, 77, 45, 0.6);
+}
+
+.tab-btn.active {
+    color: white;
+    transform: scale(1.1);
+}
+
+.tab-btn i {
+    font-size: 1.2rem;
+}
+
+/* === Titanium Brand Tabs Pulse (Added v1114) === */
+.interactive-card.titaniumGlowPulse .brand-tabs {
+    animation: titaniumTabsPulse 0.4s ease-out;
+}
+
+@keyframes titaniumTabsPulse {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 153, 0, 0.8);
+        border-color: #FF9900;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
 }

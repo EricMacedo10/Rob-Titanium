@@ -30,12 +30,10 @@ class Copywriter:
         """
         Gera uma legenda completa baseada nos dados do produto.
         """
-        # Seleção de Hashtags Dinâmicas
         cat_key = category.lower() if category else "default"
         tags = self.hashtags_por_categoria.get(cat_key, self.hashtags_por_categoria["default"])
-        tags_fixas = "#amazon #mercadolivre #shopee"
+        tags_fixas = "#amazon #mercadolivre #shopee #guiadodesconto"
         
-        # Gatilhos Mentais baseados no Desconto
         if discount > 30:
             header = f"{random.choice(self.emojis_urgencia)} PREÇO DE BLACK FRIDAY! {random.choice(self.emojis_urgencia)}"
             hook = f"Encontramos esse {title} com um desconto ABSURDO de {discount}%!"
@@ -46,14 +44,40 @@ class Copywriter:
             header = f"🔥 ACHADO DO DIA 🔥"
             hook = f"Olha o que acabou de baixar de preço: {title} na {store}!"
 
-        # Corpo da Legenda
         body = (
             f"\n\n{hook}\n\n"
             f"💵 Por apenas: R$ {price}\n"
             f"🏪 Loja: {store}\n"
-            f"🛡️ Compra 100% Segura e Verificada pelo Robô Titanium.\n\n"
+            f"🛡️ Compra Segura e Verificada pelo Robô Titanium.\n\n"
+            f"🌐 Confira no nosso site:\n"
+            f"👉 guiadodesconto.com.br\n\n"
             f"{random.choice(self.ctas)}\n\n"
-            f"👇 Marque alguém que precisa ver isso!\n\n"
+            f"{tags} {tags_fixas}"
+        )
+        
+        return header + body
+
+    def generate_category_caption(self, store, category):
+        """
+        Gera legenda para postagens temáticas de categorias.
+        """
+        header = f"🚀 {category.upper()} NA {store.upper()}! 🚀"
+        
+        frases = [
+            f"Selecionamos as melhores ofertas de {category} na {store} especialmente para você!",
+            f"Procurando por {category}? A {store} está com promoções imperdíveis hoje.",
+            f"O Robô Titanium vasculhou a {store} e encontrou os maiores descontos em {category}."
+        ]
+        
+        tags = self.hashtags_por_categoria.get(category.lower(), self.hashtags_por_categoria["default"])
+        tags_fixas = f"#{store.lower()} #guiadodesconto #ofertas #promocao"
+        
+        body = (
+            f"\n\n{random.choice(frases)}\n\n"
+            f"Não perca mais tempo procurando! Os melhores preços e cupons já estão organizados no nosso site.\n\n"
+            f"🌐 Acesse agora:\n"
+            f"👉 guiadodesconto.com.br\n\n"
+            f"🔗 {random.choice(self.ctas)}\n\n"
             f"{tags} {tags_fixas}"
         )
         
