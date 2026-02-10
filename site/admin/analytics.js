@@ -1,0 +1,16 @@
+const titanium_analytics_data = [
+    {
+        "store": "Amazon",
+        "category": "Carnaval",
+        "title": "Bloco do Desconto",
+        "ip_masked": "1",
+        "log_time": "2026-02-07 17:36:24"
+    },
+    {
+        "store": "Shopee",
+        "category": "Esportes",
+        "title": "Tenis Nike",
+        "ip_masked": "1",
+        "log_time": "2026-02-07 17:39:47"
+    }
+];

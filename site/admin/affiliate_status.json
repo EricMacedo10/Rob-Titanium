@@ -1,0 +1,29 @@
+[
+    {
+        "store": "Mercado Livre",
+        "title": "Sambódromo de Ofertas",
+        "url": "https://lista.mercadolivre.com.br/carnaval?matt_tool=188269638",
+        "tag_integrity": true,
+        "http_status": 200,
+        "message": "",
+        "last_check": "07/02/2026 18:11:06"
+    },
+    {
+        "store": "Shopee",
+        "title": "Folia de Preços Baixos",
+        "url": "https://shopee.com.br/search?keyword=carnaval&utm_source=an_18318830863",
+        "tag_integrity": true,
+        "http_status": 200,
+        "message": "",
+        "last_check": "07/02/2026 18:11:07"
+    },
+    {
+        "store": "Amazon",
+        "title": "Bloco do Desconto",
+        "url": "https://www.amazon.com.br/s?k=carnaval&tag=guiadodesco00-20",
+        "tag_integrity": true,
+        "http_status": 503,
+        "message": "Anti-bot da Amazon detectado. Verifique o link manualmente no navegador.",
+        "last_check": "07/02/2026 18:11:07"
+    }
+]

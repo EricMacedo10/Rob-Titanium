@@ -7,6 +7,7 @@
     <meta name="description"
         content="Encontre a melhor oferta na Shopee, Mercado Livre e Amazon. Comparamos preços para você economizar.">
     <title>Guia do Desconto | Encontre a Melhor Oferta</title>
+    <meta name="lomadee" content="2324685" />
 
     <!-- Security Tags (Blindagem Titanium v1140) -->
     <meta http-equiv="Content-Security-Policy"
@@ -29,7 +30,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/family-widget.css?v=3">
-    <link rel="stylesheet" href="css/style.css?v=1141">
+    <link rel="stylesheet" href="css/style.css?v=1157">
 </head>
 
 <body>
@@ -89,31 +90,79 @@
         </div>
     </section>
 
-    <!-- Section: Seasonal Campaign (Volta às Aulas) -->
-    <section class="seasonal-campaign" style="display: none !important;">
+    <!-- Section: Seasonal Campaign (Carnaval de Ofertas) -->
+    <section class="seasonal-campaign">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">🎉 Carnaval de Ofertas</h2>
+            </div>
+            <div class="hubs-grid seasonal-grid">
+                <!-- ML: Carnaval -->
+                <div class="hub-card seasonal mercadolivre"
+                    onclick="window.open('https://lista.mercadolivre.com.br/carnaval?matt_tool=188269638', '_blank')">
+                    <div class="hub-store-badge mercadolivre">
+                        <i class="fas fa-handshake"></i> Mercado Livre
+                    </div>
+                    <img src="images/banner_carnaval_mercadolivre.png" alt="Carnaval Mercado Livre">
+                    <h3>Sambódromo de Ofertas</h3>
+                </div>
+                <!-- Shopee: Carnaval -->
+                <div class="hub-card seasonal shopee"
+                    onclick="window.open('https://shopee.com.br/search?keyword=carnaval&utm_source=an_18318830863', '_blank')">
+                    <div class="hub-store-badge shopee">
+                        <i class="fa-solid fa-bag-shopping"></i> Shopee
+                    </div>
+                    <img src="images/banner_carnaval_shopee.png" alt="Carnaval Shopee">
+                    <h3>Folia de Preços Baixos</h3>
+                </div>
+                <!-- Amazon: Carnaval -->
+                <div class="hub-card seasonal amazon interactive-card" id="carnaval-hub-card"
+                    onclick="window.open('https://www.amazon.com.br/s?k=carnaval&tag=guiadodesco00-20', '_blank')">
+                    <div class="hub-store-badge amazon">
+                        <i class="fab fa-amazon"></i> Amazon
+                    </div>
+                    <img src="images/banner_carnaval_amazon.png" alt="Carnaval Amazon">
+                    <h3>Bloco do Desconto</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section: Seasonal Campaign (Volta às Aulas) - HIDDEN BY USER REQUEST
+    <section class="seasonal-campaign" style="margin-top: 40px; background: #f0f7ff;">
         <div class="container">
             <div class="section-title-wrapper">
                 <h2 class="section-title">🎒 Especial Volta às Aulas</h2>
             </div>
             <div class="hubs-grid seasonal-grid">
-                <!-- ML: Mochila -->
-                <div class="hub-card seasonal" onclick="window.open('https://mercadolivre.com/sec/1dtJSDF', '_blank')">
-                    <img src="images/banner_volta_aulas_mercadolivre.png" alt="Mochilas Mercado Livre">
+                <div class="hub-card seasonal mercadolivre"
+                    onclick="window.open('https://mercadolivre.com/sec/1dtJSDF', '_blank')">
+                    <div class="hub-store-badge mercadolivre">
+                        <i class="fas fa-handshake"></i> Mercado Livre
+                    </div>
+                    <img src="images/banner_papelaria_mercadolivre.png" alt="Mochilas Mercado Livre">
                     <h3>Mochilas e Tech</h3>
                 </div>
-                <!-- Shopee: Material Escolar -->
-                <div class="hub-card seasonal" onclick="window.open('https://s.shopee.com.br/5VPUpCDD0U', '_blank')">
-                    <img src="images/banner_volta_aulas_shopee.png" alt="Material Escolar Shopee">
+                <div class="hub-card seasonal shopee"
+                    onclick="window.open('https://s.shopee.com.br/10pW2pX5h0', '_blank')">
+                    <div class="hub-store-badge shopee">
+                        <i class="fa-solid fa-bag-shopping"></i> Shopee
+                    </div>
+                    <img src="images/banner_papelaria_shopee.png" alt="Material Escolar Shopee">
                     <h3>Tudo com Frete Grátis</h3>
                 </div>
-                <!-- Amazon: Dispositivos e Papelaria -->
-                <div class="hub-card seasonal" onclick="window.open('https://amzn.to/4bsh515', '_blank')">
-                    <img src="images/banner_volta_aulas_amazon.png" alt="Especial Amazon">
+                <div class="hub-card seasonal amazon" onclick="window.open('https://amzn.to/3UhXvG9', '_blank')">
+                    <div class="hub-store-badge amazon">
+                        <i class="fab fa-amazon"></i> Amazon
+                    </div>
+                    <img src="images/banner_papelaria_amazon.png" alt="Especial Amazon">
                     <h3>Especial Papelaria</h3>
                 </div>
             </div>
         </div>
     </section>
+    -->
 
     <!-- Section: Category Hubs (The Core) -->
     <section class="category-hubs">
@@ -372,7 +421,7 @@
         Administrativo</a>
 
     <!-- Scripts Principais -->
-    <script src="js/app.js?v=1140"></script>
+    <script src="js/app.js?v=1157"></script>
     <script src="js/family-widget.js?v=1140"></script>
 
 </body>

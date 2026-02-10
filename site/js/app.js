@@ -464,6 +464,73 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Search Functionality ===
 
     // Busca local (autocomplete enquanto digita)
+    // === Carnaval Confetti Master System (v1155) ===
+    function createConfetti(target) {
+        const colors = ['yellow', 'green', 'pink', 'blue', 'purple', 'orange'];
+        const particleCount = 20; // Number of particles per burst
+
+        // Create container if it doesn't exist
+        let container = target.querySelector('.confetti-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'confetti-container';
+            target.appendChild(container);
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            const colorClass = `confetti-p-${colors[Math.floor(Math.random() * colors.length)]}`;
+            particle.className = `confetti-particle ${colorClass}`;
+
+            // Randomize trajectory
+            const angle = Math.random() * Math.PI * 2; // Full circle
+            const velocity = 50 + Math.random() * 150;
+            const tx = Math.cos(angle) * velocity + 'px';
+            const ty = Math.sin(angle) * velocity + 'px';
+            const tr = Math.random() * 720 + 'deg';
+            const duration = 0.6 + Math.random() * 0.8 + 's';
+
+            particle.style.setProperty('--tx', tx);
+            particle.style.setProperty('--ty', ty);
+            particle.style.setProperty('--tr', tr);
+            particle.style.setProperty('--duration', duration);
+
+            // Initial position (center of card)
+            particle.style.left = '50%';
+            particle.style.top = '50%';
+
+            container.appendChild(particle);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                particle.classList.add('animate');
+            });
+
+            // Cleanup
+            setTimeout(() => {
+                particle.remove();
+                if (container.children.length === 0) {
+                    container.remove();
+                }
+            }, 1500);
+        }
+    }
+
+    // Attach to seasonal cards
+    const seasonalCards = document.querySelectorAll('.hub-card.seasonal');
+    seasonalCards.forEach(card => {
+        // Trigger on Hover
+        card.addEventListener('mouseenter', () => {
+            createConfetti(card);
+        });
+
+        // Trigger on Click (extra festive)
+        card.addEventListener('click', (e) => {
+            // Prevent interference with the onclick redirection for a split second
+            createConfetti(card);
+        });
+    });
+
     if (searchInput) {
         console.log("TITANIUM_V3_ACTIVE: Logic Consolidated.");
     }
@@ -1084,7 +1151,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Titanium Sync Timestamp: 2026-02-05-12:50 (v1102_RESTORED_ALL)
+    // 13. Carnaval (SAZONAL)
+    setupTitaniumInteractiveBanner('carnaval-hub-card', {
+        defaultStore: 'amazon',
+        banners: {
+            amazon: 'images/amazon-app-day-carnaval.png?v=1102',
+            mercadolivre: 'images/amazon-app-day-carnaval.png?v=1102',
+            shopee: 'images/amazon-app-day-carnaval.png?v=1102'
+        },
+        searchTerms: {
+            amazon: 'fantasias carnaval glitter aderecos acessorios festa',
+            mercadolivre: 'caixa de som jbl termica cooler fantasias',
+            shopee: 'fantasias baratas carnaval decoracao festa kit folia'
+        }
+    });
+
+    // Titanium Sync Timestamp: 2026-02-10-12:50 (v1157_RESTORED_CARNAVAL)
 });
 // ========================================
 // SECURITY BLINDAGEM (v1140)
@@ -1101,4 +1183,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
+
+// --- TITANIUM METRICS: Click Tracking (Senior Workflow) ---
+function trackClick(store, category, title) {
+    const data = JSON.stringify({
+        store: store,
+        category: category,
+        title: title,
+        timestamp: new Date().toISOString(),
+        url: window.location.href
+    });
+
+    // Environment Detection
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    // Use 127.0.0.1 instead of localhost for better compatibility in local dev
+    // Use PHP tracker in Staging/Production (Hostinger)
+    const trackerUrl = isLocal
+        ? 'http://127.0.0.1:5001/api/track-click'
+        : 'track_clicks.php'; // Movido para a raiz para evitar 401/404 em pastas protegidas
+    const success = navigator.sendBeacon(trackerUrl, data);
+
+    if (success) {
+        console.log(`📊 Titanium Metrics: Click tracked [${store} - ${category}]`);
+    } else {
+        // Fallback for older browsers or specific security blocks
+        fetch(trackerUrl, { method: 'POST', body: data, keepalive: true }).catch(() => { });
+    }
+}
+
+// Inicializar ouvintes de clique após o DOM carregar
+document.addEventListener('DOMContentLoaded', () => {
+    // Capturar cliques em cards de oferta e hubs
+    const clickTargets = '.hub-card, .deal-card, .brand-tabs .tab-btn';
+
+    document.body.addEventListener('click', function (e) {
+        const target = e.target.closest(clickTargets);
+        if (!target) return;
+
+        let store = 'Unknown';
+        if (target.classList.contains('amazon')) store = 'Amazon';
+        else if (target.classList.contains('mercadolivre')) store = 'Mercado Livre';
+        else if (target.classList.contains('shopee')) store = 'Shopee';
+        else if (target.dataset.store) store = target.dataset.store;
+
+        let title = target.querySelector('h3')?.innerText || target.innerText || 'Action';
+        let category = target.closest('section')?.querySelector('h2')?.innerText ||
+            target.dataset.category || 'Geral';
+
+        trackClick(store, category, title);
+    });
 });

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Afiliados | Titanium Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card-bg: #fff;
+            --primary: #2563eb;
+            --success: #10b981;
+            --error: #ef4444;
+            --text-main: #1e293b;
+            --text-dim: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .label {
+            color: var(--text-dim);
+            font-size: 0.875rem;
+        }
+
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .audit-table {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-collapse: collapse;
+        }
+
+        .audit-table th {
+            text-align: left;
+            background: #f1f5f9;
+            padding: 15px;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .audit-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .badge-ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-fail {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-warn {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .refresh-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .refresh-btn:hover {
+            opacity: 0.9;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Titanium Link Monitor 🛡️</h1>
+            <button class="refresh-btn" onclick="location.reload()">Atualizar Painel</button>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Total de Links</div>
+                <div class="value" id="stat-total">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Total de Cliques</div>
+                <div class="value" id="stat-clicks" style="color: var(--primary);">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Melhor Categoria</div>
+                <div class="value" id="stat-top-cat" style="color: var(--success);">-</div>
+            </div>
+        </div>
+
+        <div id="performance-section" style="display:none; margin-bottom: 30px;">
+            <h2 style="font-size: 1.1rem; margin-bottom: 15px;">🏆 Categorias Populares (Top 5)</h2>
+            <div id="ranking-container" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Ranking items here -->
+            </div>
+        </div>
+
+        <table class="audit-table">
+            <thead>
+                <tr>
+                    <th>Loja</th>
+                    <th>Campanha / Nome</th>
+                    <th>Status HTTP</th>
+                    <th>Tag Inteira?</th>
+                    <th>Última Checagem</th>
+                </tr>
+            </thead>
+            <tbody id="audit-body">
+                <tr>
+                    <td colspan="5" style="text-align:center; padding: 40px;">Carregando auditoria...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            Admin Dashboard v1.1 - Guia do Desconto Production Monitor
+        </div>
+    </div>
+
+    <script src="affiliate_status.js"></script>
+    <script src="../analytics.js"></script>
+    <script>
+        async function loadAudit() {
+            try {
+                let data;
+
+                // Tenta usar a variável global (local file)
+                if (typeof affiliate_audit_data !== 'undefined') {
+                    data = affiliate_audit_data;
+                    console.log("Dados carregados via Global JS (Offline Mode)");
+                } else {
+                    // Fallback para fetch (se rodar em servidor futuramente)
+                    const response = await fetch('affiliate_status.json?t=' + Date.now());
+                    data = await response.json();
+                    console.log("Dados carregados via Fetch (Online Mode)");
+                }
+
+                // --- NEW: Load Analytics ---
+                try {
+                    let analytics;
+                    if (typeof titanium_analytics_data !== 'undefined') {
+                        analytics = titanium_analytics_data;
+                        console.log("Analytics carregados via Global JS");
+                    } else {
+                        const analyticsRes = await fetch('../analytics.json?t=' + Date.now());
+                        analytics = await analyticsRes.json();
+                        console.log("Analytics carregados via Fetch");
+                    }
+                    renderAnalytics(analytics);
+                } catch (e) { console.log("Analytics ainda não disponível ou erro no carregamento"); }
+
+                const body = document.getElementById('audit-body');
+                body.innerHTML = '';
+
+                let healthy = 0;
+                let tagsOk = 0;
+
+                data.forEach(item => {
+                    const isHealthy = item.http_status === 200;
+                    const isWarning = item.store === "Amazon" && (item.http_status === 503 || item.http_status === 403);
+
+                    if (isHealthy || isWarning) healthy++;
+                    if (item.tag_integrity === true) tagsOk++;
+
+                    const row = document.createElement('tr');
+
+                    let statusBadge = '';
+                    if (isHealthy) {
+                        statusBadge = `<span class="badge badge-ok">OK (200)</span>`;
+                    } else if (isWarning) {
+                        statusBadge = `<span class="badge badge-warn" title="${item.message}">BOT CHECK (${item.http_status})</span>`;
+                    } else {
+                        statusBadge = `<span class="badge badge-fail">FALHA (${item.http_status})</span>`;
+                    }
+
+                    const tagBadge = item.tag_integrity === true
+                        ? `<span class="badge badge-ok">Sim</span>`
+                        : (item.tag_integrity === "n/a" ? `<span class="badge badge-warn">N/A</span>` : `<span class="badge badge-fail">Não</span>`);
+
+                    const titleCell = `<div><strong>${item.title}</strong>${item.message ? '<br><small style="color:var(--text-dim)">' + item.message + '</small>' : ''}</div>`;
+
+                    row.innerHTML = `
+                        <td><strong>${item.store}</strong></td>
+                        <td>${titleCell}</td>
+                        <td>${statusBadge}</td>
+                        <td>${tagBadge}</td>
+                        <td>${item.last_check}</td>
+                    `;
+                    body.appendChild(row);
+                });
+
+                document.getElementById('stat-total').innerText = data.length;
+                // stat-healthy and stat-tags were replaced by clicks/top-cat in the UI, 
+                // but we can still calculate them for internal logging or future use.
+
+            } catch (err) {
+                console.error("Erro ao carregar auditoria:", err);
+                document.getElementById('audit-body').innerHTML = `
+                    <tr><td colspan="5" style="text-align:center; color: var(--error);">
+                        ❌ Arquivo de auditoria não encontrado. Execute o script 'affiliate_monitor.py' primeiro.
+                    </td></tr>
+                `;
+            }
+        }
+
+        function renderAnalytics(analytics) {
+            console.log("📊 Titanium Debug: renderAnalytics data =", analytics);
+            if (!analytics || analytics.length === 0) return;
+
+            document.getElementById('performance-section').style.display = 'block';
+            const clicksEl = document.getElementById('stat-clicks');
+            if (clicksEl) {
+                clicksEl.innerText = analytics.length;
+                console.log("✅ stat-clicks updated to", analytics.length);
+            } else {
+                console.error("❌ stat-clicks element not found!");
+            }
+
+            // Count by category
+            const cats = {};
+            analytics.forEach(a => {
+                const name = a.category || "Geral";
+                cats[name] = (cats[name] || 0) + 1;
+            });
+
+            const sorted = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            document.getElementById('stat-top-cat').innerText = sorted[0] ? sorted[0][0] : '-';
+
+            const rankBody = document.getElementById('ranking-container');
+            rankBody.innerHTML = '';
+
+            const max = sorted[0][1];
+
+            sorted.forEach(([name, count]) => {
+                const pct = (count / max) * 100;
+                const item = document.createElement('div');
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                        <span>${name}</span>
+                        <span><strong>${count} cliques</strong></span>
+                    </div>
+                    <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow:hidden;">
+                        <div style="background: var(--primary); height: 100%; width: ${pct}%"></div>
+                    </div>
+                `;
+                rankBody.appendChild(item);
+            });
+        }
+
+        loadAudit();
+    </script>
+</body>
+
+</html>
