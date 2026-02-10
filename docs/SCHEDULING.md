@@ -189,6 +189,50 @@ Para mudar os horários ou adicionar mais execuções:
 
 ---
 
+## 📸 Postagens Agendadas no Feed do Instagram
+
+O sistema suporta postagens automáticas no Feed do Instagram usando um manifesto JSON.
+
+### Como Funciona
+
+1. Coloque as imagens na pasta `social/fila/`
+2. Edite `social/fila/schedule.json` com os metadados de cada postagem
+3. O GitHub Actions roda diariamente e posta a imagem do dia
+
+### Formato do `schedule.json`
+
+```json
+{
+    "data": "2026-02-11",
+    "imagem": "2026-02-11_amazon_ofertas.png",
+    "loja": "amazon",
+    "categoria": "tecnologia",
+    "tema": "Ofertas de Tecnologia com desconto na Amazon"
+}
+```
+
+| Campo | Obrigatório | Descrição |
+|-------|:-----------:|-----------|
+| `data` | ✅ | Data da postagem (YYYY-MM-DD) |
+| `imagem` | ✅ | Nome exato do arquivo na pasta `social/fila/` |
+| `loja` | ✅ | `amazon`, `mercadolivre` ou `shopee` |
+| `categoria` | ✅ | `tecnologia`, `casa`, `beleza`, `moda`, `esportes`, `automotivo`, `games` |
+| `tema` | ✅ | Descrição do tema — usado para gerar a legenda |
+
+### Blindagens
+
+- **Anti-duplicata**: Verifica `social/postados/` antes de publicar
+- **Fail-Safe**: Recusa postar se qualquer campo obrigatório estiver vazio
+- **Legenda inteligente**: Texto, emojis e hashtags gerados com base na `loja` + `categoria` + `tema`
+
+### Regras de Nomeação
+
+- ✅ Use underscores: `2026-02-11_amazon_ofertas.png`
+- ❌ Evite espaços: `2026-02-11 amazon ofertas.png`
+- ❌ Evite extensão dupla: `arquivo.png.png`
+
+---
+
 ## 📞 Suporte
 
 Se encontrar problemas:

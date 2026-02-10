@@ -1,0 +1,44 @@
+[
+    {
+        "data": "2026-02-11",
+        "imagem": "2026-02-11_amazon_carnaval_de_ofertas.png",
+        "loja": "amazon",
+        "categoria": "tecnologia",
+        "tema": "Carnaval de Ofertas - As melhores promoções da Amazon com preço de folia"
+    },
+    {
+        "data": "2026-02-12",
+        "imagem": "2026-02-12_mercadolivre_carnaval_de_ofertas.png",
+        "loja": "mercadolivre",
+        "categoria": "tecnologia",
+        "tema": "Carnaval de Ofertas - Produtos com frete grátis e cashback no Mercado Livre"
+    },
+    {
+        "data": "2026-02-13",
+        "imagem": "2026-02-13_mercadolivre_decoracao.png",
+        "loja": "mercadolivre",
+        "categoria": "casa",
+        "tema": "Decoração com preço especial - Renove sua casa com ofertas do Mercado Livre"
+    },
+    {
+        "data": "2026-02-14",
+        "imagem": "2026-02-14_amazon_automotivo.png",
+        "loja": "amazon",
+        "categoria": "automotivo",
+        "tema": "Acessórios Automotivos em promoção - Cuide do seu carro com descontos na Amazon"
+    },
+    {
+        "data": "2026-02-15",
+        "imagem": "2026-02-15_shopee_eletrodomesticos.png",
+        "loja": "shopee",
+        "categoria": "tecnologia",
+        "tema": "Eletrodomésticos com mega desconto - Ofertas imperdíveis na Shopee"
+    },
+    {
+        "data": "2026-02-16",
+        "imagem": "2026-02-16_amazon_esportes.png",
+        "loja": "amazon",
+        "categoria": "esportes",
+        "tema": "Fitness e Esportes com preço de Carnaval - Equipamentos top na Amazon"
+    }
+]
