@@ -4,7 +4,8 @@ import time
 import os
 
 # --- ARQUIVO DE TOKENS ---
-TOKEN_FILE = os.path.join(os.path.dirname(__file__), "meli_tokens.json")
+STATE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "state")
+TOKEN_FILE = os.path.join(STATE_DIR, "meli_tokens.json")
 
 # --- CREDENCIAIS ---
 CLIENT_ID = "2181313931486448"

@@ -1,7 +1,7 @@
 # 📋 Próximos Passos - Banners Interativos
 
 **Data de criação:** 05/02/2026  
-**Status:** Pendente
+**Status:** ✅ Sistema de Monitoramento & Métricas Ativo 🚀
 
 ---
 
@@ -31,7 +31,9 @@
 
 ---
 
-### 2. 📈 Analisar Métricas de Cliques por Categoria
+---
+
+### 2. 📈 Analisar Métricas de Cliques por Categoria (IMPLEMENTADO ✅)
 
 **Objetivo:** Identificar quais categorias geram mais engajamento e otimizar as menos performáticas.
 
@@ -75,17 +77,43 @@
 4. Realizar 2-3 deploys para sincronização
 5. Testar funcionalidade
 
+### 4. 🌐 Novos Horizontes de Afiliados (Exploração 2026)
+
+**Objetivo:** Diversificar as fontes de receita além do "Big 3" (Amazon, ML, Shopee).
+
+#### 🛍️ Varejo e Moda (Físicos)
+- **Parceiro Magalu**: Criar "Mini-Loja" integrada.
+- **Shein / AliExpress**: Foco em tendências virais e eletrônicos de baixo custo.
+- **Casas Bahia / Ponto**: Eletrodomésticos de grande porte.
+
+#### 🎓 Infoprodutos (Educação)
+- **Hotmart / Kiwify / Eduzz**: Cursos online, mentorias e e-books (Comissões até 80%).
+- **Udemy**: Cursos técnicos e profissionalizantes.
+
+#### 💳 Financeiro e Serviços
+- **Stone / PagSeguro / SumUp**: Indicação de máquinas de cartão.
+- **Bancos Digitais (Inter, XP, Banco Pan)**: Abertura de conta e investimentos.
+- **Seguros (Porto Seguro, Youse)**: Proteção automotiva e residencial.
+
+#### ✈️ Viagens e Turismo
+- **Booking.com**: Reservas de hotel.
+- **RentCars**: Aluguel de veículos.
+- **Decolar / Smiles**: Passagens e pacotes.
+
+#### 🕸️ Redes Agregadoras (Múltiplas Marcas)
+- **SocialSoul (Lomadee)** / **Awin**: Para acessar Nike, Adidas, Carrefour, etc., em uma única conta.
+
 ---
 
 ## ✅ Checklist de Acompanhamento
 
-- [ ] Configurar acesso aos painéis de afiliados (Amazon, ML, Shopee)
-- [ ] Criar planilha de acompanhamento de métricas
+- [x] Configurar rastreamento técnico (Amazon, ML, Shopee) ✅
+- [x] Criar dashboard de métricas em tempo real ✅
 - [ ] Definir KPIs (indicadores-chave de performance)
-- [ ] Agendar revisão mensal dos dados
+- [x] Agendar revisão mensal dos dados
 - [ ] Identificar categorias prioritárias para expansão
 - [ ] Preparar banners para novas categorias
-- [ ] Documentar insights e otimizações
+- [x] Documentar insights e otimizações (via Walkthrough) ✅
 
 ---
 

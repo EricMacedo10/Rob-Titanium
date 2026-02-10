@@ -33,11 +33,9 @@ def test_arbitrar(termo):
     print(f"TESTE 3: Arbitrar Preço - '{termo}'")
     print("="*70)
     
-    payload = {"termo": termo}
-    response = requests.post(
-        f"{API_URL}/api/arbitrar",
-        json=payload,
-        headers={"Content-Type": "application/json"}
+    response = requests.get(
+        f"{API_URL}/api/search",
+        params={"q": termo}
     )
     
     print(f"Status: {response.status_code}")
@@ -45,10 +43,10 @@ def test_arbitrar(termo):
     if response.status_code == 200:
         data = response.json()
         print(f"\n✅ Melhor produto encontrado:")
-        print(f"   Título: {data['melhor_produto']['titulo']}")
-        print(f"   Preço: R$ {data['melhor_produto']['preco']:.2f}")
-        print(f"   Loja: {data['melhor_produto']['loja']}")
-        print(f"   Link: {data['melhor_produto']['link'][:60]}...")
+        print(f"   Título: {data['best_price']['title']}")
+        print(f"   Preço: R$ {data['best_price']['price']:.2f}")
+        print(f"   Loja: {data['best_price']['store']}")
+        print(f"   Link: {data['best_price']['link'][:60]}...")
     else:
         print(f"❌ Erro: {response.json()}")
 
@@ -59,26 +57,23 @@ def test_validation():
     print("="*70)
     
     # Teste 1: Termo vazio
-    response = requests.post(
-        f"{API_URL}/api/arbitrar",
-        json={"termo": ""},
-        headers={"Content-Type": "application/json"}
+    response = requests.get(
+        f"{API_URL}/api/search",
+        params={"q": ""}
     )
     print(f"Termo vazio: {response.status_code} - {response.json()['erro']}")
     
     # Teste 2: Termo muito curto
-    response = requests.post(
-        f"{API_URL}/api/arbitrar",
-        json={"termo": "ab"},
-        headers={"Content-Type": "application/json"}
+    response = requests.get(
+        f"{API_URL}/api/search",
+        params={"q": "ab"}
     )
     print(f"Termo curto: {response.status_code} - {response.json()['erro']}")
     
     # Teste 3: Caracteres inválidos
-    response = requests.post(
-        f"{API_URL}/api/arbitrar",
-        json={"termo": "<script>alert('xss')</script>"},
-        headers={"Content-Type": "application/json"}
+    response = requests.get(
+        f"{API_URL}/api/search",
+        params={"q": "<script>alert('xss')</script>"}
     )
     print(f"XSS attempt: {response.status_code} - {response.json()['erro']}")
 
@@ -90,7 +85,7 @@ if __name__ == "__main__":
         test_health()
         test_status()
         test_validation()
-        # test_arbitrar("mouse gamer")  # Descomente para testar busca real
+        test_arbitrar("mouse gamer")  # Testando busca real
         
         print("\n" + "="*70)
         print("✅ TODOS OS TESTES CONCLUÍDOS")

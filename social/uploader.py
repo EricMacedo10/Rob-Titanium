@@ -18,7 +18,7 @@ class ResilientUploader:
         """
         # 1. Tentativa via FTP (Hostinger)
         if self.ftp_config and self.ftp_config.get("user"):
-            print(f"📡 Tentando upload via FTP (Hostinger): {remote_name}")
+            print(f"--- Tentando upload via FTP (Hostinger): {remote_name}")
             try:
                 success = upload_to_hostinger(
                     local_path,
@@ -32,16 +32,16 @@ class ResilientUploader:
                     if self._verify_link(url):
                         return url
             except Exception as e:
-                print(f"⚠️ Erro no FTP: {e}")
+                print(f"--- Erro no FTP: {e}")
 
         # 2. Fallback via ImgBB (Cloud)
         if self.imgbb_api_key:
-            print(f"☁️ Fallback: Tentando upload via ImgBB API...")
+            print(f"--- Fallback: Tentando upload via ImgBB API...")
             url = self._upload_to_imgbb(local_path)
             if url and self._verify_link(url):
                 return url
 
-        print("❌ Todas as tentativas de upload falharam.")
+        print("--- Todas as tentativas de upload falharam.")
         return None
 
     def _upload_to_imgbb(self, local_path):
@@ -58,25 +58,25 @@ class ResilientUploader:
                 if data.get("success"):
                     return data["data"]["url"]
                 else:
-                    print(f"❌ Erro ImgBB: {data.get('error', {}).get('message')}")
+                    print(f"--- Erro ImgBB: {data.get('error', {}).get('message')}")
         except Exception as e:
-            print(f"💥 Falha crítica no ImgBB: {e}")
+            print(f"--- Falha critica no ImgBB: {e}")
         return None
 
     def _verify_link(self, url):
         """Health Check: Garante que a URL é acessível e retorna Status 200."""
-        print(f"🔍 Validando link: {url}")
+        print(f"--- Validando link: {url}")
         try:
             # Head request para ser rápido
             response = requests.head(url, timeout=10, allow_redirects=True)
             if response.status_code == 200:
-                print("✅ Link validado e público!")
+                print("--- Link validado e publico!")
                 return True
             else:
-                print(f"⚠️ Link retornou status {response.status_code}")
+                print(f"--- Link retornou status {response.status_code}")
                 return False
         except Exception as e:
-            print(f"⚠️ Erro ao validar link: {e}")
+            print(f"--- Erro ao validar link: {e}")
             return False
 
 if __name__ == "__main__":

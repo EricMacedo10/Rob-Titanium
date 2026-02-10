@@ -14,13 +14,13 @@
         },
         {
             "id": 1,
-            "text": "Compare rápido! Clique nos botões de marcas dentro de cada categoria. 🎯",
+            "text": "Se virem o ícone de 🔥, é porque a oferta está muito quente!",
             "time": "Agora",
-            "icon": "fa-bullseye"
+            "icon": "fa-fire"
         },
         {
             "id": 1,
-            "text": "Hoje é dia de casa! Confira as melhores opções.",
+            "text": "Hoje é dia de tecnologia! Confira as melhores opções.",
             "time": "Agora",
             "icon": "fa-comment"
         }

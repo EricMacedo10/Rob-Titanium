@@ -24,27 +24,55 @@ def update_manual_targets():
     
     for i, target in enumerate(TARGETS):
         term = target['term']
-        print(f"\n--- [{i+1}/{len(TARGETS)}] Buscando: {term} ---")
+        store_target = target.get('store', 'all')
+        print(f"\n--- [{i+1}/{len(TARGETS)}] Buscando: {term} (Loja: {store_target}) ---")
         
         try:
-            # Use Arbitro to find best deal across all stores
-            resultado = arbitro.processar_pedido(term)
+            # Respect store targeting
+            if store_target == 'mercadolivre':
+                import asyncio
+                from scraper.mercadolivre_api import search_mercadolivre
+                # ML specific search
+                res = search_mercadolivre(term, limit=1)
+                if res and len(res) > 0:
+                    prod = res[0]
+                    analise = {"motivo": f"Oferta Direta Mercado Livre para {term}"}
+                else:
+                    prod = None
+            elif store_target == 'shopee':
+                import asyncio
+                from scraper.shopee_affiliate import search_shopee
+                res = search_shopee(term, limit=1)
+                if res and len(res) > 0:
+                    prod = res[0]
+                    analise = {"motivo": f"Oferta Direta Shopee para {term}"}
+                else:
+                    prod = None
+            elif store_target == 'amazon':
+                # Use Arbitro but specifically for Amazon (it handles the loop)
+                import asyncio
+                res = asyncio.run(arbitro.buscar_amazon(term))
+                prod = res if res and res.get('disponivel') else None
+                analise = {"motivo": f"Oferta Direta Amazon para {term}"}
+            else:
+                # DEFAULT: Cross-store arbitration (IA chooses best)
+                resultado = arbitro.processar_pedido(term)
+                prod = resultado.get('melhor_produto') if resultado else None
+                analise = resultado.get('analise_ia', {}) if resultado else {}
             
-            if resultado and 'melhor_produto' in resultado:
-                prod = resultado['melhor_produto']
-                
+            if prod and prod.get('preco') and prod.get('preco') != float('inf'):
                 # Format for site/data.json
                 formatted = {
                     "id": f"prod_{int(time.time())}_{i}",
-                    "title": prod.get('titulo', prod.get('nome', 'Sem Título')), # Fix: Arbitro uses 'titulo'
+                    "title": prod.get('titulo', prod.get('nome', 'Sem Título')), 
                     "price": prod['preco'],
-                    "old_price": prod['preco'] * 1.25, # Fake old price
+                    "old_price": prod['preco'] * 1.25, 
                     "discount": 20,
                     "store": prod['loja'],
                     "category": target.get('category', 'geral'),
-                    "image": prod.get('imagem', prod.get('image', '')), # Fix: Handle both keys
+                    "image": prod.get('imagem', prod.get('image', '')), 
                     "link": prod.get('link', prod.get('link_afiliado', '')),
-                    "reason": resultado.get('analise_ia', {}).get('motivo', 'Melhor oferta encontrada')
+                    "reason": analise.get('motivo', 'Melhor oferta encontrada')
                 }
                 new_products.append(formatted)
                 print(f"✅ Encontrado: {formatted['title'][:40]}... (R$ {formatted['price']})")
@@ -55,7 +83,7 @@ def update_manual_targets():
             print(f"❌ Erro ao buscar {term}: {e}")
             
         # Delay anti-ban
-        time.sleep(5)
+        time.sleep(random.uniform(2, 5))
         
     return new_products
 
@@ -137,11 +165,10 @@ def main():
             if not link or "http" not in link: continue
             if not image or "http" not in image: continue
             
-            # Temporariamente remover Mercado Livre da exibição final se estiver travado
-            # Mercado Livre liberado para Audit 360 e Social Bot
-            if p.get('store') == 'Mercado Livre':
-                pass 
-            
+            # Normalize Store Name (Ensure 'Mercado Livre' is handled correctly)
+            store_raw = p.get('store', '')
+            if 'mercadolivre' in store_raw.lower().replace(' ', ''):
+                p['store'] = 'Mercado Livre'
             
             # 2. Duplicate Prevention
             norm_title = title.lower().strip()
@@ -149,8 +176,8 @@ def main():
             seen_titles.add(norm_title)
             
             # 3. Standardize Keys
-            p['image'] = image # Ensure 'image' key exists for frontend
-            p['link'] = link   # Ensure 'link' key exists
+            p['image'] = image 
+            p['link'] = link   
             
             sanitized_list.append(p)
             

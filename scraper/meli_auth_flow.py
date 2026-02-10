@@ -42,11 +42,13 @@ def step_2_get_tokens(code):
     print(f"Solicitando token para code: {code}...")
     response = requests.post(TOKEN_URL, headers=headers, data=data)
     
-    if response.status_code == 200:
         tokens = response.json()
-        with open("meli_tokens.json", "w") as f:
+        state_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "state")
+        os.makedirs(state_dir, exist_ok=True)
+        token_path = os.path.join(state_dir, "meli_tokens.json")
+        with open(token_path, "w") as f:
             json.dump(tokens, f, indent=4)
-        print("✅ TOKENS SALVOS COM SUCESSO em 'meli_tokens.json'!")
+        print(f"✅ TOKENS SALVOS COM SUCESSO em {token_path}!")
         return tokens
     else:
         print(f"❌ ERRO: {response.status_code}")

@@ -69,106 +69,131 @@ class SocialBot:
 
     def run_daily_cycle(self, ig_token=None, ig_business_id=None, force_store=None):
         """
-        Orquestra um ciclo completo de postagem para a loja agendada do horário.
+        Orquestra a postagem PRIORIZANDO a fila de curadoria (social/fila/).
+        Se a fila estiver vazia, ele atua no modo semi-automático de banners de categoria.
         """
-        print("🤖 Iniciando ciclo do Social Bot Titanium (Modo Senior)...")
+        print("\n" + "="*60)
+        print("🤖 INICIANDO TITANIUM SOCIAL BOT - MODO CURADORIA (v1144)")
+        print("="*60)
         
         from social.video_utils import image_to_video
         from datetime import datetime
+        import shutil
 
-        # Forçar simulação se estiver em staging
+        # Configuração do Cliente Instagram
         if self.env_mode == "STAGING":
-            ig_token = None
-            ig_business_id = None
-            
-        if not ig_token or not ig_business_id:
-            print("📢 Modo Simulação: Operando sem credenciais do Instagram.")
+            print("🧪 MODO STAGING: Simulação de postagem ativa.")
             self.instagram = None
-        else:
+        elif ig_token and ig_business_id:
             self.instagram = InstagramClient(ig_token, ig_business_id)
-
-        # 1. Escolher a Loja (Agendamento)
-        store = force_store or self.get_scheduled_store()
-        print(f"🕒 Horário: {datetime.now().strftime('%H:%M')} | Loja Alvo: {store.upper()}")
-
-        # 2. Selecionar Melhor Categoria ou Produto
-        offers = self.load_offers()
-        store_offers = [o for o in offers if o.get('store', '').lower().replace(" ", "") == store.lower()]
-        
-        if not store_offers:
-            print(f"⚠️ Nenhuma oferta da {store} encontrada. Abortando.")
-            return
-
-        # Prioriza a melhor oferta da loja específica
-        best_offer = sorted(store_offers, key=lambda x: x.get('discount', 0), reverse=True)[0]
-        category = best_offer.get('category', 'tecnologia').lower()
-
-        # 3. Verificar se temos Banner de Categoria
-        banner_extensions = ['.png', '.jpg', '.jpeg']
-        banner_path = None
-        for ext in banner_extensions:
-            path = f"social/banners/banner_{store}_{category}{ext}"
-            if os.path.exists(path):
-                banner_path = path
-                break
-        
-        # 4. Orquestração do Post
-        if banner_path:
-            print(f"💎 Banner Premium encontrado: {banner_path}")
-            caption = self.copywriter.generate_category_caption(store, category)
-            local_image = banner_path
-            use_category_layout = True
         else:
-            print(f"📦 Usando layout de Produto Individual (Banner não encontrado para {category}).")
-            caption = self.copywriter.generate_caption(
-                best_offer['title'], 
-                str(best_offer['price']), 
-                best_offer['store'],
-                best_offer.get('discount', 0),
-                category
-            )
-            local_image = f"social/temp_category_post.jpg"
-            self.gen.generate_post(
-                best_offer['title'],
-                str(best_offer['price']),
-                best_offer['image'],
-                store,
-                local_image,
-                format="reels" # Posts de horário sempre em formato vertical (Story/Reels)
-            )
-            use_category_layout = False
+            print("⚠️ Sem credenciais! Operando em modo de visualização local.")
+            self.instagram = None
 
-        # 5. Decisão de Formato (Story ou Reels para maior impacto)
-        post_format = "reels" if random.random() > 0.5 else "story"
-        print(f"📌 Formato: {post_format.upper()}")
-
-        local_video = f"social/temp_video_cycle.mp4"
-        success = False
-
-        # 6. Fluxo de Ativos e Postagem
-        if post_format == "reels":
-            if image_to_video(local_image, local_video):
-                if self.instagram:
-                    public_url = self.uploader.upload(local_video, f"cycle_reels_{store}.mp4")
-                    if public_url:
-                        success = self.instagram.post_reels(public_url, caption)
+        # --- FASE 1: VERIFICAR FILA DE CURADORIA ---
+        fila_dir = "social/fila"
+        postados_dir = "social/postados"
+        # Agora aceita imagens E vídeos
+        formatos_validos = ('.png', '.jpg', '.jpeg', '.mp4', '.mov')
+        arquivos_fila = [f for f in os.listdir(fila_dir) if f.lower().endswith(formatos_validos)]
+        
+        if arquivos_fila:
+            print(f"📂 Encontrado(s) {len(arquivos_fila)} arquivo(s) na fila de curadoria.")
+            # Pega o primeiro da fila
+            target_file = sorted(arquivos_fila)[0]
+            local_path = os.path.join(fila_dir, target_file)
+            print(f"🎯 Arquivo Selecionado: {target_file}")
             
-            if not success:
-                print("⚠️ Falha no Reels. Tentando Fallback para Story...")
-                post_format = "story"
-
-        if post_format == "story":
-            if self.instagram:
-                public_url = self.uploader.upload(local_image, f"cycle_story_{store}.jpg")
-                if public_url:
-                    success = self.instagram.post_story(public_url, is_video=False)
-            else:
-                print(f"📢 Modo Simulação: [{post_format}] {store} categoria {category}")
-
-        if success:
-            print(f"🏆 Ciclo concluído com sucesso!")
+            is_video = target_file.lower().endswith(('.mp4', '.mov'))
+            
+            # Tentar identificar loja/categoria
+            parts = target_file.lower().split('_')
+            store = parts[0] if len(parts) > 0 else "default"
+            category = parts[1].split('.')[0] if len(parts) > 1 else "ofertas"
+            
+            caption = self.copywriter.generate_category_caption(store, category)
+            
+            local_image = local_path if not is_video else None
+            local_video = local_path if is_video else f"social/temp_video_output.mp4"
+            target_banner = target_file # Para o arquivamento posterior
         else:
-            print(f"❌ Falha no ciclo de postagem.")
+            # --- FASE 2: FALLBACK PARA BANNERS DE CATEGORIA ---
+            print("📭 Fila vazia. Iniciando modo fallback (Banners de Categoria)...")
+            store = force_store or self.get_scheduled_store()
+            offers = self.load_offers()
+            store_offers = [o for o in offers if o.get('store', '').lower().replace(" ", "") == store.lower()]
+            
+            if not store_offers:
+                print(f"⚠️ Nenhuma oferta da {store} para processar fallback.")
+                return
+
+            best_offer = sorted(store_offers, key=lambda x: x.get('discount', 0), reverse=True)[0]
+            category = best_offer.get('category', 'tecnologia').lower()
+            
+            # Procura banner de categoria
+            local_image = None
+            for ext in ['.png', '.jpg', '.jpeg']:
+                path = f"social/banners/banner_{store}_{category}{ext}"
+                if os.path.exists(path):
+                    local_image = path
+                    break
+            
+            if not local_image:
+                print(f"❌ Abortando: Nenhum banner (curadoria ou categoria) disponível para {store}/{category}.")
+                return
+                
+            caption = self.copywriter.generate_category_caption(store, category)
+
+        # --- FASE 3: DECISÃO DE FORMATO E PROCESSAMENTO ---
+        # Reels tem mais entrega, então priorizamos Reels (Vídeo)
+        post_format = "reels" 
+        success = False
+        
+        print(f"📌 Preparando postagem: {post_format.upper()} | Loja: {store.upper()}")
+
+        # Só processa se NÃO for vídeo já
+        if arquivos_fila and target_file.lower().endswith(('.mp4', '.mov')):
+            print("🎬 Arquivo já é um vídeo. Pulando conversão...")
+            ready_to_upload = True
+            video_to_use = local_path
+        else:
+            print("🎬 Gerando vídeo a partir de imagem...")
+            video_to_use = f"social/temp_video_output.mp4"
+            ready_to_upload = image_to_video(local_image, video_to_use)
+
+        if ready_to_upload:
+            if self.instagram:
+                # Upload do vídeo
+                public_url = self.uploader.upload(video_to_use, f"titanium_{post_format}_{int(time.time())}.mp4")
+                if public_url:
+                    success = self.instagram.post_reels(public_url, caption)
+            else:
+                print(f"📸 [SIMULAÇÃO] Postando Reels: {video_to_use}")
+                success = True
+
+        # --- FASE 4: FINALIZAÇÃO E ARQUIVAMENTO ---
+        if success:
+            print("🎉 CICLO CONCLUÍDO COM SUCESSO!")
+            if arquivos_fila:
+                # Move da fila para postados
+                os.makedirs(postados_dir, exist_ok=True)
+                target_path = os.path.join(postados_dir, target_banner)
+                # Evita sobrescrever se já existir
+                if os.path.exists(target_path):
+                    filename, extension = os.path.splitext(target_banner)
+                    target_path = os.path.join(postados_dir, f"{filename}_{int(time.time())}{extension}")
+                
+                # Se for o vídeo temporário, não movemos (apenas apagamos se necessário), 
+                # mas aqui target_banner é o arquivo original da FILA.
+                shutil.move(local_path, target_path)
+                print(f"📦 Arquivo arquivado em: {os.path.basename(target_path)}")
+                
+                # Limpeza do temporário se gerado
+                temp_v = "social/temp_video_output.mp4"
+                if os.path.exists(temp_v) and temp_v != local_path:
+                    os.remove(temp_v)
+        else:
+            print("❌ Falha crítica no ciclo de postagem.")
             
 
 if __name__ == "__main__":

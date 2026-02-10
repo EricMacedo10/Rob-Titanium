@@ -21,7 +21,9 @@ class ArbitroDePreco:
     """
     
     def __init__(self):
-        self.cache_file = "arbitro_cache.json"
+        self.state_dir = os.path.join(os.getcwd(), "state")
+        os.makedirs(self.state_dir, exist_ok=True)
+        self.cache_file = os.path.join(self.state_dir, "arbitro_cache.json")
         self.cache = self._load_cache()
 
     
