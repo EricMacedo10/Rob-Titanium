@@ -4,7 +4,7 @@ Funções auxiliares para manipulação de links de afiliado
 """
 
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
-from scraper.settings import AFFILIATE_TAGS
+from core.settings import AFFILIATE_TAGS
 
 
 def add_affiliate_tag(url, store):

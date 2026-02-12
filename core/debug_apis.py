@@ -4,7 +4,7 @@ import asyncio
 import json
 from scraper.shopee_affiliate import search_shopee, ShopeeAffiliateAPI
 from scraper.mercadolivre_api import search_mercadolivre
-from scraper.settings import SHOPEE_APP_ID, SHOPEE_SECRET
+from core.settings import SHOPEE_APP_ID, SHOPEE_SECRET
 
 def test_shopee_auth():
     print(f"\n{'='*20} TESTING SHOPEE AUTH {'='*20}")

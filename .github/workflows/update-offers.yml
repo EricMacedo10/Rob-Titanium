@@ -52,7 +52,7 @@ jobs:
       - name: 🤖 Executar Robô Titanium
         run: |
           echo "🚀 Iniciando busca de ofertas..."
-          python core/orchestrator.py
+          python -m core.orchestrator
         env:
           TZ: America/Sao_Paulo
       
