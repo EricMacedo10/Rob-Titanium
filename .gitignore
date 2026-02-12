@@ -40,19 +40,22 @@ wheels/
 Thumbs.db
 
 # Logs
+logs/
 *.log
 
-# Chrome Profile
+# State & Cache
+state/
 chrome_profile/
-
-# Tokens
 tokens.json
 meli_tokens.json
+*_cache.json
+
+# Archive
+archive/
 
 # Temporary files
 *.tmp
 *.bak
-*_cache.json
 api_test_*.txt
 debug_output_*.txt
 test_visual_output.txt

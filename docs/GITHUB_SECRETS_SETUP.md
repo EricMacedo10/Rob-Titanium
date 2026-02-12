@@ -60,11 +60,22 @@ Nome: FTP_PASS
 Valor: [Copie do seu arquivo .env]
 ```
 
+### Instagram (Meta Graph API)
+```
+Nome: IG_ACCESS_TOKEN
+Valor: [Copie do seu arquivo .env]
+```
+
+```
+Nome: IG_BUSINESS_ID
+Valor: [Copie do seu arquivo .env]
+```
+
 ---
 
 ## ✅ Verificação
 
-Após adicionar todos os secrets, você deve ver **8 secrets** na lista:
+Após adicionar todos os secrets, você deve ver **10 secrets** na lista:
 
 - ✅ AMAZON_AFFILIATE_TAG
 - ✅ MELI_CLIENT_ID
@@ -74,6 +85,8 @@ Após adicionar todos os secrets, você deve ver **8 secrets** na lista:
 - ✅ FTP_HOST
 - ✅ FTP_USER
 - ✅ FTP_PASS
+- ✅ IG_ACCESS_TOKEN
+- ✅ IG_BUSINESS_ID
 
 ---
 

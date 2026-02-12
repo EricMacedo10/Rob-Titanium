@@ -35,7 +35,7 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
           echo "🌐 Iniciando deploy para Hostinger..."
-          python scripts/deploy_site.py
+          python infra/deploy.py
       
       - name: ✅ Verify Deployment
         run: |

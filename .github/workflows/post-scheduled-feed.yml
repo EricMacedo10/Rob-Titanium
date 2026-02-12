@@ -2,8 +2,11 @@ name: 📸 Postagem Agendada no Feed
 
 on:
   schedule:
-    # 10:00 BRT (13:00 UTC) - Dias 11 a 16 de Fevereiro
-    - cron: '0 13 11-16 2 *'
+    # Trigger Primário: 10:12 BRT (13:12 UTC) - Evita o pico de carga mundial das 10:00
+    - cron: '12 13 11-16 2 *'
+    
+    # Trigger de Segurança: 10:42 BRT (13:42 UTC) - Redundância caso o primeiro atrase
+    - cron: '42 13 11-16 2 *'
   
   # Permite execução manual via GitHub UI
   workflow_dispatch:
@@ -12,6 +15,8 @@ jobs:
   post-scheduled-feed:
     name: 📅 Postar Imagem do Dia
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: 📥 Checkout do Código
@@ -41,7 +46,7 @@ jobs:
       - name: 📸 Executar Postagem Agendada
         run: |
           echo "🚀 Verificando postagem do dia..."
-          python -m social.post_scheduled_feed
+          python -m social.automation.post_scheduled_feed
         env:
           TZ: America/Sao_Paulo
       
