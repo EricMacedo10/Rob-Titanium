@@ -13,21 +13,21 @@ const FAMILY_CONFIG = {
             name: 'Família',
             text: 'O Robô Titanium acabou de varrer a Amazon e achou preços surreais! 🤯'
         },
-        {
+        /* {
             avatar: 'family',
             name: 'Família',
             text: 'Minha dica: as avaliações no Mercado Livre ajudam muito a decidir. ⭐'
-        },
+        }, */
         {
             avatar: 'family',
             name: 'Família',
             text: 'Encontrei um cupom escondido na Shopee hoje cedo. Fiquem de olho! 🕵️‍♂️'
         },
-        {
+        /* {
             avatar: 'family',
             name: 'Família',
             text: 'Fizemos uma curadoria especial de Volta às Aulas. Tudo com desconto! 🎒'
-        },
+        }, */
         {
             avatar: 'family',
             name: 'Família',
@@ -63,11 +63,11 @@ const FAMILY_CONFIG = {
             name: 'Família',
             text: 'Gente, acabei de conferir o setor de tecnologia e os achados de hoje estão imbatíveis! 💻'
         },
-        {
+        /* {
             avatar: 'family',
             name: 'Família',
             text: 'Nada como a sensação de encontrar exatamente o que a gente queria pelo menor preço, né? O robô brilhou hoje! ✨'
-        },
+        }, */
         {
             avatar: 'family',
             name: 'Família',
@@ -88,11 +88,11 @@ const FAMILY_CONFIG = {
             name: 'Família',
             text: 'Sempre que vejo esses preços no Mercado Livre, fico impressionado com o quanto o nosso robô economiza pra gente! 💎'
         },
-        {
+        /* {
             avatar: 'family',
             name: 'Família',
             text: 'Preparem os carrinhos! A seleção de Volta às Aulas está com itens que esgotam super rápido. 🎒'
-        },
+        }, */
         {
             avatar: 'family',
             name: 'Família',
@@ -108,11 +108,11 @@ const FAMILY_CONFIG = {
             name: 'Família',
             text: 'Minha parte favorita do dia é ver o relatório de ofertas e postar os melhores descontos da Amazon para vocês! 🎁'
         },
-        {
+        /* {
             avatar: 'family',
             name: 'Família',
             text: 'Dica Titanium: Compare preços rápido clicando nos botões de marcas dentro de cada categoria! 🎯'
-        }
+        } */
     ],
     initialDelay: 3000, // 3 seconds before first message
     interval: 45000 // Show a new message every 45 seconds
