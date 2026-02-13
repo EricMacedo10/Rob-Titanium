@@ -283,11 +283,18 @@ def run_scheduled_post():
     post_id = publish_data["id"]
     print(f"\n🏆 POST PUBLICADO COM SUCESSO! (Post ID: {post_id})")
     
-    # 11. Arquivar imagem com prefixo de data (para anti-duplicata)
-    dest_name = f"{today}_{entry_hoje['imagem']}"
+    # 11. Arquivar imagem (Anti-duplicata e Blindagem)
+    # Se o nome original já começar com a data (ex: 2026-02-13_...), não duplicar o prefixo
+    if entry_hoje['imagem'].startswith(today):
+        dest_name = entry_hoje['imagem']
+    else:
+        dest_name = f"{today}_{entry_hoje['imagem']}"
+        
     dest_path = os.path.join(postados_dir, dest_name)
+    
+    print(f"📦 Movendo arquivo para postados: {dest_name}")
     shutil.move(imagem_path, dest_path)
-    print(f"📦 Arquivado: {dest_name}")
+    print(f"✅ Arquivamento concluído.")
     
     # 12. Log de sucesso
     log_entry = {
