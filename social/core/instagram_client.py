@@ -50,8 +50,10 @@ class InstagramClient:
             payload["image_url"] = media_url
             if media_type:
                 payload["media_type"] = media_type
-            if cover_url:
-                payload["cover_url"] = cover_url
+
+        # Cover URL agora suportado para VIDEO (Reels/Stories) e IMAGE
+        if cover_url:
+            payload["cover_url"] = cover_url
 
         if caption:
             payload["caption"] = caption
@@ -68,7 +70,7 @@ class InstagramClient:
             print(f"--- Container criado (ID: {creation_id}).")
             
             # Passo 2: Aguardar processamento (Especialmente crítico para vídeos)
-            if not self._wait_for_processing(creation_id):
+            if not self._wait_for_processing(creation_id, is_video=is_video):
                 return False
             
             # Passo 3: Publicar Container
@@ -92,12 +94,9 @@ class InstagramClient:
             print(f"--- Falha critica no cliente Instagram: {e}")
             return False
 
-    def _wait_for_processing(self, creation_id):
+    def _wait_for_processing(self, creation_id, is_video=False):
         """
         Verifica o status do container até que esteja pronto ou expire.
-        FIX: Para imagens (Feed), status_code pode ser None — a API só
-        retorna status_code para vídeos (Reels/Stories). Após 5 tentativas
-        com status None, assumimos que a imagem está pronta.
         """
         status_url = f"https://graph.facebook.com/v21.0/{creation_id}"
         params = {
@@ -105,9 +104,10 @@ class InstagramClient:
             "access_token": self.access_token
         }
         
-        max_attempts = 40  # For slow Reels processing
-        none_count = 0     # Track consecutive None statuses
-        max_none = 5       # Max Nones before assuming ready (images)
+        # Aumentamos o timeout para Reels (vídeos pesados demoram mais)
+        max_attempts = 100 if is_video else 30
+        none_count = 0
+        max_none = 15 if is_video else 5
         
         for attempt in range(max_attempts):
             try:
@@ -119,7 +119,7 @@ class InstagramClient:
                     print(f"--- Midia processada e pronta para publicacao.")
                     return True
                 elif status == "IN_PROGRESS":
-                    none_count = 0  # Reset — real processing happening
+                    none_count = 0
                     print(f"--- Processando midia no Instagram Cloud... (Tentativa {attempt+1}/{max_attempts})")
                     time.sleep(10)
                 elif status == "ERROR":
@@ -127,14 +127,20 @@ class InstagramClient:
                     return False
                 else:
                     none_count += 1
-                    if none_count >= max_none:
+                    # Para vídeos, esperamos MUITO mais o status aparecer
+                    if not is_video and none_count >= max_none:
                         print(f"--- Status nulo por {max_none} tentativas — assumindo imagem pronta (Feed).")
                         return True
-                    print(f"--- Aguardando inicio do processamento... ({status or 'Pendente'}) [{none_count}/{max_none}]")
-                    time.sleep(3)
+                    
+                    if is_video and none_count >= max_attempts:
+                        print("--- Timeout aguardando inicio de processamento do video.")
+                        return False
+                        
+                    print(f"--- Aguardando inicio do processamento... ({status or 'Pendente'}) [{none_count}/{max_none if not is_video else max_attempts}]")
+                    time.sleep(5)
             except Exception as e:
                 print(f"--- Erro ao checar status: {e}")
                 time.sleep(5)
                 
-        print("--- Timeout aguardando processamento da midia.")
+        print("--- Timeout total aguardando processamento da midia.")
         return False
