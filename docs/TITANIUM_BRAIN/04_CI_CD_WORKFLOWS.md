@@ -30,6 +30,9 @@ Titanium avoids partial site updates. The deployer:
 3.  Uploads changed files.
 4.  **Verification**: Performs a health check on `data.json` post-upload to ensure the site's "Heart" is beating.
 
+### Sync-Safe Archival (Automation)
+For workflows that write back to the repository (e.g., `post-scheduled`), a `git pull --rebase` strategy is used before pushing. This prevents archival failures caused by transient conflicts between automated runs and manual commits.
+
 ## 🛡️ Staging vs Production
 - **Staging**: Hosted in a protected subdirectory (via `.htaccess`). Used for validating new scraper logic.
 - **Production**: Main domain. Automated updates only target production once staging tests pass.

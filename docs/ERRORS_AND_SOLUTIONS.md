@@ -85,5 +85,33 @@ Este documento registra os desafios técnicos encontrados durante o desenvolvime
 - **SRI (Subresource Integrity):** Adição de hashes criptográficos aos links do FontAwesome para garantir que os ícones baixados não foram alterados.
 - **Bot Honeypot:** Criação de armadilhas invisíveis para detectar robôs maliciosos tentando copiar o site.
 
+## 10. Reels: Processamento Infinito ("Pendente")
+
+**Erro:** Vídeos enviados via API ficavam travados em status "Pendente" por horas, causando timeout no script.
+
+**Causa:** Vídeos em alta resolução (1080p/38MB) sobrecarregam a transcodificação na nuvem da Meta para contas automatizadas.
+
+**Solução:**
+- Padronização para **720p (720x1280)**.
+- Redução de tamanho para ~2.5MB, garantindo processamento instantâneo (< 60s).
+
+## 11. Automação: Conflitos de Sincronia (Archival)
+
+**Erro:** O robô falhava ao tentar mover arquivos no GitHub Actions porque a pasta local estava "desalinhada" com o repositório remoto.
+
+**Solução:**
+- Implementação de `git pull --rebase` antes do push no workflow de CI/CD.
+- Isso garante que o executor do GitHub sempre tenha o estado mais recente antes de arquivar novas postagens.
+
+## 12. Instagram API: Erro 400 no Polling
+
+**Erro:** O polling de status de vídeo retornava `400 Bad Request` aleatoriamente.
+
+**Causa:** Solicitar o campo `failure_reason` antes que um erro ocorra é considerado inválido por certas versões da Graph API.
+
+**Solução (Smart Polling):**
+- O script agora solicita apenas o `status_code` durante a espera.
+- O campo `failure_reason` só é requisitado se o status for explicitamente `ERROR`.
+
 ---
-*Última atualização: 05/02/2026*
+*Última atualização: 13/02/2026 (v1151 - Senior Workflow Fix)*

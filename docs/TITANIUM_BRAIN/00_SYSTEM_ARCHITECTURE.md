@@ -66,8 +66,9 @@ graph TD
 - `core/bot.py`: Image generation and IG Graph API bridge.
 
 ### `/infra`: The Backbone
-- `deploy.py`: Atomic FTP deployment.
-- `upload_logic.py`: Resilient file transfer with verification.
+- `deploy.py`: Atomic FTP deployment for the site.
+- `upload_logic.py`: Resilient file transfer.
+- `ResilientUploader`: Multi-channel orchestrator (FTP + ImgBB Cloud) optimized for Instagram Graph API accessibility.
 
 ---
 > [!NOTE]
