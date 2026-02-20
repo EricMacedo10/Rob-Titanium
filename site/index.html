@@ -29,8 +29,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/family-widget.css?v=3">
-    <link rel="stylesheet" href="css/style.css?v=1157">
+    <link rel="stylesheet" href="css/family-widget.css?v=20260220_v1">
+    <link rel="stylesheet" href="css/style.css?v=20260220_v1">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJTW5MY84L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BJTW5MY84L');
+    </script>
+    <!-- v1713 - Tag Install Sync & Anti-Reversion -->
 </head>
 
 <body>
@@ -90,79 +101,85 @@
         </div>
     </section>
 
-    <!-- Section: Seasonal Campaign (Carnaval de Ofertas) -->
+    <!-- Section: Seasonal Campaign (Dia da Mulher) -->
     <section class="seasonal-campaign">
         <div class="container">
             <div class="section-title-wrapper">
-                <h2 class="section-title">🎉 Carnaval de Ofertas</h2>
+                <h2 class="section-title">💐 Dia Internacional da Mulher</h2>
             </div>
             <div class="hubs-grid seasonal-grid">
-                <!-- ML: Carnaval -->
+                <!-- ML: Dia da Mulher -->
                 <div class="hub-card seasonal mercadolivre"
-                    onclick="window.open('https://lista.mercadolivre.com.br/carnaval?matt_tool=188269638', '_blank')">
+                    onclick="window.open('https://lista.mercadolivre.com.br/dia-da-mulher?matt_tool=188269638', '_blank')">
                     <div class="hub-store-badge mercadolivre">
                         <i class="fas fa-handshake"></i> Mercado Livre
                     </div>
-                    <img src="images/banner_carnaval_mercadolivre.png" alt="Carnaval Mercado Livre">
-                    <h3>Sambódromo de Ofertas</h3>
+                    <img src="images/dia_internacional_da_mulher_mercadolivre.jpeg" alt="Dia da Mulher Mercado Livre">
+                    <h3>Ofertas para Elas</h3>
                 </div>
-                <!-- Shopee: Carnaval -->
+                <!-- Shopee: Dia da Mulher -->
                 <div class="hub-card seasonal shopee"
-                    onclick="window.open('https://shopee.com.br/search?keyword=carnaval&utm_source=an_18318830863', '_blank')">
+                    onclick="window.open('https://shopee.com.br/search?keyword=dia%20da%20mulher&utm_source=an_18318830863', '_blank')">
                     <div class="hub-store-badge shopee">
                         <i class="fa-solid fa-bag-shopping"></i> Shopee
                     </div>
-                    <img src="images/banner_carnaval_shopee.png" alt="Carnaval Shopee">
-                    <h3>Folia de Preços Baixos</h3>
+                    <img src="images/dia_internacional_da_mulher_shopee.jpeg" alt="Dia da Mulher Shopee">
+                    <h3>Presentes Incríveis</h3>
                 </div>
-                <!-- Amazon: Carnaval -->
-                <div class="hub-card seasonal amazon interactive-card" id="carnaval-hub-card"
-                    onclick="window.open('https://www.amazon.com.br/s?k=carnaval&tag=guiadodesco00-20', '_blank')">
+                <!-- Amazon: Dia da Mulher -->
+                <div class="hub-card seasonal amazon interactive-card" id="womenday-hub-card"
+                    onclick="window.open('https://www.amazon.com.br/s?k=dia+da+mulher&tag=guiadodesco00-20', '_blank')">
                     <div class="hub-store-badge amazon">
                         <i class="fab fa-amazon"></i> Amazon
                     </div>
-                    <img src="images/banner_carnaval_amazon.png" alt="Carnaval Amazon">
-                    <h3>Bloco do Desconto</h3>
+                    <img src="images/dia_internacional_da_mulher_amazon.jpeg" alt="Dia da Mulher Amazon">
+                    <h3>Celebre com Ofertas</h3>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <!-- Section: Seasonal Campaign (Volta às Aulas) - HIDDEN BY USER REQUEST
-    <section class="seasonal-campaign" style="margin-top: 40px; background: #f0f7ff;">
+    <!-- Section: Daily Deals (Ofertas do Dia) -->
+    <section class="seasonal-campaign" style="margin-top: 40px; background: #fff0db;">
         <div class="container">
             <div class="section-title-wrapper">
-                <h2 class="section-title">🎒 Especial Volta às Aulas</h2>
+                <h2 class="section-title">🔥 Ofertas do Dia</h2>
             </div>
             <div class="hubs-grid seasonal-grid">
+                <!-- ML: Ofertas -->
                 <div class="hub-card seasonal mercadolivre"
-                    onclick="window.open('https://mercadolivre.com/sec/1dtJSDF', '_blank')">
+                    onclick="window.open('https://www.mercadolivre.com.br/ofertas?matt_tool=188269638', '_blank')">
                     <div class="hub-store-badge mercadolivre">
                         <i class="fas fa-handshake"></i> Mercado Livre
                     </div>
-                    <img src="images/banner_papelaria_mercadolivre.png" alt="Mochilas Mercado Livre">
-                    <h3>Mochilas e Tech</h3>
+                    <img src="images/Ofertas_do_dia_mercadolivre.jpeg" alt="Ofertas do Dia Mercado Livre"
+                        style="object-fit: contain !important;">
+                    <h3>Descontos de Hoje</h3>
                 </div>
+                <!-- Shopee: Ofertas -->
                 <div class="hub-card seasonal shopee"
-                    onclick="window.open('https://s.shopee.com.br/10pW2pX5h0', '_blank')">
+                    onclick="window.open('https://shopee.com.br/flash_deals?utm_source=an_18318830863', '_blank')">
                     <div class="hub-store-badge shopee">
                         <i class="fa-solid fa-bag-shopping"></i> Shopee
                     </div>
-                    <img src="images/banner_papelaria_shopee.png" alt="Material Escolar Shopee">
-                    <h3>Tudo com Frete Grátis</h3>
+                    <img src="images/Ofertas_do_dia_shopee.jpeg" alt="Ofertas Relâmpago Shopee"
+                        style="object-fit: contain !important;">
+                    <h3>Ofertas Relâmpago</h3>
                 </div>
-                <div class="hub-card seasonal amazon" onclick="window.open('https://amzn.to/3UhXvG9', '_blank')">
+                <!-- Amazon: Ofertas -->
+                <div class="hub-card seasonal amazon"
+                    onclick="window.open('https://www.amazon.com.br/gp/goldbox?tag=guiadodesco00-20', '_blank')">
                     <div class="hub-store-badge amazon">
                         <i class="fab fa-amazon"></i> Amazon
                     </div>
-                    <img src="images/banner_papelaria_amazon.png" alt="Especial Amazon">
-                    <h3>Especial Papelaria</h3>
+                    <img src="images/Ofertas_do_dia_Amazon.jpeg" alt="Ofertas do Dia Amazon"
+                        style="object-fit: contain !important;">
+                    <h3>Promoções Diárias</h3>
                 </div>
             </div>
         </div>
     </section>
-    -->
 
     <!-- Section: Category Hubs (The Core) -->
     <section class="category-hubs">
@@ -421,8 +438,8 @@
         Administrativo</a>
 
     <!-- Scripts Principais -->
-    <script src="js/app.js?v=1157"></script>
-    <script src="js/family-widget.js?v=1140"></script>
+    <script src="js/app.js?v=20260220_v1"></script>
+    <script src="js/family-widget.js?v=20260220_v1"></script>
 
 </body>
 
