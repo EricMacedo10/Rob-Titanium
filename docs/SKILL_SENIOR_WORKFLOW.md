@@ -81,6 +81,14 @@ Para garantir a credibilidade do site e evitar quebras estruturais que possam af
     *   **Verificação de Rastreio (Link Audit):** É mandatório inspecionar o `data.json` gerado para confirmar a presença dos IDs de afiliado (`tag=` para Amazon, `matt_tool=` para ML) antes do deploy em produção.
 
 
+
+## 🛡️ Protocolo Anti-Reversão (Novos Requisitos)
+Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é **obrigatório**:
+
+1.  **Commit Atômico Pré-Sincronia:** Sempre que alterar arquivos que o Robô também manipula (`index.html`, `js/app.js`, `css/style.css`), você **DEVE** realizar o `git commit` e `git push` antes das janelas de automação.
+2.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
+3.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
+
 ## ⚖️ Blindagem Ética e Comercial (Compliance)
 Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
 
