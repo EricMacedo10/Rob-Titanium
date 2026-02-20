@@ -33,9 +33,15 @@ Titanium avoids partial site updates. The deployer:
 ### Sync-Safe Archival (Automation)
 For workflows that write back to the repository (e.g., `post-scheduled`), a `git pull --rebase` strategy is used before pushing. This prevents archival failures caused by transient conflicts between automated runs and manual commits.
 
+### Deployment Security Protocol (Safe Sync)
+To prevent accidental production outages, the following protocol is enforced:
+1.  **Environment Lock**: The `ENV_MODE` in `.env` must be explicitly verified before any manual or automated deploy.
+2.  **Staging-First Validation**: Production deploys are restricted unless a successful synchronization and verification cycle has been completed in the `/teste` environment during the same session.
+3.  **Atomic Assets**: Script updates (like `app.js`) must be accompanied by version bumps in `index.html` to prevent stale cache execution.
+
 ## 🛡️ Staging vs Production
-- **Staging**: Hosted in a protected subdirectory (via `.htaccess`). Used for validating new scraper logic.
-- **Production**: Main domain. Automated updates only target production once staging tests pass.
+- **Staging**: Hosted in `/teste`. Used for validating new scraper logic and experimental frontend features.
+- **Production**: Root domain (`/`). Targeted only for stable, verified, and approved releases.
 
 ---
 > [!WARNING]

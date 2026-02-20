@@ -26,6 +26,16 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **ML Search Failing** | Token Expired and Refresh failed. | Delete `state/meli_tokens.json` to force re-auth. |
 | **Social Bot not posting** | IG Container Timeout. | Increase `max_attempts` in `instagram_client.py`. |
 
+## 🩺 Rotina de Health Check (Auditoria 100%)
+
+Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
+
+1.  **Check de Frescor**: Verifique o timestamp de `site/data.json`. Se for > 24h, o agendador falhou.
+2.  **Check de Conectividade**: Rode `python -m core.arbitrator` para um produto teste.
+3.  **Check de Tags**: Inspecione os links no `data.json` local para confirmar se as tags de afiliado estão presentes.
+4.  **Check de Fila**: Verifique `social/fila/` para garantir que há conteúdo para os próximos dias.
+
+
 ---
 ## 🤖 Mission Statement for AI Agents
 > "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."

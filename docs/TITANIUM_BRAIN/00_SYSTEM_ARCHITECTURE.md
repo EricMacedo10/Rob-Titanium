@@ -68,7 +68,7 @@ graph TD
 ### `/infra`: The Backbone
 - `deploy.py`: Atomic FTP deployment for the site.
 - `upload_logic.py`: Resilient file transfer.
-- `ResilientUploader`: Multi-channel orchestrator (FTP + ImgBB Cloud) optimized for Instagram Graph API accessibility.
+- `ResilientUploader` (in `social/core/uploader.py`): Multi-channel orchestrator (FTP + ImgBB Cloud) optimized for Instagram Graph API accessibility.
 
 ---
 > [!NOTE]

@@ -72,6 +72,15 @@ Para garantir a credibilidade do site e evitar quebras estruturais que possam af
     *   Verificação Visual manual antes de commitar para o GitHub Actions.
     *   Novos recursos complexos (ex: Busca Realtime) só sobem após aprovação em ambiente controlado.
 
+4.  **Protocolo de Segurança de Deploy (Anti-Erro):**
+    *   **Checagem de .env:** Antes de qualquer `python infra/deploy.py`, o AI deve realizar um `view_file` mandatório no arquivo `.env`.
+    *   **Confirmação de Destino:** Validar se o `ENV_MODE` corresponde ao objetivo (ex: `STAGING` para correções rápidas, `PRODUCTION` para versões finais aprovadas).
+    *   **Deploy em Cascata:** Nenhuma alteração deve ser enviada para `PRODUCTION` sem antes ter passado por uma rodada completa de testes bem-sucedidos em `STAGING` na mesma sessão.
+    *   **Buster Manual:** Sempre incrementar a versão do asset no `index.html` (ex: `v=1.1`) ao realizar mudanças críticas para forçar o cache a atualizar.
+    *   **Auditoria de Pulso (Freshness Check):** Antes de declarar "100%", o AI deve validar o timestamp do `data.json` e a data dos logs mais recentes para garantir que o sistema não está estagnado.
+    *   **Verificação de Rastreio (Link Audit):** É mandatório inspecionar o `data.json` gerado para confirmar a presença dos IDs de afiliado (`tag=` para Amazon, `matt_tool=` para ML) antes do deploy em produção.
+
+
 ## ⚖️ Blindagem Ética e Comercial (Compliance)
 Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
 

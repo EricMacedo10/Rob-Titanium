@@ -8,46 +8,46 @@ const FAMILY_CONFIG = {
         family: 'images/family-cartoon-2d.png'
     },
     messages: [
+        // 💐 Frases Dia da Mulher (Aprovadas)
         {
             avatar: 'family',
             name: 'Família',
-            text: 'O Robô Titanium acabou de varrer a Amazon e achou preços surreais! 🤯'
-        },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Minha dica: as avaliações no Mercado Livre ajudam muito a decidir. ⭐'
-        }, */
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Encontrei um cupom escondido na Shopee hoje cedo. Fiquem de olho! 🕵️‍♂️'
-        },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Fizemos uma curadoria especial de Volta às Aulas. Tudo com desconto! 🎒'
-        }, */
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Não compre sem comparar! O Robô faz isso por você em segundos. ⏱️'
+            text: 'Mulheres incríveis fazem o mundo girar! Hoje e sempre, nossa admiração. 💐'
         },
         {
             avatar: 'family',
             name: 'Família',
-            text: 'Essa semana a Amazon está imbatível na entrega. Pedi ontem, chegou hoje! 📦'
+            text: 'A força e a delicadeza de vocês inspiram a Família Titanium todos os dias. ❤️'
         },
+        {
+            avatar: 'family',
+            name: 'Família',
+            text: 'Que o Dia da Mulher seja repleto de carinho, respeito e, claro, presentinhos! 🎁'
+        },
+        {
+            avatar: 'family',
+            name: 'Família',
+            text: 'Mulher é sinônimo de garra e conquista. Parabéns por serem tudo o que são! ✨'
+        },
+
+        // 🔥 Frases Ofertas do Dia (Aprovadas)
+        {
+            avatar: 'family',
+            name: 'Família',
+            text: 'Corre que as ofertas relâmpago não esperam ninguém! ⚡'
+        },
+        {
+            avatar: 'family',
+            name: 'Família',
+            text: 'A Amazon e o Mercado Livre liberaram promoções exclusivas hoje. Aproveite! 🛒'
+        },
+
+        // 🤖 Frases Gerais do Robô (Mantidas)
         {
             avatar: 'family',
             name: 'Família',
             text: 'Monitoramos milhões de produtos 24h por dia para você não perder nada. 🛡️'
         },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Gente, cuidado com picos de preço! O site te avisa a hora certa de comprar. 📉'
-        }, */
         {
             avatar: 'family',
             name: 'Família',
@@ -56,63 +56,8 @@ const FAMILY_CONFIG = {
         {
             avatar: 'family',
             name: 'Família',
-            text: 'Amamos comprar na Amazon pela entrega rápida. Já testaram?'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Gente, acabei de conferir o setor de tecnologia e os achados de hoje estão imbatíveis! 💻'
-        },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Nada como a sensação de encontrar exatamente o que a gente queria pelo menor preço, né? O robô brilhou hoje! ✨'
-        }, */
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Dica de quem ama uma casa organizada: os itens de decoração que selecionamos hoje estão lindos e muito baratos! 🏠'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'O Robô Titanium não descansa! Ele acaba de encontrar ofertas fresquinhas na Shopee com frete grátis. Aproveitem! 🚚'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Olha só esse achado que a nossa curadoria separou para quem ama esportes... a qualidade é nota 10! 💪'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Sempre que vejo esses preços no Mercado Livre, fico impressionado com o quanto o nosso robô economiza pra gente! 💎'
-        },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Preparem os carrinhos! A seleção de Volta às Aulas está com itens que esgotam super rápido. 🎒'
-        }, */
-        {
-            avatar: 'family',
-            name: 'Família',
             text: 'A gente testa cada link para garantir que você vá direto para a melhor oferta. Segurança e economia juntas! 🛡️'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'O segredo do Guia do Desconto é simples: a gente busca em todo lugar para você não precisar perder tempo. ⏱️'
-        },
-        {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Minha parte favorita do dia é ver o relatório de ofertas e postar os melhores descontos da Amazon para vocês! 🎁'
-        },
-        /* {
-            avatar: 'family',
-            name: 'Família',
-            text: 'Dica Titanium: Compare preços rápido clicando nos botões de marcas dentro de cada categoria! 🎯'
-        } */
+        }
     ],
     initialDelay: 3000, // 3 seconds before first message
     interval: 45000 // Show a new message every 45 seconds

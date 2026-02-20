@@ -489,6 +489,13 @@ nav a.active::after {
     /* Let clicks pass to the card */
 }
 
+.voted-deals {
+    display: none;
+    /* Hidden by default, shown by JS only when needed */
+    padding: 60px 20px;
+    background: #f8f9fa;
+}
+
 /* Seasonal Campaign Styling */
 .seasonal-campaign {
     padding: 40px 20px;
@@ -1505,6 +1512,9 @@ nav a.active::after {
     height: 10px;
     background-color: #f00;
     opacity: 0;
+    z-index: 100 !important;
+    /* Force on top of images */
+    pointer-events: none;
 }
 
 @keyframes confetti-burst {

@@ -2,7 +2,7 @@
 // GUIA DO DESCONTO - MAIN APPLICATION
 // ========================================
 
-// === CONFIGURAÇÃO ROBÔ TITANIUM ===
+// === CONFIGURAÇÃO ROBÔ TITANIUM (v2026-fix-01) ===
 const TITANIUM_CONFIG = {
     // Tags reais de afiliado
     TAGS: {
@@ -465,22 +465,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Busca local (autocomplete enquanto digita)
     // === Carnaval Confetti Master System (v1155) ===
-    function createConfetti(target) {
-        const colors = ['yellow', 'green', 'pink', 'blue', 'purple', 'orange'];
+    // === Enhanced Visual Effects System (v2026) ===
+    function createEffects(target, type = 'confetti') {
         const particleCount = 20; // Number of particles per burst
+
+        // Variants configuration
+        const variants = {
+            'confetti': ['yellow', 'green', 'pink', 'blue', 'purple', 'orange'],
+            'flowers': ['🌸', '💐', '🌹', '🌺', '🌻', '🌷'],
+            'fire': ['🔥', '⚡', '💥', '✨', '🏷️', '💸']
+        };
+
+        const chosenSet = variants[type] || variants['confetti'];
 
         // Create container if it doesn't exist
         let container = target.querySelector('.confetti-container');
         if (!container) {
             container = document.createElement('div');
             container.className = 'confetti-container';
+            container.style.pointerEvents = 'none'; // Ensure clicks pass through
+            container.style.zIndex = '100'; // Make sure it's on top
             target.appendChild(container);
         }
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
-            const colorClass = `confetti-p-${colors[Math.floor(Math.random() * colors.length)]}`;
-            particle.className = `confetti-particle ${colorClass}`;
+            particle.className = 'confetti-particle';
+
+            if (type === 'confetti') {
+                // Classic colored squares
+                const color = chosenSet[Math.floor(Math.random() * chosenSet.length)];
+                particle.classList.add(`confetti-p-${color}`);
+            } else {
+                // Emojis
+                particle.textContent = chosenSet[Math.floor(Math.random() * chosenSet.length)];
+                particle.style.background = 'transparent';
+                particle.style.fontSize = (15 + Math.random() * 10) + 'px';
+                particle.style.display = 'flex';
+                particle.style.alignItems = 'center';
+                particle.style.justifyContent = 'center';
+            }
 
             // Randomize trajectory
             const angle = Math.random() * Math.PI * 2; // Full circle
@@ -516,18 +540,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Attach to seasonal cards
+    // Attach to seasonal cards with Context Awareness
     const seasonalCards = document.querySelectorAll('.hub-card.seasonal');
     seasonalCards.forEach(card => {
+        let effectType = 'confetti'; // Default
+
+        // Determine context based on Section Title
+        const section = card.closest('section');
+        const title = section ? section.querySelector('.section-title')?.textContent || '' : '';
+
+        if (title.includes('Mulher')) {
+            effectType = 'flowers';
+        } else if (title.includes('Ofertas') || title.includes('Dia')) {
+            effectType = 'fire';
+        }
+
         // Trigger on Hover
         card.addEventListener('mouseenter', () => {
-            createConfetti(card);
+            createEffects(card, effectType);
         });
 
         // Trigger on Click (extra festive)
         card.addEventListener('click', (e) => {
-            // Prevent interference with the onclick redirection for a split second
-            createConfetti(card);
+            createEffects(card, effectType);
         });
     });
 
@@ -638,37 +673,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === Category Hub Navigation ===
     hubCards.forEach(card => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (e) => {
+            // IGNORE SEASONAL AND INTERACTIVE CARDS (They have their own logic/redirects)
+            if (card.classList.contains('seasonal') || card.classList.contains('interactive-card')) {
+                return;
+            }
+
             const category = card.dataset.category;
             currentStoreFilter = 'all'; // Reset filter
 
             // Scroll to deals section
             const dealsSection = document.querySelector('.voted-deals');
             if (dealsSection) {
+                dealsSection.style.display = 'block'; // Ensure visibility
                 dealsSection.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
-
-                // Store current category for filter buttons
-                dealsSection.dataset.currentCategory = category;
-
-                // Create or update filter buttons
-                let existingFilters = dealsSection.querySelector('.store-filters');
-                if (existingFilters) {
-                    existingFilters.remove();
-                }
-                const container = dealsSection.querySelector('.container');
-                if (container) {
-                    createStoreFilterButtons(container);
-                    container.dataset.currentCategory = category;
-                }
-
-                // Render products
-                filterAndRenderByCategory(category);
             }
+
+            // Store current category for filter buttons
+            dealsSection.dataset.currentCategory = category;
+
+            // Create or update filter buttons
+            let existingFilters = dealsSection.querySelector('.store-filters');
+            if (existingFilters) {
+                existingFilters.remove();
+            }
+            const container = dealsSection.querySelector('.container');
+            if (container) {
+                createStoreFilterButtons(container);
+                container.dataset.currentCategory = category;
+            }
+
+            // Render products
+            filterAndRenderByCategory(category);
         });
     });
+
 
     // === Main Search Functionality ===
     function performSearch() {
@@ -676,7 +718,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const query = searchInput.value.toLowerCase().trim();
 
-        // Show loading state
+        // Show loading state and ensure section visibility
+        const dealsSection = document.querySelector('.voted-deals');
+        if (dealsSection) dealsSection.style.display = 'block';
+
         dealsGrid.innerHTML = `
             <div class="loading-state">
                 <i class="fa-solid fa-circle-notch fa-spin"></i>
