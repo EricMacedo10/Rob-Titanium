@@ -40,5 +40,96 @@
         "loja": "amazon",
         "categoria": "esportes",
         "tema": "Fitness e Esportes com preço de Carnaval - Equipamentos top na Amazon"
+    },
+    {
+        "data": "2026-02-20",
+        "imagem": "2026-02-20_amazon_ofertas_do_dia.jpeg",
+        "loja": "amazon",
+        "categoria": "tecnologia",
+        "tema": "Ofertas do Dia Amazon - Os melhores preços e descontos para você economizar hoje"
+    },
+    {
+        "data": "2026-02-21",
+        "imagem": "2026-02-21_amazon_shopee_mercadolivre_dia_internacional_da_mulher.jpeg",
+        "loja": "amazon",
+        "categoria": "beleza",
+        "tema": "Dia Internacional da Mulher - Celebre com ofertas exclusivas nas melhores lojas"
+    },
+    {
+        "data": "2026-02-22",
+        "imagem": "2026-02-22_amazon_shopee_mercadolivre_ofertas_do_dia.jpeg",
+        "loja": "amazon",
+        "categoria": "tecnologia",
+        "tema": "Mega Ofertas do Dia - Amazon, Shopee e Mercado Livre com preços imbatíveis"
+    },
+    {
+        "data": "2026-02-23",
+        "imagem": "2026-02-23_mercadolivre_automotivo.png",
+        "loja": "mercadolivre",
+        "categoria": "automotivo",
+        "tema": "Acessórios Automotivos - Ofertas especiais para o seu carro no Mercado Livre"
+    },
+    {
+        "data": "2026-02-24",
+        "imagem": "2026-02-24_shopee_beleza.png",
+        "loja": "shopee",
+        "categoria": "beleza",
+        "tema": "Beleza e Bem-estar - Cuide-se com as melhores ofertas da Shopee"
+    },
+    {
+        "data": "2026-02-25",
+        "imagem": "2026-02-25_amazon_casa.png",
+        "loja": "amazon",
+        "categoria": "casa",
+        "tema": "Casa e Cozinha - Tudo para o seu lar com descontos exclusivos na Amazon"
+    },
+    {
+        "data": "2026-02-26",
+        "imagem": "2026-02-26_amazon_shopee_mercadolivre_ofertas_do_dia.jpeg",
+        "loja": "shopee",
+        "categoria": "tecnologia",
+        "tema": "Ofertas Imperdíveis - Seleção do dia nas melhores lojas parceiras"
+    },
+    {
+        "data": "2026-02-27",
+        "imagem": "2026-02-27_shopee_decoração.png",
+        "loja": "shopee",
+        "categoria": "casa",
+        "tema": "Decoração e Estilo - Renove seu ambiente com as ofertas da Shopee"
+    },
+    {
+        "data": "2026-02-28",
+        "imagem": "2026-02-28_amazon_eletrodomésticos.png",
+        "loja": "amazon",
+        "categoria": "casa",
+        "tema": "Eletrodomésticos em Promoção - Tecnologia e praticidade para sua casa na Amazon"
+    },
+    {
+        "data": "2026-03-01",
+        "imagem": "2026-03-01_mercadolivre_ofertas_do_dia.jpeg",
+        "loja": "mercadolivre",
+        "categoria": "tecnologia",
+        "tema": "Ofertas de Março - Comece o mês economizando no Mercado Livre"
+    },
+    {
+        "data": "2026-03-02",
+        "imagem": "2026-03-02_mercadolivre_esportes.png",
+        "loja": "mercadolivre",
+        "categoria": "esportes",
+        "tema": "Esportes e Lazer - Equipe-se para o seu treino com preços do Mercado Livre"
+    },
+    {
+        "data": "2026-03-03",
+        "imagem": "2026-03-03_shopee_ofertas_do_dia.jpeg",
+        "loja": "shopee",
+        "categoria": "tecnologia",
+        "tema": "Liquidação Shopee - As melhores ofertas do dia na palma da sua mão"
+    },
+    {
+        "data": "2026-03-04",
+        "imagem": "2026-03-04_amazon_shopee_mercadolivre_dia_internacional_da_mulher.jpeg",
+        "loja": "amazon",
+        "categoria": "beleza",
+        "tema": "Dia da Mulher Antecipado - Presentes e ofertas especiais para celebrar"
     }
 ]

@@ -2,11 +2,11 @@ name: 📸 Postagem Agendada no Feed
 
 on:
   schedule:
-    # Trigger Primário: 10:12 BRT (13:12 UTC) - Evita o pico de carga mundial das 10:00
-    - cron: '12 13 11-16 2 *'
+    # Trigger Primário: 10:12 BRT (13:12 UTC)
+    - cron: '12 13 * 2,3 *'
     
-    # Trigger de Segurança: 10:42 BRT (13:42 UTC) - Redundância caso o primeiro atrase
-    - cron: '42 13 11-16 2 *'
+    # Trigger de Segurança: 10:42 BRT (13:42 UTC)
+    - cron: '42 13 * 2,3 *'
   
   # Permite execução manual via GitHub UI
   workflow_dispatch:
