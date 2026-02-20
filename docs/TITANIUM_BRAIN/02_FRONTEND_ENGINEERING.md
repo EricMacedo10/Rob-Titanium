@@ -28,6 +28,7 @@ O sistema conta com Hubs de Categoria Inteligentes (ex: `tech-hub-card`, `home-h
 - **Whitelist**: Todo redirecionamento é validado contra domínios permitidos (`amazon.com.br`, `mercadolivre.com.br`, `shopee.com.br`).
 - **Exclusion Logic**: Banners interativos e cards sazonais (.seasonal e .interactive-card) são ignorados pelo motor de renderização dinâmico para evitar estados de "Nenhuma oferta encontrada" ao retornar ao site.
 - **Cache Busting**: Uso mandatório de tags de versão (ex: `app.js?v=2026v5`) para garantir a entrega imediata de correções críticas.
+- **Content Security Policy (CSP)**: Implementa regras de "Zero Trust" mas permite especificamente a comunicação com domínios de rastreamento do Google (`www.googletagmanager.com`, `*.google-analytics.com`) para garantir métricas precisas.
 
 ## 🏗️ DOM Structure & IDs
 

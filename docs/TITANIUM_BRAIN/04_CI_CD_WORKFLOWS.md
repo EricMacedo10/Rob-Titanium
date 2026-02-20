@@ -38,6 +38,7 @@ To prevent accidental production outages, the following protocol is enforced:
 1.  **Environment Lock**: The `ENV_MODE` in `.env` must be explicitly verified before any manual or automated deploy.
 2.  **Staging-First Validation**: Production deploys are restricted unless a successful synchronization and verification cycle has been completed in the `/teste` environment during the same session.
 3.  **Atomic Assets**: Script updates (like `app.js`) must be accompanied by version bumps in `index.html` to prevent stale cache execution.
+4.  **Anti-Reversion Protocol (Critical)**: Local modifications to structural files (`index.html`, etc.) **MUST** be committed and pushed before any automated workflow run. Uncommitted local work will be overwritten by the GitHub Action's checkout if it doesn't exist in the repository.
 
 ## 🛡️ Staging vs Production
 - **Staging**: Hosted in `/teste`. Used for validating new scraper logic and experimental frontend features.

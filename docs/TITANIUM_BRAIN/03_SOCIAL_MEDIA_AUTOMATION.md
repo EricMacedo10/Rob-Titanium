@@ -17,6 +17,11 @@ The bot operates in two distinct modes:
     - **Resolution Standard**: Always use **720p (720x1280)** for Reels. Higher resolutions (1080p) often cause Meta processing timeouts when posted via API.
     - Post-success: Moves the file to `social/postados/`.
 
+### 3. Fila Agendada (Scheduled Manifesto)
+- **File**: `social/fila/schedule.json`.
+- **Logic**: Defines exactly which image/video will be posted on specific dates.
+- **Maintenance**: Requires periodic updates (at least once a week) to ensure the queue never dries up. If the current date is not in the manifesto, the automation will skip the post to avoid errors.
+
 ### 2. Category Fallback Mode (Automated)
 - **Trigger**: Used when the queue is empty.
 - **Schedule**:
