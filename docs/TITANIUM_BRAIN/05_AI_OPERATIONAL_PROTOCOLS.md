@@ -24,7 +24,16 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **Site Empty** | `data.json` is 0KB or invalid. | Check `orchestrator.log` for Scraper blocks. |
 | **Links not tracking** | Tag normalized incorrectly. | Check `normalizeStore` logic in `app.js`. |
 | **ML Search Failing** | Token Expired and Refresh failed. | Delete `state/meli_tokens.json` to force re-auth. |
-| **Social Bot not posting** | IG Container Timeout. | Increase `max_attempts` in `instagram_client.py`. |
+| **Social Bot not posting** | IG Container Timeout / code 9004. | Prioritize Hostinger (FTP) over ImgBB. |
+| **File Deletion Bug** | Shared filename in tmp logic. | Use Unique Timestamped Temps (Rule of Traceability). |
+
+## 🚀 Protocolos de Resiliência de Fluxo (v1156)
+
+Para prevenir erros de "timeout" e perda de dados em automações complexas:
+
+1.  **Regra de Rastreabilidade (Unique Temps)**: Qualquer lógica que gere arquivos temporários (ex: conversão de imagem) **DEVE** usar nomes únicos com timestamp (`temp_1713...`). Nunca use o nome do arquivo original como base para arquivos deletáveis.
+2.  **Regra de Proximidade de Rede**: Para APIs instáveis (Meta/Instagram), a prioridade de rota de mídia deve ser o servidor Hostinger (Brasil), garantindo latência mínima e maior taxa de sucesso no download iniciado pelo Facebook.
+3.  **Check de Integridade Pós-Erro**: Se uma execução falhou, a próxima **DEVE** começar verificando a integridade dos arquivos na pasta `fila/` via `os.listdir()`.
 
 ## 🩺 Rotina de Health Check (Auditoria 100%)
 
