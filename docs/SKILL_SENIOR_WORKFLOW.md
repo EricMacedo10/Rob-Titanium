@@ -49,6 +49,11 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
     *   Não confiar apenas no localhost (que tem internet livre e DNS local).
     *   Simular restrições de rede e falhas de serviços externos antes do Go-Live.
 
+5.  **Redundância de Serviços Críticos (v1156):**
+    *   Nunca dependa de um único provedor de nuvem (ex: ImgBB) para ativos de mídia.
+    *   **Prioridade Local/Nacional:** Services hospedados no mesmo país do público-alvo (Hostinger/BR) tendem a ser mais estáveis para APIs restritivas (Meta/Instagram).
+    *   **Blindagem de Arquivos:** Processos de conversão de imagem/vídeo devem usar nomes temporários únicos (`temp_...`) para evitar a deleção acidental de arquivos originais da fila de processamento.
+    *   **Git como Backup:** Mantenha ativos de campanha versionados para permitir recuperação instantânea em caso de erro de automação.
 ## 🚨 Monitoramento e Excelência Operacional (Lições Aprendidas)
 1. **Fail Fast (Falhe Rápido):** Se o core do negócio (encontrar produtos) falhar totalmente, o script DEVE quebrar (exit code 1) para disparar alertas. Não mascare erros críticos com logs silenciosos.
 2. **Estratégia Híbrida:** Nunca dependa de um único ponto de falha. Se a API OFICIAL bloquear, tenha um FALLBACK (Scraping ou Selenium) pronto para assumir.

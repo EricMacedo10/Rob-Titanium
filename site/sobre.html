@@ -17,7 +17,7 @@
 
     <!-- Security Tags (Blindagem Titanium v1140) -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://*.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google; frame-src 'self' https://*.google.com https://*.doubleclick.net https://googleads.g.doubleclick.net;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
@@ -40,7 +40,35 @@
         gtag('config', 'G-BJTW5MY84L');
     </script>
 
+    <!-- Google AdSense (Auto Ads & Core Script) -->
+    <!-- Substitua 'ca-pub-XXXXXXXXXXXXXXXX' pelo seu ID real quando aprovado -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"
+        crossorigin="anonymous"></script>
+
     <style>
+        /* Titanium Ad Layer: Auto-Collapse (Consistency) */
+        .ad-container {
+            margin: 0;
+            text-align: center;
+            background: transparent;
+            padding: 0;
+        }
+
+        .ad-container .ad-label {
+            display: none;
+        }
+
+        .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) .ad-label {
+            display: block;
+        }
+
         /* Estilos específicos da página Sobre */
         .about-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

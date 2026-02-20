@@ -35,9 +35,18 @@ The bot operates in two distinct modes:
 Titanium prioritizes **Reels** over static images because of higher algorithmic reach.
 - **Ken Burns Effect**: Static images are animated with subtle zoom/pan.
 - **720p Rule**: Videos are encoded/resized to 720p (Original Size) to ensure instant cloud transcoding.
-- **Resilient Upload**: 
-    1.  Tenta upload via FTP para `guiadodesconto.com.br/social/`.
-    2.  Fallback para a API do **ImgBB** caso o FTP falhe.
+- **Resilient Upload Strategy (v1156)**: 
+    1.  **Prioridade 1: Hostinger (FTP)** -> `guiadodesconto.com.br/social/`. Esta rota é mais estável para os servidores do Meta devido à proximidade geográfica e menor latência.
+    2.  **Prioridade 2: ImgBB** (Fallback). Usado apenas se o Hostinger estiver offline ou bloqueado.
+    3.  **Conversão Segura**: O script obrigatoriamente gera arquivos temporários com nomes únicos (`temp_...`) para evitar destruir o arquivo original da fila em caso de erro no processo de upload.
+
+## 🛠️ Troubleshooting: Falhas Comuns
+### 1. Erro 9004 (Media download took too long)
+- **Causa**: Meta não conseguiu baixar a imagem da URL pública em 30-60 segundos.
+- **Solução**: Mudar a prioridade de upload para o Hostinger ou tentar converter a imagem para um tamanho menor (KB).
+### 2. File Not Found (Encoding Issues)
+- **Causa**: Caminhos com acentos (ex: "Área de Trabalho") no Windows.
+- **Solução**: O script agora utiliza busca dinâmica via `os.listdir()` e matching em lowercase para garantir que o arquivo seja encontrado independente do encoding do sistema operacional.
 
 ## 🔗 Instagram Graph API Orchestration
 The [InstagramClient](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/Robô Titanium/social/core/instagram_client.py) handles a optimized 3-step publishing process:

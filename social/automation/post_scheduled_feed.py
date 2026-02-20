@@ -134,8 +134,9 @@ def run_scheduled_post():
     print(f"📆 Data atual: {today}")
     
     # 2. Ler manifesto
-    fila_dir = os.path.join("social", "fila")
-    postados_dir = os.path.join("social", "postados")
+    base_proj = os.getcwd()
+    fila_dir = os.path.join(base_proj, "social", "fila")
+    postados_dir = os.path.join(base_proj, "social", "postados")
     schedule_path = os.path.join(fila_dir, "schedule.json")
     
     if not os.path.exists(schedule_path):
@@ -171,12 +172,16 @@ def run_scheduled_post():
             print(f"❌ ERRO CRÍTICO: Campo '{campo}' vazio no manifesto. Recusando postagem.")
             sys.exit(1)
     
-    # 5. Verificar se a imagem existe
-    imagem_path = os.path.join(fila_dir, entry_hoje["imagem"])
-    if not os.path.exists(imagem_path):
+    # 5. Verificar se a imagem existe (Blindagem contra erros de encoding/casing)
+    arquivos_disponiveis = os.listdir(fila_dir)
+    imagem_file = next((f for f in arquivos_disponiveis if f.lower() == entry_hoje["imagem"].lower()), None)
+    
+    if not imagem_file:
         print(f"❌ Erro: Imagem '{entry_hoje['imagem']}' não encontrada em {fila_dir}/")
+        print(f"📂 Arquivos disponíveis: {arquivos_disponiveis}")
         sys.exit(1)
     
+    imagem_path = os.path.join(fila_dir, imagem_file)
     print(f"✅ Imagem encontrada: {imagem_path}")
     
     # 6. Anti-duplicata: verificar se já postou hoje
@@ -217,24 +222,25 @@ def run_scheduled_post():
     # --- NOVO: Garantir formato JPEG e Upload via Cloud (ImgBB) para evitar bloqueios do Hostinger ---
     remote_name = f"scheduled_{today}_{int(time.time())}.jpg"
     
-    # Converter para RGB/JPEG usando PIL (garante compatibilidade máxima)
-    print(f"🔄 Convertendo {entry_hoje['imagem']} para JPEG...")
     try:
+        # Converter para RGB/JPEG usando PIL (garante compatibilidade máxima)
+        print(f"🔄 Preparando {entry_hoje['imagem']} para upload (JPEG Conversion)...")
         with Image.open(imagem_path) as img:
             rgb_img = img.convert('RGB')
             temp_buffer = io.BytesIO()
             rgb_img.save(temp_buffer, format="JPEG", quality=95)
             temp_buffer.seek(0)
             
-            # Salvar temporariamente para o uploader (ou modificar uploader para aceitar stream, mas vamos simplificar)
-            temp_jpg_path = imagem_path.replace(".png", ".jpg")
+            # Usar um nome temporário SEGURO para não sobrescrever o original se este já for .jpg/.jpeg
+            temp_jpg_path = os.path.join(fila_dir, f"temp_upload_{int(time.time())}.jpg")
             with open(temp_jpg_path, "wb") as f:
                 f.write(temp_buffer.read())
             
-            # Upload usando Cloud (ImgBB) Prioritário para Instagram
-            public_url = uploader.upload(temp_jpg_path, remote_name, force_cloud=True)
+            # Upload usando Hostinger/ImgBB (deixando o uploader decidir a melhor rota)
+            public_url = uploader.upload(temp_jpg_path, remote_name, force_cloud=False)
+            print(f"🔗 URL Pública gerada: {public_url}")
             
-            # Limpar arquivo temporário .jpg
+            # Limpar arquivo temporário .jpg (Agora seguro pois o nome é único)
             if os.path.exists(temp_jpg_path):
                 os.remove(temp_jpg_path)
     except Exception as e:
