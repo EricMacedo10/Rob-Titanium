@@ -4,6 +4,95 @@
 
 /* === CSS Variables === */
 /* ========================================
+   TITANIUM LIGHTNING BAR (v2026_v1)
+   ======================================== */
+.lightning-bar {
+    background: linear-gradient(90deg, #ee4d2d 0%, #FF9900 100%);
+    color: white;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    /* Higher than header (1000) */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    min-height: 40px;
+}
+
+.main-header {
+    top: 0;
+    /* Default, will be overridden by JS if bar is active */
+    transition: top 0.3s ease;
+}
+
+.lightning-bar-container {
+    display: flex;
+    width: 200%;
+    animation: marquee-titanium 30s linear infinite;
+}
+
+.lightning-bar-container:hover {
+    animation-play-state: paused;
+}
+
+.lightning-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 50px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.lightning-item:hover {
+    transform: scale(1.05);
+}
+
+.lightning-item .lightning-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+}
+
+.lightning-item strong {
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.lightning-item .price-badge {
+    background: #fff;
+    color: #ee4d2d;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 800;
+}
+
+@keyframes marquee-titanium {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .lightning-bar {
+        font-size: 0.8rem;
+        padding: 8px 0;
+    }
+}
+
+/* ========================================
    SECURITY BLINDAGEM (v1140)
    ======================================== */
 .titanium-trap {
@@ -2095,4 +2184,10 @@ nav a.active::after {
     100% {
         transform: translateX(-50%) scale(1);
     }
+}
+
+/* === Titanium Lightning Bar — DESATIVADA TEMPORARIAMENTE === */
+#lightning-bar,
+.lightning-bar {
+    display: none !important;
 }

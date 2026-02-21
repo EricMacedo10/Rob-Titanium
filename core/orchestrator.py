@@ -1,8 +1,10 @@
-
 import json
 import time
 import os
 import random
+from dotenv import load_dotenv
+load_dotenv()
+
 from core.settings import TARGETS
 from core.arbitrator import ArbitroDePreco
 from scraper.engines.ml_trends import update_site_with_trends
@@ -219,16 +221,34 @@ def main():
         if os.path.exists(notif_file):
              upload_to_hostinger(notif_file, ftp_host, ftp_user, ftp_pass, remote_path='notifications.json')
 
-        # Sincronizar Assets Estruturais
-        assets = {
-            'site/js/app.js': 'js/app.js',
-            'site/css/style.css': 'css/style.css',
-            'site/index.html': 'index.html'
-        }
-        for local, remote in assets.items():
+        # Sincronizar Assets Estruturais (separados por ambiente)
+        env_mode = os.getenv('ENV_MODE', 'STAGING').upper()
+
+        if env_mode == 'STAGING':
+            # ⚠️ STAGING: envia apenas para /teste/ — nunca toca em produção
+            # index_staging.html é enviado duas vezes: como si mesmo e como index.html
+            # (index.html é o default do subdomínio teste.guiadodesconto.com.br)
+            assets = [
+                ('site/js/app.js',           'js/app.js'),
+                ('site/css/style.css',       'css/style.css'),
+                ('site/index_staging.html',  'index_staging.html'),
+                ('site/index_staging.html',  'index.html'),   # Default page do subdomínio
+            ]
+        else:
+            # PRODUCTION: envia todos os assets estruturais — nunca envia index_staging.html
+            assets = {
+                'site/js/app.js': 'js/app.js',
+                'site/css/style.css': 'css/style.css',
+                'site/index.html': 'index.html',
+            }
+
+        asset_pairs = assets if isinstance(assets, list) else assets.items()
+        for local, remote in asset_pairs:
             if os.path.exists(local):
-                print(f"\n>>> Sincronizando Asset: {remote}")
+                print(f"\n>>> Sincronizando Asset ({env_mode}): {remote}")
                 upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote)
+            else:
+                print(f"⚠️ Asset local não encontrado, pulado: {local}")
         
         print("\n✅ SITE ATUALIZADO COM SUCESSO!")
     else:

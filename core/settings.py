@@ -161,6 +161,26 @@ TARGETS = [
         "store": "mercadolivre",
         "max_price": 800.00,
         "category": "casa"
+    },
+    
+    # 🟠 SHOPEE - Ofertas via API Oficial
+    {
+        "term": "fone bluetooth",
+        "store": "shopee",
+        "max_price": 300.00,
+        "category": "tecnologia"
+    },
+    {
+        "term": "kit cozinha",
+        "store": "shopee",
+        "max_price": 500.00,
+        "category": "casa"
+    },
+    {
+        "term": "maquiagem kit",
+        "store": "shopee",
+        "max_price": 200.00,
+        "category": "beleza"
     }
 ]
 

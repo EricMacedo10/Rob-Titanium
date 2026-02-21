@@ -19,13 +19,17 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 
 ## 🛠️ Troubleshooting Guide
 
-| Symptom | Probable Cause | Action |
+| **Symptom** | **Probable Cause** | **Action** |
 | :--- | :--- | :--- |
 | **Site Empty** | `data.json` is 0KB or invalid. | Check `orchestrator.log` for Scraper blocks. |
 | **Links not tracking** | Tag normalized incorrectly. | Check `normalizeStore` logic in `app.js`. |
 | **ML Search Failing** | Token Expired and Refresh failed. | Delete `state/meli_tokens.json` to force re-auth. |
 | **Social Bot not posting** | IG Container Timeout / code 9004. | Prioritize Hostinger (FTP) over ImgBB. |
 | **File Deletion Bug** | Shared filename in tmp logic. | Use Unique Timestamped Temps (Rule of Traceability). |
+| **Lightning Bar não aparece** | `staging-mode` class ausente OU URL não contém 'staging'. | Verificar se `index.html` do subdomínio é o `index_staging.html`. Checar condição de ativação no `app.js`. |
+| **Elemento persiste após JS remover** | Cache do browser ou `display:block` inline do JS. | Adicionar `display: none !important` no CSS como camada definitiva. |
+| **Upload FTP não navega para subpasta** | `upload_logic.py` sem navegação recursiva. | Usar `_ensure_remote_dir()` que cria subpastas automaticamente. |
+
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
 
@@ -46,6 +50,16 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
 
 
 ---
+## 🛎️ Decisões Arquiteturais (Lessons Learned 2026-02-20)
+
+### Barra de Ofertas (Lightning Bar)
+- **Status atual:** Desativada temporariamente via `display: none !important` no `style.css`.
+- **Motivo:** O scraper genérico retornava produtos irrelevantes (ex: liquidificador de brinquedo) e preços sem centavos corretos.
+- **Abordagem recomendada para reativação:**
+  - Não usar scraping por keyword. Usar **lista curada** dos produtos já presentes nos banners do site.
+  - Buscar preço via API do produto específico (PAAPI da Amazon, API do ML), não de resultados de busca.
+  - Gate obrigatório de preço mínimo por categoria antes de exibir qualquer produto.
+
 ## 🤖 Mission Statement for AI Agents
 > "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."
 

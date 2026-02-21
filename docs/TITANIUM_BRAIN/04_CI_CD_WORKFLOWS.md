@@ -41,8 +41,8 @@ To prevent accidental production outages, the following protocol is enforced:
 4.  **Anti-Reversion Protocol (Critical)**: Local modifications to structural files (`index.html`, etc.) **MUST** be committed and pushed before any automated workflow run. Uncommitted local work will be overwritten by the GitHub Action's checkout if it doesn't exist in the repository.
 
 ## 🛡️ Staging vs Production
-- **Staging**: Hosted in `/teste`. Used for validating new scraper logic and experimental frontend features.
-- **Production**: Root domain (`/`). Targeted only for stable, verified, and approved releases.
+- **Staging**: Subdomínio `teste.guiadodesconto.com.br` → mapeado para a pasta `/teste` na raiz FTP (`u534624268.guiadodesconto`). Usado para validar novas lógicas de scraper e features experimentais do frontend. O orchestrator em modo `ENV_MODE=STAGING` envia apenas: `data.json`, `notifications.json`, `index_staging.html`, `js/app.js` e `css/style.css` para `/teste/`. **Nunca altera `index.html` de produção.**
+- **Production**: Domínio raiz `guiadodesconto.com.br` → pasta `/` na raiz FTP. Recebe apenas releases estáveis e aprovados no staging.
 
 ---
 > [!WARNING]

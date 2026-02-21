@@ -84,6 +84,19 @@ Para garantir a credibilidade do site e evitar quebras estruturais que possam af
     *   **Buster Manual:** Sempre incrementar a versão do asset no `index.html` (ex: `v=1.1`) ao realizar mudanças críticas para forçar o cache a atualizar.
     *   **Auditoria de Pulso (Freshness Check):** Antes de declarar "100%", o AI deve validar o timestamp do `data.json` e a data dos logs mais recentes para garantir que o sistema não está estagnado.
     *   **Verificação de Rastreio (Link Audit):** É mandatório inspecionar o `data.json` gerado para confirmar a presença dos IDs de afiliado (`tag=` para Amazon, `matt_tool=` para ML) antes do deploy em produção.
+5.  **⚠️ Gate de Qualidade do Scraper (2026-02-20):**
+    *   **Problema real:** O scraper encontrou um "Liquidificador" de brinquedo (Poliplac, R$12,40) e exibiu como oferta real — dano direto à credibilidade do site.
+    *   **Regra:** Todo produto aceito pelo scraper DEVE passar por um gate de preço mínimo por categoria:
+        - Eletrônicos: > R$ 50
+        - Eletrodomésticos: > R$ 80
+        - Brinquedos: categoria deve ser explícita no título ou descrição (ex: "de brinquedo")
+    *   **Alternativa preferível:** Usar listas curadas (produtos dos banners aprovados) ao invés de buscas genéricas por keyword — elimina o risco de produtos irrelevantes completamente.
+
+6.  **📡 Mapeamento FTP de Staging (Hostinger):**
+    *   A conta FTP (`u534624268.guiadodesconto`) conecta diretamente no `public_html` — sem subpasta.
+    *   A pasta `/teste` dentro da raiz FTP é o subdomínio `teste.guiadodesconto.com.br` (mapeado pelo Hostinger automaticamente).
+    *   Não existe `/public_html/`, `/www/` ou `/domains/` nesta conta — toda navegação FTP é relativa à raiz já sendo `public_html`.
+    *   Em modo STAGING, os assets seguem para `/teste/js/`, `/teste/css/` — nunca para `/js/` ou `/css/` da produção.
 
 
 

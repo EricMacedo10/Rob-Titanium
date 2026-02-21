@@ -1261,7 +1261,7 @@ function trackClick(store, category, title) {
 // Inicializar ouvintes de clique após o DOM carregar
 document.addEventListener('DOMContentLoaded', () => {
     // Capturar cliques em cards de oferta e hubs
-    const clickTargets = '.hub-card, .deal-card, .brand-tabs .tab-btn';
+    const clickTargets = '.hub-card, .deal-card, .brand-tabs .tab-btn, .lightning-item';
 
     document.body.addEventListener('click', function (e) {
         const target = e.target.closest(clickTargets);
@@ -1279,4 +1279,140 @@ document.addEventListener('DOMContentLoaded', () => {
 
         trackClick(store, category, title);
     });
+});
+
+// --- TITANIUM LIGHTNING BAR: Real-time Deals Scroller ---
+
+async function initTitaniumLightningBar() {
+    const bar = document.getElementById('lightning-bar');
+    const container = document.getElementById('lightning-bar-content');
+
+    if (!bar || !container) {
+        console.warn('[Titanium] Elementos da barra não encontrados no DOM.');
+        return;
+    }
+
+    try {
+        console.log('[Titanium] Iniciando Barra Relâmpago (v2026_v5)...');
+
+        // Fetch data with cache buster and absolute path for reliability
+        const response = await fetch('data.json?v=' + Date.now());
+        if (!response.ok) throw new Error('Status HTTP: ' + response.status);
+
+        const allDeals = await response.json();
+        if (!Array.isArray(allDeals) || allDeals.length === 0) {
+            console.warn('[Titanium] data.json vazio ou inválido.');
+            return;
+        }
+
+        // --- Logic: Random Balanced Selection ---
+        const storesMap = {
+            'amazon': [],
+            'mercado livre': [],
+            'shopee': []
+        };
+
+        allDeals.forEach(d => {
+            if (!d.store || !d.price || !d.link) return;
+            const storeKey = d.store.toLowerCase().trim();
+            // Mapeamento flexível
+            if (storeKey.includes('amazon')) storesMap['amazon'].push(d);
+            else if (storeKey.includes('mercado')) storesMap['mercado livre'].push(d);
+            else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
+        });
+
+        let selectedDeals = [];
+        Object.keys(storesMap).forEach(store => {
+            const pool = storesMap[store];
+            if (pool.length > 0) {
+                const shuffled = [...pool].sort(() => 0.5 - Math.random());
+                selectedDeals.push(...shuffled.slice(0, 4));
+            }
+        });
+
+        if (selectedDeals.length === 0) {
+            console.warn('[Titanium] Nenhum produto filtrado para a barra.');
+            return;
+        }
+
+        // Final Shuffle and duplication
+        selectedDeals.sort(() => 0.5 - Math.random());
+        const finalSelection = selectedDeals.slice(0, 12);
+        const loopDeals = [...finalSelection, ...finalSelection];
+
+        let html = '';
+        loopDeals.forEach((deal, index) => {
+            const storeLower = deal.store.toLowerCase();
+            let link = deal.link;
+
+            // --- REDUNDANCY TRACKING LAYER ---
+            if (storeLower.includes('amazon') && !link.includes('tag=')) {
+                link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
+            }
+            else if (storeLower.includes('mercado') && !link.includes('matt_tool=')) {
+                link += (link.includes('?') ? '&' : '?') +
+                    `matt_tool=${TITANIUM_CONFIG.ML_AFFILIATE.userId}&matt_source=${TITANIUM_CONFIG.ML_AFFILIATE.source}&tracking_id=${generateTrackingId()}`;
+            }
+            else if (storeLower.includes('shopee') && (!link.includes('utm_source=') && !link.includes('s.shopee.com.br'))) {
+                link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
+            }
+
+            const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
+            const safeTitle = (deal.title || '').replace(/'/g, "\\'");
+            const displayPrice = typeof deal.price === 'number' ?
+                deal.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) :
+                'R$ ' + deal.price;
+
+            html += `
+                <a href="${link}" target="_blank" class="lightning-item" data-id="${deal.id}_${index}" 
+                   data-store="${deal.store}" data-title="${safeTitle}">
+                    <span class="lightning-badge">⚡ Oferta na ${deal.store}</span>
+                    <strong>${displayTitle}</strong>
+                    <div class="price-badge">${displayPrice}</div>
+                </a>
+            `;
+        });
+
+        container.innerHTML = html;
+
+        // Add Event Listeners for CSP compliance (Replace onclick)
+        container.querySelectorAll('.lightning-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                const store = this.getAttribute('data-store');
+                const title = this.getAttribute('data-title');
+                if (typeof trackClick === 'function') {
+                    trackClick(store, 'LightningBar', title);
+                }
+            });
+        });
+
+        container.style.width = `${loopDeals.length * 320}px`;
+        bar.style.display = 'block';
+
+        // Debug visibility in console
+        const rect = bar.getBoundingClientRect();
+        console.log(`[Titanium] Barra ATIVA. Dimensões: ${rect.width}x${rect.height}, Top: ${rect.top}`);
+
+        // Push header down if bar is visible
+        const header = document.querySelector('.main-header');
+        if (header && rect.height > 0) {
+            header.style.top = `${rect.height}px`;
+            console.log(`[Titanium] Header ajustado para top: ${rect.height}px`);
+        }
+
+    } catch (err) {
+        console.error('[Titanium] Erro Crítico na Barra:', err);
+    }
+}
+
+// Auto-activate
+document.addEventListener('DOMContentLoaded', () => {
+    // Ativa em teste ou local
+    const isTest = window.location.href.includes('teste.') ||
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1';
+
+    if (isTest || document.body.classList.contains('staging-mode')) {
+        setTimeout(initTitaniumLightningBar, 300);
+    }
 });
