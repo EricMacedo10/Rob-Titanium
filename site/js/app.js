@@ -1386,19 +1386,90 @@ async function initTitaniumLightningBar() {
             });
         });
 
-        container.style.width = `${loopDeals.length * 320}px`;
-        bar.style.display = 'block';
-
-        // Debug visibility in console
-        const rect = bar.getBoundingClientRect();
-        console.log(`[Titanium] Barra ATIVA. Dimensões: ${rect.width}x${rect.height}, Top: ${rect.top}`);
-
-        // Push header down if bar is visible
-        const header = document.querySelector('.main-header');
-        if (header && rect.height > 0) {
-            header.style.top = `${rect.height}px`;
-            console.log(`[Titanium] Header ajustado para top: ${rect.height}px`);
+        // Add Price Disclaimer (Anti-misleading policy)
+        if (!bar.querySelector('.lightning-disclaimer')) {
+            const disclaimer = document.createElement('div');
+            disclaimer.className = 'lightning-disclaimer';
+            disclaimer.innerHTML = '<i class="fas fa-info-circle"></i> Os preços podem sofrer alterações nas lojas parceiras.';
+            bar.appendChild(disclaimer);
         }
+
+        // === NUCLEAR VISIBILITY FIX (v2026_v6) ===
+        // Force ALL styles via JavaScript to bypass any CSS caching/CSP/encoding issues
+        bar.setAttribute('style', [
+            'display: block !important',
+            'background: linear-gradient(90deg, #ee4d2d 0%, #FF9900 100%)',
+            'color: white',
+            'padding: 10px 0',
+            'font-size: 0.9rem',
+            'font-weight: 700',
+            'overflow: hidden',
+            'position: relative',
+            'z-index: 9999',
+            'border-bottom: 2px solid rgba(0,0,0,0.1)',
+            'white-space: nowrap',
+            'min-height: 42px',
+            'width: 100%',
+            'box-sizing: border-box'
+        ].join('; '));
+
+        container.setAttribute('style', [
+            'display: flex',
+            'width: ' + (loopDeals.length * 320) + 'px',
+            'animation: marquee-titanium 30s linear infinite'
+        ].join('; '));
+
+        // Style each lightning-item inline as well
+        container.querySelectorAll('.lightning-item').forEach(item => {
+            item.setAttribute('style', [
+                'display: inline-flex',
+                'align-items: center',
+                'gap: 8px',
+                'margin-right: 50px',
+                'color: white',
+                'text-decoration: none',
+                'transition: transform 0.2s ease',
+                'flex-shrink: 0'
+            ].join('; '));
+        });
+
+        // Style badges inline
+        container.querySelectorAll('.lightning-badge').forEach(badge => {
+            badge.setAttribute('style', [
+                'background: rgba(255,255,255,0.2)',
+                'padding: 3px 10px',
+                'border-radius: 50px',
+                'font-size: 0.72rem',
+                'text-transform: uppercase',
+                'border: 1px solid rgba(255,255,255,0.3)'
+            ].join('; '));
+        });
+
+        // Style price badges inline
+        container.querySelectorAll('.price-badge').forEach(price => {
+            price.setAttribute('style', [
+                'background: #fff',
+                'color: #ee4d2d',
+                'padding: 2px 10px',
+                'border-radius: 20px',
+                'font-weight: 800'
+            ].join('; '));
+        });
+
+        // Wait for paint, then verify
+        requestAnimationFrame(() => {
+            const rect = bar.getBoundingClientRect();
+            console.log(`[Titanium] Barra NUCLEAR. Dimensões: ${rect.width}x${rect.height}, Top: ${rect.top}`);
+            console.log(`[Titanium] Bar display: ${bar.style.display}, children: ${container.children.length}`);
+
+            if (rect.height === 0) {
+                // Last resort: force height
+                bar.style.height = '42px';
+                console.warn('[Titanium] FORÇANDO height=42px como último recurso.');
+            }
+        });
+
+        console.log(`[Titanium] Barra v6 NUCLEAR ATIVA com ${finalSelection.length} produtos.`);
 
     } catch (err) {
         console.error('[Titanium] Erro Crítico na Barra:', err);
