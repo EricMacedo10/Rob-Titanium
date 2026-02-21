@@ -55,12 +55,21 @@ def search_amazon(term):
                 if not title_el: continue
                 title = title_el.text.strip()
 
-                # Price
-                price_whole = item.select_one(".a-price-whole")
-                if not price_whole: continue
+                # Price - Seletor Melhorado (Senior Workflow v2026)
+                # Prioridade 1: Seletor exato do preço principal (apex-pricetopay)
+                price_el = item.select_one('.apex-pricetopay-value .a-offscreen') or \
+                           item.select_one('.a-price[data-a-color="base"] .a-offscreen') or \
+                           item.select_one('.a-price .a-offscreen')
                 
-                price_text = price_whole.text.strip()
-                price_str = price_text.replace('.', '').replace(',', '.').strip()
+                if price_el:
+                    # Formato: "R$3,90" ou "R$2.999,00"
+                    price_text = price_el.text.strip()
+                    price_str = price_text.replace('R$', '').replace('.', '').replace(',', '.').strip()
+                else:
+                    # Fallback: seletor antigo .a-price-whole
+                    price_whole = item.select_one(".a-price-whole")
+                    if not price_whole: continue
+                    price_str = price_whole.text.strip().replace('.', '').replace(',', '.').strip()
                 
                 try:
                     price = float(price_str)

@@ -1321,12 +1321,21 @@ async function initTitaniumLightningBar() {
             else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
         });
 
+        // Diagnostic: Log per-store counts
+        console.log('[Titanium] Produtos por loja:', {
+            amazon: storesMap['amazon'].length,
+            mercadoLivre: storesMap['mercado livre'].length,
+            shopee: storesMap['shopee'].length
+        });
+
         let selectedDeals = [];
         Object.keys(storesMap).forEach(store => {
             const pool = storesMap[store];
             if (pool.length > 0) {
                 const shuffled = [...pool].sort(() => 0.5 - Math.random());
-                selectedDeals.push(...shuffled.slice(0, 4));
+                const picked = shuffled.slice(0, 4);
+                console.log(`[Titanium] ${store}: ${picked.length} selecionados de ${pool.length}`);
+                selectedDeals.push(...picked);
             }
         });
 
@@ -1340,21 +1349,33 @@ async function initTitaniumLightningBar() {
         const finalSelection = selectedDeals.slice(0, 12);
         const loopDeals = [...finalSelection, ...finalSelection];
 
+        console.log('[Titanium] Final selection:', finalSelection.map(d => d.store + ': ' + (d.title || '').substring(0, 30)));
+
         let html = '';
         loopDeals.forEach((deal, index) => {
             const storeLower = deal.store.toLowerCase();
             let link = deal.link;
 
-            // --- REDUNDANCY TRACKING LAYER ---
-            if (storeLower.includes('amazon') && !link.includes('tag=')) {
-                link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
+            // --- SMART LINK LAYER (Senior Workflow: Tags NUNCA podem ser perdidas) ---
+
+            // AMAZON: Garantir tag de afiliado
+            if (storeLower.includes('amazon')) {
+                if (!link.includes('tag=')) {
+                    link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
+                }
             }
-            else if (storeLower.includes('mercado') && !link.includes('matt_tool=')) {
-                link += (link.includes('?') ? '&' : '?') +
-                    `matt_tool=${TITANIUM_CONFIG.ML_AFFILIATE.userId}&matt_source=${TITANIUM_CONFIG.ML_AFFILIATE.source}&tracking_id=${generateTrackingId()}`;
+            // MERCADO LIVRE: Usar Link Inteligente (fix: links brutos quebravam o HTML)
+            else if (storeLower.includes('mercado')) {
+                // Gera link inteligente curto com TODOS os params de afiliado
+                const searchTerm = deal.title || 'ofertas';
+                link = buildMLAffiliateUrl(searchTerm);
+                console.log(`[Titanium] ML Link Inteligente: ${link.substring(0, 80)}...`);
             }
-            else if (storeLower.includes('shopee') && (!link.includes('utm_source=') && !link.includes('s.shopee.com.br'))) {
-                link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
+            // SHOPEE: Preservar links oficiais ou injetar tag
+            else if (storeLower.includes('shopee')) {
+                if (!link.includes('s.shopee.com.br') && !link.includes('utm_source=')) {
+                    link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
+                }
             }
 
             const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
