@@ -1380,16 +1380,13 @@ async function initTitaniumLightningBar() {
 
             const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
             const safeTitle = (deal.title || '').replace(/'/g, "\\'");
-            const displayPrice = typeof deal.price === 'number' ?
-                deal.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) :
-                'R$ ' + deal.price;
 
             html += `
                 <a href="${link}" target="_blank" class="lightning-item" data-id="${deal.id}_${index}" 
                    data-store="${deal.store}" data-title="${safeTitle}">
-                    <span class="lightning-badge">⚡ Oferta na ${deal.store}</span>
+                    <span class="lightning-badge">⚡ ${deal.store}</span>
                     <strong>${displayTitle}</strong>
-                    <div class="price-badge">${displayPrice}</div>
+                    <div class="price-badge">Ver Oferta →</div>
                 </a>
             `;
         });
