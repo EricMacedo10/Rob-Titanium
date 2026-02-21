@@ -1305,7 +1305,8 @@ async function initTitaniumLightningBar() {
             return;
         }
 
-        // --- Logic: Random Balanced Selection ---
+        // --- Logic: ROUND-ROBIN Balanced Selection (v10 fix) ---
+        // Garante que TODAS as lojas aparecem alternadamente na barra
         const storesMap = {
             'amazon': [],
             'mercado livre': [],
@@ -1315,73 +1316,78 @@ async function initTitaniumLightningBar() {
         allDeals.forEach(d => {
             if (!d.store || !d.price || !d.link) return;
             const storeKey = d.store.toLowerCase().trim();
-            // Mapeamento flexível
             if (storeKey.includes('amazon')) storesMap['amazon'].push(d);
             else if (storeKey.includes('mercado')) storesMap['mercado livre'].push(d);
             else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
         });
 
         // Diagnostic: Log per-store counts
-        console.log('[Titanium] Produtos por loja:', {
+        console.log('[Titanium Bar] Produtos por loja:', {
             amazon: storesMap['amazon'].length,
             mercadoLivre: storesMap['mercado livre'].length,
             shopee: storesMap['shopee'].length
         });
 
-        let selectedDeals = [];
+        // Shuffle each store's pool internally
         Object.keys(storesMap).forEach(store => {
-            const pool = storesMap[store];
-            if (pool.length > 0) {
-                const shuffled = [...pool].sort(() => 0.5 - Math.random());
-                const picked = shuffled.slice(0, 4);
-                console.log(`[Titanium] ${store}: ${picked.length} selecionados de ${pool.length}`);
-                selectedDeals.push(...picked);
-            }
+            storesMap[store].sort(() => 0.5 - Math.random());
         });
 
-        if (selectedDeals.length === 0) {
-            console.warn('[Titanium] Nenhum produto filtrado para a barra.');
+        // ROUND-ROBIN: Alterna entre lojas garantindo visibilidade de TODAS
+        const storeOrder = ['amazon', 'mercado livre', 'shopee'];
+        const finalSelection = [];
+        const maxPerStore = 4;
+
+        for (let i = 0; i < maxPerStore; i++) {
+            storeOrder.forEach(store => {
+                if (storesMap[store][i]) {
+                    finalSelection.push(storesMap[store][i]);
+                }
+            });
+        }
+
+        if (finalSelection.length === 0) {
+            console.warn('[Titanium Bar] Nenhum produto filtrado para a barra.');
             return;
         }
 
-        // Final Shuffle and duplication
-        selectedDeals.sort(() => 0.5 - Math.random());
-        const finalSelection = selectedDeals.slice(0, 12);
+        // Duplicar para loop contínuo (sem shuffle — manter ordem round-robin!)
         const loopDeals = [...finalSelection, ...finalSelection];
 
-        console.log('[Titanium] Final selection:', finalSelection.map(d => d.store + ': ' + (d.title || '').substring(0, 30)));
+        console.log('[Titanium Bar] Seleção final (round-robin):', finalSelection.map(d => d.store + ': ' + (d.title || '').substring(0, 25)));
 
         let html = '';
         loopDeals.forEach((deal, index) => {
-            const storeLower = deal.store.toLowerCase();
-            let link = deal.link;
+            try {
+                const storeLower = deal.store.toLowerCase();
+                let link = deal.link;
 
-            // --- SMART LINK LAYER (Senior Workflow: Tags NUNCA podem ser perdidas) ---
+                // --- SMART LINK LAYER (Senior Workflow: Tags NUNCA podem ser perdidas) ---
 
-            // AMAZON: Garantir tag de afiliado
-            if (storeLower.includes('amazon')) {
-                if (!link.includes('tag=')) {
-                    link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
+                // AMAZON: Garantir tag de afiliado
+                if (storeLower.includes('amazon')) {
+                    if (!link.includes('tag=')) {
+                        link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
+                    }
                 }
-            }
-            // MERCADO LIVRE: Usar Link Inteligente (fix: links brutos quebravam o HTML)
-            else if (storeLower.includes('mercado')) {
-                // Gera link inteligente curto com TODOS os params de afiliado
-                const searchTerm = deal.title || 'ofertas';
-                link = buildMLAffiliateUrl(searchTerm);
-                console.log(`[Titanium] ML Link Inteligente: ${link.substring(0, 80)}...`);
-            }
-            // SHOPEE: Preservar links oficiais ou injetar tag
-            else if (storeLower.includes('shopee')) {
-                if (!link.includes('s.shopee.com.br') && !link.includes('utm_source=')) {
-                    link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
+                // MERCADO LIVRE: Usar Link Inteligente (fix v10: termo curto + try-catch)
+                else if (storeLower.includes('mercado')) {
+                    // Usa apenas as 3 primeiras palavras do título como busca
+                    const words = (deal.title || 'ofertas').split(' ').slice(0, 3).join(' ');
+                    link = buildMLAffiliateUrl(words);
+                    console.log(`[Titanium] ML Smart Link OK: "${words}" → ${link.substring(0, 60)}...`);
                 }
-            }
+                // SHOPEE: Preservar links oficiais ou injetar tag
+                else if (storeLower.includes('shopee')) {
+                    if (!link.includes('s.shopee.com.br') && !link.includes('utm_source=')) {
+                        link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
+                    }
+                }
 
-            const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
-            const safeTitle = (deal.title || '').replace(/'/g, "\\'");
+                const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
+                const safeTitle = (deal.title || '').replace(/'/g, "\\'");
 
-            html += `
+                html += `
                 <a href="${link}" target="_blank" class="lightning-item" data-id="${deal.id}_${index}" 
                    data-store="${deal.store}" data-title="${safeTitle}">
                     <span class="lightning-badge">⚡ ${deal.store}</span>
@@ -1389,6 +1395,9 @@ async function initTitaniumLightningBar() {
                     <div class="price-badge">Ver Oferta →</div>
                 </a>
             `;
+            } catch (itemErr) {
+                console.error(`[Titanium] Erro no item ${index} (${deal.store}):`, itemErr);
+            }
         });
 
         container.innerHTML = html;
