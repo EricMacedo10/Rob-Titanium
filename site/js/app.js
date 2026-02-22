@@ -1331,8 +1331,7 @@ async function initTitaniumLightningBar() {
         const storesMap = {
             'amazon': [],
             'mercado livre': [],
-            'shopee': [],
-            'lomadee': []
+            'shopee': []
         };
 
         allDeals.forEach(d => {
@@ -1341,15 +1340,13 @@ async function initTitaniumLightningBar() {
             if (storeKey.includes('amazon')) storesMap['amazon'].push(d);
             else if (storeKey.includes('mercado')) storesMap['mercado livre'].push(d);
             else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
-            else if (storeKey.includes('lomadee')) storesMap['lomadee'].push(d);
         });
 
         // Diagnostic: Log per-store counts
         console.log('[Titanium Bar] Produtos por loja:', {
             amazon: storesMap['amazon'].length,
             mercadoLivre: storesMap['mercado livre'].length,
-            shopee: storesMap['shopee'].length,
-            lomadee: storesMap['lomadee'].length
+            shopee: storesMap['shopee'].length
         });
 
         // Shuffle each store's pool internally
@@ -1358,7 +1355,7 @@ async function initTitaniumLightningBar() {
         });
 
         // ROUND-ROBIN: Alterna entre lojas garantindo visibilidade de TODAS
-        const storeOrder = ['amazon', 'mercado livre', 'shopee', 'lomadee'];
+        const storeOrder = ['amazon', 'mercado livre', 'shopee'];
         const finalSelection = [];
         const maxPerStore = 8; // Aumentado para mais variedade
 
@@ -1469,8 +1466,12 @@ async function initTitaniumLightningBar() {
         container.setAttribute('style', [
             'display: flex',
             'width: ' + (loopDeals.length * 320) + 'px',
-            'animation: marquee-titanium 30s linear infinite'
+            'animation: marquee-titanium 80s linear infinite'
         ].join('; '));
+
+        // Hide Redundant Grid (As requested by user: "Muita poluição")
+        const gridSection = document.querySelector('.voted-deals');
+        if (gridSection) gridSection.style.display = 'none';
 
         // Style each lightning-item inline as well
         container.querySelectorAll('.lightning-item').forEach(item => {

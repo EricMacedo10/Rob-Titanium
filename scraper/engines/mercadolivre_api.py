@@ -23,25 +23,15 @@ def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
     """
     try:
         # URL de Busca (HTML)
-        url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE"
+        url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE_ASC"
         
         # Headers "Mágicos" validados em testes (Bypass WAF)
         # Headers Validated for 2026
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "pt-BR,pt;q=0.9",
             "Referer": "https://www.mercadolivre.com.br/",
-            "Connection": "keep-alive",
-            "Upgrade-Insecure-Requests": "1",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "same-origin",
-            "Sec-Fetch-User": "?1",
-            "sec-ch-ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"'
         }
         
         session = requests.Session()
@@ -51,21 +41,18 @@ def search_via_api(query: str, token: str = None, limit: int = 3) -> List[Dict]:
         response = session.get(url, timeout=15)
         
         if response.status_code != 200:
-            logger.error(f"[ML Optimized] Failed: {response.status_code} - URL: {response.url}")
+            logger.error(f"[ML Optimized] Failed: {response.status_code}")
             return []
             
-        if "account-verification" in response.url or "captcha" in response.url:
-             logger.warning(f"[ML Optimized] BLOCKED (Redirected): {response.url}")
-             return []
-
         # Parse HTML
         soup = BeautifulSoup(response.text, "html.parser")
         items = []
         
         # Seletores compatíveis com layouts 2024/2025
         cards = soup.select('.poly-card') or \
-                soup.select('li.ui-search-layout__item') or \
-                soup.select('div.ui-search-result__wrapper')
+                soup.select('.ui-search-result__wrapper') or \
+                soup.select('.ui-search-layout__item') or \
+                soup.select('div[class*="ui-search-result"]')
                 
         logger.info(f"[ML Optimized] Cards found: {len(cards)}")
         
@@ -145,51 +132,58 @@ def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
     # 2. Fallback Selenium
     driver = None
     try:
-        logger.info(f"[ML] Starting Selenium Search for: {query}")
+        logger.info(f"[ML] Starting Selenium Nuclear Search for: {query}")
         driver = get_driver(headless=True)
         
-        # Ordenar por menor preço: _OrderId_PRICE
-        url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE"
-        driver.get(url)
+        # 1. Start from Home to get cookies and bypass direct list page block
+        driver.get("https://www.mercadolivre.com.br/")
+        time.sleep(4)
         
-        # Wait for content
-        time.sleep(5)
-        
-        # Anti-Bot Check: If redirected to Home, try searching via Input
-        current_url = driver.current_url
-        logger.info(f"[ML] Current URL: {current_url}")
-        
-        if "mercadolivre.com.br/" in current_url and "lista." not in current_url and "search" not in current_url:
-            logger.warning("[ML] Redirected to Home/Generic Page. Attempting Search Bar Fallback...")
+        try:
+            from selenium.webdriver.common.by import By
+            from selenium.webdriver.common.keys import Keys
+            
+            # Find search bar
+            search_input = driver.find_element(By.CSS_SELECTOR, "input.nav-search-input")
+            search_input.clear()
+            search_input.send_keys(query)
+            # Add a small organic delay
+            time.sleep(1)
+            search_input.send_keys(Keys.RETURN)
+            
+            # Wait for results
+            time.sleep(6)
+            
+            # Sort by price if possible
             try:
-                from selenium.webdriver.common.by import By
-                from selenium.webdriver.common.keys import Keys
+                # Try clicking sort dropdown - this is layout dependent
+                # For now, let's just stick with the search results as they are
+                pass
+            except:
+                pass
                 
-                search_input = driver.find_element(By.CSS_SELECTOR, "input.nav-search-input")
-                search_input.clear()
-                search_input.send_keys(query)
-                search_input.send_keys(Keys.RETURN)
-                
-                time.sleep(5)
-                logger.info(f"[ML] Fallback URL: {driver.current_url}")
-            except Exception as e:
-                logger.error(f"[ML] Fallback Search Failed: {e}")
+        except Exception as e:
+            logger.error(f"[ML] Home Search Bar Failed: {e}")
+            # Fallback to direct URL if home search fails
+            url = f"https://lista.mercadolivre.com.br/{query.replace(' ', '-')}_OrderId_PRICE_ASC"
+            driver.get(url)
+            time.sleep(7)
                 
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, "html.parser")
         
         # Debug: Check if we are blocked
         page_title = soup.title.string if soup.title else "No Title"
-        logger.info(f"[ML] Page Title: {page_title}")
+        logger.info(f"[ML] Page Title: {page_title} | URL: {driver.current_url}")
         
         products = []
         
-        # Try finding cards (support multiple layouts)
-        cards = soup.select('.poly-card') # New 2024 layout
-        if not cards:
-             cards = soup.select('li.ui-search-layout__item') # Classic List 
-        if not cards:
-             cards = soup.select('div.ui-search-result__wrapper') # Grid
+        # Try finding cards with VERY generic selectors
+        cards = soup.select('.poly-card') or \
+                soup.select('.ui-search-result__wrapper') or \
+                soup.select('.ui-search-layout__item') or \
+                soup.select('.ui-search-result') or \
+                soup.select('div[class*="ui-search-result"]')
              
         logger.info(f"[ML] Cards found: {len(cards)}")
              
@@ -198,27 +192,29 @@ def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
             
             try:
                 # 1. Title & Link
-                # Poly layout: a.poly-component__title
                 title_el = item.select_one('.poly-component__title') or \
                            item.select_one('.ui-search-item__group__element.ui-search-link') or \
-                           item.select_one('a.ui-search-link')
+                           item.select_one('.ui-search-link') or \
+                           item.select_one('a[href*="click"]') or \
+                           item.select_one('a[href*="p/MLB"]')
                            
                 if not title_el: continue
                 
                 title = title_el.get_text(strip=True)
                 permalink = title_el.get('href', '')
+                if not permalink or "mercadolivre" not in permalink:
+                     # Check parent or child for link
+                     link_el = item.select_one('a')
+                     permalink = link_el.get('href', '') if link_el else permalink
                 
                 # 2. Price
                 price_el = item.select_one('.poly-price__current .andes-money-amount__fraction') or \
-                           item.select_one('.ui-search-price__part .andes-money-amount__fraction')
+                           item.select_one('.ui-search-price__part .andes-money-amount__fraction') or \
+                           item.select_one('.andes-money-amount__fraction')
                            
-                if not price_el: 
-                    # Try finding any price
-                    price_el = item.select_one('.andes-money-amount__fraction')
-                    
                 if not price_el: continue
                 
-                price_str = price_el.get_text(strip=True).replace('.', '')
+                price_str = price_el.get_text(strip=True).replace('.', '').replace(',', '.')
                 price = float(price_str)
                 
                 # 3. Image
@@ -246,7 +242,7 @@ def search_mercadolivre(query: str, limit: int = 3) -> List[Dict]:
 
                 products.append({
                     "id_interno": 2,
-                    "id_original": f"ml_{int(time.time()*1000)}", 
+                    "id_original": f"ml_{int(time.time()*1000)}_{len(products)}", 
                     "titulo": title,
                     "preco": price,
                     "loja": "Mercado Livre",

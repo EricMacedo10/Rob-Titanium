@@ -19,6 +19,12 @@ SHOPEE_APP_ID = os.getenv("SHOPEE_APP_ID", "")
 SHOPEE_SECRET = os.getenv("SHOPEE_SECRET", "")
 SHOPEE_API_URL = "https://partner.shopeemobile.com/graphql"
 
+# Lomadee API Configuration
+LOMADEE_APP_TOKEN = os.getenv("LOMADEE_APP_TOKEN", "")
+LOMADEE_SOURCE_ID = os.getenv("LOMADEE_SOURCE_ID", "")
+LOMADEE_API_URL = f"https://api.lomadee.com/v3/{LOMADEE_APP_TOKEN}/offer/_search"
+
+
 # 2. Configurações de Segurança (Anti-Ban)
 # Tempo de espera entre cada busca (em segundos). 
 # Quanto maior, mais seguro. AUMENTADO para máxima proteção.
@@ -181,8 +187,22 @@ TARGETS = [
         "store": "shopee",
         "max_price": 200.00,
         "category": "beleza"
-    }
+    },
+    # 🔵 LOMADEE (Estrutura ativa para testes no STAGING)
+    # {
+    #     "term": "mouse gamer",
+    #     "store": "lomadee",
+    #     "max_price": 300.00,
+    #     "category": "tecnologia"
+    # },
+    # {
+    #     "term": "fone bluetooth",
+    #     "store": "lomadee",
+    #     "max_price": 200.00,
+    #     "category": "tecnologia"
+    # },
 ]
+
 
 # 📅 CATEGORIAS SAZONAIS (Ative conforme a época do ano)
 # Descomente as categorias relevantes para a época:
