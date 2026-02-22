@@ -46,6 +46,7 @@
     <style>
         /* Titanium Ad Layer: Auto-Collapse (Blindagem Visual) */
         .ad-container {
+            display: none;
             margin: 0;
             text-align: center;
             background: transparent;
@@ -64,6 +65,7 @@
 
         /* Exibe apenas se o AdSense injetar conteúdo real */
         .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) {
+            display: block;
             margin: 20px 0;
             padding: 15px;
             background: #f9fafb;
@@ -234,8 +236,6 @@
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-    </section>
-    </div>
     </section>
 
     <!-- Section: Category Hubs (The Core) -->

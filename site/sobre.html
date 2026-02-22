@@ -47,6 +47,7 @@
     <style>
         /* Titanium Ad Layer: Auto-Collapse (Consistency) */
         .ad-container {
+            display: none;
             margin: 0;
             text-align: center;
             background: transparent;
@@ -58,6 +59,7 @@
         }
 
         .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) {
+            display: block;
             margin: 20px 0;
             padding: 15px;
             background: #f9fafb;
