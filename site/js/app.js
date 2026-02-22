@@ -244,11 +244,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Renderiza ofertas iniciais (Recentes)
             renderDeals(allDeals);
 
-            // Garante visibilidade da seção se houver ofertas
+            // Seção de grid desativada por solicitação (Evitar poluição visual)
+            /*
             const dealsSection = document.querySelector('.voted-deals');
             if (dealsSection && allDeals.length > 0) {
                 dealsSection.style.display = 'block';
             }
+            */
         } catch (err) {
             console.error('[Titanium] Erro ao carregar ofertas:', err);
             allDeals = getFallbackData();
@@ -706,11 +708,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Scroll to deals section
             const dealsSection = document.querySelector('.voted-deals');
             if (dealsSection) {
+                /*
                 dealsSection.style.display = 'block'; // Ensure visibility
-                dealsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                */    dealsSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
             }
 
             // Store current category for filter buttons
@@ -740,8 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = searchInput.value.toLowerCase().trim();
 
         // Show loading state and ensure section visibility
-        const dealsSection = document.querySelector('.voted-deals');
-        if (dealsSection) dealsSection.style.display = 'block';
+        // const dealsSection = document.querySelector('.voted-deals');
+        // if (dealsSection) dealsSection.style.display = 'block';
 
         dealsGrid.innerHTML = `
             <div class="loading-state">

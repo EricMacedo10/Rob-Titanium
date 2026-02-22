@@ -2204,3 +2204,5 @@ nav a.active::after {
 .lightning-bar {
     display: none !important;
 }
+/* Force hide redundant grid */
+.voted-deals { display: none !important; }
