@@ -13,6 +13,21 @@ from core.phrases import generate_dynamic_phrases
 
 DATA_FILE = 'site/data.json'
 
+def _format_product_for_site(prod, analise, index, category):
+    """Auxiliar para formatar produto para o data.json"""
+    return {
+        "id": f"prod_{int(time.time())}_{index}_{random.randint(0, 999)}",
+        "title": prod.get('titulo', prod.get('nome', 'Sem Título')), 
+        "price": prod['preco'],
+        "old_price": prod['preco'] * 1.25, 
+        "discount": 20,
+        "store": prod['loja'],
+        "category": category,
+        "image": prod.get('imagem', prod.get('image', '')), 
+        "link": prod.get('link', prod.get('link_afiliado', '')),
+        "reason": analise.get('motivo', 'Melhor oferta encontrada')
+    }
+
 def update_manual_targets():
     """
     Scrape products defined in TARGETS list (settings.py)
@@ -35,21 +50,35 @@ def update_manual_targets():
                 import asyncio
                 from scraper.engines.mercadolivre_api import search_mercadolivre
                 # ML specific search
-                res = search_mercadolivre(term, limit=1)
+                res = search_mercadolivre(term, limit=5)
                 if res and len(res) > 0:
-                    prod = res[0]
-                    analise = {"motivo": f"Oferta Direta Mercado Livre para {term}"}
-                else:
-                    prod = None
+                    for prod in res:
+                        if prod and prod.get('preco') and prod.get('preco') != float('inf'):
+                            analise = {"motivo": f"Oferta Direta Mercado Livre para {term}"}
+                            formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
+                            new_products.append(formatted)
+                    continue # Skip general processing for this target
+            elif store_target == 'lomadee':
+                from scraper.engines.lomadee_api import search_lomadee
+                res = search_lomadee(term, limit=5)
+                if res and len(res) > 0:
+                    for prod in res:
+                        if prod and prod.get('preco') and prod.get('preco') != float('inf'):
+                            analise = {"motivo": f"Oferta Direta Lomadee para {term}"}
+                            formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
+                            new_products.append(formatted)
+                    continue # Skip general processing for this target
             elif store_target == 'shopee':
                 import asyncio
                 from scraper.engines.shopee_affiliate import search_shopee
-                res = search_shopee(term, limit=1)
+                res = search_shopee(term, limit=5)
                 if res and len(res) > 0:
-                    prod = res[0]
-                    analise = {"motivo": f"Oferta Direta Shopee para {term}"}
-                else:
-                    prod = None
+                    for prod in res:
+                        if prod and prod.get('preco') and prod.get('preco') != float('inf'):
+                            analise = {"motivo": f"Oferta Direta Shopee para {term}"}
+                            formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
+                            new_products.append(formatted)
+                    continue # Skip general processing for this target
             elif store_target == 'amazon':
                 # Use Arbitro but specifically for Amazon (it handles the loop)
                 import asyncio
@@ -63,19 +92,7 @@ def update_manual_targets():
                 analise = resultado.get('analise_ia', {}) if resultado else {}
             
             if prod and prod.get('preco') and prod.get('preco') != float('inf'):
-                # Format for site/data.json
-                formatted = {
-                    "id": f"prod_{int(time.time())}_{i}",
-                    "title": prod.get('titulo', prod.get('nome', 'Sem Título')), 
-                    "price": prod['preco'],
-                    "old_price": prod['preco'] * 1.25, 
-                    "discount": 20,
-                    "store": prod['loja'],
-                    "category": target.get('category', 'geral'),
-                    "image": prod.get('imagem', prod.get('image', '')), 
-                    "link": prod.get('link', prod.get('link_afiliado', '')),
-                    "reason": analise.get('motivo', 'Melhor oferta encontrada')
-                }
+                formatted = _format_product_for_site(prod, analise, i, target.get('category', 'geral'))
                 new_products.append(formatted)
                 print(f"✅ Encontrado: {formatted['title'][:40]}... (R$ {formatted['price']})")
             else:

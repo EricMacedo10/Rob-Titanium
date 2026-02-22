@@ -22,7 +22,8 @@ const TITANIUM_CONFIG = {
     STATUS: {
         amazon: true,
         mercadolivre: true,
-        shopee: true   // ✅ Ativo (Fallback MVP)
+        shopee: true,
+        lomadee: true
     }
 };
 
@@ -232,11 +233,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparisonInput = document.getElementById('comparison-input');
     const comparisonResults = document.getElementById('comparison-results');
 
-    // loadDeals();
+    async function loadDeals() {
+        try {
+            console.log('[Titanium] Carregando ofertas sincronizadas...');
+            const response = await fetch('data.json?v=' + Date.now());
+            if (!response.ok) throw new Error('Falha ao carregar data.json');
+            allDeals = await response.json();
+            console.log(`[Titanium] ${allDeals.length} ofertas carregadas com sucesso.`);
 
-    function loadDeals() {
-        console.log('[Titanium v3] Carregamento dinâmico desativado em favor do Hub de Categorias.');
+            // Renderiza ofertas iniciais (Recentes)
+            renderDeals(allDeals);
+
+            // Garante visibilidade da seção se houver ofertas
+            const dealsSection = document.querySelector('.voted-deals');
+            if (dealsSection && allDeals.length > 0) {
+                dealsSection.style.display = 'block';
+            }
+        } catch (err) {
+            console.error('[Titanium] Erro ao carregar ofertas:', err);
+            allDeals = getFallbackData();
+        }
     }
+
+    // Inicializa carregamento
+    loadDeals();
 
     // === Render Functions ===
     function renderDeals(deals) {
@@ -586,6 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="store-filter-btn" data-store="amazon">Amazon</button>
                 <button class="store-filter-btn" data-store="mercadolivre">Mercado Livre</button>
                 <button class="store-filter-btn" data-store="shopee">Shopee</button>
+                <button class="store-filter-btn" data-store="lomadee">Lomadee</button>
             </div>
         `;
         container.insertAdjacentHTML('afterbegin', filterHTML);
@@ -1310,7 +1331,8 @@ async function initTitaniumLightningBar() {
         const storesMap = {
             'amazon': [],
             'mercado livre': [],
-            'shopee': []
+            'shopee': [],
+            'lomadee': []
         };
 
         allDeals.forEach(d => {
@@ -1319,13 +1341,15 @@ async function initTitaniumLightningBar() {
             if (storeKey.includes('amazon')) storesMap['amazon'].push(d);
             else if (storeKey.includes('mercado')) storesMap['mercado livre'].push(d);
             else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
+            else if (storeKey.includes('lomadee')) storesMap['lomadee'].push(d);
         });
 
         // Diagnostic: Log per-store counts
         console.log('[Titanium Bar] Produtos por loja:', {
             amazon: storesMap['amazon'].length,
             mercadoLivre: storesMap['mercado livre'].length,
-            shopee: storesMap['shopee'].length
+            shopee: storesMap['shopee'].length,
+            lomadee: storesMap['lomadee'].length
         });
 
         // Shuffle each store's pool internally
@@ -1334,9 +1358,9 @@ async function initTitaniumLightningBar() {
         });
 
         // ROUND-ROBIN: Alterna entre lojas garantindo visibilidade de TODAS
-        const storeOrder = ['amazon', 'mercado livre', 'shopee'];
+        const storeOrder = ['amazon', 'mercado livre', 'shopee', 'lomadee'];
         const finalSelection = [];
-        const maxPerStore = 4;
+        const maxPerStore = 8; // Aumentado para mais variedade
 
         for (let i = 0; i < maxPerStore; i++) {
             storeOrder.forEach(store => {
@@ -1509,8 +1533,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const isTest = window.location.href.includes('teste.') ||
         window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1';
+    const isProduction = window.location.hostname === 'guiadodesconto.com.br';
 
-    if (isTest || document.body.classList.contains('staging-mode')) {
+    if (isTest || isProduction || document.body.classList.contains('staging-mode')) {
         setTimeout(initTitaniumLightningBar, 300);
     }
 });
