@@ -41,9 +41,14 @@ Titanium prioritizes **Reels** over static images because of higher algorithmic 
     3.  **Conversão Segura**: O script obrigatoriamente gera arquivos temporários com nomes únicos (`temp_...`) para evitar destruir o arquivo original da fila em caso de erro no processo de upload.
 
 ## 🛠️ Troubleshooting: Falhas Comuns
-### 1. Erro 9004 (Media download took too long)
-- **Causa**: Meta não conseguiu baixar a imagem da URL pública em 30-60 segundos.
-- **Solução**: Mudar a prioridade de upload para o Hostinger ou tentar converter a imagem para um tamanho menor (KB).
+### 1. Erro 9004 — WAF Hostinger Bloqueando Meta (v1157)
+- **Sintoma**: Upload FTP sucede, `_verify_link()` retorna 200, mas Meta rejeita com `error_subcode: 2207052`.
+- **Causa Raiz**: O WAF do Hostinger (LiteSpeed / Imunify360) bloqueia intermitentemente os crawlers do Facebook por IP ou User-Agent, retornando HTML ao invés da imagem.
+- **Solução Automática (Defesa em 3 Camadas)**:
+    1.  **Verificação Meta-realista**: `_verify_link_for_meta()` simula o crawler do Facebook com `User-Agent: facebookexternalhit/1.1`, faz GET completo, valida `Content-Type` e tamanho mínimo.
+    2.  **Auto-fallback ImgBB**: Se a verificação Meta falha, o upload é refeito automaticamente via ImgBB.
+    3.  **Retry 9004**: Se o container falhar com erro 9004 mesmo após verificação, o `post_scheduled_feed.py` retenta com ImgBB (`force_cloud=True`).
+
 ### 2. File Not Found (Encoding Issues)
 - **Causa**: Caminhos com acentos (ex: "Área de Trabalho") no Windows.
 - **Solução**: O script agora utiliza busca dinâmica via `os.listdir()` e matching em lowercase para garantir que o arquivo seja encontrado independente do encoding do sistema operacional.

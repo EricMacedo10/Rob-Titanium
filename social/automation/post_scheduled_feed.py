@@ -219,8 +219,9 @@ def run_scheduled_post():
         imgbb_api_key=os.getenv("IMGBB_API_KEY")
     )
     
-    # --- NOVO: Garantir formato JPEG e Upload via Cloud (ImgBB) para evitar bloqueios do Hostinger ---
+    # --- Garantir formato JPEG e Upload resiliente ---
     remote_name = f"scheduled_{today}_{int(time.time())}.jpg"
+    temp_jpg_path = os.path.join(fila_dir, f"temp_upload_{int(time.time())}.jpg")
     
     try:
         # Converter para RGB/JPEG usando PIL (garante compatibilidade máxima)
@@ -231,40 +232,63 @@ def run_scheduled_post():
             rgb_img.save(temp_buffer, format="JPEG", quality=95)
             temp_buffer.seek(0)
             
-            # Usar um nome temporário SEGURO para não sobrescrever o original se este já for .jpg/.jpeg
-            temp_jpg_path = os.path.join(fila_dir, f"temp_upload_{int(time.time())}.jpg")
             with open(temp_jpg_path, "wb") as f:
                 f.write(temp_buffer.read())
             
-            # Upload usando Hostinger/ImgBB (deixando o uploader decidir a melhor rota)
+            # Upload usando Hostinger/ImgBB (uploader agora faz verificação Meta automática)
             public_url = uploader.upload(temp_jpg_path, remote_name, force_cloud=False)
             print(f"🔗 URL Pública gerada: {public_url}")
-            
-            # Limpar arquivo temporário .jpg (Agora seguro pois o nome é único)
-            if os.path.exists(temp_jpg_path):
-                os.remove(temp_jpg_path)
+            if uploader.provider_used:
+                print(f"📡 Provedor utilizado: {uploader.provider_used}")
     except Exception as e:
         print(f"❌ Erro no processamento da imagem: {e}")
+        # Limpar temp antes de sair
+        if os.path.exists(temp_jpg_path):
+            os.remove(temp_jpg_path)
         sys.exit(1)
     
     if not public_url:
         print("❌ Falha no upload da imagem. Abortando.")
+        if os.path.exists(temp_jpg_path):
+            os.remove(temp_jpg_path)
         sys.exit(1)
     
-    # 10. Publicar no Feed (direct publish — sem status polling para imagens)
+    # 10. Publicar no Feed com RETRY + FALLBACK automático
     print("📲 Publicando no Feed do Instagram...")
     
     base_url = f"https://graph.facebook.com/v21.0/{IG_BUSINESS_ID}"
     
-    # Criar container
-    container_resp = requests.post(f"{base_url}/media", data={
-        "image_url": public_url,
-        "caption": caption,
-        "access_token": IG_TOKEN
-    })
-    container_data = container_resp.json()
+    def _try_create_container(image_url):
+        """Tenta criar container no Instagram. Retorna (data_dict, success_bool)."""
+        resp = requests.post(f"{base_url}/media", data={
+            "image_url": image_url,
+            "caption": caption,
+            "access_token": IG_TOKEN
+        })
+        data = resp.json()
+        return data, "id" in data
     
-    if "id" not in container_data:
+    # Tentativa 1: URL principal (FTP ou ImgBB, dependendo do upload)
+    container_data, success = _try_create_container(public_url)
+    
+    # BLINDAGEM: Se falhar com erro 9004 (Meta não conseguiu baixar), retry com ImgBB
+    if not success:
+        error_code = container_data.get("error", {}).get("code")
+        if error_code == 9004 and uploader.provider_used and "ImgBB" not in uploader.provider_used:
+            print(f"⚠️ Erro 9004 detectado com URL do Hostinger — ativando fallback ImgBB...")
+            fallback_url = uploader.upload(temp_jpg_path, remote_name, force_cloud=True)
+            if fallback_url:
+                print(f"🔗 URL Fallback (ImgBB): {fallback_url}")
+                container_data, success = _try_create_container(fallback_url)
+                if success:
+                    public_url = fallback_url
+                    print(f"✅ Fallback ImgBB funcionou!")
+    
+    # Limpar arquivo temporário (seguro pois já fez upload)
+    if os.path.exists(temp_jpg_path):
+        os.remove(temp_jpg_path)
+    
+    if not success:
         print(f"❌ Erro ao criar container: {container_data}")
         sys.exit(1)
     
@@ -288,6 +312,7 @@ def run_scheduled_post():
     
     post_id = publish_data["id"]
     print(f"\n🏆 POST PUBLICADO COM SUCESSO! (Post ID: {post_id})")
+    print(f"📡 Provedor final: {uploader.provider_used}")
     
     # 11. Arquivar imagem (Anti-duplicata e Blindagem)
     # Se o nome original já começar com a data (ex: 2026-02-13_...), não duplicar o prefixo
