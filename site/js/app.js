@@ -1410,12 +1410,14 @@ async function initTitaniumLightningBar() {
 
                 const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
                 const safeTitle = (deal.title || '').replace(/'/g, "\\'");
+                const formattedPrice = deal.price ? `R$ ${parseFloat(deal.price).toFixed(2).replace('.', ',')}` : '';
 
                 html += `
                 <a href="${link}" target="_blank" class="lightning-item" data-id="${deal.id}_${index}" 
                    data-store="${deal.store}" data-title="${safeTitle}">
                     <span class="lightning-badge">⚡ ${deal.store}</span>
                     <strong>${displayTitle}</strong>
+                    <span class="lightning-price">${formattedPrice}</span>
                     <div class="price-badge">Ver Oferta →</div>
                 </a>
             `;
@@ -1493,6 +1495,20 @@ async function initTitaniumLightningBar() {
                 'font-size: 0.72rem',
                 'text-transform: uppercase',
                 'border: 1px solid rgba(255,255,255,0.3)'
+            ].join('; '));
+        });
+
+        // Style prices inline (v2026_v7)
+        container.querySelectorAll('.lightning-price').forEach(price => {
+            price.setAttribute('style', [
+                'background: rgba(0,0,0,0.15)',
+                'padding: 2px 10px',
+                'border-radius: 6px',
+                'font-size: 0.85rem',
+                'margin: 0 5px',
+                'font-weight: 800',
+                'color: #fff',
+                'border: 1px solid rgba(255,255,255,0.1)'
             ].join('; '));
         });
 
