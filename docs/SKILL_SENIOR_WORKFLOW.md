@@ -49,9 +49,10 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
     *   Não confiar apenas no localhost (que tem internet livre e DNS local).
     *   Simular restrições de rede e falhas de serviços externos antes do Go-Live.
 
-5.  **Redundância de Serviços Críticos (v1156):**
+5.  **Redundância de Serviços Críticos (v1156 → v1157):**
     *   Nunca dependa de um único provedor de nuvem (ex: ImgBB) para ativos de mídia.
     *   **Prioridade Local/Nacional:** Services hospedados no mesmo país do público-alvo (Hostinger/BR) tendem a ser mais estáveis para APIs restritivas (Meta/Instagram).
+    *   **Verificação Meta-Realista (v1157):** Após upload via FTP, o sistema DEVE simular o crawler da plataforma de destino (ex: `User-Agent: facebookexternalhit/1.1`) com um GET completo, validando `Content-Type` e tamanho mínimo. Se a verificação falhar, ativar fallback automático.
     *   **Blindagem de Arquivos:** Processos de conversão de imagem/vídeo devem usar nomes temporários únicos (`temp_...`) para evitar a deleção acidental de arquivos originais da fila de processamento.
     *   **Git como Backup:** Mantenha ativos de campanha versionados para permitir recuperação instantânea em caso de erro de automação.
 ## 🚨 Monitoramento e Excelência Operacional (Lições Aprendidas)
@@ -98,6 +99,13 @@ Para garantir a credibilidade do site e evitar quebras estruturais que possam af
     *   Não existe `/public_html/`, `/www/` ou `/domains/` nesta conta — toda navegação FTP é relativa à raiz já sendo `public_html`.
     *   Em modo STAGING, os assets seguem para `/teste/js/`, `/teste/css/` — nunca para `/js/` ou `/css/` da produção.
 
+7.  **🔍 Verificação ≠ Validação — O Paradoxo do Firewall (2026-02-22):**
+    *   **Problema real:** URL do Hostinger retornava `200 OK` + `Content-Type: image/jpeg` para o nosso IP, mas o WAF (LiteSpeed/Imunify360) bloqueava os crawlers do Meta (Facebook), causando erro 9004 repetidamente.
+    *   **Lição:** Verificar uma URL do seu próprio IP **NÃO garante** que terceiros (APIs do Meta, Google, etc.) conseguirão acessá-la. Firewalls de hospedagem aplicam regras diferentes por User-Agent e faixa de IP.
+    *   **Regra:** Toda verificação de URL pública destinada a consumo por APIs externas DEVE simular o User-Agent e comportamento do consumidor final (`facebookexternalhit`, `Googlebot`, etc.).
+    *   **Padrão obrigatório:** `GET completo + User-Agent real + Content-Type check + tamanho mínimo + estabilidade (2ª requisição após 2s)`.
+    *   **Fallback automático:** Se a verificação simulada falhar, o sistema deve trocar de provedor (ex: FTP → ImgBB) sem intervenção humana.
+
 
 
 ## 🛡️ Protocolo Anti-Reversão (Novos Requisitos)
@@ -107,7 +115,17 @@ Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é
 2.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
 3.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
 
-## ⚖️ Blindagem Ética e Comercial (Compliance)
+8.  **💎 Estética e Confiança Visual (Titanium Trust — 2026-02-22):**
+    *   **Menos é Mais:** Se uma informação está em destaque (ex: Preço na Lightning Bar), remova repetições redundantes que causem poluição visual. O foco do usuário deve ser guiado, não dispersado.
+    *   **Transparência = Conversão:** Exibir preços reais e nomes de lojas conhecidas gera mais confiança do que botões genéricos de "Ver Oferta".
+    *   **Velocidade Cognitiva:** Animações e carrosséis devem seguir o ritmo de leitura humana. Marquees muito rápidos são ignorados ou irritam o usuário.
+
+9.  **⚡ Fast-Sync Protocol (Emergência em Produção):**
+    *   **Problema:** Ciclos completos de scraper podem demorar 30+ minutos. Correções de UI não podem esperar.
+    *   **Solução:** Implementar um modo de "Fast-Sync" que carrega o `data.json` existente e faz apenas o upload dos assets estruturais (JS/CSS/HTML).
+    *   **Regra:** Hotfixes de layout devem ser deployados em < 2 minutos usando este protocolo.
+
+10. **⚖️ Blindagem Ética e Comercial (Compliance)**
 Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
 
 1.  **Camada de Recência (Freshness):** Atualização multi-diária mandatória para sincronizar preços e disponibilidade. O que não é validado na rodada atual, não é postado.

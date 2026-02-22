@@ -35,10 +35,12 @@ The bot operates in two distinct modes:
 Titanium prioritizes **Reels** over static images because of higher algorithmic reach.
 - **Ken Burns Effect**: Static images are animated with subtle zoom/pan.
 - **720p Rule**: Videos are encoded/resized to 720p (Original Size) to ensure instant cloud transcoding.
-- **Resilient Upload Strategy (v1156)**: 
+- **Resilient Upload Strategy (v1157 — Tri-Layer Defense)**: 
     1.  **Prioridade 1: Hostinger (FTP)** -> `guiadodesconto.com.br/social/`. Esta rota é mais estável para os servidores do Meta devido à proximidade geográfica e menor latência.
-    2.  **Prioridade 2: ImgBB** (Fallback). Usado apenas se o Hostinger estiver offline ou bloqueado.
-    3.  **Conversão Segura**: O script obrigatoriamente gera arquivos temporários com nomes únicos (`temp_...`) para evitar destruir o arquivo original da fila em caso de erro no processo de upload.
+    2.  **Verificação Meta-Realista**: Após upload FTP, `_verify_link_for_meta()` simula o crawler do Facebook (`User-Agent: facebookexternalhit/1.1`) com GET completo, valida `Content-Type` e tamanho mínimo. Se o WAF do Hostinger bloquear → fallback automático.
+    3.  **Prioridade 2: ImgBB** (Fallback). Ativado automaticamente quando a verificação Meta falha no Hostinger, ou quando o container retorna erro 9004.
+    4.  **Retry 9004**: Se o container falhar com erro 9004 mesmo após verificações, o `post_scheduled_feed.py` retenta com ImgBB (`force_cloud=True`) sem intervenção humana.
+    5.  **Conversão Segura**: O script obrigatoriamente gera arquivos temporários com nomes únicos (`temp_...`) para evitar destruir o arquivo original da fila em caso de erro no processo de upload.
 
 ## 🛠️ Troubleshooting: Falhas Comuns
 ### 1. Erro 9004 — WAF Hostinger Bloqueando Meta (v1157)

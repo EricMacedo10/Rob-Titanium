@@ -13,8 +13,10 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 - **Link Builder**: Injects `tag=guiadodesco00-20` and sorts by `price-asc-rank` (Lower Price).
 
 ### 2. Mercado Livre Engine (`scraper/engines/mercadolivre_api.py`)
-- **Method**: Official REST API + Selenium Fallback.
-- **Tracking**: Uses the **Matt-Tool** system.
+- **Method**: Official REST API + Advanced Selenium Fallback ("Nuclear Search").
+- **Nuclear Search**: Bypasses anti-bot blocks by starting from the Mercado Livre home page and simulating human search input instead of direct URL navigation.
+- **Sorting**: Mandatory use of `_OrderId_PRICE_ASC` to ensure the best deals are captured first.
+- **Tracking**: Uses the **Matt-Tool** system with dynamic `tracking_id`.
 - **Freshness**: Relies on `core/tokens.py` to manage OAuth refresh tokens for authenticated API access.
 
 ### 3. Shopee Engine (`scraper/engines/shopee_affiliate.py`)

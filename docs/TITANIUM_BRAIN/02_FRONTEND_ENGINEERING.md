@@ -18,16 +18,24 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
         - Checks a hardcoded map for "Official Verified Links" (Priority 1).
         - Falls back to a search URL with `utm_source=ericmacedo` (Priority 2).
 
+### Titanium Lightning Bar (v2026_v7)
+Implementada como uma camada de engajamento premium em [initTitaniumLightningBar]:
+- **Round-Robin Selection**: Alterna automaticamente entre lojas (Amazon, ML, Shopee) para garantir equidade de visibilidade.
+- **Trust Metrics**: Exibição de **preços reais** formatados diretamente no carrossel, aumentando a taxa de clique e a credibilidade.
+- **Speed Optimization**: Animação de marquee ajustada para 80 segundos (Sliding Moderado) para garantir a legibilidade.
+- **Auto-Activation**: Ativação automática no domínio de produção e ambientes de staging via detecção de DNS.
+
 ### Dashboard Hubs (Interativos)
 O sistema conta com Hubs de Categoria Inteligentes (ex: `tech-hub-card`, `home-hub-card`):
 - **Brand Tabs**: Permite ao usuário alternar entre Amazon, Mercado Livre e Shopee sem sair do card.
 - **Sync Visual**: A troca de aba sincroniza instantaneamente o banner, a imagem de destaque e o termo de busca do redirecionamento.
 - **Auto-Rotation**: Implementa rodízio automático de marcas a cada 30 minutos para equilibrar o tráfego de afiliados.
 
-### Security Layer (Blindagem)
+- **Minimalist UI ("Menos é Mais")**: Ocultação intencional de grids redundantes (`.voted-deals`) para evitar poluição visual e focar o usuário nas áreas de maior conversão (Hubs e Lightning Bar).
+- **Security Layer (Blindagem)**:
 - **Whitelist**: Todo redirecionamento é validado contra domínios permitidos (`amazon.com.br`, `mercadolivre.com.br`, `shopee.com.br`).
 - **Exclusion Logic**: Banners interativos e cards sazonais (.seasonal e .interactive-card) são ignorados pelo motor de renderização dinâmico para evitar estados de "Nenhuma oferta encontrada" ao retornar ao site.
-- **Cache Busting**: Uso mandatório de tags de versão (ex: `app.js?v=2026v5`) para garantir a entrega imediata de correções críticas.
+- **Cache Busting**: Uso mandatório de tags de versão (ex: `app.js?v=2026v7`) para garantir a entrega imediata de correções críticas.
 - **Content Security Policy (CSP)**: Implementa regras de "Zero Trust" mas permite especificamente a comunicação com domínios de rastreamento do Google (`www.googletagmanager.com`, `*.google-analytics.com`) para garantir métricas precisas.
 
 ## 🏗️ DOM Structure & IDs
