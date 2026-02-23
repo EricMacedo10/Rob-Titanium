@@ -30,6 +30,11 @@ Titanium avoids partial site updates. The deployer:
 3.  Uploads changed files.
 4.  **Verification**: Performs a health check on `data.json` post-upload to ensure the site's "Heart" is beating.
 
+### Manual Force-Sync (Hotfixes)
+Para correções de emergência que afetam apenas a interface (HTML/CSS/JS), utilize o script dedicado:
+- **Entry point**: `python infra/force_asset_upload.py`
+- **Logic**: Sincroniza apenas assets estruturais sem rodar os scrapers de produto. Ideal para Go-Live visual após validação em Staging.
+
 ### Sync-Safe Archival (Automation)
 For workflows that write back to the repository (e.g., `post-scheduled`), a `git pull --rebase` strategy is used before pushing. This prevents archival failures caused by transient conflicts between automated runs and manual commits.
 
@@ -39,6 +44,8 @@ To prevent accidental production outages, the following protocol is enforced:
 2.  **Staging-First Validation**: Production deploys are restricted unless a successful synchronization and verification cycle has been completed in the `/teste` environment during the same session.
 3.  **Atomic Assets**: Script updates (like `app.js`) must be accompanied by version bumps in `index.html` to prevent stale cache execution.
 4.  **Anti-Reversion Protocol (Critical)**: Local modifications to structural files (`index.html`, etc.) **MUST** be committed and pushed before any automated workflow run. Uncommitted local work will be overwritten by the GitHub Action's checkout if it doesn't exist in the repository.
+5.  **Strict Asset Separation (Data-Only)**: Para eliminar o risco de execuções automáticas reverterem mudanças de layout, o workflow `update-offers.yml` em modo `PRODUCTION` é restrito à atualização apenas de dados (`data.json`). Atualizações estruturais diretas (HTML/JS/CSS) devem ser realizadas via `force_asset_upload.py` após validação.
+6.  **Defensive Cleanup Protocol (Lição v1172_premium)**: Durante correções rápidas de layout, nunca apague blocos de código sem validar se não contêm seletores únicos de animação (`@keyframes`) ou estados interativos. O uso de `force_asset_upload.py` deve ser seguido por uma verificação visual mandatória para garantir a integridade dos ativos críticos de UI.
 
 ## 🛡️ Staging vs Production
 - **Staging**: Subdomínio `teste.guiadodesconto.com.br` → mapeado para a pasta `/teste` na raiz FTP (`u534624268.guiadodesconto`). Usado para validar novas lógicas de scraper e features experimentais do frontend. O orchestrator em modo `ENV_MODE=STAGING` envia apenas: `data.json`, `notifications.json`, `index_staging.html`, `js/app.js` e `css/style.css` para `/teste/`. **Nunca altera `index.html` de produção.**

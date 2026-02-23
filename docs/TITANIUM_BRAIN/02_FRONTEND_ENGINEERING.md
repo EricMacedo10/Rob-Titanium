@@ -18,18 +18,23 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
         - Checks a hardcoded map for "Official Verified Links" (Priority 1).
         - Falls back to a search URL with `utm_source=ericmacedo` (Priority 2).
 
-### Titanium Lightning Bar (v2026_v7)
-Implementada como uma camada de engajamento premium em [initTitaniumLightningBar]:
-- **Round-Robin Selection**: Alterna automaticamente entre lojas (Amazon, ML, Shopee) para garantir equidade de visibilidade.
-- **Trust Metrics**: Exibição de **preços reais** formatados diretamente no carrossel, aumentando a taxa de clique e a credibilidade.
-- **Speed Optimization**: Animação de marquee ajustada para 80 segundos (Sliding Moderado) para garantir a legibilidade.
-- **Auto-Activation**: Ativação automática no domínio de produção e ambientes de staging via detecção de DNS.
+### Interactive Brand Tabs (v2026_v2)
+Implementado como um seletor de lojas multi-camada nos cards de categoria:
+- **On-the-Fly Store Switching**: Permite ao usuário alternar instantaneamente entre Amazon, Mercado Livre e Shopee sem sair do card.
+- **Dynamic CSS State**: Classes dinâmicas (`.active[data-store="..."]`) que alteram cores, sombras e brilhos específicos de cada marca em tempo real.
+- **Interactivity Engineering**: Uso de `z-index: 120` e `backdrop-filter: blur(15px)` nos tabs para garantir que o controle de navegação seja sempre soberano e legível sobre as imagens do banner.
 
-### Dashboard Hubs (Interativos)
-O sistema conta com Hubs de Categoria Inteligentes (ex: `tech-hub-card`, `home-hub-card`):
-- **Brand Tabs**: Permite ao usuário alternar entre Amazon, Mercado Livre e Shopee sem sair do card.
-- **Sync Visual**: A troca de aba sincroniza instantaneamente o banner, a imagem de destaque e o termo de busca do redirecionamento.
-- **Auto-Rotation**: Implementa rodízio automático de marcas a cada 30 minutos para equilibrar o tráfego de afiliados.
+### Animation Architecture (Titanium Shine & Pulse)
+Engine de micro-animações para aumento de engajamento e percepção de qualidade:
+- **Titanium Shine**: Efeito de brilho linear metálico que percorre os ícones a cada 5 segundos, simulando reflexo de luxo.
+- **Premium Titanium Pulse**: Animação de pulsação complexa que combina `scale`, `shadow glow` e `Y-translation` para criar um efeito de "levitação" nos botões de CTA.
+- **Fade-Drop Transition**: Transição de texto nos CTAs que combina `opacity: 0` e `transform: translateY(10px)` para uma troca de frase fluida e menos agressiva aos olhos.
+
+### Banner CTAs (Labels de Chamada)
+Implementado em [style.css] e [app.js] para guiar o usuário:
+- **Camada Visual**: Labels "Floating" nos banners de categoria com animação `titaniumPulse`.
+- **Engagement Loop**: Mensagens dinâmicas como "Clique e descubra o menor preço" ou "Busca ativa: Veja preços reais".
+- **Premium Glow**: Estilização via Glassmorphism para manter a integridade visual dos hubs.
 
 - **Minimalist UI ("Menos é Mais")**: Ocultação intencional de grids redundantes (`.voted-deals`) para evitar poluição visual e focar o usuário nas áreas de maior conversão (Hubs e Lightning Bar).
 - **Security Layer (Blindagem)**:
