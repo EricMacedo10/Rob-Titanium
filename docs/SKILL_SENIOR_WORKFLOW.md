@@ -112,8 +112,9 @@ Para garantir a credibilidade do site e evitar quebras estruturais que possam af
 Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é **obrigatório**:
 
 1.  **Commit Atômico Pré-Sincronia:** Sempre que alterar arquivos que o Robô também manipula (`index.html`, `js/app.js`, `css/style.css`), você **DEVE** realizar o `git commit` e `git push` antes das janelas de automação.
-2.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
-3.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
+2.  **Sincronização Staging → Produção (A Trava do GitHub Actions):** O script `update-offers.yml` (que atualiza as ofertas) injeta o ambiente `PRODUCTION` na máquina do GitHub. Isso faz o robô carregar e dar upload do `index.html` que está lá no repositório. **NUNCA DEIXE** o `index_staging.html` ficar à frente do `index.html` na branch principal, senão as automações restaurarão a interface velha. Sempre faça o espelhamento (`cp site/index_staging.html site/index.html`) + limpeza de tags de staging antes de concluir as correções de UI.
+3.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
+4.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
 
 8.  **💎 Estética e Confiança Visual (Titanium Trust — 2026-02-22):**
     *   **Menos é Mais:** Se uma informação está em destaque (ex: Preço na Lightning Bar), remova repetições redundantes que causem poluição visual. O foco do usuário deve ser guiado, não dispersado.
@@ -123,7 +124,15 @@ Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é
 9.  **⚡ Fast-Sync Protocol (Emergência em Produção):**
     *   **Problema:** Ciclos completos de scraper podem demorar 30+ minutos. Correções de UI não podem esperar.
     *   **Solução:** Implementar um modo de "Fast-Sync" que carrega o `data.json` existente e faz apenas o upload dos assets estruturais (JS/CSS/HTML).
+    *   **Ferramenta Padrão:** Use `python infra/force_asset_upload.py` para sincronizar `index.html`, `app.js` e `style.css` em modo atômico, garantindo que o `ENV_MODE` ative o destino correto (Staging ou Produção).
     *   **Regra:** Hotfixes de layout devem ser deployados em < 2 minutos usando este protocolo.
+
+11. **🚫 Hard-Exclusion Logic (Lomadee Blindagem):**
+    *   **Problema:** Itens de certas redes (ex: Lomadee) podem ter instabilidade de links ou irrelevância de produto.
+    *   **Solução:** Implementar exclusão em três níveis:
+        1.  **Scraper**: Não capturar se for da loja indesejada.
+        2.  **Hydration**: Filtrar no `fetch('data.json')` no frontend.
+        3.  **Render**: Ignorar o objeto durante o loop de criação de cards no DOM.
 
 10. **⚖️ Blindagem Ética e Comercial (Compliance)**
 Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
