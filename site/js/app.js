@@ -23,7 +23,7 @@ const TITANIUM_CONFIG = {
         amazon: true,
         mercadolivre: true,
         shopee: true,
-        lomadee: true
+        lomadee: false
     }
 };
 
@@ -238,19 +238,18 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('[Titanium] Carregando ofertas sincronizadas...');
             const response = await fetch('data.json?v=' + Date.now());
             if (!response.ok) throw new Error('Falha ao carregar data.json');
-            allDeals = await response.json();
-            console.log(`[Titanium] ${allDeals.length} ofertas carregadas com sucesso.`);
+            allDeals = (await response.json()).filter(d =>
+                d.store && d.store.toLowerCase().trim() !== 'lomadee'
+            );
+            console.log(`[Titanium] ${allDeals.length} ofertas carregadas (Lomadee filtrada).`);
 
-            // Renderiza ofertas iniciais (Recentes)
+            // 🛠️ RESTAURADO: Renderização do Feed Principal
             renderDeals(allDeals);
 
-            // Seção de grid desativada por solicitação (Evitar poluição visual)
-            /*
             const dealsSection = document.querySelector('.voted-deals');
             if (dealsSection && allDeals.length > 0) {
                 dealsSection.style.display = 'block';
             }
-            */
         } catch (err) {
             console.error('[Titanium] Erro ao carregar ofertas:', err);
             allDeals = getFallbackData();
@@ -281,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const displayDeals = sortedDeals.slice(0, 18);
 
         displayDeals.forEach(deal => {
+            // Re-vetted Lomadee check even at render level
+            if (deal.store && deal.store.toLowerCase().trim() === 'lomadee') return;
             const card = createDealCard(deal);
             dealsGrid.appendChild(card);
         });
@@ -708,12 +709,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Scroll to deals section
             const dealsSection = document.querySelector('.voted-deals');
             if (dealsSection) {
-                /*
                 dealsSection.style.display = 'block'; // Ensure visibility
-                */    dealsSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+                dealsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
 
             // Store current category for filter buttons
@@ -743,8 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = searchInput.value.toLowerCase().trim();
 
         // Show loading state and ensure section visibility
-        // const dealsSection = document.querySelector('.voted-deals');
-        // if (dealsSection) dealsSection.style.display = 'block';
+        const dealsSection = document.querySelector('.voted-deals');
+        if (dealsSection) dealsSection.style.display = 'block';
 
         dealsGrid.innerHTML = `
             <div class="loading-state">
@@ -1237,6 +1237,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Titanium Sync Timestamp: 2026-02-10-12:50 (v1157_RESTORED_CARNAVAL)
 });
+
+/**
+ * Roda frases de incentivo nos CTAs dos banners para aumentar CTR (v2026_v2_premium)
+ */
+function initTitaniumBannerCTAs() {
+    const ctas = document.querySelectorAll('.banner-cta');
+    if (ctas.length === 0) return;
+
+    const phrases = [
+        "Clique e descubra o menor preço",
+        "Ver ofertas em tempo real",
+        "Busca ativa: Veja preços reais",
+        "Robô Titanium: Menor preço aqui",
+        "Onde está mais barato? Clique e veja"
+    ];
+
+    const icons = ["fa-bolt", "fa-search-dollar", "fa-tag", "fa-robot", "fa-fire"];
+
+    setInterval(() => {
+        ctas.forEach(cta => {
+            const randomIndex = Math.floor(Math.random() * phrases.length);
+
+            // Premium Transition: Fade out -> Change -> Fade in
+            cta.style.transform = 'translate(-50%, 10px)';
+            cta.style.opacity = '0';
+
+            setTimeout(() => {
+                cta.innerHTML = `
+                    <i class="fas ${icons[randomIndex]}"></i>
+                    <span class="cta-text">${phrases[randomIndex]}</span>
+                `;
+                cta.style.transform = 'translate(-50%, 0)';
+                cta.style.opacity = '1';
+
+                // Add a small "shimmer" effect after change
+                cta.style.boxShadow = '0 0 30px rgba(255, 153, 0, 0.8)';
+                setTimeout(() => {
+                    cta.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.4)';
+                }, 400);
+            }, 500);
+        });
+    }, 8000); // Slightly slower for better readability (8s)
+}
+
+document.addEventListener('DOMContentLoaded', initTitaniumBannerCTAs);
 // ========================================
 // SECURITY BLINDAGEM (v1140)
 // ========================================
@@ -1472,9 +1517,9 @@ async function initTitaniumLightningBar() {
             'animation: marquee-titanium 80s linear infinite'
         ].join('; '));
 
-        // Hide Redundant Grid (As requested by user: "Muita poluição")
+        // Restore Grid (Re-enabled to avoid "blank site" feeling)
         const gridSection = document.querySelector('.voted-deals');
-        if (gridSection) gridSection.style.display = 'none';
+        if (gridSection && allDeals.length > 0) gridSection.style.display = 'block';
 
         // Style each lightning-item inline as well
         container.querySelectorAll('.lightning-item').forEach(item => {
