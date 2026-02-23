@@ -115,6 +115,7 @@ Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é
 2.  **Sincronização Staging → Produção (A Trava do GitHub Actions):** O script `update-offers.yml` (que atualiza as ofertas) injeta o ambiente `PRODUCTION` na máquina do GitHub. Isso faz o robô carregar e dar upload do `index.html` que está lá no repositório. **NUNCA DEIXE** o `index_staging.html` ficar à frente do `index.html` na branch principal, senão as automações restaurarão a interface velha. Sempre faça o espelhamento (`cp site/index_staging.html site/index.html`) + limpeza de tags de staging antes de concluir as correções de UI.
 3.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
 4.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
+5.  **Segregação de Ativos (Data-Only Automation):** Para evitar que automações recorrentes (CRON) revertam o layout, o robô em `PRODUCTION` deve ser configurado para atualizar **apenas** arquivos de dados (`data.json`). Alterações de estrutura (HTML/JS/CSS) devem ser sincronizadas exclusivamente via `force_asset_upload.py` após validação humana.
 
 8.  **💎 Estética e Confiança Visual (Titanium Trust — 2026-02-22):**
     *   **Menos é Mais:** Se uma informação está em destaque (ex: Preço na Lightning Bar), remova repetições redundantes que causem poluição visual. O foco do usuário deve ser guiado, não dispersado.
@@ -133,6 +134,12 @@ Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é
         1.  **Scraper**: Não capturar se for da loja indesejada.
         2.  **Hydration**: Filtrar no `fetch('data.json')` no frontend.
         3.  **Render**: Ignorar o objeto durante o loop de criação de cards no DOM.
+
+12. **💎 Integridade Visual e Protocolo de Cleanup Defensivo (Lição v1172):**
+    *   **Cleanup Seletivo:** Durante tarefas de "limpeza" ou refatoração, nunca utilize intervalos de linhas amplos para deleção sem validar cada sub-bloco. A remoção de blocos duplicados de CSS ou JS deve ser precedida por uma confirmação de que nenhuma funcionalidade única (Ex: `@keyframes`, `.brand-tabs`) está no meio do range.
+    *   **Blindagem de UI:** Blocos de estilo que definem animações e interatividade (`brand-tabs`, `banner-cta`, `pulse`) são considerados "Ativos Críticos". Sua remoção acidental é equivalente a um bug de sistema.
+    *   **Cache Buster Definitivo:** Ao restaurar ou alterar layout, a versão do asset (`?v=v1172_premium`) deve ser incrementada em TODOS os arquivos HTML (`index.html` e `index_staging.html`) para garantir que o cliente veja a correção imediatamente. 
+    *   **Confirmação Visual Pós-Deploy:** Após qualquer cleanup bem-sucedido no terminal/git, é mandatório realizar uma verficação visual (via browser ou log de assets) para garantir que o "brilho" e a interatividade do site permanecem 100% ativos.
 
 10. **⚖️ Blindagem Ética e Comercial (Compliance)**
 Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerce de alta volatilidade:
