@@ -252,12 +252,10 @@ def main():
                 ('site/index_staging.html',  'index.html'),   # Default page do subdomínio
             ]
         else:
-            # PRODUCTION: envia todos os assets estruturais — nunca envia index_staging.html
-            assets = {
-                'site/js/app.js': 'js/app.js',
-                'site/css/style.css': 'css/style.css',
-                'site/index.html': 'index.html',
-            }
+            # 🛡️ PRODUCTION BLINDAGEM: Nunca envia assets estruturais automaticamente.
+            # No modo produção, o robô atualiza APENAS o JSON de ofertas (data.json).
+            # Mudanças de layout (HTML/JS/CSS) devem ser feitas via force_asset_upload.py
+            assets = []
 
         asset_pairs = assets if isinstance(assets, list) else assets.items()
         for local, remote in asset_pairs:

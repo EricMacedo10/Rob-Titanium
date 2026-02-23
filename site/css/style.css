@@ -1879,19 +1879,152 @@ nav a.active::after {
     }
 }
 
+/* === Brand Tabs Container (Premium Refinement v2026) === */
+.brand-tabs {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 120;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent dark container */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    pointer-events: auto !important;
+    transition: all 0.4s ease;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    animation: titaniumBorderPulse 3s infinite ease-in-out;
+}
+
+@keyframes titaniumBorderPulse {
+
+    0%,
+    100% {
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        border-color: rgba(255, 153, 0, 0.6);
+        box-shadow: 0 0 15px rgba(255, 153, 0, 0.3);
+    }
+}
+
+/* Premium Shine Effect */
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -150%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: rotate(30deg);
+    animation: titaniumShine 5s infinite;
+    pointer-events: none;
+}
+
+@keyframes titaniumShine {
+    0% {
+        left: -150%;
+    }
+
+    20% {
+        left: 150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Brand Icon Inactive States */
+.tab-btn[data-store="amazon"] {
+    color: #FF9900;
+}
+
+.tab-btn[data-store="mercadolivre"] {
+    color: #FFE600;
+}
+
+.tab-btn[data-store="shopee"] {
+    color: #EE4D2D;
+}
+
+/* Active States with Glow */
+.tab-btn.active {
+    transform: scale(1.15);
+    z-index: 10;
+}
+
+.tab-btn.active[data-store="amazon"] {
+    background: #FF9900 !important;
+    color: #232f3e !important;
+    box-shadow: 0 0 25px rgba(255, 153, 0, 0.8);
+    border-color: #ffffff;
+}
+
+.tab-btn.active[data-store="mercadolivre"] {
+    background: #FFE600 !important;
+    color: #2D3277 !important;
+    box-shadow: 0 0 25px rgba(255, 230, 0, 0.8);
+    border-color: #2D3277;
+}
+
+.tab-btn.active[data-store="shopee"] {
+    background: #EE4D2D !important;
+    color: white !important;
+    box-shadow: 0 0 25px rgba(238, 77, 45, 0.8);
+    border-color: #ffffff;
+}
+
+.tab-btn:hover {
+    transform: scale(1.2) translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
 /* === Titanium Banner CTA (Premium Glassmorphism v2026) === */
 .banner-cta {
     position: absolute;
-    bottom: 45%; /* High enough to be clear of labels */
+    bottom: 45%;
+    /* High enough to be clear of labels */
     left: 50%;
     transform: translate(-50%, 0);
-    background: rgba(255, 153, 0, 0.95) !important; /* Force background */
+    background: rgba(255, 153, 0, 0.95) !important;
+    /* Force background */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 12px 28px;
     border-radius: 50px;
     border: 2px solid rgba(255, 255, 255, 0.6);
-    color: white !important; /* Force white text */
+    color: white !important;
+    /* Force white text */
     font-family: var(--font-heading);
     font-weight: 800;
     font-size: 1.05rem;
@@ -1914,11 +2047,14 @@ nav a.active::after {
 }
 
 @keyframes premiumTitaniumPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, 0) scale(1);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         background: rgba(255, 153, 0, 0.95);
     }
+
     50% {
         transform: translate(-50%, -8px) scale(1.04);
         box-shadow: 0 15px 45px rgba(255, 153, 0, 0.4);
