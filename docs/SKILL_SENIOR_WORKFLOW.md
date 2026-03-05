@@ -116,6 +116,7 @@ Para evitar que automações (GitHub Actions) sobrescrevam o trabalho manual, é
 3.  **Versionamento de Assets (Cache Buster):** Ao alterar o layout ou scripts, incremente o parâmetro `?v=` no `index.html` (Ex: `style.css?v=20260220_v1`).
 4.  **Auditoria de Tags:** Antes de finalizar qualquer tarefa, verifique se as tags de afiliado (Amazon `tag=`, ML `matt_tool=`, Shopee `utm_source=`) estão presentes e corretas no site em produção.
 5.  **Segregação de Ativos (Data-Only Automation):** Para evitar que automações recorrentes (CRON) revertam o layout, o robô em `PRODUCTION` deve ser configurado para atualizar **apenas** arquivos de dados (`data.json`). Alterações de estrutura (HTML/JS/CSS) devem ser sincronizadas exclusivamente via `force_asset_upload.py` após validação humana.
+6.  **Ativos Estruturais de SEO/Monetização (Lição: ads.txt):** Arquivos requeridos para monetização (`ads.txt`) e indexação (`robots.txt`, `sitemap.xml`) são tratados como arquivos **estruturais estáticos de raiz**. Eles devem ser versionados na pasta `site/` e o upload deve ocorrer através do script primário de deploy, seguindo rigidamente o fluxo "Staging -> Produção". Nunca devem ser deletados pelas automações dinâmicas.
 
 8.  **💎 Estética e Confiança Visual (Titanium Trust — 2026-02-22):**
     *   **Menos é Mais:** Se uma informação está em destaque (ex: Preço na Lightning Bar), remova repetições redundantes que causem poluição visual. O foco do usuário deve ser guiado, não dispersado.
@@ -148,8 +149,32 @@ Para garantir a integridade da marca e evitar "Propaganda Enganosa" em e-commerc
 2.  **Camada de Curadoria (Árbitro IA):** Filtros inteligentes que descartam ofertas suspeitas, erros de digitação de preços ou produtos sem imagem de alta qualidade.
 3.  **Camada de Transparência (Disclaimer):** Inclusão automática de avisos de volatilidade ("Preço sujeito a alteração") e CTAs que levam à validação final no site parceiro.
 
+
+## 💰 Compliance de Monetização (AdSense — Lição 2026-03-05)
+
+Sites de afiliados são classificados pelo Google como **"Thin Affiliate"** (afiliado raso) se não houver conteúdo editorial genuíno. Isso resulta em violação **"Conteúdo de Baixo Valor"** que bloqueia os anúncios.
+
+### Checklist Obrigatório Antes de Solicitar Revisão AdSense
+
+1. **Texto Editorial Real:** A página principal DEVE conter pelo menos 3 parágrafos de texto descritivo que explique o propósito do site — não apenas banners e ícones.
+2. **Schema.org:** Implementar JSON-LD com `Organization` + `WebSite` + `SearchAction`. Sinal forte de legitimidade para crawlers do Google.
+3. **Open Graph + Twitter Card:** Meta tags completas para reconhecimento de identidade da página.
+4. **Conteúdo Visível para Crawler:** Seções com `display:none` são **invisíveis para o Googlebot**. Nunca esconder a seção principal de produtos sem garantir que há texto editorial como substituto.
+5. **Alt Text descritivo:** Imagens de categoria devem ter `alt` com palavras-chave reais (Ex: `"Ofertas de tecnologia: celulares, notebooks e tablets"`) — não apenas o nome da categoria.
+6. **Descrições por categoria:** Cada hub de categoria deve ter ao menos uma frase descritiva em texto puro (não apenas em imagem) abaixo do título.
+
+### Protocolo de Solicitação de Revisão
+- Só solicitar revisão **após** o deploy de produção validado
+- Aguardar **2-4 semanas** para resposta do Google
+- Não fazer mudanças estruturais grandes no site durante a revisão
+
+### Proteção Contra Regressão
+- O robô (`update-offers.yml`) em modo `PRODUCTION` só deve atualizar `data.json` — **NUNCA** sobrescrever `index.html` com templates sem o conteúdo editorial
+- O `index.html` de produção é um **Ativo Estrutural Crítico de Monetização** — tão importante quanto o `ads.txt`
+
 ---
 **💡 COMO ATIVAR ESTE MODO:**
 Para garantir que eu siga este fluxo, basta iniciar suas sessões dizendo:
 > *"Ative o Modo Senior Workflow"* ou *"Siga o protocolo SKILL_SENIOR"*
 Isso garante que eu releia este arquivo e alinhe minha postura imediatamente.
+

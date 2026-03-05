@@ -37,6 +37,7 @@ Implementado em [style.css] e [app.js] para guiar o usuário:
 - **Premium Glow**: Estilização via Glassmorphism para manter a integridade visual dos hubs.
 
 - **Minimalist UI ("Menos é Mais")**: Ocultação intencional de grids redundantes (`.voted-deals`) para evitar poluição visual e focar o usuário nas áreas de maior conversão (Hubs e Lightning Bar).
+- **Zero-Error Console (Premium Trust)**: Para um site inspirar confiança máxima e "Titanium Trust", o console do navegador do usuário deve ser limpo. A ausência de ativos estéticos raiz como `favicon.ico` gera erros silenciosos (404) que depreciam a qualidade técnica percebida pelas auditorias. É obrigatório manter todos os favicons e webmanifests presentes.
 - **Security Layer (Blindagem)**:
 - **Whitelist**: Todo redirecionamento é validado contra domínios permitidos (`amazon.com.br`, `mercadolivre.com.br`, `shopee.com.br`).
 - **Exclusion Logic**: Banners interativos e cards sazonais (.seasonal e .interactive-card) são ignorados pelo motor de renderização dinâmico para evitar estados de "Nenhuma oferta encontrada" ao retornar ao site.
@@ -67,6 +68,30 @@ The frontend is "re-hydrated" every time the browser loads:
 - **Micro-Animations**: Confetti triggers on seasonal cards to enhance UX.
 - **Glassmorphism**: Applied to headers and card overlays for a premium feel.
 
+## 💰 AdSense Content Compliance (Lição 2026-03-05)
+
+O Google AdSense pode bloquear anúncios em sites classificados como **"Thin Affiliate"** — afiliados sem conteúdo editorial próprio. Para garantir compliance:
+
+### Ativos Obrigatórios no `index.html`
+| Ativo | Implementado | Onde |
+| :--- | :--- | :--- |
+| **Schema.org** (Organization + WebSite) | ✅ `v=adsense_fix_v1` | `<head>` JSON-LD |
+| **Open Graph + Twitter Card** | ✅ | `<head>` meta tags |
+| **Seção Editorial** ("Como funciona") | ✅ | Entre Seasonal e Daily Deals |
+| **`hub-desc`** em todas as 12 categorias | ✅ | Dentro de cada `.hub-card` |
+| **Alt text descritivo** nas imagens | ✅ | Cada banner de categoria |
+
+### Regra Crítica: `display:none` é Invisível para o Googlebot
+- Seções ocultas via CSS **não são indexadas** pelo Google
+- A seção `.voted-deals` está oculta no `style.css` — o texto de título e subtítulo garante algum conteúdo visível, mas os cards de produto ainda são invisíveis para crawlers
+- **Se reativar o Lightning Bar:** garantir que o `#deals-grid` fique visível ou que haja texto editorial equivalente
+
+### Proteção Pós-Deploy
+- **Nunca** deixar o robô sobrescrever `index.html` com versão sem o bloco editorial
+- O `index.html` é um **Ativo Estrutural Crítico** — versionado junto com `ads.txt`
+- Qualquer alteração estrutural deve passar pelo fluxo **Staging → Produção** completo
+
 ---
 > [!TIP]
 > To update the affiliate tags globally, modify the `TITANIUM_CONFIG.TAGS` object at the top of `app.js`.
+
