@@ -14,14 +14,16 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 
 ### 2. Mercado Livre Engine (`scraper/engines/mercadolivre_api.py`)
 - **Method**: Official REST API + Advanced Selenium Fallback ("Nuclear Search").
-- **Nuclear Search**: Bypasses anti-bot blocks by starting from the Mercado Livre home page and simulating human search input instead of direct URL navigation.
-- **Sorting**: Mandatory use of `_OrderId_PRICE_ASC` to ensure the best deals are captured first.
+- **Nuclear Search**: Bypasses anti-bot blocks by starting from the Mercado Livre home page.
+- **Sorting**: Mandatory use of `_OrderId_PRICE_ASC`.
 - **Tracking**: Uses the **Matt-Tool** system with dynamic `tracking_id`.
-- **Freshness**: Relies on `core/tokens.py` to manage OAuth refresh tokens for authenticated API access.
+- **Mobile Fix**: Mandatory inclusion of `forceInApp=true` in category/search links to prevent 404s and preserve affiliate cookies in the native App.
 
 ### 3. Shopee Engine (`scraper/engines/shopee_affiliate.py`)
 - **Method**: REST API v4.
 - **Fallback**: Selenium-based search if the API rate limit is reached.
+- **Deep Link Strategy**: For search-based results, use the `/list/` path instead of `/search` to avoid the "Shop failed to load" error in the mobile app.
+- **ID Standard**: Use numeric `an_...` IDs in `utm_source` for maximum compatibility.
 
 ## 🤖 The AI Arbitration Layer
 After gathering results, Titanium doesn't just pick the lowest price. It performs "Intelligent Curation".

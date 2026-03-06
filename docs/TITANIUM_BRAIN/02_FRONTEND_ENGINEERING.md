@@ -13,10 +13,10 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
 2.  **Fallback Priority**: If no store is specified or the preferred store is inactive, the system follows `PRIORIDADE: ['amazon', 'mercadolivre', 'shopee']`.
 3.  **Store-Specific Builders**:
     - **Amazon**: Direct URL with `&tag=guiadodesco00-20&s=price-asc-rank`.
-    - **Mercado Livre**: Calls `buildMLAffiliateUrl`. It uses the **Matt-Tool System** with `matt_tool=188269638` and a dynamic `tracking_id`.
-    - **Shopee**: Calls `buildShopeeAffiliateUrl`. It uses a **Hybrid System**:
-        - Checks a hardcoded map for "Official Verified Links" (Priority 1).
-        - Falls back to a search URL with `utm_source=ericmacedo` (Priority 2).
+    - **Mercado Livre**: Calls `buildMLAffiliateUrl`. It uses `forceInApp=true` to force handover to the native app, which is crucial for search/list pages that lack social deeplinks.
+    - **Shopee**: Calls `buildShopeeAffiliateUrl`.
+        - **Verified Links**: High-priority short links (`s.shopee.com.br`).
+        - **Dynamic Search**: Uses the `https://shopee.com.br/list/{keyword}` path. This path is essential for mobile-first redirection as it prevents the app from misidentifying "search" as a shop username.
 
 ### Interactive Brand Tabs (v2026_v2)
 Implementado como um seletor de lojas multi-camada nos cards de categoria:

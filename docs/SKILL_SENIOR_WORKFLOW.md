@@ -171,7 +171,24 @@ Sites de afiliados são classificados pelo Google como **"Thin Affiliate"** (afi
 ### Proteção Contra Regressão
 - O robô (`update-offers.yml`) em modo `PRODUCTION` só deve atualizar `data.json` — **NUNCA** sobrescrever `index.html` com templates sem o conteúdo editorial
 - O `index.html` de produção é um **Ativo Estrutural Crítico de Monetização** — tão importante quanto o `ads.txt`
+---
+## 📱 Conversão e Rastreio Mobile (Deep Link Handover)
+Para garantir que cliques em dispositivos móveis não resultem em "Zero Cliques" ou erros de carregamento nos aplicativos nativos:
 
+1.  **Protocolo Mercado Livre (`forceInApp`):**
+    *   Sempre incluir `forceInApp=true` em links de categorias e buscas.
+    *   Este parâmetro força o handover para o aplicativo nativo preservando os parâmetros `matt_tool` e `tracking_id`.
+    *   **Lição:** Redirecionamento Social (/social/...) em buscas causa 404; usar parâmetros diretos.
+
+2.  **Protocolo Shopee (`/list/` Path):**
+    *   Nunca usar `/search?keyword=` para buscas dinâmicas em dispositivos móveis, pois o App pode resolver como um perfil de loja inexistente ("Essa loja falhou ao carregar").
+    *   Sempre usar a rota `/list/{keyword}` — é a rota mais estável reconhecida pelo deep link do App Shopee como uma busca real.
+    *   **Identificação:** Usar sempre o ID de afiliado numérico (`an_...`) em vez de nomes de usuário no `utm_source` para evitar erros de resolução.
+
+3.  **Checklist de Auditoria de Redirecionamento:**
+    *   [ ] O link abre o aplicativo nativo no iOS/Android?
+    *   [ ] O parâmetro de rastreio (`tag`, `matt_tool`, `utm_source`) sobrevive após o carregamento do App?
+    *   [ ] Existe fallback caso o App não esteja instalado? (Padrão: Shopee `/list/` e ML `/ofertas` funcionam bem no navegador também).
 ---
 **💡 COMO ATIVAR ESTE MODO:**
 Para garantir que eu siga este fluxo, basta iniciar suas sessões dizendo:
