@@ -58,12 +58,13 @@ function buildMLAffiliateUrl(searchTerm) {
         'matt_tool': config.userId,              // ✅ Seu ID de Afiliado: 188269638
         'matt_word': searchTerm,                 // Termo buscado para tracking
         'matt_source': config.source,            // 'guiadodesconto'
-        'tracking_id': generateTrackingId()      // ID único para cada clique
+        'tracking_id': generateTrackingId(),     // ID único para cada clique
+        'forceInApp': 'true'                     // 📱 Força a abertura do App e rastreio persistente
     });
 
     const finalUrl = `${baseUrl}?${params.toString()}`;
 
-    console.log('[Titanium ML] Link Inteligente (Price Sort) gerado:', finalUrl);
+    console.log('[Titanium ML] Link Inteligente (forceInApp) gerado:', finalUrl);
     return finalUrl;
 }
 
