@@ -81,6 +81,13 @@ class FamilyWidget {
     }
 
     showRandomMessage() {
+        // Se o Robô Titanium estiver com o balão ativo, a família espera
+        const isRobotTalking = document.querySelector('.assistant-bubble.active');
+        if (isRobotTalking) {
+            console.log('[Titanium Family] Robô está falando. Família aguardando...');
+            return;
+        }
+
         // 30% chance to NOT show anything this cycle (to not be annoying)
         if (Math.random() > 0.7) return;
 

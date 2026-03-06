@@ -18,14 +18,18 @@ def force_upload():
     if env_mode == 'STAGING':
         assets = [
             ('site/js/app.js',           'js/app.js'),
+            ('site/js/family-widget.js', 'js/family-widget.js'),
             ('site/css/style.css',       'css/style.css'),
+            ('site/css/titanium-security.css', 'css/titanium-security.css'),
             ('site/index_staging.html',  'index_staging.html'),
             ('site/index_staging.html',  'index.html'),
         ]
     else:
         assets = [
             ('site/js/app.js',           'js/app.js'),
+            ('site/js/family-widget.js', 'js/family-widget.js'),
             ('site/css/style.css',       'css/style.css'),
+            ('site/css/titanium-security.css', 'css/titanium-security.css'),
             ('site/index.html',          'index.html'),
         ]
 

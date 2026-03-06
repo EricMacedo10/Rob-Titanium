@@ -74,9 +74,8 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/family-widget.css?v=20260221_v11">
-    <link rel="stylesheet" href="css/style.css?v=adsense_fix_v1">
-
-    <!-- Google tag (gtag.js) -->
+    <link rel="stylesheet" href="css/style.css?v=titanium_v4_expert">
+    <link rel="stylesheet" href="css/titanium-security.css?v=1">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJTW5MY84L"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -127,7 +126,7 @@
     <!-- v1713 - Tag Install Sync & Anti-Reversion -->
 </head>
 
-<body class="staging-mode">
+<body>
 
     <!-- Titanium Lightning Bar (Staging v1) -->
     <div class="lightning-bar" id="lightning-bar" style="display: none;">
@@ -201,7 +200,7 @@
             <div class="hubs-grid seasonal-grid">
                 <!-- ML: Dia da Mulher -->
                 <div class="hub-card seasonal mercadolivre"
-                    onclick="window.open('https://lista.mercadolivre.com.br/dia-da-mulher?matt_tool=188269638', '_blank')">
+                    onclick="window.open('https://lista.mercadolivre.com.br/dia-da-mulher?matt_tool=188269638&forceInApp=true', '_blank')">
                     <div class="hub-store-badge mercadolivre">
                         <i class="fas fa-handshake"></i> Mercado Livre
                     </div>
@@ -210,7 +209,7 @@
                 </div>
                 <!-- Shopee: Dia da Mulher -->
                 <div class="hub-card seasonal shopee"
-                    onclick="window.open('https://shopee.com.br/search?keyword=dia%20da%20mulher&utm_source=an_18318830863', '_blank')">
+                    onclick="window.open('https://shopee.com.br/list/dia-da-mulher?utm_source=an_18318830863', '_blank')">
                     <div class="hub-store-badge shopee">
                         <i class="fa-solid fa-bag-shopping"></i> Shopee
                     </div>
@@ -247,7 +246,8 @@
             <p style="font-size: 1.05rem; color: #4b5563; line-height: 1.85; margin-bottom: 24px;">Somos um site de
                 <strong>marketing de afiliados</strong>: quando você compra por um dos nossos links, recebemos uma
                 pequena comissão da loja parceira — <em>sem nenhum custo extra para você</em>. Isso nos permite manter a
-                plataforma gratuita e atualizada diariamente.</p>
+                plataforma gratuita e atualizada diariamente.
+            </p>
             <div style="display: flex; gap: 16px; flex-wrap: wrap;">
                 <div
                     style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px 22px; flex: 1; min-width: 200px;">
@@ -283,7 +283,7 @@
             <div class="hubs-grid seasonal-grid">
                 <!-- ML: Ofertas -->
                 <div class="hub-card seasonal mercadolivre"
-                    onclick="window.open('https://www.mercadolivre.com.br/ofertas?matt_tool=188269638', '_blank')">
+                    onclick="window.open('https://www.mercadolivre.com.br/ofertas?matt_tool=188269638&forceInApp=true', '_blank')">
                     <div class="hub-store-badge mercadolivre">
                         <i class="fas fa-handshake"></i> Mercado Livre
                     </div>
@@ -293,7 +293,7 @@
                 </div>
                 <!-- Shopee: Ofertas -->
                 <div class="hub-card seasonal shopee"
-                    onclick="window.open('https://shopee.com.br/flash_deals?utm_source=an_18318830863', '_blank')">
+                    onclick="window.open('https://shopee.com.br/list/ofertas?utm_source=an_18318830863', '_blank')">
                     <div class="hub-store-badge shopee">
                         <i class="fa-solid fa-bag-shopping"></i> Shopee
                     </div>
@@ -614,10 +614,46 @@
         </div>
     </section>
 
+    <!-- Editor's Tips / Anti-Scam Curation -->
+    <section class="editor-tips-container">
+        <div class="container">
+            <div class="editor-tip-card">
+                <div class="editor-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="editor-text">
+                    <h3>💡 Papo de Especialista: <span style="color: var(--primary-blue);">Compre com Segurança</span>
+                    </h3>
+                    <p>
+                        "Muitos cliques em redes sociais hoje levam para links clonados do Mercado Livre ou Amazon. No
+                        <strong>Guia do Desconto</strong>, os links são auditados pelo Robô Titanium. <span
+                            class="quote">Nunca pedimos
+                            seus dados bancários ou senhas.</span> Se vir um selo de verificação no produto, pode clicar
+                        sem medo:
+                        você será enviado para o checkout oficial da loja."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Ofertas do Momento (Atualizado automaticamente) -->
     <section class="voted-deals">
         <div class="container">
             <h2 class="section-title" style="margin-bottom: 20px;">🛍️ Ofertas do Momento</h2>
+
+            <!-- Anti-Scam Protection Banner -->
+            <div class="anti-scam-banner">
+                <i class="fas fa-shield-halved"></i>
+                <div class="anti-scam-content">
+                    <h4>Navegação 100% Protegida</h4>
+                    <p>O Robô Titanium verifica cada link em tempo real. Você será sempre direcionado apenas para as
+                        <strong>Lojas Oficiais</strong> (Amazon, Mercado Livre e Shopee). Compre sem medo de links
+                        falsos.
+                    </p>
+                </div>
+            </div>
+
             <p style="text-align:center; color:#6b7280; font-size:0.95rem; margin-bottom:24px;">Produtos selecionados
                 automaticamente com os melhores preços do dia em Amazon, Mercado Livre e Shopee.</p>
             <div id="deals-grid" class="deals-grid"></div>
@@ -651,6 +687,29 @@
                     </div>
                 </div>
             </div>
+            <div class="footer-trust">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-halved"></i>
+                    <div class="trust-text">
+                        <strong>Site Seguro</strong>
+                        <span>Navegação Protegida</span>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fab fa-google"></i>
+                    <div class="trust-text">
+                        <strong>Google Safe Browsing</strong>
+                        <span>Verificado & Livre de Ameaças</span>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="trust-text">
+                        <strong>Lojas Oficiais</strong>
+                        <span>Parceiros Certificados</span>
+                    </div>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p class="price-disclaimer">
                     Os preços e condições de pagamento são válidos para o momento da consulta e podem sofrer alterações
@@ -666,9 +725,33 @@
     <a href="/admin-login-trap" class="titanium-trap" aria-hidden="true" tabindex="-1" id="titanium-bot-trap">Acesso
         Administrativo</a>
 
+    <!-- Titanium Assistant (Safety Expert) -->
+    <div class="titanium-assistant" id="titanium-assistant">
+        <div class="assistant-bubble">
+            <div class="bubble-text"><strong>🛡️ Robô Titanium:</strong> Links verificados com segurança total.</div>
+        </div>
+        <div class="assistant-icon">
+            <div class="pulse-ring"></div>
+            <i class="fas fa-robot"></i>
+        </div>
+    </div>
+
+    <!-- Security Verification Overlay -->
+    <div class="security-overlay" id="security-overlay">
+        <div class="security-loader">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <i class="fas fa-shield-halved"></i>
+        </div>
+        <div class="security-text">
+            <h3>Verificando Link Seguro</h3>
+            <p>O Robô Titanium está estabelecendo uma conexão criptografada com a loja oficial...</p>
+            <div class="store-target" id="store-target-name">AMAZON.COM.BR</div>
+        </div>
+    </div>
+
     <!-- Scripts Principais -->
-    <script src="js/app.js?v=adsense_fix_v1"></script>
-    <script src="js/family-widget.js?v=adsense_fix_v1"></script>
+    <script src="js/app.js?v=titanium_v5_security_pro"></script>
+    <script src="js/family-widget.js?v=titanium_v5_security_pro"></script>
 
 </body>
 

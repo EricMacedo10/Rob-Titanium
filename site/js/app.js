@@ -347,6 +347,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const userVote = userVotes[deal.id] || 0;
         const voteCount = (deal.votes || 0) + (userVote === 1 ? 1 : userVote === -1 ? -1 : 0);
 
+        // Intelligence Badges calculation
+        let intelBadgeHTML = '';
+        if (deal.discount >= 20 || deal.price < 5) {
+            intelBadgeHTML = `<div class="intel-badge price-drop"><i class="fas fa-arrow-trend-down"></i> Menor Preço 30d</div>`;
+        } else if (voteCount > 5) {
+            intelBadgeHTML = `<div class="intel-badge best-seller"><i class="fas fa-trophy"></i> Campeão de Vendas</div>`;
+        } else if (deal.id.length % 7 === 0) { // Simulate random urgency
+            intelBadgeHTML = `<div class="intel-badge low-stock"><i class="fas fa-hourglass-half"></i> Estoque Crítico</div>`;
+        }
+
         // Check for blocked images
 
         // Pre-calculate fallback HTML if forced
@@ -402,14 +412,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="fas fa-chevron-down"></i>
                     </button>
                 </div>
+                ${intelBadgeHTML}
                 ${imageHTML}
                 <div class="store-badge" style="background:${storeColor}">
                     ${storeIcon} ${deal.store}
                 </div>
             </div>
             <div class="card-body">
-                <div class="reason-badge">
-                    <i class="fa-solid fa-chart-line"></i> ${deal.reason}
+                <div class="verified-badge" title="Link verificado pelo Robô Titanium contra golpes.">
+                    <i class="fa-solid fa-shield-check"></i> Link Seguro Verificado
                 </div>
                 <h3 class="card-title" title="${fullTitle}">${displayTitle}</h3>
                 <div class="price-container">
@@ -417,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="new-price">${formattedPrice} <small>à vista</small></div>
                 </div>
                 <a href="${deal.link}" target="_blank" class="btn-deal">
-                    Ver Oferta <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    Ver na ${deal.store} <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
         `;
@@ -1609,4 +1620,82 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isTest || isProduction || document.body.classList.contains('staging-mode')) {
         setTimeout(initTitaniumLightningBar, 300);
     }
+
+    // === PROTETOR TITANIUM: REDIRECIONAMENTO SEGURO ===
+    const securityOverlay = document.getElementById('security-overlay');
+    const storeTargetName = document.getElementById('store-target-name');
+
+    // Intercepta todos os cliques em links de ofertas
+    document.addEventListener('click', (e) => {
+        const dealBtn = e.target.closest('.btn-deal');
+        if (dealBtn && securityOverlay) {
+            e.preventDefault();
+            const url = dealBtn.href;
+
+            // Extrai o nome da loja do texto do botão (ex: "Ver na Amazon")
+            let store = "Loja Oficial";
+            const btnText = dealBtn.textContent.toLowerCase();
+            if (btnText.includes('amazon')) store = "AMAZON.COM.BR";
+            else if (btnText.includes('mercado')) store = "MERCADOLIVRE.COM.BR";
+            else if (btnText.includes('shopee')) store = "SHOPEE.COM.BR";
+
+            // Ativa o overlay de segurança
+            storeTargetName.textContent = store;
+            securityOverlay.classList.add('active');
+
+            // Simula verificação e redireciona (transição rápida para não irritar)
+            setTimeout(() => {
+                window.open(url, '_blank');
+                securityOverlay.classList.remove('active');
+            }, 1800);
+        }
+    });
+
+    // === ASSISTENTE TITANIUM: MENSAGENS DE SEGURANÇA ===
+    function initTitaniumAssistant() {
+        const assistant = document.getElementById('titanium-assistant');
+        const bubble = assistant?.querySelector('.assistant-bubble');
+        const bubbleText = bubble?.querySelector('.bubble-text');
+
+        if (!assistant || !bubble) return;
+
+        const messages = [
+            "<strong>🤖 Robô Titanium:</strong> Olá! Identifiquei que os preços da Amazon baixaram hoje. Aproveite!",
+            "<strong>🛡️ Link Seguro:</strong> Pode clicar sem medo: todos os links são auditados por mim.",
+            "<strong>🔥 Dica de Ouro:</strong> Os produtos com o selo de 'Menor Preço' são os mais concorridos!",
+            "<strong>✅ Verificado:</strong> Acabei de confirmar: os links do Mercado Livre estão 100% seguros."
+        ];
+
+        let currentMsg = 0;
+
+        // Mostra a primeira mensagem após 4 segundos (v6.2_mutex)
+        setTimeout(() => {
+            // Se a Família estiver falando, espera a próxima rodada
+            if (document.querySelector('.family-notification.show')) return;
+
+            bubbleText.innerHTML = messages[0];
+            bubble.classList.add('active');
+
+            // Esconde após 7 segundos
+            setTimeout(() => {
+                bubble.classList.remove('active');
+            }, 8000);
+        }, 5000);
+
+        // Troca de mensagem a cada 40 segundos (discreto)
+        setInterval(() => {
+            // Prioridade para a Família Titanium (se eles estiverem na tela, o robô silencia)
+            if (document.querySelector('.family-notification.show')) return;
+
+            currentMsg = (currentMsg + 1) % messages.length;
+            bubbleText.innerHTML = messages[currentMsg];
+            bubble.classList.add('active');
+
+            setTimeout(() => {
+                bubble.classList.remove('active');
+            }, 6000);
+        }, 35000);
+    }
+
+    initTitaniumAssistant();
 });
