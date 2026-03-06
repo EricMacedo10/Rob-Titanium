@@ -74,9 +74,11 @@ function buildMLAffiliateUrl(searchTerm) {
  * @returns {string} URL verificada
  */
 function buildShopeeAffiliateUrl(searchTerm) {
-    // 1. Mapa de Links Oficiais (Gerados via API SHA256)
+    // 1. Links Oficiais Shopee (Short Links p/ Promoções Específicas)
     const officialLinks = {
-        "decoração casa": "https://s.shopee.com.br/4fq94GOI3B",
+        "carnaval": "https://s.shopee.com.br/10pW2pX5h0",
+        "dia da mulher": "https://s.shopee.com.br/BAp2C9v93",
+        "ofertas": "https://s.shopee.com.br/14JVgor5V",
         "equipamento academia": "https://s.shopee.com.br/14JVgor5V",
         "voltas às aulas": "https://s.shopee.com.br/10pW2pX5h0",
         "mochila escolar": "https://s.shopee.com.br/7Uyp9pC7wz"
@@ -91,12 +93,15 @@ function buildShopeeAffiliateUrl(searchTerm) {
         return officialLinks[termKey];
     }
 
-    // 4. Fallback: Busca Direta (Search URL)
-    const baseUrl = "https://shopee.com.br/search";
-    const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/g, "+");
-    const tag = TITANIUM_CONFIG.TAGS.shopee || "shopee_affiliate";
-    console.log(`[Shopee] Usando fallback search para "${termKey}" com tag ${tag}`);
-    return `${baseUrl}?keyword=${encodedTerm}&sortBy=price&order=asc&utm_source=${tag}`; // ✅ Tag Injetada
+    // 4. Fallback: Busca Direta (Nova Estratégia /list/ p/ evitar erro de "Loja")
+    const encodedTerm = encodeURIComponent(searchTerm).replace(/%20/g, "-"); // Shopee /list/ prefere hífens
+    const shopeeID = "an_18318830863"; // Seu ID Shopee oficial
+
+    // Formato /list/ é interpretado pelo App como busca, não como perfil de loja
+    const finalUrl = `https://shopee.com.br/list/${encodedTerm}?utm_source=${shopeeID}`;
+
+    console.log(`[Shopee] Link Inteligente (v2) gerado para "${termKey}"`);
+    return finalUrl;
 }
 
 /**
