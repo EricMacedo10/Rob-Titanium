@@ -59,150 +59,73 @@ TARGETS = [
 ]
 """
 
-# CATEGORIAS COMPLETAS - TESTE COMPLETO
+# CATEGORIAS COMPLETAS E EXTENDIDAS - PARA SORTEIO DIÁRIO
 TARGETS = [
-    # 🎒 VOLTA ÀS AULAS (Janeiro-Fevereiro)
-    {
-        "term": "mochila escolar",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "volta-aulas"
-    },
-    {
-        "term": "caderno universitário",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "volta-aulas"
-    },
-    {
-        "term": "estojo escolar",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "volta-aulas"
-    },
+    # 🎒 VOLTA ÀS AULAS
+    {"term": "mochila escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    {"term": "caderno universitário", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    {"term": "estojo escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    {"term": "caneta esferográfica kit", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    {"term": "fichário escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    {"term": "lápis de cor 24 cores", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
     
-    # 💻 TECNOLOGIA (Sempre relevante)
-    {
-        "term": "fone bluetooth",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "mouse gamer",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "teclado gamer",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    },
+    # 💻 TECNOLOGIA
+    {"term": "fone bluetooth", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "mouse gamer", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "teclado gamer", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "monitor pc pc", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "caixa de som bluetooth", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "ssd 1tb", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "pendrive 64gb", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "carregador portátil powerbank", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "webcam full hd", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
     
     # 🏠 CASA E COZINHA
-    {
-        "term": "air fryer",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "casa"
-    },
-    {
-        "term": "liquidificador",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "casa"
-    },
-    {
-        "term": "panela elétrica",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "casa"
-    },
+    {"term": "air fryer", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "liquidificador", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "panela elétrica", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "aspirador de pó robô", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "jogo de panelas antiaderente", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "pipoqueira elétrica", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "mixer de mão", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "cafeteira", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "ferro de passar", "store": "amazon", "max_price": 1000.00, "category": "casa"},
     
     # 💪 FITNESS E ESPORTES
-    {
-        "term": "halteres",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "esportes"
-    },
-    {
-        "term": "tapete yoga",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "esportes"
-    },
+    {"term": "halteres", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    {"term": "tapete yoga", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    {"term": "corda de pular", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    {"term": "whey protein", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    {"term": "garrafa térmica", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    {"term": "kit elástico extensor", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
     
     # 💄 BELEZA E CUIDADOS
-    {
-        "term": "kit maquiagem",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "beleza"
-    },
-    {
-        "term": "secador cabelo",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "beleza"
-    },
+    {"term": "kit maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "secador cabelo", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "escova secadora", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "chapinha de cabelo", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "protetor solar facial", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "kit skincare", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
     
     # 🟡 MERCADO LIVRE - Produtos com link de afiliado automático!
-    {
-        "term": "fone bluetooth",
-        "store": "mercadolivre",
-        "max_price": 300.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "smartwatch",
-        "store": "mercadolivre",
-        "max_price": 500.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "cafeteira expresso",
-        "store": "mercadolivre",
-        "max_price": 800.00,
-        "category": "casa"
-    },
+    {"term": "fone bluetooth", "store": "mercadolivre", "max_price": 300.00, "category": "tecnologia"},
+    {"term": "smartwatch", "store": "mercadolivre", "max_price": 500.00, "category": "tecnologia"},
+    {"term": "cafeteira expresso", "store": "mercadolivre", "max_price": 800.00, "category": "casa"},
+    {"term": "ventilador de mesa", "store": "mercadolivre", "max_price": 300.00, "category": "casa"},
+    {"term": "cadeira de escritório", "store": "mercadolivre", "max_price": 1000.00, "category": "casa"},
+    {"term": "mochila notebook", "store": "mercadolivre", "max_price": 400.00, "category": "tecnologia"},
     
     # 🟠 SHOPEE - Ofertas via API Oficial
-    {
-        "term": "fone bluetooth",
-        "store": "shopee",
-        "max_price": 300.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "kit cozinha",
-        "store": "shopee",
-        "max_price": 500.00,
-        "category": "casa"
-    },
-    {
-        "term": "maquiagem kit",
-        "store": "shopee",
-        "max_price": 200.00,
-        "category": "beleza"
-    },
+    {"term": "fone bluetooth", "store": "shopee", "max_price": 300.00, "category": "tecnologia"},
+    {"term": "kit cozinha", "store": "shopee", "max_price": 500.00, "category": "casa"},
+    {"term": "maquiagem kit", "store": "shopee", "max_price": 200.00, "category": "beleza"},
+    {"term": "capinha celular", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
+    {"term": "organizador de gavetas", "store": "shopee", "max_price": 100.00, "category": "casa"},
+    {"term": "luminária de mesa", "store": "shopee", "max_price": 150.00, "category": "casa"},
+    
     # 🔵 LOMADEE (Estrutura ativa para testes no STAGING)
-    # {
-    #     "term": "mouse gamer",
-    #     "store": "lomadee",
-    #     "max_price": 300.00,
-    #     "category": "tecnologia"
-    # },
-    # {
-    #     "term": "fone bluetooth",
-    #     "store": "lomadee",
-    #     "max_price": 200.00,
-    #     "category": "tecnologia"
-    # },
+    # (Comentado ou removido, conforme original mantido mas expandido acima)
 ]
-
 
 # 📅 CATEGORIAS SAZONAIS (Ative conforme a época do ano)
 # Descomente as categorias relevantes para a época:

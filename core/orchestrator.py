@@ -39,10 +39,16 @@ def update_manual_targets():
     arbitro = ArbitroDePreco()
     new_products = []
     
-    for i, target in enumerate(TARGETS):
+    # --- NOVO: Embaralhar e selecionar targets aleatórios ---
+    max_targets_per_run = 15
+    selected_targets = random.sample(TARGETS, min(len(TARGETS), max_targets_per_run))
+    print(f"\n🎲 Sorteando {len(selected_targets)} termos de um total de {len(TARGETS)} cadastrados...")
+    # --------------------------------------------------------
+    
+    for i, target in enumerate(selected_targets):
         term = target['term']
         store_target = target.get('store', 'all')
-        print(f"\n--- [{i+1}/{len(TARGETS)}] Buscando: {term} (Loja: {store_target}) ---")
+        print(f"\n--- [{i+1}/{len(selected_targets)}] Buscando: {term} (Loja: {store_target}) ---")
         
         try:
             # Respect store targeting
