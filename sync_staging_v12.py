@@ -22,7 +22,8 @@ def sync_staging():
             ("site/index_staging.html", "index_staging.html"),
             ("site/css/style.css", "css/style.css"),
             ("site/js/app.js", "js/app.js"),
-            ("site/data.json", "data.json")
+            ("site/data.json", "data.json"),
+            ("site/images/hero-bg-portuguese.png", "images/hero-bg-portuguese.png")
         ]
 
         print(f"🚀 Iniciando upload de {len(files)} arquivos...")

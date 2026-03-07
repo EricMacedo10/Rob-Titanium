@@ -1668,33 +1668,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentMsg = 0;
 
-        // Mostra a primeira mensagem após 4 segundos (v6.2_mutex)
+        // Mostra a primeira mensagem após 4 segundos (v7_mutex_global)
         setTimeout(() => {
-            // Se a Família estiver falando, espera a próxima rodada
-            if (document.querySelector('.family-notification.show')) return;
+            // Se a trava estiver ativa ou Família estiver falando, espera
+            if (window.titaniumBusy || document.querySelector('.family-notification.show')) return;
 
+            window.titaniumBusy = true; // Ativa a trava
             bubbleText.innerHTML = messages[0];
             bubble.classList.add('active');
 
-            // Esconde após 7 segundos
+            // Esconde após 8 segundos
             setTimeout(() => {
                 bubble.classList.remove('active');
+                window.titaniumBusy = false; // Libera a trava
             }, 8000);
         }, 5000);
 
-        // Troca de mensagem a cada 40 segundos (discreto)
+        // Troca de mensagem a cada 40 segundos
         setInterval(() => {
-            // Prioridade para a Família Titanium (se eles estiverem na tela, o robô silencia)
-            if (document.querySelector('.family-notification.show')) return;
+            if (window.titaniumBusy || document.querySelector('.family-notification.show')) return;
 
+            window.titaniumBusy = true; // Ativa a trava
             currentMsg = (currentMsg + 1) % messages.length;
             bubbleText.innerHTML = messages[currentMsg];
             bubble.classList.add('active');
 
             setTimeout(() => {
                 bubble.classList.remove('active');
-            }, 6000);
-        }, 35000);
+                window.titaniumBusy = false; // Libera a trava
+            }, 8000);
+        }, 40000);
     }
 
     initTitaniumAssistant();

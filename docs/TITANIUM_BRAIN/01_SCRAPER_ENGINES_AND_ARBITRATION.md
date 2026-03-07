@@ -11,6 +11,7 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 - **Method**: Headless Selenium (Chrome).
 - **Anti-Bot**: Intelligent delays and customized User-Agents.
 - **Link Builder**: Injects `tag=guiadodesco00-20` and sorts by `price-asc-rank` (Lower Price).
+- **Diversity Engine**: Avoids static vitrine by having `core.orchestrator` shuffle and pick a new subset (`random.sample`) of search terms at every scheduled run.
 
 ### 2. Mercado Livre Engine (`scraper/engines/mercadolivre_api.py`)
 - **Method**: Official REST API + Advanced Selenium Fallback ("Nuclear Search").

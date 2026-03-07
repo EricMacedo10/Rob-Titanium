@@ -81,10 +81,8 @@ class FamilyWidget {
     }
 
     showRandomMessage() {
-        // Se o Robô Titanium estiver com o balão ativo, a família espera
-        const isRobotTalking = document.querySelector('.assistant-bubble.active');
-        if (isRobotTalking) {
-            console.log('[Titanium Family] Robô está falando. Família aguardando...');
+        // Mutex Global: Se o Robô ou a Família já estiverem na tela, ignora o ciclo
+        if (window.titaniumBusy || document.querySelector('.assistant-bubble.active')) {
             return;
         }
 
@@ -115,10 +113,9 @@ class FamilyWidget {
             this.removeNotification(notification);
         });
 
+        // Show notification
+        window.titaniumBusy = true; // Ativa a trava de exclusividade
         this.container.appendChild(notification);
-
-        // Sound effect (optional, verify with user first - disabled for now)
-        // const audio = new Audio('notification.mp3'); audio.play();
 
         // Animate in
         requestAnimationFrame(() => {
@@ -137,6 +134,7 @@ class FamilyWidget {
             if (element.parentElement) {
                 element.remove();
             }
+            window.titaniumBusy = false; // Libera a trava para o próximo (ou para o robô)
         }, 600); // Wait for transition
     }
 }

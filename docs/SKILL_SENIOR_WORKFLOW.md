@@ -59,6 +59,7 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
 1. **Fail Fast (Falhe Rápido):** Se o core do negócio (encontrar produtos) falhar totalmente, o script DEVE quebrar (exit code 1) para disparar alertas. Não mascare erros críticos com logs silenciosos.
 2. **Estratégia Híbrida:** Nunca dependa de um único ponto de falha. Se a API OFICIAL bloquear, tenha um FALLBACK (Scraping ou Selenium) pronto para assumir.
 3. **Dinamicidade:** O sistema deve parecer vivo (frases dinâmicas, horários variados) para engajar o usuário.
+4. **Rotatividade de Vitrine (Prevenção de Estagnação):** Para evitar que os mesmos produtos fiquem congelados no site dia após dia ("ofertas engessadas"), o orquestrador DEVE utilizar rotinas estocásticas (como `random.sample`) sobre um banco extenso de palavras-chave aprovadas (`TARGETS`). Isso garante que cada execução do CRON sorteie um subconjunto ("pool") diferente de produtos, simulando um e-commerce gigante e mantendo o usuário interessado no retorno diário.
 
 ## 🏗️ Arquitetura à Prova de Falhas (Blindagem Titanium)
 Para garantir a credibilidade do site e evitar quebras estruturais que possam afastar clientes:

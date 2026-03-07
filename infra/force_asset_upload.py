@@ -21,6 +21,8 @@ def force_upload():
             ('site/js/family-widget.js', 'js/family-widget.js'),
             ('site/css/style.css',       'css/style.css'),
             ('site/css/titanium-security.css', 'css/titanium-security.css'),
+            ('site/images/hero-asset.png', 'images/hero-asset.png'),
+            ('site/images/hero-bg-portuguese.png', 'images/hero-bg-portuguese.png'),
             ('site/index_staging.html',  'index_staging.html'),
             ('site/index_staging.html',  'index.html'),
         ]
@@ -30,6 +32,8 @@ def force_upload():
             ('site/js/family-widget.js', 'js/family-widget.js'),
             ('site/css/style.css',       'css/style.css'),
             ('site/css/titanium-security.css', 'css/titanium-security.css'),
+            ('site/images/hero-asset.png', 'images/hero-asset.png'),
+            ('site/images/hero-bg-portuguese.png', 'images/hero-bg-portuguese.png'),
             ('site/index.html',          'index.html'),
         ]
 
