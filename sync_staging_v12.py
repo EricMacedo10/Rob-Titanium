@@ -23,6 +23,7 @@ def sync_staging():
             ("site/css/style.css", "css/style.css"),
             ("site/js/app.js", "js/app.js"),
             ("site/data.json", "data.json"),
+            ("site/js/family-widget.js", "js/family-widget.js"),
             ("site/images/hero-bg-portuguese.png", "images/hero-bg-portuguese.png")
         ]
 

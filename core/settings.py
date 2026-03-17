@@ -69,62 +69,40 @@ TARGETS = [
     {"term": "fichário escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
     {"term": "lápis de cor 24 cores", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
     
-    # 💻 TECNOLOGIA
+    # 💻 TECNOLOGIA & GADGETS
     {"term": "fone bluetooth", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "mouse gamer", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "teclado gamer", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "monitor pc pc", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "caixa de som bluetooth", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "ssd 1tb", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "pendrive 64gb", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "carregador portátil powerbank", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "webcam full hd", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "mouse gamer rg", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "teclado mecânico", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "suporte celular mesa", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "caixa de som led", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "projetor portátil h300", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
+    {"term": "smartband m8", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
     
-    # 🏠 CASA E COZINHA
-    {"term": "air fryer", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "liquidificador", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "panela elétrica", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "aspirador de pó robô", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "jogo de panelas antiaderente", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "pipoqueira elétrica", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "mixer de mão", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "cafeteira", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "ferro de passar", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    # 🏠 CASA & UTILIDADES CRIATIVAS
+    {"term": "dispenser detergente pia", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "umidificador de ar chama", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "luminária pôr do sol", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "mini processador alimentos", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "fita led rgb 5m", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "garrafa de água motivacional", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+    {"term": "kit organizador geladeira", "store": "amazon", "max_price": 1000.00, "category": "casa"},
+
+    # 💄 BELEZA & CUIDADOS
+    {"term": "massageador facial elétrico", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "kit pincel maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
+    {"term": "espelho led maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
     
-    # 💪 FITNESS E ESPORTES
-    {"term": "halteres", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
-    {"term": "tapete yoga", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
-    {"term": "corda de pular", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
-    {"term": "whey protein", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
-    {"term": "garrafa térmica", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
-    {"term": "kit elástico extensor", "store": "amazon", "max_price": 1000.00, "category": "esportes"},
+    # 🟡 MERCADO LIVRE - "O QUE TODO MUNDO QUER"
+    {"term": "fone lenovo lp40", "store": "mercadolivre", "max_price": 150.00, "category": "tecnologia"},
+    {"term": "tv box 4k", "store": "mercadolivre", "max_price": 400.00, "category": "tecnologia"},
+    {"term": "aspirador portatil carro", "store": "mercadolivre", "max_price": 200.00, "category": "casa"},
+    {"term": "maquina de cortar cabelo", "store": "mercadolivre", "max_price": 150.00, "category": "beleza"},
     
-    # 💄 BELEZA E CUIDADOS
-    {"term": "kit maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "secador cabelo", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "escova secadora", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "chapinha de cabelo", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "protetor solar facial", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "kit skincare", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    
-    # 🟡 MERCADO LIVRE - Produtos com link de afiliado automático!
-    {"term": "fone bluetooth", "store": "mercadolivre", "max_price": 300.00, "category": "tecnologia"},
-    {"term": "smartwatch", "store": "mercadolivre", "max_price": 500.00, "category": "tecnologia"},
-    {"term": "cafeteira expresso", "store": "mercadolivre", "max_price": 800.00, "category": "casa"},
-    {"term": "ventilador de mesa", "store": "mercadolivre", "max_price": 300.00, "category": "casa"},
-    {"term": "cadeira de escritório", "store": "mercadolivre", "max_price": 1000.00, "category": "casa"},
-    {"term": "mochila notebook", "store": "mercadolivre", "max_price": 400.00, "category": "tecnologia"},
-    
-    # 🟠 SHOPEE - Ofertas via API Oficial
-    {"term": "fone bluetooth", "store": "shopee", "max_price": 300.00, "category": "tecnologia"},
-    {"term": "kit cozinha", "store": "shopee", "max_price": 500.00, "category": "casa"},
-    {"term": "maquiagem kit", "store": "shopee", "max_price": 200.00, "category": "beleza"},
-    {"term": "capinha celular", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
-    {"term": "organizador de gavetas", "store": "shopee", "max_price": 100.00, "category": "casa"},
-    {"term": "luminária de mesa", "store": "shopee", "max_price": 150.00, "category": "casa"},
-    
-    # 🔵 LOMADEE (Estrutura ativa para testes no STAGING)
-    # (Comentado ou removido, conforme original mantido mas expandido acima)
+    # 🟠 SHOPEE - "ACHADINHOS"
+    {"term": "mini ventilador portatil", "store": "shopee", "max_price": 100.00, "category": "casa"},
+    {"term": "carregador iphone cabo", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
+    {"term": "organizador de fios", "store": "shopee", "max_price": 50.00, "category": "tecnologia"},
+    {"term": "ring light mesa", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
 ]
 
 # 📅 CATEGORIAS SAZONAIS (Ative conforme a época do ano)

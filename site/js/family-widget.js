@@ -8,7 +8,7 @@ const FAMILY_CONFIG = {
         family: 'images/family-cartoon-2d.png'
     },
     messages: [
-        // 💐 Frases Dia da Mulher (Aprovadas)
+        /* 💐 Frases Dia da Mulher (Aprovadas) - Ocultas após o dia 8
         {
             avatar: 'family',
             name: 'Família',
@@ -29,6 +29,7 @@ const FAMILY_CONFIG = {
             name: 'Família',
             text: 'Mulher é sinônimo de garra e conquista. Parabéns por serem tudo o que são! ✨'
         },
+        */
 
         // 🔥 Frases Ofertas do Dia (Aprovadas)
         {

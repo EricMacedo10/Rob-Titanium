@@ -55,7 +55,7 @@ def scrape_mercadolivre(url, driver):
             'title': title,
             'price': price,
             'image': image,
-            'url': product_url,
+            'link': product_url,
             'source': 'Mercado Livre'
         }
         
@@ -117,17 +117,28 @@ def extract_price(soup):
 
 
 def extract_image(soup):
-    """Extrai URL da imagem principal"""
+    """Extrai URL da imagem principal e limpa para alta resolução"""
     try:
         # Seletor principal
         img_elem = soup.select_one('.ui-pdp-image')
-        if img_elem and img_elem.get('src'):
-            return img_elem['src']
+        img_url = None
         
-        # Fallback: primeira imagem do produto
-        img_gallery = soup.select_one('.ui-pdp-gallery__figure__image')
-        if img_gallery and img_gallery.get('src'):
-            return img_gallery['src']
+        if img_elem:
+            # Tentar pegar de diferentes atributos que o ML usa
+            img_url = img_elem.get('data-zoom') or img_elem.get('src') or img_elem.get('data-src')
+        
+        # Fallback: primeira imagem da galeria
+        if not img_url:
+            img_gallery = soup.select_one('.ui-pdp-gallery__figure__image')
+            if img_gallery:
+                img_url = img_gallery.get('src') or img_gallery.get('data-zoom')
+
+        if img_url:
+            import re
+            # Substitui qualquer sufixo de tamanho (-I, -V, -R, -N, etc) antes da extensão por -O (Original)
+            # Funciona para .jpg, .jpeg, .png e .webp
+            img_url = re.sub(r'-[a-zA-Z]\.(jpg|jpeg|png|webp)$', r'-O.\1', img_url)
+            return img_url
         
         return None
     except Exception as e:

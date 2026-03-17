@@ -140,7 +140,7 @@ def format_ml_product_for_site(product_data, search_term=None):
         "link": affiliate_link,
         "reason": "Oferta Verificada",
         "votes": 0,
-        "added_date": "2026-01-20"
+        "added_date": "2026-03-17"
     }
     
     # Verificação

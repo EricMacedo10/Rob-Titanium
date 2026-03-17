@@ -138,16 +138,24 @@
     <!-- Header -->
 
     <header class="main-header">
-        <div class="container">
+        <div class="container header-flex">
+            <!-- Perspectiva Esquerda: Identidade -->
+            <div class="logo-area">
+                <div class="logo">
+                    <i class="fas fa-gift"></i>
+                    <span><span style="color: #ee4d2d;">Oferta</span> <strong>Certa</strong></span>
+                </div>
+                <div class="header-tagline">Monitoramento Inteligente de Preços</div>
+            </div>
 
-            <div class="logo">
-                <i class="fas fa-gift"></i>
-                <span><span style="color: #ee4d2d;">Oferta</span> <strong>Certa</strong></span>
-                <!-- Animated Trucks -->
-                <div class="trucks-container">
-                    <i class="fas fa-truck truck truck-ml"></i>
-                    <i class="fas fa-truck truck truck-shopee"></i>
-                    <i class="fas fa-truck truck truck-amazon"></i>
+            <!-- Perspectiva Direita: Autoridade & Confiança -->
+            <div class="header-trust-badges">
+                <div class="trust-pill">
+                    <span class="status-dot"></span>
+                    <i class="fas fa-robot"></i> Robô Online
+                </div>
+                <div class="trust-pill security">
+                    <i class="fas fa-shield-halved"></i> Links Auditados
                 </div>
             </div>
         </div>
@@ -193,8 +201,31 @@
         </div>
     </section>
 
+    <!-- Ofertas do Momento (Agora no TOPO para maior conversão) -->
+    <section class="voted-deals">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 20px;">🛍️ Ofertas do Momento</h2>
+
+            <!-- Anti-Scam Protection Banner (Gatilho de Segurança Azul) -->
+            <div class="anti-scam-banner" style="border-left: 5px solid #2563eb; background: #eff6ff;">
+                <i class="fas fa-shield-halved" style="color: #2563eb;"></i>
+                <div class="anti-scam-content">
+                    <h4 style="color: #1e40af;">Navegação 100% Protegida</h4>
+                    <p style="color: #1e40af;">O Robô Titanium verifica cada link em tempo real. Você será sempre direcionado apenas para as
+                        <strong>Lojas Oficiais</strong> (Amazon, Mercado Livre e Shopee). Compre sem medo de links
+                        falsos.
+                    </p>
+                </div>
+            </div>
+
+            <p style="text-align:center; color:#6b7280; font-size:0.95rem; margin-bottom:24px;">Produtos selecionados
+                automaticamente com os melhores preços do dia em Amazon, Mercado Livre e Shopee.</p>
+            <div id="deals-grid" class="deals-grid"></div>
+        </div>
+    </section>
+
     <!-- Section: Seasonal Campaign (Dia da Mulher) -->
-    <section class="seasonal-campaign">
+    <section class="seasonal-campaign" style="display: none;">
         <div class="container">
             <div class="section-title-wrapper">
                 <h2 class="section-title">💐 Dia Internacional da Mulher</h2>
@@ -639,28 +670,6 @@
         </div>
     </section>
 
-    <!-- Ofertas do Momento (Atualizado automaticamente) -->
-    <section class="voted-deals">
-        <div class="container">
-            <h2 class="section-title" style="margin-bottom: 20px;">🛍️ Ofertas do Momento</h2>
-
-            <!-- Anti-Scam Protection Banner -->
-            <div class="anti-scam-banner">
-                <i class="fas fa-shield-halved"></i>
-                <div class="anti-scam-content">
-                    <h4>Navegação 100% Protegida</h4>
-                    <p>O Robô Titanium verifica cada link em tempo real. Você será sempre direcionado apenas para as
-                        <strong>Lojas Oficiais</strong> (Amazon, Mercado Livre e Shopee). Compre sem medo de links
-                        falsos.
-                    </p>
-                </div>
-            </div>
-
-            <p style="text-align:center; color:#6b7280; font-size:0.95rem; margin-bottom:24px;">Produtos selecionados
-                automaticamente com os melhores preços do dia em Amazon, Mercado Livre e Shopee.</p>
-            <div id="deals-grid" class="deals-grid"></div>
-        </div>
-    </section>
 
 
     <!-- Footer -->
