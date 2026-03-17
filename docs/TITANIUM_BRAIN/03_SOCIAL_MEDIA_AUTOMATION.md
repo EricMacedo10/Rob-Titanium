@@ -21,6 +21,7 @@ The bot operates in two distinct modes:
 - **File**: `social/fila/schedule.json`.
 - **Logic**: Defines exactly which image/video will be posted on specific dates.
 - **Maintenance**: Requires periodic updates (at least once a week) to ensure the queue never dries up. If the current date is not in the manifesto, the automation will skip the post to avoid errors.
+- **Manual Overrides**: For special dates (e.g., International Women's Day), a dedicated script `post_manual_X.py` can be used. These scripts should follow the `ResilientUploader` protocol and manually archive the image after success to keep the queue in sync.
 
 ### 2. Category Fallback Mode (Automated)
 - **Trigger**: Used when the queue is empty.

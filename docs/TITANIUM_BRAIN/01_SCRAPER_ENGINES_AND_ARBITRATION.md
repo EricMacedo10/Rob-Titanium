@@ -13,12 +13,12 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 - **Link Builder**: Injects `tag=guiadodesco00-20` and sorts by `price-asc-rank` (Lower Price).
 - **Diversity Engine**: Avoids static vitrine by having `core.orchestrator` shuffle and pick a new subset (`random.sample`) of search terms at every scheduled run.
 
-### 2. Mercado Livre Engine (`scraper/engines/mercadolivre_api.py`)
-- **Method**: Official REST API + Advanced Selenium Fallback ("Nuclear Search").
-- **Nuclear Search**: Bypasses anti-bot blocks by starting from the Mercado Livre home page.
-- **Sorting**: Mandatory use of `_OrderId_PRICE_ASC`.
-- **Tracking**: Uses the **Matt-Tool** system with dynamic `tracking_id`.
-- **Mobile Fix**: Mandatory inclusion of `forceInApp=true` in category/search links to prevent 404s and preserve affiliate cookies in the native App.
+### 2. Mercado Livre Engine (`scraper/engines/mercadolivre.py` & `meli_api.py`)
+- **Method**: Hybrid Model (Official API + Scraper).
+- **Affiliate Link Builder**: Uses the official **OAuth 2.0** flow. The engine retrieves a valid `access_token` using a `refresh_token` stored in GitHub Secrets.
+- **Matt-Tool System**: Mandatory use of `matt_tool=188269638` (User ID). This is the "Heart" of the ML attribution.
+- **Mobile Fix**: Mandatory inclusion of `forceInApp=true` in search/list links to ensure valid tracking within the ML native app.
+- **Nuclear Search (Fallback)**: Selenium-based scraper used only for real-time price validation if the API returns 403 (restricted endpoints).
 
 ### 3. Shopee Engine (`scraper/engines/shopee_affiliate.py`)
 - **Method**: REST API v4.

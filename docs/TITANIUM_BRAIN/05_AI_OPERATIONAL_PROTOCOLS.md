@@ -60,6 +60,13 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
   - Buscar preço via API do produto específico (PAAPI da Amazon, API do ML), não de resultados de busca.
   - Gate obrigatório de preço mínimo por categoria antes de exibir qualquer produto.
 
+### 🎨 Conservadorismo de Visual (The Minimalist Look)
+- **Protocolo de Não-Interferência (2026-03-10):** Muitos elementos (ex: barra de busca no Hero, Assets 3D) podem estar ocultos intencionalmente via CSS (`display: none !important`) para manter uma estética minimalista em produção. 
+- **Regra de Ouro:** Nunca "corrija" a visibilidade de elementos estruturais sem confirmação explícita do usuário, mesmo que pareçam "quebrados" no ambiente de staging. Foque exclusivamente no escopo do hotfix solicitado.
+
+### 🗓️ Limpeza de Campanhas Sazonais
+- **Ocultar > Deletar:** Prefira esconder seções sazonais (ex: Dia da Mulher, Natal) via `style="display: none;"` no HTML e comentários no JS/CSS. Isso preserva a estrutura para o ano seguinte e evita quebras de referências em scripts automatizados.
+
 ## 🤖 Mission Statement for AI Agents
 > "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."
 

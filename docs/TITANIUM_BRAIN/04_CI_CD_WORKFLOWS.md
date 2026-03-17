@@ -18,7 +18,8 @@ The following secrets are mandatory for full automation:
 - `FTP_HOST`, `FTP_USER`, `FTP_PASS`: Credentials for Hostinger.
 - `GROQ_API_KEY`: For AI curation.
 - `IG_ACCESS_TOKEN`, `IG_BUSINESS_ID`: For social posting.
-- `MELI_REFRESH_TOKEN`: For Mercado Livre API continuity.
+- `MELI_CLIENT_ID`, `MELI_CLIENT_SECRET`: Official Mercado Livre API App credentials.
+- `MELI_REFRESH_TOKEN`: The primary token for ML OAuth 2.0 continuity.
 
 ## 📦 Deployment Mechanics
 Implemented in [deploy.py](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/Robô Titanium/infra/deploy.py).
@@ -44,8 +45,9 @@ To prevent accidental production outages, the following protocol is enforced:
 2.  **Staging-First Validation**: Production deploys are restricted unless a successful synchronization and verification cycle has been completed in the `/teste` environment during the same session.
 3.  **Atomic Assets**: Script updates (like `app.js`) must be accompanied by version bumps in `index.html` to prevent stale cache execution.
 4.  **Anti-Reversion Protocol (Critical)**: Local modifications to structural files (`index.html`, etc.) **MUST** be committed and pushed before any automated workflow run. Uncommitted local work will be overwritten by the GitHub Action's checkout if it doesn't exist in the repository.
-5.  **Strict Asset Separation (Data-Only)**: Para eliminar o risco de execuções automáticas reverterem mudanças de layout, o workflow `update-offers.yml` em modo `PRODUCTION` é restrito à atualização apenas de dados (`data.json`). Atualizações estruturais diretas (HTML/JS/CSS) devem ser realizadas via `force_asset_upload.py` após validação.
-6.  **Defensive Cleanup Protocol (Lição v1172_premium)**: Durante correções rápidas de layout, nunca apague blocos de código sem validar se não contêm seletores únicos de animação (`@keyframes`) ou estados interativos. O uso de `force_asset_upload.py` deve ser seguido por uma verificação visual mandatória para garantir a integridade dos ativos críticos de UI.
+5.  **Strict Asset Separation (Data-Only)**: Em produção, o workflow `update-offers.yml` é restrito à atualização do `data.json`. Mudanças de layout (HTML/CSS/JS) são exclusivas do fluxo de deploy manual ou via `deploy-site.yml`.
+6.  **Atomic Assets & Versioning**: Ao realizar o deploy de correções estruturais (ex: remoção dos caminhões), é mandatório alinhar o `index.html` de produção com o `index_staging.html` aprovado para evitar reversões por cache ou rotinas automáticas paralalelas.
+7.  **Unicode Safety (Deploy)**: Scripts de deploy (`infra/deploy.py`) devem evitar o uso de Emojis ou caracteres Unicode não-ASCII em logs de console para prevenir `UnicodeEncodeError` em terminais Windows/CP1252.
 
 ## 🛡️ Staging vs Production
 - **Staging**: Subdomínio `teste.guiadodesconto.com.br` → mapeado para a pasta `/teste` na raiz FTP (`u534624268.guiadodesconto`). Usado para validar novas lógicas de scraper e features experimentais do frontend. O orchestrator em modo `ENV_MODE=STAGING` envia apenas: `data.json`, `notifications.json`, `index_staging.html`, `js/app.js` e `css/style.css` para `/teste/`. **Nunca altera `index.html` de produção.**

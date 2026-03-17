@@ -2,6 +2,19 @@
 
 This document details the mechanics of the "Guia do Desconto" frontend, focusing on the link intelligence and the dynamic rendering system.
 
+## 🏛️ Design Philosophy: "The Elite Hub" (v2026-v3)
+
+A evolução do design do Guia do Desconto prioriza a **autoridade técnica** em vez de truques visuais agressivos.
+
+### 1. Header: Autoridade & Confiança (The "Anti-Truck" Clause)
+Após testes A/B com animações complexas (caminhões e scanners), o projeto estabilizou em um **Header Estático e Premium**:
+- **Logo Area**: Foco na identidade visual Shopee (Laranja) + Amazon (Amarelo).
+- **Trust Badges**: Uso de "Pills" de status ("Robô Online", "Links Auditados") para converter através da segurança.
+- **Tagline**: "Monitoramento Inteligente de Preços" reforça o valor utilitário.
+
+### 2. A Vitrine Aberta
+Diferente de versões anteriores onde os produtos ficavam ocultos ("Vitrine Fechada"), a versão v3 mantém as **Ofertas do Momento** (`.voted-deals`) visíveis e em destaque no carregamento inicial. Isso transforma o site de um simples menu de links em um destino real de compras ("Shopping Aberto").
+
 ## 🚀 The Redirection Engine ("Links Inteligentes")
 
 The frontend implements a resilient redirection system to ensure that affiliate tracking is always present, even for searches not in the local cache.
