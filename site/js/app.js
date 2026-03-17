@@ -347,14 +347,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const userVote = userVotes[deal.id] || 0;
         const voteCount = (deal.votes || 0) + (userVote === 1 ? 1 : userVote === -1 ? -1 : 0);
 
-        // Intelligence Badges calculation
+        // Intelligence Badges calculation (Magnéticos v2026)
         let intelBadgeHTML = '';
-        if (deal.discount >= 20 || deal.price < 5) {
-            intelBadgeHTML = `<div class="intel-badge price-drop"><i class="fas fa-arrow-trend-down"></i> Menor Preço 30d</div>`;
-        } else if (voteCount > 5) {
-            intelBadgeHTML = `<div class="intel-badge best-seller"><i class="fas fa-trophy"></i> Campeão de Vendas</div>`;
-        } else if (deal.id.length % 7 === 0) { // Simulate random urgency
-            intelBadgeHTML = `<div class="intel-badge low-stock"><i class="fas fa-hourglass-half"></i> Estoque Crítico</div>`;
+        const impulsePhrases = [
+            { text: 'Viral no TikTok', icon: 'fa-brands fa-tiktok', class: 'tiktok-viral' },
+            { text: 'Estoque Crítico', icon: 'fa-fas fa-hourglass-half', class: 'low-stock' },
+            { text: 'Campeão de Vendas', icon: 'fas fa-trophy', class: 'best-seller' },
+            { text: 'Menor Preço 30d', icon: 'fas fa-arrow-trend-down', class: 'price-drop' },
+            { text: 'Oferta Relâmpago', icon: 'fas fa-bolt', class: 'flash-deal' }
+        ];
+
+        // Se o desconto for muito alto, força "Menor Preço" ou "Relâmpago"
+        if (deal.discount >= 25) {
+            intelBadgeHTML = `<div class="intel-badge flash-deal"><i class="fas fa-bolt"></i> Oferta Relâmpago</div>`;
+        } else {
+            // Caso contrário, sorteia um gatilho mental para atrair o clique baseado no ID
+            const phraseIdx = Math.abs(deal.id.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % impulsePhrases.length;
+            const chosen = impulsePhrases[phraseIdx];
+            intelBadgeHTML = `<div class="intel-badge ${chosen.class}"><i class="${chosen.icon}"></i> ${chosen.text}</div>`;
         }
 
         // Check for blocked images
