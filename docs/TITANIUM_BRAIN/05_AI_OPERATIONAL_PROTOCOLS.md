@@ -29,6 +29,9 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **Lightning Bar não aparece** | `staging-mode` class ausente OU URL não contém 'staging'. | Verificar se `index.html` do subdomínio é o `index_staging.html`. Checar condição de ativação no `app.js`. |
 | **Elemento persiste após JS remover** | Cache do browser ou `display:block` inline do JS. | Adicionar `display: none !important` no CSS como camada definitiva. |
 | **Upload FTP não navega para subpasta** | `upload_logic.py` sem navegação recursiva. | Usar `_ensure_remote_dir()` que cria subpastas automaticamente. |
+| **ML produtos com imagem de logo/sem foto** | ML retorna SVG placeholder (Soft-Block). | Rodar `scraper/clean_db.py`. Corrigido no engine: `poly-card` image validation agora filtra `.svg` e `logos-api-admin`. |
+| **GitHub Action sobrescreve vitrine temática** | `core/settings.py` com keywords antigas (e.g. Ring Light). | Atualizar TARGETS no `settings.py` para as palavras-chave do novo nicho ANTES do próximo cron run. |
+| **data.json no server ainda mostra conteúdo antigo após deploy.py** | `deploy.py` exclui `data.json` por design (segurança). | Rodar manualmente `infra/upload_data.py` para fazer o override do JSON no servidor. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -66,6 +69,22 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
 
 ### 🗓️ Limpeza de Campanhas Sazonais
 - **Ocultar > Deletar:** Prefira esconder seções sazonais (ex: Dia da Mulher, Natal) via `style="display: none;"` no HTML e comentários no JS/CSS. Isso preserva a estrutura para o ano seguinte e evita quebras de referências em scripts automatizados.
+
+### 🛒 Mudança de Nicho: Procedimento Correto (2026-03-19)
+Esta sessão comprovou um bug crítico: ao mudar a vitrine para um novo nicho (ex: Eletrônicos → Moda Feminina), o **`core/settings.py` deve ser atualizado imediatamente** antes do próximo Cron Job do GitHub Actions. Se não for feito, a Action vai sobrescrever a nova vitrine com os produtos antigos do nicho anterior.
+
+**Procedimento correto de troca de nicho:**
+1. Rodar os mineradores do novo nicho (ex: `production_fashion_miner.py`).
+2. Rodar `scraper/clean_db.py` para sanitizar o novo banco.
+3. Atualizar os `TARGETS` em `core/settings.py` com as palavras-chave do novo nicho.
+4. Commit & Push do `settings.py` para o GitHub **antes** da próxima execução agendada.
+5. Rodar `infra/upload_data.py` (PRODUCTION mode) para enviar o `data.json` limpo ao servidor.
+6. Confirmar o visual da vitrine em produção.
+
+### 💰 Deploy de data.json vs. Assets Estruturais
+- **`infra/deploy.py`**: Envia APENAS assets de layout (HTML, CSS, JS, Imagens). Exclui `data.json` por design (proteção contra sobrescrita acidental).
+- **`infra/upload_data.py`**: Envia APENAS o `data.json`. Usa `ENV_MODE` para escolher entre produção (`/`) e staging (`/teste`). Use este script para forçar atualização de produtos sem alterar o layout.
+- **`sync_staging_v12.py`**: Script legado de sincronização para staging. Usa lista fixa de arquivos.
 
 ## 🤖 Mission Statement for AI Agents
 > "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."
