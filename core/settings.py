@@ -59,50 +59,29 @@ TARGETS = [
 ]
 """
 
-# CATEGORIAS COMPLETAS E EXTENDIDAS - PARA SORTEIO DIÁRIO
+# CATEGORIAS COMPLETAS E EXTENDIDAS - BOUTIQUE DE MODA (MÊS DAS MÃES)
 TARGETS = [
-    # 🎒 VOLTA ÀS AULAS
-    {"term": "mochila escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
-    {"term": "caderno universitário", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
-    {"term": "estojo escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
-    {"term": "caneta esferográfica kit", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
-    {"term": "fichário escolar", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
-    {"term": "lápis de cor 24 cores", "store": "amazon", "max_price": 1000.00, "category": "volta-aulas"},
+    # 👗 MODA FEMININA - ALFAIATARIA & CASUAL
+    {"term": "conjunto alfaiataria feminino colete calca", "store": "mercadolivre", "max_price": 300.00, "category": "moda"},
+    {"term": "calca pantalona alfaiataria feminina", "store": "mercadolivre", "max_price": 200.00, "category": "moda"},
+    {"term": "blazer feminino max alongado", "store": "shopee", "max_price": 250.00, "category": "moda"},
+    {"term": "saia midi alfaiataria fenda", "store": "shopee", "max_price": 150.00, "category": "moda"},
+    {"term": "vestido midi canelado fenda", "store": "shopee", "max_price": 150.00, "category": "moda"},
+    {"term": "vestido longo fluido elegante", "store": "mercadolivre", "max_price": 300.00, "category": "moda"},
+    {"term": "calca jeans wide leg cintura alta", "store": "shopee", "max_price": 180.00, "category": "moda"},
+    {"term": "camisa social feminina manga longa", "store": "shopee", "max_price": 150.00, "category": "moda"},
+    {"term": "blusa tricot feminino modal", "store": "shopee", "max_price": 120.00, "category": "moda"},
+    {"term": "jaqueta couro ecologico feminina", "store": "mercadolivre", "max_price": 250.00, "category": "moda"},
     
-    # 💻 TECNOLOGIA & GADGETS
-    {"term": "fone bluetooth", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "mouse gamer rg", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "teclado mecânico", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "suporte celular mesa", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "caixa de som led", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "projetor portátil h300", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    {"term": "smartband m8", "store": "amazon", "max_price": 1000.00, "category": "tecnologia"},
-    
-    # 🏠 CASA & UTILIDADES CRIATIVAS
-    {"term": "dispenser detergente pia", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "umidificador de ar chama", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "luminária pôr do sol", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "mini processador alimentos", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "fita led rgb 5m", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "garrafa de água motivacional", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-    {"term": "kit organizador geladeira", "store": "amazon", "max_price": 1000.00, "category": "casa"},
-
-    # 💄 BELEZA & CUIDADOS
-    {"term": "massageador facial elétrico", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "kit pincel maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    {"term": "espelho led maquiagem", "store": "amazon", "max_price": 1000.00, "category": "beleza"},
-    
-    # 🟡 MERCADO LIVRE - "O QUE TODO MUNDO QUER"
-    {"term": "fone lenovo lp40", "store": "mercadolivre", "max_price": 150.00, "category": "tecnologia"},
-    {"term": "tv box 4k", "store": "mercadolivre", "max_price": 400.00, "category": "tecnologia"},
-    {"term": "aspirador portatil carro", "store": "mercadolivre", "max_price": 200.00, "category": "casa"},
-    {"term": "maquina de cortar cabelo", "store": "mercadolivre", "max_price": 150.00, "category": "beleza"},
-    
-    # 🟠 SHOPEE - "ACHADINHOS"
-    {"term": "mini ventilador portatil", "store": "shopee", "max_price": 100.00, "category": "casa"},
-    {"term": "carregador iphone cabo", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
-    {"term": "organizador de fios", "store": "shopee", "max_price": 50.00, "category": "tecnologia"},
-    {"term": "ring light mesa", "store": "shopee", "max_price": 100.00, "category": "tecnologia"},
+    # 👜 ACESSÓRIOS & PERFUMARIA PREMIUM (AMAZON)
+    {"term": "bolsa feminina couro legitimo", "store": "amazon", "max_price": 800.00, "category": "acessorios"},
+    {"term": "bolsa schutz", "store": "amazon", "max_price": 1000.00, "category": "acessorios"},
+    {"term": "perfume feminino importado", "store": "amazon", "max_price": 800.00, "category": "perfumaria"},
+    {"term": "perfume carolina herrera", "store": "amazon", "max_price": 900.00, "category": "perfumaria"},
+    {"term": "relogio feminino tommy", "store": "amazon", "max_price": 1000.00, "category": "acessorios"},
+    {"term": "colar prata 925 ponto luz", "store": "amazon", "max_price": 300.00, "category": "joias"},
+    {"term": "kit maquiagem profissional", "store": "amazon", "max_price": 500.00, "category": "beleza"},
+    {"term": "batom mac matte", "store": "amazon", "max_price": 200.00, "category": "beleza"},
 ]
 
 # 📅 CATEGORIAS SAZONAIS (Ative conforme a época do ano)

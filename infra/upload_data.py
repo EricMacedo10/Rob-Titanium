@@ -38,16 +38,25 @@ def upload_data_json():
             except:
                 continue
         
-        # Navigate to staging subfolder
-        staging_path = f"{base_path.rstrip('/')}/teste"
+        # Navigate to target subfolder based on ENV_MODE
+        env_mode = os.getenv('ENV_MODE', 'STAGING').upper()
+        
+        target_path = base_path.rstrip('/')
+        if env_mode == "STAGING":
+            target_path += "/teste"
+            
         try:
-            ftp.cwd(staging_path)
-            print(f"✅ In {staging_path}")
+            ftp.cwd(target_path)
+            print(f"✅ In {target_path}")
         except:
-            print(f"⚠️ {staging_path} not found, trying /teste")
-            ftp.cwd("/teste")
-            staging_path = "/teste"
-            print(f"✅ In {staging_path}")
+            if env_mode == "STAGING":
+                print(f"⚠️ {target_path} not found, trying /teste")
+                ftp.cwd("/teste")
+                target_path = "/teste"
+            else:
+                ftp.cwd("/")
+                target_path = "/"
+            print(f"✅ In {target_path}")
 
         # Upload data.json
         with open(local_file, 'rb') as f:
