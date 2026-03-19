@@ -113,7 +113,7 @@ def format_ml_product_for_site(product_data, search_term=None):
     title = product_data.get('title', 'Produto sem título')
     price = product_data.get('price', 0)
     image = product_data.get('image', '')
-    original_url = product_data.get('url', '')
+    original_url = product_data.get('link', '')
     
     # Construir link de afiliado
     affiliate_link = build_ml_affiliate_link(original_url, keyword=search_term)

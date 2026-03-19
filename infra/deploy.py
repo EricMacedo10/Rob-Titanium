@@ -1,5 +1,5 @@
 """
-🚀 Deploy Site to Hostinger via FTP (Robust Version)
+ Deploy Site to Hostinger via FTP (Robust Version)
 Updates:
 - Enforces root directory (/) to avoid path confusion
 - Explicit verification of critical files
@@ -58,7 +58,7 @@ def upload_file_with_retry(ftp: ftplib.FTP, local_path: Path, remote_base: str) 
     # Final filename
     filename = os.path.basename(rel_path)
     remote_full_path = f"{remote_base.rstrip('/')}/{rel_path}"
-    print(f"📤 Uploading ({ENV_MODE}): {rel_path} -> {remote_full_path}")
+    print(f"Uploading ({ENV_MODE}): {rel_path} -> {remote_full_path}")
     
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -69,12 +69,12 @@ def upload_file_with_retry(ftp: ftplib.FTP, local_path: Path, remote_base: str) 
             if attempt < MAX_RETRIES:
                 time.sleep(RETRY_DELAY)
             else:
-                print(f"   ❌ Failed to upload {rel_path}: {e}")
+                print(f"    Failed to upload {rel_path}: {e}")
                 return False
 
 def main():
     print("=" * 60)
-    print("🚀 DEPLOY SITE TO HOSTINGER (ROBUST)")
+    print("DEPLOY SITE TO HOSTINGER (ROBUST)")
     print("=" * 60)
     
     ftp_host = os.getenv('FTP_HOST')
@@ -82,12 +82,12 @@ def main():
     ftp_pass = os.getenv('FTP_PASS')
     
     if not all([ftp_host, ftp_user, ftp_pass]):
-        print("❌ FTP credentials missing!")
+        print(" FTP credentials missing!")
         return False
 
     try:
         ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=120)
-        print("✅ Connected to FTP")
+        print("Connected to FTP")
         
         # Determine Base Path (Hostinger standard)
         base_path = "/"
@@ -96,7 +96,7 @@ def main():
             try:
                 ftp.cwd(f"/{p}")
                 base_path = f"/{p}"
-                print(f"✅ Found web root: {base_path}")
+                print(f"Found web root: {base_path}")
                 break
             except: continue
         
@@ -106,12 +106,12 @@ def main():
             try:
                 ftp.cwd(base_path)
             except:
-                print(f"🧪 Creating staging folder: {base_path}")
+                print(f"Creating staging folder: {base_path}")
                 ftp.mkd(base_path)
                 ftp.cwd(base_path)
         
         ftp.cwd(base_path)
-        print(f"✅ Target directory set to: {base_path}")
+        print(f"Target directory set to: {base_path}")
 
         uploadeds = 0
         faileds = 0
@@ -132,10 +132,10 @@ def main():
                     faileds += 1
 
         print("-" * 60)
-        print(f"📊 Summary: {uploadeds} uploaded, {faileds} failed")
+        print(f" Summary: {uploadeds} uploaded, {faileds} failed")
         
         # Verification
-        print("\n🔎 Verificando arquivos críticos:")
+        print("\n Verificando arquivos crticos:")
         critical_files = ['index.html', 'js/app.js', 'css/style.css']
         all_ok = True
         
@@ -155,19 +155,19 @@ def main():
                     found = any(crit in l for l in files_list)
                 
                 if found:
-                    print(f"   ✅ {crit} encontrado")
+                    print(f"    {crit} encontrado")
                 else:
-                    print(f"   ❌ {crit} NÃO encontrado")
+                    print(f"    {crit} NO encontrado")
                     all_ok = False
             except Exception as e:
-                print(f"   ❌ Erro ao verificar {crit}: {e}")
+                print(f"    Erro ao verificar {crit}: {e}")
                 all_ok = False
 
         ftp.quit()
         return all_ok and faileds == 0
 
     except Exception as e:
-        print(f"\n❌ Deployment failed: {e}")
+        print(f"\n Deployment failed: {e}")
         return False
 
 if __name__ == "__main__":

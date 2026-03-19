@@ -131,5 +131,26 @@
         "loja": "amazon",
         "categoria": "beleza",
         "tema": "Dia da Mulher Antecipado - Presentes e ofertas especiais para celebrar"
+    },
+    {
+        "data": "2026-03-05",
+        "imagem": "2026-03-05_shoppe_ofertas_do_dia.png",
+        "loja": "shopee",
+        "categoria": "tecnologia",
+        "tema": "Ofertas do Dia Shopee - Os melhores preços na palma da sua mão"
+    },
+    {
+        "data": "2026-03-06",
+        "imagem": "2026-03-06_amazon_ofertas_do_dia.png",
+        "loja": "amazon",
+        "categoria": "tecnologia",
+        "tema": "Ofertas do Dia Amazon - Descontos exclusivos para você economizar hoje"
+    },
+    {
+        "data": "2026-03-07",
+        "imagem": "2026-03-07_mercadolivre_ofertas_do_dia.png",
+        "loja": "mercadolivre",
+        "categoria": "tecnologia",
+        "tema": "Ofertas do Dia Mercado Livre - Frete grátis e os melhores produtos"
     }
 ]

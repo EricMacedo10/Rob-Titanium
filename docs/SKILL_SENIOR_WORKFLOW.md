@@ -55,6 +55,11 @@ Para evitar falhas em produção causadas por desalinhamento de ambiente:
     *   **Verificação Meta-Realista (v1157):** Após upload via FTP, o sistema DEVE simular o crawler da plataforma de destino (ex: `User-Agent: facebookexternalhit/1.1`) com um GET completo, validando `Content-Type` e tamanho mínimo. Se a verificação falhar, ativar fallback automático.
     *   **Blindagem de Arquivos:** Processos de conversão de imagem/vídeo devem usar nomes temporários únicos (`temp_...`) para evitar a deleção acidental de arquivos originais da fila de processamento.
     *   **Git como Backup:** Mantenha ativos de campanha versionados para permitir recuperação instantânea em caso de erro de automação.
+5.  **Monitoramento de Manifesto (Agendamento Social):**
+    *   **Ponto de Falha:** O robô social é dependente de datas exatas no `schedule.json`. Se o arquivo não for atualizado semanalmente, as postagens param silenciosamente.
+    *   **Regra de Ouro:** Sempre que o robô parar de postar, a PRIMEIRA verificação deve ser o `schedule.json` para validar se a data atual está presente.
+    *   **Protocolo de Recuperação:** Se datas forem puladas, o manifesto deve ser atualizado retroativamente para fins de log, e as postagens futuras devem ser garantidas com pelo menos 7 dias de antecedência.
+
 ## 🚨 Monitoramento e Excelência Operacional (Lições Aprendidas)
 1. **Fail Fast (Falhe Rápido):** Se o core do negócio (encontrar produtos) falhar totalmente, o script DEVE quebrar (exit code 1) para disparar alertas. Não mascare erros críticos com logs silenciosos.
 2. **Estratégia Híbrida:** Nunca dependa de um único ponto de falha. Se a API OFICIAL bloquear, tenha um FALLBACK (Scraping ou Selenium) pronto para assumir.

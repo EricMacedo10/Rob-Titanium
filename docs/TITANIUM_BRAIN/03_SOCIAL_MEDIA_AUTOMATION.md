@@ -65,5 +65,15 @@ The [InstagramClient](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/
 3.  **Publication**: Triggers the `media_publish` command once the container is `FINISHED`.
 
 ---
+## 🎯 DM Automation & Link Injection Strategy (MANDATORY RULE)
+Titanium uses a 24/7 standalone PHP Bot (`bot_instagram.php`) deployed on Hostinger via Cron Job to monitor comments and send direct messages (DMs) with affiliate links.
+To make the link routing intelligent and dynamic without changing the codebase:
+
+1. **Rule for the AI Copywriter**: **EVERY SINGLE POST** generated for Instagram MUST contain a unique internal tracking hashtag in the caption (e.g., `#ofertaX`, `#panela1`, `#drone4k`). This hashtag can be placed subtly at the end of the text.
+2. **Rule for the Operator (Human)**: Every time a new post is scheduled or published, the user must update the `ofertas.json` file hosted on Hostinger.
+   - Example format: `{"#drone4k": "https://mercadolivre.com.br/...", "#default": "https://guiadodesconto.com.br"}`
+3. **Execution**: The `bot_instagram.php` reads the caption of the post being commented on, extracts the hashtag, lookups the `ofertas.json` dictionary, and sends the corresponding link straight to the user's Inbox via Meta Graph API edge `/{PAGE_ID}/messages`.
+
+---
 > [!NOTE]
 > All social activity honors the `ENV_MODE`. In `STAGING`, actual post calls are bypassed and logged to the console/logs for validation.

@@ -35,7 +35,7 @@ def staging_sync():
 
         # Mapeamento de arquivos (Local -> Remoto relativo ao /teste)
         files = {
-            "site/index.html": "index.html",
+            "site/index_staging.html": "index.html",
             "site/css/style.css": "css/style.css",
             "site/js/app.js": "js/app.js",
             "site/js/family-widget.js": "js/family-widget.js",

@@ -1,0 +1,15 @@
+
+============================================================
+­ƒñû TITANIUM COMMENT RESPONDER - MONITORAMENTO ATIVO
+============================================================
+
+­ƒöì Verificando post: 18174359800390549 (Caption: ­ƒîƒ perspectiva titanium: o look...)
+­ƒÄ» Gatilho detectado! Usu├írio: ideia._arte | Coment├írio: 'eu quero'
+­ƒÆ¼ Respondendo publicamente para ideia._arte...
+   L_ OK: Resposta P├║blica foi!
+­ƒô▓ Enviando DM (Inbox) para ideia._arte...
+   L_ ÔØî ERRO NA DM: {'error': {'message': '(#3) Application does not have the capability to make this API call.', 'type': 'OAuthException', 'code': 3, 'fbtrace_id': 'A5AK5K0MGZBMAiNBxVN3aFK'}}
+
+­ƒöì Verificando post: 18106460710856408 (Caption: ­ƒÜÇ perspectiva titanium: upgrad...)
+
+­ƒöì Verificando post: 18096945871977513 (Caption: ­ƒî© feliz dia internacional da m...)

@@ -1,0 +1,13 @@
+
+============================================================
+Traceback (most recent call last):
+  File "C:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\automation\comment_responder.py", line 133, in <module>
+    run_comment_responder()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\automation\comment_responder.py", line 57, in run_comment_responder
+    print("\U0001f916 TITANIUM COMMENT RESPONDER - MONITORAMENTO ATIVO")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ericm\AppData\Local\Programs\Python\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f916' in position 0: character maps to <undefined>

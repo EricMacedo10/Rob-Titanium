@@ -188,14 +188,11 @@ def search_mercadolivre(query, driver, max_price=1000):
         
         for idx, product in enumerate(products[:5], 1):  # Verificar até 5 produtos
             try:
-                print(f"[ML] Analisando produto {idx}...")
-                
                 # Extrair link do produto (Poly layout)
                 link_elem = product.select_one('.poly-component__title')
                 if not link_elem or not link_elem.get('href'):
                     print(f"[ML] Produto {idx}: link nao encontrado")
                     continue
-                
                 product_url = link_elem['href']
                 
                 # Extrair título
@@ -206,17 +203,41 @@ def search_mercadolivre(query, driver, max_price=1000):
                 if not price_elem:
                     print(f"[ML] Produto {idx}: preco nao encontrado")
                     continue
-                
                 price_text = price_elem.get_text(strip=True).replace('.', '')
                 price = float(price_text)
+
+                print(f"[ML] Analisando produto {idx}: {title[:40]}... - R$ {price}")
+
+                # Extrair imagem diretamente da listagem (mais rápido e menos chance de bloqueio)
+                img_elem = product.select_one('.poly-component__picture img')
+                image_url = ""
+                if img_elem:
+                    image_url = img_elem.get('data-src') or img_elem.get('src') or ""
                 
-                print(f"[ML] Produto {idx}: {title[:40]}... - R$ {price}")
+                # Se a imagem for SVG ou logo branco do ML, tentar o scraping completo
+                if not image_url or ".svg" in image_url or "logos-api-admin" in image_url:
+                    full_scrape = scrape_mercadolivre(product_url, driver)
+                    if full_scrape and full_scrape.get('image'):
+                        image_url = full_scrape['image']
                 
+                if not image_url:
+                    print(f"[ML] Produto {idx}: imagem nao encontrada. Pulando...")
+                    continue
+
+                # Limpar imagem para alta resolução
+                import re
+                image_url = re.sub(r'-[a-zA-Z]\.(jpg|jpeg|png|webp)$', r'-O.\1', image_url)
+
                 # Verificar se está dentro do limite
                 if int(price) <= max_price:
                     print(f"[ML] Produto {idx} aprovado! (R$ {price} <= R$ {max_price})")
-                    # Scrape completo do produto
-                    return scrape_mercadolivre(product_url, driver)
+                    return {
+                        'title': title,
+                        'price': price,
+                        'image': image_url,
+                        'link': product_url,
+                        'source': 'Mercado Livre'
+                    }
                 else:
                     print(f"[ML] Produto {idx} rejeitado (R$ {price} > R$ {max_price})")
             
