@@ -19,7 +19,7 @@ TRIGGERS = ["eu quero", "quero", "link", "valor", "preço", "eu quero o link"]
 OFFERT_DATA = {
     "pantalona": {
         "link": "https://produto.mercadolivre.com.br/MLB-5653965336-calca-pantalona-alfaiataria-feminina-cintura-alta-elastico-_JM?matt_tool=188269638&matt_source=guiadodesconto",
-        "site": "https://guiadodesconto.com.br/categoria/moda"
+        "site": "https://guiadodesconto.com.br"
     },
     "default": {
         "link": "https://guiadodesconto.com.br",
