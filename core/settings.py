@@ -11,7 +11,6 @@ load_dotenv()
 AFFILIATE_TAGS = {
     "amazon": os.getenv("AMAZON_AFFILIATE_TAG", "guiadodesco00-20"),
     "shopee": "shopee_affiliate",  # Gerenciado via API
-    "mercadolivre": "ericmacedo"
 }
 
 # Shopee API Configuration
@@ -27,88 +26,53 @@ LOMADEE_API_URL = f"https://api.lomadee.com/v3/{LOMADEE_APP_TOKEN}/offer/_search
 
 # 2. Configurações de Segurança (Anti-Ban)
 # Tempo de espera entre cada busca (em segundos). 
-# Quanto maior, mais seguro. AUMENTADO para máxima proteção.
-MIN_DELAY = 8  # Aumentado de 5 para 8 segundos
-MAX_DELAY = 20 # Aumentado de 15 para 20 segundos
+MIN_DELAY = 8
+MAX_DELAY = 20
 
-# 3. Lista de Produtos para Monitorar
-# TESTE COMPLETO: Todas as 13 categorias
-# Foco em produtos até R$ 1000 (parte inteira)
-
-# TESTE RÁPIDO (Comentado - usando teste completo agora)
-"""
+# 3. Lista de Produtos para Monitorar (REBALANCEADA 50/50 - AMAZON/SHOPEE)
 TARGETS = [
-    {
-        "term": "mouse gamer",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "fone bluetooth",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    },
-    {
-        "term": "teclado gamer",
-        "store": "amazon",
-        "max_price": 1000.00,
-        "category": "tecnologia"
-    }
-]
-"""
-
-# CATEGORIAS COMPLETAS E EXTENDIDAS - BOUTIQUE DE MODA (MÊS DAS MÃES)
-TARGETS = [
-    # 👗 MODA FEMININA - ALFAIATARIA & CASUAL
-    {"term": "conjunto alfaiataria feminino colete calca", "store": "mercadolivre", "max_price": 300.00, "category": "moda"},
-    {"term": "calca pantalona alfaiataria feminina", "store": "mercadolivre", "max_price": 200.00, "category": "moda"},
-    {"term": "blazer feminino max alongado", "store": "shopee", "max_price": 250.00, "category": "moda"},
-    {"term": "saia midi alfaiataria fenda", "store": "shopee", "max_price": 150.00, "category": "moda"},
-    {"term": "vestido midi canelado fenda", "store": "shopee", "max_price": 150.00, "category": "moda"},
-    {"term": "vestido longo fluido elegante", "store": "mercadolivre", "max_price": 300.00, "category": "moda"},
-    {"term": "calca jeans wide leg cintura alta", "store": "shopee", "max_price": 180.00, "category": "moda"},
-    {"term": "camisa social feminina manga longa", "store": "shopee", "max_price": 150.00, "category": "moda"},
-    {"term": "blusa tricot feminino modal", "store": "shopee", "max_price": 120.00, "category": "moda"},
-    {"term": "jaqueta couro ecologico feminina", "store": "mercadolivre", "max_price": 250.00, "category": "moda"},
+    # 📱 TECNOLOGIA
+    {"term": "iphone 15 plus", "store": "amazon", "max_price": 6000.00, "category": "tecnologia"},
+    {"term": "samsung galaxy s24", "store": "amazon", "max_price": 5000.00, "category": "tecnologia"},
+    {"term": "notebook dell inspiron", "store": "amazon", "max_price": 4000.00, "category": "tecnologia"},
+    {"term": "fone jbl bluetooth", "store": "shopee", "max_price": 400.00, "category": "tecnologia"},
+    {"term": "monitor gamer curvo", "store": "amazon", "max_price": 1500.00, "category": "tecnologia"},
     
-    # 👜 ACESSÓRIOS & PERFUMARIA PREMIUM (AMAZON)
-    {"term": "bolsa feminina couro legitimo", "store": "amazon", "max_price": 800.00, "category": "acessorios"},
-    {"term": "bolsa schutz", "store": "amazon", "max_price": 1000.00, "category": "acessorios"},
-    {"term": "perfume feminino importado", "store": "amazon", "max_price": 800.00, "category": "perfumaria"},
-    {"term": "perfume carolina herrera", "store": "amazon", "max_price": 900.00, "category": "perfumaria"},
-    {"term": "relogio feminino tommy", "store": "amazon", "max_price": 1000.00, "category": "acessorios"},
-    {"term": "colar prata 925 ponto luz", "store": "amazon", "max_price": 300.00, "category": "joias"},
-    {"term": "kit maquiagem profissional", "store": "amazon", "max_price": 500.00, "category": "beleza"},
-    {"term": "batom mac matte", "store": "amazon", "max_price": 200.00, "category": "beleza"},
+    # 👗 MODA
+    {"term": "conjunto alfaiataria feminino", "store": "shopee", "max_price": 300.00, "category": "moda"},
+    {"term": "calca pantalona feminina", "store": "shopee", "max_price": 200.00, "category": "moda"},
+    {"term": "blazer feminino alongado", "store": "shopee", "max_price": 250.00, "category": "moda"},
+    {"term": "bolsa schutz leather", "store": "amazon", "max_price": 1000.00, "category": "moda"},
+    {"term": "tenis casual feminino", "store": "shopee", "max_price": 300.00, "category": "moda"},
+    
+    # 🏠 CASA & DECOR
+    {"term": "sofa retratil cinza", "store": "shopee", "max_price": 2500.00, "category": "casa"},
+    {"term": "luminaria mesa retro", "store": "shopee", "max_price": 150.00, "category": "casa"},
+    {"term": "jogo de panelas ceramic", "store": "amazon", "max_price": 800.00, "category": "casa"},
+    {"term": "kit toalha banho luxo", "store": "amazon", "max_price": 250.00, "category": "casa"},
+    
+    # 💄 BELEZA
+    {"term": "perfume carolina herrera", "store": "amazon", "max_price": 600.00, "category": "beleza"},
+    {"term": "maquiagem batom mac", "store": "amazon", "max_price": 150.00, "category": "beleza"},
+    {"term": "kit skincare cerave", "store": "amazon", "max_price": 300.00, "category": "beleza"},
+
+    # 🍳 ELETRODOMÉSTICOS / ELETRO
+    {"term": "geladeira duplex frost free", "store": "amazon", "max_price": 4000.00, "category": "eletro"},
+    {"term": "air fryer mundial", "store": "shopee", "max_price": 400.00, "category": "eletro"},
+
+    # 🚗 AUTOMOTIVO
+    {"term": "pneu aro 15", "store": "shopee", "max_price": 500.00, "category": "automotivo"},
+    {"term": "central multimidia", "store": "shopee", "max_price": 800.00, "category": "automotivo"}
 ]
 
-# 📅 CATEGORIAS SAZONAIS (Ative conforme a época do ano)
-# Descomente as categorias relevantes para a época:
-
+# 📅 CATEGORIAS SAZONAIS
 SEASONAL_TARGETS = {
-    "natal": [  # Novembro-Dezembro
+    "natal": [
         {"term": "presente natal", "max_price": 500.00},
-        {"term": "decoração natal", "max_price": 200.00},
-        {"term": "brinquedo infantil", "max_price": 300.00}
+        {"term": "decoração natal", "max_price": 200.00}
     ],
-    "dia_das_maes": [  # Abril-Maio
+    "dia_das_maes": [
         {"term": "perfume feminino", "max_price": 400.00},
-        {"term": "joia prata", "max_price": 300.00},
-        {"term": "kit spa", "max_price": 200.00}
-    ],
-    "dia_dos_pais": [  # Julho-Agosto
-        {"term": "kit churrasco", "max_price": 300.00},
-        {"term": "relógio masculino", "max_price": 500.00},
-        {"term": "perfume masculino", "max_price": 400.00}
-    ],
-    "black_friday": [  # Novembro
-        {"term": "smart tv", "max_price": 1000.00},
-        {"term": "notebook", "max_price": 1000.00},
-        {"term": "smartphone", "max_price": 1000.00}
+        {"term": "joia prata", "max_price": 300.00}
     ]
 }
-
-# Para ativar categorias sazonais, descomente a linha abaixo e escolha a categoria:
-# TARGETS.extend([{**item, "store": "amazon", "category": "sazonal"} for item in SEASONAL_TARGETS["natal"]])

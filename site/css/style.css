@@ -2516,3 +2516,114 @@ nav a.active::after {
     display: block !important;
     background: var(--primary-blue) !important;
 }
+/* ========================================
+   TITANIUM ROBUST CONTROLS (v2026_v12)
+   ======================================== */
+.voted-deals {
+    padding-top: 40px;
+    background: #fdfdfd;
+}
+
+.titanium-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.filter-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 1.2px;
+}
+
+.titanium-filter-bar {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 5px;
+    width: 100%;
+    justify-content: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.titanium-filter-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-pill {
+    padding: 10px 22px;
+    border-radius: 50px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.filter-pill:hover {
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+
+.filter-pill.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25);
+}
+
+/* Store Pill Customizations */
+.store-pill { font-size: 1.1rem; padding: 10px 20px; }
+.store-pill.active.amazon { background: #FF9900; border-color: #FF9900; }
+.store-pill.active.mercadolivre { background: #ffe600; color: #333; border-color: #ffe600; }
+.store-pill.active.shopee { background: #ee4d2d; border-color: #ee4d2d; }
+
+/* Best Price Badge Styling */
+.best-price-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #fde68a;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    animation: shineBadge 3s infinite;
+}
+
+.best-price-badge i { color: #f59e0b; }
+
+@keyframes shineBadge {
+    0% { filter: brightness(1); transform: scale(1); }
+    50% { filter: brightness(1.2); transform: scale(1.05); }
+    100% { filter: brightness(1); transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .titanium-filter-bar { justify-content: flex-start; }
+    .filter-pill { padding: 8px 16px; font-size: 0.8rem; }
+}
+/* Interface Limpa: Ocultar controles solicitados */
+.titanium-controls { display: none !important; }

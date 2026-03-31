@@ -239,6 +239,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparisonInput = document.getElementById('comparison-input');
     const comparisonResults = document.getElementById('comparison-results');
 
+    /**
+     * Injeta controles robustos de filtro na seção de Ofertas do Momento
+     */
+    function injectTitaniumControls() {
+        const dealsSection = document.querySelector('.voted-deals .container');
+        if (!dealsSection || dealsSection.querySelector('.titanium-controls')) return;
+
+        const controlsHTML = `
+            <div class="titanium-controls">
+                <div class="filter-group-wrapper">
+                    <span class="filter-label">Buscar por Categoria</span>
+                    <div class="titanium-filter-bar category-bar">
+                        <button class="filter-pill active" data-category="all">⚡ Todas</button>
+                        <button class="filter-pill" data-category="tecnologia">📱 Tech</button>
+                        <button class="filter-pill" data-category="moda">👗 Moda</button>
+                        <button class="filter-pill" data-category="casa">🏠 Casa</button>
+                        <button class="filter-pill" data-category="beleza">💄 Beleza</button>
+                        <button class="filter-pill" data-category="eletro">🍳 Eletro</button>
+                    </div>
+                </div>
+
+                <div class="filter-group-wrapper">
+                    <span class="filter-label">Filtrar por Loja</span>
+                    <div class="titanium-filter-bar store-bar">
+                        <button class="filter-pill store-pill active" data-store="all">Todas</button>
+                        <button class="filter-pill store-pill amazon" data-store="amazon"><i class="fab fa-amazon"></i></button>
+                        <button class="filter-pill store-pill mercadolivre" data-store="mercadolivre"><i class="fas fa-handshake"></i></button>
+                        <button class="filter-pill store-pill shopee" data-store="shopee">S</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const grid = document.getElementById('deals-grid');
+        if (grid) {
+            grid.insertAdjacentHTML('beforebegin', controlsHTML);
+            
+            // Listeners para Categorias
+            document.querySelectorAll('.category-bar .filter-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-bar .filter-pill').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const cat = btn.dataset.category;
+                    const filtered = cat === 'all' ? allDeals : allDeals.filter(d => (d.category || '').toLowerCase() === cat);
+                    renderDeals(filtered);
+                });
+            });
+
+            // Listeners para Lojas
+            document.querySelectorAll('.store-bar .filter-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.store-bar .filter-pill').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentStoreFilter = btn.dataset.store;
+                    renderDeals(allDeals); // renderDeals agora é esperto e filtra internamente
+                });
+            });
+        }
+    }
+
     async function loadDeals() {
         try {
             console.log('[Titanium] Carregando ofertas sincronizadas...');
@@ -247,9 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
             allDeals = (await response.json()).filter(d =>
                 d.store && d.store.toLowerCase().trim() !== 'lomadee'
             );
-            console.log(`[Titanium] ${allDeals.length} ofertas carregadas (Lomadee filtrada).`);
+            console.log(`[Titanium] ${allDeals.length} ofertas carregadas (Catálogo Robusto).`);
 
-            // 🛠️ RESTAURADO: Renderização do Feed Principal
+            // injectTitaniumControls(); // REMOVIDO POR SOLICITAÇÃO (LIMPEZA DE INTERFACE)
             renderDeals(allDeals);
 
             const dealsSection = document.querySelector('.voted-deals');
@@ -258,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             console.error('[Titanium] Erro ao carregar ofertas:', err);
-            allDeals = getFallbackData();
+            // allDeals = getFallbackData();
         }
     }
 
@@ -269,26 +329,34 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderDeals(deals) {
         dealsGrid.innerHTML = '';
 
-        if (deals.length === 0) {
+        // Filtro de Loja Global
+        let finalDeals = currentStoreFilter === 'all' 
+            ? deals 
+            : deals.filter(d => d.store.toLowerCase().includes(currentStoreFilter));
+
+        if (finalDeals.length === 0) {
             dealsGrid.innerHTML = `
-                <div class="loading-state">
-                    <i class="fas fa-search"></i>
-                    <p>Nenhuma oferta encontrada.</p>
+                <div class="loading-state" style="grid-column: 1/-1; padding: 40px; text-align: center;">
+                    <i class="fas fa-search" style="font-size: 2rem; color: #cbd5e1; margin-bottom: 15px;"></i>
+                    <p>Nenhuma oferta encontrada nestas condições.</p>
                 </div>
             `;
             return;
         }
 
         // Sort deals
-        const sortedDeals = sortDeals(deals, currentSort);
+        const sortedDeals = sortDeals(finalDeals, currentSort);
 
-        // Limit to 18 products for a rich display
-        const displayDeals = sortedDeals.slice(0, 18);
+        // Identificar Menor Preço da Vitrine Atual
+        const minPrice = Math.min(...sortedDeals.map(d => parseFloat(d.price) || 999999));
+
+        // Limit to 24 products for a richer display (up from 18)
+        const displayDeals = sortedDeals.slice(0, 24);
 
         displayDeals.forEach(deal => {
-            // Re-vetted Lomadee check even at render level
             if (deal.store && deal.store.toLowerCase().trim() === 'lomadee') return;
-            const card = createDealCard(deal);
+            const isBestPrice = (parseFloat(deal.price) === minPrice) && sortedDeals.length > 2;
+            const card = createDealCard(deal, isBestPrice);
             dealsGrid.appendChild(card);
         });
     }
@@ -300,10 +368,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "https://via.placeholder.com/300" // Example for testing
     ];
 
-    function createDealCard(deal) {
+    function createDealCard(deal, isBestPrice = false) {
         const card = document.createElement('div');
-        card.className = 'product-card';
+        card.className = `product-card ${isBestPrice ? 'card-best-price' : ''}`;
         card.dataset.id = deal.id;
+
+        // Best Price Badge injection
+        const bestPriceHTML = isBestPrice 
+            ? `<div class="best-price-badge"><i class="fas fa-crown"></i> MENOR PREÇO</div>`
+            : '';
 
         // Check if image is in blocklist
         let forceFallback = false;
@@ -405,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
             <div class="card-header">
+                ${bestPriceHTML}
                 <div class="discount-badge-titanium">
                     <div class="titanium-star">
                         <span class="star-text">-${deal.discount}%</span>
@@ -722,7 +796,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // === Category Hub Navigation ===
+    // === Category Hub Navigation (Desativado: Agora o site navega para categoria.html) ===
+    /*
     hubCards.forEach(card => {
         card.addEventListener('click', (e) => {
             // IGNORE SEASONAL AND INTERACTIVE CARDS (They have their own logic/redirects)
@@ -761,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterAndRenderByCategory(category);
         });
     });
+    */
 
 
     // === Main Search Functionality ===
