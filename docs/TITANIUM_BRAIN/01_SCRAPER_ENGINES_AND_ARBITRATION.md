@@ -13,14 +13,13 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 - **Link Builder**: Injects `tag=guiadodesco00-20` and sorts by `price-asc-rank` (Lower Price).
 - **Diversity Engine**: Avoids static vitrine by having `core.orchestrator` shuffle and pick a new subset (`random.sample`) of search terms at every scheduled run.
 
-### 2. Mercado Livre Engine (`scraper/engines/mercadolivre.py` & `meli_api.py`)
-- **Method**: Hybrid Model (Official API + Scraper).
-- **Affiliate Link Builder**: Uses the official **OAuth 2.0** flow. The engine retrieves a valid `access_token` using a `refresh_token` stored in GitHub Secrets.
-- **Matt-Tool System**: Mandatory use of `matt_tool=188269638` (User ID). This is the "Heart" of the ML attribution.
-- **Mobile Fix**: Mandatory inclusion of `forceInApp=true` in search/list links to ensure valid tracking within the ML native app.
-- **Nuclear Search (Fallback)**: Selenium-based scraper used only for real-time price validation if the API returns 403 (restricted endpoints).
-- **⚠️ SVG Soft-Block (2026-03-19):** When the ML listing page is under high load or bot-pressure, it may serve its own logo `.svg` file as the product image instead of the real photo. **The scraper MUST explicitly filter out any image URL containing `.svg` or `logos-api-admin`**. The `search_mercadolivre()` function in `mercadolivre.py` now validates images directly from the `poly-card` element before scraping the product page, saving time and avoiding this trap.
-- **⚠️ URL Key Bug:** The `format_ml_product_for_site()` in `meli_api.py` must use key `link` (not `url`) to retrieve the product URL from the scraper's return dict. This caused all ML items to have empty affiliate links until fixed on 2026-03-19.
+### 2. Mercado Livre Engine (⚠️ DEPRECATED IN v1.4)
+- **Status**: Desativado permanentemente em 2026-03-31 a pedido do usuário.
+- **Motivo**: Instabilidade crônica da API (erros 403), frequentes bloqueios de IP (Soft Blocks) que retornavam imagens SVG falsas e falhas de rastreio de afiliação na versão mobile.
+- **Ação**: Todo o fluxo de busca destinado ao Mercado Livre (`store_target == 'mercadolivre'`) foi removido do `core/orchestrator.py` e focado 100% em Amazon e Shopee. Documentação legada mantida abaixo apenas para fins de arquivamento:
+  - *Legado:* Método Híbrido (API + Scraper Selenium).
+  - *Legado:* SVG Soft-Block trapping (exigia filtragem severa).
+  - *Legado:* Obrigatoriedade de `forceInApp=true` e `matt_tool`.
 
 ### 3. Shopee Engine (`scraper/engines/shopee_affiliate.py`)
 - **Method**: REST API v4.
@@ -28,14 +27,21 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
 - **Deep Link Strategy**: For search-based results, use the `/list/` path instead of `/search` to avoid the "Shop failed to load" error in the mobile app.
 - **ID Standard**: Use numeric `an_...` IDs in `utm_source` for maximum compatibility.
 
-## 🤖 The AI Arbitration Layer
-After gathering results, Titanium doesn't just pick the lowest price. It performs "Intelligent Curation".
+## 🤖 The AI Arbitration & Titanium Balancer (v1.4)
+The system goes beyond simplistic price picking by enforcing logical curations and, crucially, a visual balance in the UI.
 
-### The `decidir_com_fallback` Logic:
+### 1. The `decidir_com_fallback` Curation Logic:
 1.  **AI Analysis**: The engine sends the search term and the top 3 results to **Groq (Llama 3.3 70B)**.
 2.  **Scoring**: The AI evaluates title relevance, brand quality, and price competitiveness.
 3.  **The Veto**: If the AI detects a "mismatch" (e.g., search for "iPhone" returns a "Case"), it discards the result.
 4.  **Fail-Safe**: If the AI is slow or fails, the system defaults to the **Lowest Price** among verified/available products.
+
+### 2. The Titanium Balancer (Introduced 2026-03-31):
+After all products (`trends_only` + `unique_fixed`) have been curated, standardized, and sanitized, they pass through the `TITANIUM_BALANCER` inside `orchestrator.py`:
+- **Forced Parity**: The algorithm aggregates the sanitized products and splits them strictly by `.lower() == 'shopee'` and `.lower() == 'amazon'`.
+- **Interleaving Algorithm**: It determines a `target_per_store` (currently set at 27). It slices each list up to the target amount.
+- **Alternating Output**: It then iterates and interleaves the final list (`shopee[0]`, `amazon[0]`, `shopee[1]`, `amazon[1]`), guaranteeing the end-user perceives exactly a 50/50 exposure when browsing the grid.
+- **Fail-Safe Fallback**: If one store fails (e.g. Amazon blocks due to Selenium rate limiting), the balancer absorbs the available items from the other store to maintain UI consistency up to the target length (`len(final_list) > 0`).
 
 ## 💾 Cache Management
 Results are cached in `state/arbitro_cache.json` for **5 minutes (300 seconds)**.
