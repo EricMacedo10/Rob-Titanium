@@ -162,6 +162,43 @@ def main():
             else:
                 print(f"⚠️ Duplicata removida: {p.get('title')}")
                 
+        final_list = trends_only + unique_fixed
+        
+        # Final Filtering & Sanitation
+        sanitized_list = []
+        seen_titles = set()
+        
+        for p in final_list:
+            # 1. Validation Logic
+            title = p.get('title')
+            price = p.get('price')
+            link = p.get('link') or p.get('link_afiliado')
+            image = p.get('image') or p.get('imagem')
+            
+            # Skip INVALID products (Protection against failed scrapes)
+            if not title: continue
+            if not price or price == float('inf') or price <= 0: continue
+            if not link or "http" not in link: continue
+            if not image or "http" not in image: continue
+            
+            # Normalize Store Name
+            store_raw = p.get('store', '')
+            if 'mercadolivre' in store_raw.lower().replace(' ', ''):
+                p['store'] = 'Mercado Livre'
+            
+            # 2. Duplicate Prevention
+            norm_title = title.lower().strip()
+            if norm_title in seen_titles: continue
+            seen_titles.add(norm_title)
+            
+            # 3. Standardize Keys
+            p['image'] = image 
+            p['link'] = link   
+            
+            sanitized_list.append(p)
+            
+        final_list = sanitized_list
+
         # 🛡️ TITANIUM BALANCER (v1.4)
         # Garante 50% Shopee e 50% Amazon no catálogo final
         shopee_deals = [p for p in final_list if p.get('store', '').lower() == 'shopee']
