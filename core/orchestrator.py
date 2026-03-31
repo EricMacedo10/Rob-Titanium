@@ -243,8 +243,9 @@ def main():
     ftp_host = os.getenv('FTP_HOST')
     ftp_user = os.getenv('FTP_USER')
     ftp_pass = os.getenv('FTP_PASS')
+    env_mode = os.getenv('ENV_MODE', 'PRODUCTION')
     
-    print(f"   DEBUG: Host={'Configurado' if ftp_host else 'MISSING'}, User={'Configurado' if ftp_user else 'MISSING'}")
+    print(f"   DEBUG: Host={'Configurado' if ftp_host else 'MISSING'}, User={'Configurado' if ftp_user else 'MISSING'}, Env={env_mode}")
 
     if ftp_host and ftp_user and ftp_pass:
         # 🛡️ ISOLAMENTO POR AMBIENTE: Sincronizar Arquivos de Dados
