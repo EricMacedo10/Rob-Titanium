@@ -47,80 +47,42 @@ def update_manual_targets():
     
     for i, target in enumerate(selected_targets):
         term = target['term']
-        store_target = target.get('store', 'all')
-        print(f"\n--- [{i+1}/{len(selected_targets)}] Buscando: {term} (Loja: {store_target}) ---")
+        print(f"\n--- [{i+1}/{len(selected_targets)}] Minerando Shopee: {term} ---")
         
         try:
-            # Respect store targeting
-            # --- Mercado Livre: [REMOVIDO POR SOLICITAÇÃO - FOCO 50/50 AMAZON/SHOPEE] ---
-            if store_target == 'mercadolivre':
-                continue # Pula ML
-            elif store_target == 'lomadee':
-                from scraper.engines.lomadee_api import search_lomadee
-                res = search_lomadee(term, limit=5)
-                if res and len(res) > 0:
-                    for prod in res:
-                        if prod and prod.get('preco') and prod.get('preco') != float('inf'):
-                            analise = {"motivo": f"Oferta Direta Lomadee para {term}"}
-                            formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
-                            new_products.append(formatted)
-                    continue # Skip general processing for this target
-            elif store_target == 'shopee':
-                import asyncio
-                from scraper.engines.shopee_affiliate import search_shopee
-                res = search_shopee(term, limit=5)
-                if res and len(res) > 0:
-                    for prod in res:
-                        if prod and prod.get('preco') and prod.get('preco') != float('inf'):
-                            analise = {"motivo": f"Oferta Direta Shopee para {term}"}
-                            formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
-                            new_products.append(formatted)
-                    continue # Skip general processing for this target
-            elif store_target == 'amazon':
-                # Use Arbitro but specifically for Amazon (it handles the loop)
-                import asyncio
-                res = asyncio.run(arbitro.buscar_amazon(term))
-                prod = res if res and res.get('disponivel') else None
-                analise = {"motivo": f"Oferta Direta Amazon para {term}"}
+            # Foco Exclusivo: Shopee API Titanium
+            from scraper.engines.shopee_affiliate import search_shopee
+            res = search_shopee(term, limit=10) # Aumentado para 10 para compensar outras lojas
+
+            if res and len(res) > 0:
+                for prod in res:
+                    if prod and prod.get('preco') and prod.get('preco') != float('inf'):
+                        analise = {"motivo": f"Curadoria Titanium: {term}"}
+                        formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
+                        new_products.append(formatted)
+                print(f"✅ Shopee Encontrou {len(res)} itens para {term}")
             else:
-                # DEFAULT: Cross-store arbitration (IA chooses best)
-                resultado = arbitro.processar_pedido(term)
-                prod = resultado.get('melhor_produto') if resultado else None
-                analise = resultado.get('analise_ia', {}) if resultado else {}
-            
-            if prod and prod.get('preco') and prod.get('preco') != float('inf'):
-                formatted = _format_product_for_site(prod, analise, i, target.get('category', 'geral'))
-                new_products.append(formatted)
-                print(f"✅ Encontrado: {formatted['title'][:40]}... (R$ {formatted['price']})")
-            else:
-                print(f"⚠️ Nenhum produto encontrado para {term}")
+                print(f"⚠️ Nenhum produto Shopee para {term}")
                 
         except Exception as e:
             print(f"❌ Erro ao buscar {term}: {e}")
             
-        # Delay anti-ban
-        time.sleep(random.uniform(2, 5))
+        # Delay anti-ban (mais curto pois a API da Shopee é robusta)
+        time.sleep(random.uniform(1, 2))
         
     return new_products
 
 def main():
-    print("🚀 INICIANDO ATUALIZAÇÃO AUTOMÁTICA DE OFERTAS")
+    print("🚀 INICIANDO ATUALIZAÇÃO AUTOMÁTICA: BOUTIQUE TITANIUM (SHOPEE EXCLUSIVE)")
     
     # Ensure site directory exists
     os.makedirs('site', exist_ok=True)
     
-    # 1. Update ML Trends
-    print(">>> Executando ML Trends...")
-    print("⚠️ ML Trends Temporariamente Desativado (Aguardando Proxy)")
-    # try:
-    #     # update_site_with_trends reads limits internally and updates data.json
-    #     # We perform it first so we have a base
-    #     update_site_with_trends(DATA_FILE)
-    # except Exception as e:
-    #     print(f"❌ Falha ao atualizar trends: {e}")
+    # 1. Update ML Trends (DESATIVADO - BOUTIQUE SHOPEE)
+    print(">>> Status: Mercado Livre Trends Desativado (Boutique Shopee Exclusive)")
         
     # 2. Update Manual Targets
-    print("\n>>> Executando Targets Manuais...")
+    print("\n>>> Executando Minerador de Alta Precisão (Shopee)...")
     fixed_products = []
     try:
         fixed_products = update_manual_targets()
@@ -131,7 +93,7 @@ def main():
     final_list = []
     
     if fixed_products:
-        print(f"\nMesclando {len(fixed_products)} novos produtos fixos...")
+        print(f"\nConsolidando {len(fixed_products)} novas ofertas extraídas...")
         
         try:
             with open(DATA_FILE, 'r', encoding='utf-8') as f:
@@ -140,33 +102,31 @@ def main():
             current_data = []
             
         # Strategy: 
-        # - Keep recent Trends (id starts with trend_) 
-        # - Discard old Fixed products (id starts with prod_) to replace with new ones
-        # - PREVENT DUPLICATES: Check if new fixed product is already in trends
+        # - Keep recent Shopee verified products
+        # - Discard old products to refresh the boutique
         
-        trends_only = [p for p in current_data if str(p.get('id', '')).startswith('trend_')]
+        # Filtramos para manter apenas Shopee se houver resquícios
+        current_shopee = [p for p in current_data if p.get('store', '').lower() == 'shopee']
         
-        # Create set of normalized titles from trends for fast lookup
-        trend_titles = {str(p.get('title', '')).lower().strip() for p in trends_only}
+        # Create set of normalized titles for fast lookup
+        seen_titles = {str(p.get('title', '')).lower().strip() for p in current_shopee}
         
-        unique_fixed = []
+        unique_new = []
         for p in fixed_products:
             p_title = str(p.get('title', '')).lower().strip()
             # Validate image and title
             if not p.get('image') or not p_title:
                 continue
 
-            if p_title not in trend_titles:
-                unique_fixed.append(p)
-                trend_titles.add(p_title) # Prevent internal duplicates too
-            else:
-                print(f"⚠️ Duplicata removida: {p.get('title')}")
+            if p_title not in seen_titles:
+                unique_new.append(p)
+                seen_titles.add(p_title) 
                 
-        final_list = trends_only + unique_fixed
+        final_list = current_shopee[:12] + unique_new # Mantém 12 antigos + novos
         
         # Final Filtering & Sanitation
         sanitized_list = []
-        seen_titles = set()
+        final_seen = set()
         
         for p in final_list:
             # 1. Validation Logic
@@ -175,50 +135,27 @@ def main():
             link = p.get('link') or p.get('link_afiliado')
             image = p.get('image') or p.get('imagem')
             
-            # Skip INVALID products (Protection against failed scrapes)
+            # Skip INVALID products
             if not title: continue
             if not price or price == float('inf') or price <= 0: continue
             if not link or "http" not in link: continue
             if not image or "http" not in image: continue
             
-            # Normalize Store Name
-            store_raw = p.get('store', '')
-            if 'mercadolivre' in store_raw.lower().replace(' ', ''):
-                p['store'] = 'Mercado Livre'
-            
             # 2. Duplicate Prevention
             norm_title = title.lower().strip()
-            if norm_title in seen_titles: continue
-            seen_titles.add(norm_title)
+            if norm_title in final_seen: continue
+            final_seen.add(norm_title)
             
-            # 3. Standardize Keys
+            # 3. Standardize Keys & Forced Store Name
             p['image'] = image 
             p['link'] = link   
+            p['store'] = 'Shopee'
             
             sanitized_list.append(p)
             
         final_list = sanitized_list
 
-        # 🛡️ TITANIUM BALANCER (v1.4)
-        # Garante 50% Shopee e 50% Amazon no catálogo final
-        shopee_deals = [p for p in final_list if p.get('store', '').lower() == 'shopee']
-        amazon_deals = [p for p in final_list if p.get('store', '').lower() == 'amazon']
-        
-        print(f"\n⚖️ Balanceando Catálogo (Shopee: {len(shopee_deals)} / Amazon: {len(amazon_deals)})")
-        
-        # Define o tamanho de cada fatia (ex: 55 total -> 27 de cada)
-        target_per_store = 27 
-        shopee_balanced = shopee_deals[:target_per_store]
-        amazon_balanced = amazon_deals[:target_per_store]
-        
-        # Intercala os produtos para uma vitrine variada
-        balanced_list = []
-        for i in range(max(len(shopee_balanced), len(amazon_balanced))):
-            if i < len(shopee_balanced): balanced_list.append(shopee_balanced[i])
-            if i < len(amazon_balanced): balanced_list.append(amazon_balanced[i])
-            
-        final_list = balanced_list
-        print(f"✅ Catálogo final balanceado com {len(final_list)} produtos.")
+        print(f"\n✨ SUCESSO! Catálogo Titanium 100% Shopee com {len(final_list)} produtos.")
         
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)

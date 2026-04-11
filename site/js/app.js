@@ -6,24 +6,27 @@
 const TITANIUM_CONFIG = {
     // Tags reais de afiliado
     TAGS: {
-        amazon: "guiadodesco00-20",     // ✅ Amazon Associates
-        mercadolivre: "ericmacedo",     // ✅ ML Afiliados (via Share Flow)
-        shopee: "ericmacedo"            // ✅ Tag Shopee (Mantida p/ compatibilidade)
+        shopee: "an_18318830863"
     },
-    // Mercado Livre - Configuração OAuth
+    // Configurações de Afiliado Legadas (vazias para evitar crashes)
     ML_AFFILIATE: {
-        userId: "188269638",             // User ID obtido via OAuth
-        source: "guiadodesconto",        // Identificador da fonte
-        trackingPrefix: "gdd"            // Prefixo para tracking_id
+        userId: "188269638",
+        source: "guiadodesconto",
+        trackingPrefix: "titanium"
     },
-    // Prioridade de redirecionamento (fallback)
-    PRIORIDADE: ['amazon', 'mercadolivre', 'shopee'],
-    // Status das lojas
+    // Foco Total Shopee
     STATUS: {
-        amazon: true,
-        mercadolivre: true,
-        shopee: true,
-        lomadee: false
+        shopee: true
+    },
+    // MAESTRO ENGINE: Curação Senior por Horário (Invisível ao Usuário)
+    MAESTRO: {
+        RULES: [
+            { id: 'madrugada', start: 23, end: 7, title: "🛍️ Ofertas do Momento", category: 'any', minDiscount: 40, label: "Super Descontos" },
+            { id: 'manha', start: 7, end: 11, title: "🛍️ Ofertas do Momento", category: 'casa', minDiscount: 0, label: "Casa & Bem-Estar" },
+            { id: 'almoco', start: 11, end: 14, title: "🛍️ Ofertas do Momento", category: 'tecnologia', minDiscount: 20, label: "Tech & Gadgets" },
+            { id: 'tarde', start: 14, end: 18, title: "🛍️ Ofertas do Momento", category: 'moda', minDiscount: 0, label: "Moda & Estilo" },
+            { id: 'primetime', start: 18, end: 23, title: "🛍️ Ofertas do Momento", category: 'any', minDiscount: 25, label: "Best Sellers" }
+        ]
     }
 };
 
@@ -110,68 +113,88 @@ function buildShopeeAffiliateUrl(searchTerm) {
  * @param {string} categoria - Nome da categoria
  * @param {string} lojaPreferida - Loja específica (opcional)
  */
-function titaniumRedirect(categoria, lojaPreferida = null) {
-    let loja = lojaPreferida;
-
-    // Se não especificou loja ou loja não está disponível, usa fallback
-    if (!loja || !TITANIUM_CONFIG.STATUS[loja]) {
-        loja = TITANIUM_CONFIG.PRIORIDADE.find(l => TITANIUM_CONFIG.STATUS[l]);
-    }
-
-    // Normalizar nome da loja para garantir o match no switch
-    // Ex: "Mercado Livre" -> "mercadolivre"
-    loja = loja.toLowerCase().replace(/\s+/g, '');
-
-    const tag = TITANIUM_CONFIG.TAGS[loja];
-    let urlFinal = "";
-
-    console.log(`[Titanium] Redirecionando "${categoria}" para ${loja} (tag: ${tag})`);
-
-    switch (loja) {
-        case 'amazon':
-            // Amazon: busca com tag de afiliado + filtro menor preço
-            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${tag}&s=price-asc-rank`;
-            break;
-
-        case 'mercadolivre':
-            // ML: usa função otimizada para garantir tracking
-            urlFinal = buildMLAffiliateUrl(categoria);
-            break;
-
-        case 'shopee':
-            // Shopee: Fallback para busca direta (MVP)
-            urlFinal = buildShopeeAffiliateUrl(categoria);
-            break;
-
-        default:
-            // Fallback padrão: Amazon
-            urlFinal = `https://www.amazon.com.br/s?k=${encodeURIComponent(categoria)}&tag=${tag}`;
-            break;
-    }
-
-    // === SECURITY: VALIDAÇÃO DE URL (v1140) ===
-    const dominiosPermitidos = ['amazon.com.br', 'mercadolivre.com.br', 'shopee.com.br'];
-    const isUrlSegura = dominiosPermitidos.some(d => urlFinal.includes(d));
-
-    if (!isUrlSegura) {
-        console.error('[Titanium Security] Bloqueio de Redirecionamento Suspeito:', urlFinal);
-        return;
-    }
-
-    if (urlFinal) {
-        // Abre em nova aba
-        window.open(urlFinal, '_blank');
-
-        // Log para debug
-        console.log('[Titanium] URL final:', urlFinal);
+// --- TITANIUM SMART DEEP LINKING (App-First Conversion Strategy) ---
+function titaniumDeepLink(query) {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const shopeeTag = TITANIUM_CONFIG.TAGS.shopee;
+    const webUrl = `https://shopee.com.br/search?keyword=${encodeURIComponent(query)}&utm_source=${shopeeTag}`;
+    
+    if (isMobile) {
+        // Tentativa de Deep Link para abrir o App direto (Shopee Protocol)
+        // O navegador tentará abrir o App; se falhar em 500ms, abre a Web
+        const appUrl = `shopeebrazil://search?keyword=${encodeURIComponent(query)}`;
+        
+        const now = Date.now();
+        setTimeout(() => {
+            if (Date.now() - now < 1000) {
+                window.location.href = webUrl;
+            }
+        }, 500);
+        
+        window.location.href = appUrl;
+    } else {
+        window.open(webUrl, '_blank');
     }
 }
 
-// Expor função globalmente para uso no HTML
-window.titaniumRedirect = titaniumRedirect;
+function titaniumRedirect(categoria) {
+    const urlFinal = buildShopeeAffiliateUrl(categoria);
+    window.open(urlFinal, '_blank');
+}
 
 /**
- * Handles image load errors by replacing the image with a store-branded fallback card
+ * TITANIUM LINK AUDITOR (v1.5)
+ * Garante que todo link de saída possua a tag de afiliado correta.
+ * @param {string} rawUrl - URL original do banco de dados
+ * @param {string} storeHint - Dica da loja (opcional)
+ * @returns {string} URL auditada e com tag
+ */
+function titaniumLinkAuditor(rawUrl, storeHint = "") {
+    if (!rawUrl) return rawUrl;
+    
+    let url = rawUrl;
+    const store = (storeHint || "").toLowerCase();
+    const config = TITANIUM_CONFIG.TAGS;
+
+    try {
+        // --- AUDITORIA AMAZON ---
+        if (url.includes('amazon.com.br') && !url.includes('tag=')) {
+            const separator = url.includes('?') ? '&' : '?';
+            url = `${url}${separator}tag=${config.amazon}`;
+            console.log('[Titanium Auditor] Tag Amazon injetada via Auditoria.');
+        }
+
+        // --- AUDITORIA SHOPEE (Deep Linking Dinâmico) ---
+        if (url.includes('shopee.com.br')) {
+            // Se for link direto (não for link curto s.shopee ou shope.ee) e não tiver tag
+            if (!url.includes('utm_source=') && !url.includes('s.shopee.com.br') && !url.includes('shope.ee')) {
+                const shopeeID = "an_18318830863"; // ID oficial do Eric
+                const separator = url.includes('?') ? '&' : '?';
+                url = `${url}${separator}utm_source=${shopeeID}`;
+                console.log('[Titanium Auditor] Tag Shopee injetada via Auditoria.');
+            }
+        }
+
+        // --- AUDITORIA MERCADO LIVRE ---
+        if (url.includes('mercadolivre.com.br') && !url.includes('matt_tool=')) {
+            const mlConfig = TITANIUM_CONFIG.ML_AFFILIATE;
+            const separator = url.includes('?') ? '&' : '?';
+            url = `${url}${separator}matt_tool=${mlConfig.userId}&matt_source=${mlConfig.source}`;
+            console.log('[Titanium Auditor] Tag ML injetada via Auditoria.');
+        }
+
+    } catch (e) {
+        console.error('[Titanium Auditor] Erro na auditoria:', e);
+    }
+
+    return url;
+}
+
+// Expor globalmente
+window.titaniumLinkAuditor = titaniumLinkAuditor;
+
+/**
+ * Redireciona para busca na loja com tag de afiliado
  * @param {HTMLImageElement} imgElement - The image element that failed to load
  * @param {string} storeName - The name of the store (Amazon, Mercado Livre, Shopee)
  * @param {string} productTitle - The title of the product
@@ -300,26 +323,104 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadDeals() {
+        const statusLabel = document.getElementById('maestro-status-label');
         try {
-            console.log('[Titanium] Carregando ofertas sincronizadas...');
-            const response = await fetch('data.json?v=' + Date.now());
-            if (!response.ok) throw new Error('Falha ao carregar data.json');
-            allDeals = (await response.json()).filter(d =>
-                d.store && d.store.toLowerCase().trim() !== 'lomadee'
-            );
-            console.log(`[Titanium] ${allDeals.length} ofertas carregadas (Catálogo Robusto).`);
+            console.log('[Titanium] Lançando Carga Nuclear de Ofertas...');
+            if (statusLabel) statusLabel.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Robô Titanium: Conectando à base de dados...';
 
-            // injectTitaniumControls(); // REMOVIDO POR SOLICITAÇÃO (LIMPEZA DE INTERFACE)
+            const response = await fetch('data.json?v=' + Date.now());
+            if (!response.ok) throw new Error(`HTTP ${response.status}: Falha ao acessar data.json`);
+
+            const rawData = await response.json();
+            allDeals = Array.isArray(rawData) ? rawData : [];
+            
+            if (allDeals.length === 0) {
+                 if (statusLabel) statusLabel.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Atenção: Base de dados vazia.';
+                 return;
+            }
+
+            console.log(`[Titanium] Sucesso! ${allDeals.length} ofertas prontas.`);
+            
+            // 1. Mostrar tudo imediatamente (Garantir que não fique em branco)
             renderDeals(allDeals);
 
+            // 2. Aplicar Curação Maestro após 100ms
+            setTimeout(() => {
+                applyMaestroCuration();
+                // 3. Ativar atualização periódica
+                setInterval(applyMaestroCuration, 300000); 
+            }, 100);
+
             const dealsSection = document.querySelector('.voted-deals');
-            if (dealsSection && allDeals.length > 0) {
-                dealsSection.style.display = 'block';
-            }
+            if (dealsSection) dealsSection.style.display = 'block';
+
         } catch (err) {
-            console.error('[Titanium] Erro ao carregar ofertas:', err);
-            // allDeals = getFallbackData();
+            console.error('[Titanium Critical Error]', err);
+            if (statusLabel) {
+                statusLabel.style.color = "#ff4500";
+                statusLabel.innerHTML = `<i class="fas fa-bug"></i> ERRO CRÍTICO: ${err.message}`;
+            }
+            dealsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; border:2px dashed #ff4500; color:#ff4500;">
+                <h3>⚠️ O Robô Titanium detectou uma falha</h3>
+                <p>O arquivo de ofertas <strong>data.json</strong> não pôde ser lido corretamente pelo Localhost.</p>
+                <small>${err.message}</small>
+            </div>`;
         }
+    }
+
+    function applyMaestroCuration() {
+        if (!allDeals || allDeals.length === 0) return;
+        
+        const currentHour = new Date().getHours();
+        const activeRule = TITANIUM_CONFIG.MAESTRO.RULES.find(r => {
+            if (r.start > r.end) return currentHour >= r.start || currentHour < r.end;
+            return currentHour >= r.start && currentHour < r.end;
+        });
+
+        if (!activeRule) return;
+
+        console.log(`[Maestro Engine] Ativando Curação: ${activeRule.title}`);
+
+        const maestroStatus = document.getElementById('maestro-status-label');
+        if (maestroStatus) {
+            maestroStatus.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Vitrine Ativa: <strong>${activeRule.label}</strong>`;
+        }
+
+        // 1. Filtrar Categoria Prioritária
+        let curatedDeals = [];
+        if (activeRule.category !== 'any') {
+            curatedDeals = allDeals.filter(d => (d.category || '').toLowerCase().includes(activeRule.category.toLowerCase()));
+        }
+
+        // 2. Aplicar Filtro de Desconto Mínimo na Categoria e Ordenar
+        curatedDeals = curatedDeals.filter(d => (d.discount || 0) >= activeRule.minDiscount);
+        curatedDeals.sort((a,b) => (b.discount || 0) - (a.discount || 0));
+
+        // 3. BACKFILL (Preenchimento Sênior): Se tiver menos de 24, completa com as melhores gerais
+        if (curatedDeals.length < 24) {
+            console.log(`[Maestro] Preenchendo vitrine: ${curatedDeals.length} de ${activeRule.label} encontrados. Para simetria de grade (3 colunas), completando para 24...`);
+            
+            // Pega IDs já selecionados para não duplicar
+            const selectedIds = new Set(curatedDeals.map(d => d.id));
+            
+            // Busca melhores ofertas gerais que não estão na lista
+            const fillPool = [...allDeals]
+                .filter(d => !selectedIds.has(d.id))
+                .sort((a,b) => (b.discount || 0) - (a.discount || 0));
+            
+            // Adiciona o restante necessário
+            const missingCount = 24 - curatedDeals.length;
+            curatedDeals = [...curatedDeals, ...fillPool.slice(0, missingCount)];
+        }
+
+        const finalSelection = curatedDeals.slice(0, 24);
+
+        const sectionTitle = document.querySelector('.section-title');
+        if (sectionTitle && (!searchInput || !searchInput.value)) {
+            sectionTitle.innerHTML = activeRule.title;
+        }
+
+        renderDeals(finalSelection);
     }
 
     // Inicializa carregamento
@@ -350,14 +451,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Identificar Menor Preço da Vitrine Atual
         const minPrice = Math.min(...sortedDeals.map(d => parseFloat(d.price) || 999999));
 
-        // Limit to 24 products for a richer display (up from 18)
+        // Limit to 24 products for perfect grid symmetry (8 rows of 3)
         const displayDeals = sortedDeals.slice(0, 24);
 
         displayDeals.forEach(deal => {
-            if (deal.store && deal.store.toLowerCase().trim() === 'lomadee') return;
-            const isBestPrice = (parseFloat(deal.price) === minPrice) && sortedDeals.length > 2;
-            const card = createDealCard(deal, isBestPrice);
-            dealsGrid.appendChild(card);
+            try {
+                if (deal.store && deal.store.toLowerCase().trim() === 'lomadee') return;
+                const isBestPrice = (parseFloat(deal.price) === minPrice) && sortedDeals.length > 2;
+                const card = createDealCard(deal, isBestPrice);
+                dealsGrid.appendChild(card);
+            } catch (cardErr) {
+                console.warn('[Titanium] Pulando card com erro:', deal.title, cardErr);
+            }
         });
     }
 
@@ -368,168 +473,75 @@ document.addEventListener('DOMContentLoaded', () => {
         "https://via.placeholder.com/300" // Example for testing
     ];
 
-    function createDealCard(deal, isBestPrice = false) {
+    function createDealCard(deal) {
         const card = document.createElement('div');
-        card.className = `product-card ${isBestPrice ? 'card-best-price' : ''}`;
+        card.className = `product-card`;
         card.dataset.id = deal.id;
 
-        // Best Price Badge injection
-        const bestPriceHTML = isBestPrice 
-            ? `<div class="best-price-badge"><i class="fas fa-crown"></i> MENOR PREÇO</div>`
-            : '';
-
-        // Check if image is in blocklist
-        let forceFallback = false;
-        if (!deal.image || BLOCKED_IMAGES.some(blocked => deal.image.includes(blocked))) {
-            forceFallback = true;
-        }
-
-        // Format prices
-        const formatter = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
-
+        // Formatação de Preços
+        const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
         const formattedPrice = formatter.format(deal.price);
         const formattedOldPrice = deal.old_price ? formatter.format(deal.old_price) : '';
 
-        // Truncate title to 60 characters with tooltip
-        const MAX_TITLE_LENGTH = 60;
-        const fullTitle = deal.title;
-        const displayTitle = fullTitle.length > MAX_TITLE_LENGTH
-            ? fullTitle.substring(0, MAX_TITLE_LENGTH) + '...'
-            : fullTitle;
-
-        // Store badge styling
-        let storeIcon = '';
-        let storeColor = '';
-        const storeLower = deal.store.toLowerCase();
-
-        if (storeLower.includes('amazon')) {
-            storeIcon = '<i class="fa-brands fa-amazon"></i>';
-            storeColor = '#FF9900';
-        } else if (storeLower.includes('shopee')) {
-            storeIcon = 'S';
-            storeColor = '#ee4d2d';
+        // Definindo Badges Dinâmicos (Gatilhos do Print Bonito)
+        const leftBadges = [];
+        if (deal.discount >= 20) {
+            leftBadges.push(`<div class="mini-badge green"><i class="fas fa-arrow-trend-down"></i> MENOR PREÇO 30D</div>`);
         } else {
-            storeIcon = '<i class="fa-solid fa-handshake"></i>';
-            storeColor = '#ffe600';
-        }
-
-        // Vote status
-        const userVote = userVotes[deal.id] || 0;
-        const voteCount = (deal.votes || 0) + (userVote === 1 ? 1 : userVote === -1 ? -1 : 0);
-
-        // Intelligence Badges calculation (Magnéticos v2026)
-        let intelBadgeHTML = '';
-        const impulsePhrases = [
-            { text: 'Viral no TikTok', icon: 'fa-brands fa-tiktok', class: 'tiktok-viral' },
-            { text: 'Estoque Crítico', icon: 'fa-fas fa-hourglass-half', class: 'low-stock' },
-            { text: 'Campeão de Vendas', icon: 'fas fa-trophy', class: 'best-seller' },
-            { text: 'Menor Preço 30d', icon: 'fas fa-arrow-trend-down', class: 'price-drop' },
-            { text: 'Oferta Relâmpago', icon: 'fas fa-bolt', class: 'flash-deal' }
-        ];
-
-        // Se o desconto for muito alto, força "Menor Preço" ou "Relâmpago"
-        if (deal.discount >= 25) {
-            intelBadgeHTML = `<div class="intel-badge flash-deal"><i class="fas fa-bolt"></i> Oferta Relâmpago</div>`;
-        } else {
-            // Caso contrário, sorteia um gatilho mental para atrair o clique baseado no ID
-            const phraseIdx = Math.abs(deal.id.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % impulsePhrases.length;
-            const chosen = impulsePhrases[phraseIdx];
-            intelBadgeHTML = `<div class="intel-badge ${chosen.class}"><i class="${chosen.icon}"></i> ${chosen.text}</div>`;
-        }
-
-        // Check for blocked images
-
-        // Pre-calculate fallback HTML if forced
-        let imageHTML = '';
-        if (forceFallback) {
-            const storeLower = deal.store.toLowerCase().replace(/\s+/g, '');
-            let contentHTML = '';
-
-            if (storeLower.includes('amazon')) {
-                contentHTML = '<i class="fa-brands fa-amazon"></i>';
-            } else if (storeLower.includes('mercadolivre')) {
-                contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
-            } else if (storeLower.includes('shopee')) {
-                // Shopee: Construct a "Logo" using Icon + Text to ensure it looks good (White Bag + Color S)
-                contentHTML = `
-                    <div class="shopee-logo-composite">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <span class="shopee-s">S</span>
-                    </div>`;
-            } else {
-                contentHTML = '<i class="fa-solid fa-shopping-bag"></i>';
-            }
-
-            imageHTML = `
-                <div class="image-container" style="width: 100%; height: 100%;">
-                    <div class="fallback-card ${storeLower}">
-                        ${contentHTML}
-                    </div>
-                </div>`;
-        } else {
-            imageHTML = `
-                <div class="image-container" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                    <img src="${deal.image}" alt="${fullTitle}" loading="lazy" onerror="handleImageError(this, '${deal.store}', '${fullTitle}')" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                </div>`;
+            leftBadges.push(`<div class="mini-badge red"><i class="fas fa-fire"></i> ESTOQUE CRÍTICO</div>`);
         }
 
         card.innerHTML = `
-            <div class="card-header">
-                ${bestPriceHTML}
-                <div class="discount-badge-titanium">
-                    <div class="titanium-star">
-                        <span class="star-text">-${deal.discount}%</span>
+            <div class="card-image-area">
+                <!-- Top Left: Pills (Padrão Boutique) -->
+                <div class="badge-group-left">
+                    ${leftBadges.join('')}
+                </div>
+
+                <!-- Top Right: Star & Hand (Curadoria Humana) -->
+                <div class="badge-group-right">
+                    <div class="discount-star-modern">
+                        <span>${deal.discount}%</span>
                     </div>
-                    <div class="titanium-hand">
-                        <i class="fa-solid fa-hand-holding"></i>
+                    <div class="verified-hand">
+                        <i class="fa-solid fa-hand-holding-check"></i>
                     </div>
                 </div>
-                <div class="vote-container">
-                    <button class="vote-btn vote-up ${userVote === 1 ? 'active' : ''}" data-id="${deal.id}">
-                        <i class="fas fa-chevron-up"></i>
-                    </button>
-                    <span class="vote-count" title="Temperatura da Oferta (Saldo de Votos)">🔥 ${voteCount}</span>
-                    <button class="vote-btn vote-down ${userVote === -1 ? 'active' : ''}" data-id="${deal.id}">
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
+
+                <div class="card-image">
+                    <img src="${deal.image}" alt="${deal.title}" loading="lazy" onerror="handleImageError(this, 'Shopee', '${deal.title}')">
                 </div>
-                ${intelBadgeHTML}
-                ${imageHTML}
-                <div class="store-badge" style="background:${storeColor}">
-                    ${storeIcon} ${deal.store}
+
+                <!-- Base da Imagem: Tag Shopee Boutique -->
+                <div class="shopee-pill-tag">
+                    <i class="fa-solid fa-bag-shopping"></i> Shopee
                 </div>
             </div>
-            <div class="card-body">
-                <div class="verified-badge" title="Link verificado pelo Robô Titanium contra golpes.">
-                    <i class="fa-solid fa-shield-check"></i> Link Seguro Verificado
+
+            <!-- SECURITY SEPARATOR -->
+            <div class="security-bar-light">
+                <i class="fa-solid fa-circle-check"></i> Link Seguro Verificado
+            </div>
+
+            <div class="card-body-harmonized">
+                <h3 class="product-title-bold" title="${deal.title}">${deal.title}</h3>
+                
+                <div class="price-flex">
+                    <div class="price-orig">${formattedOldPrice}</div>
+                    <div class="price-final">${formattedPrice} <small>à vista</small></div>
                 </div>
-                <h3 class="card-title" title="${fullTitle}">${displayTitle}</h3>
-                <div class="price-container">
-                    <div class="old-price">${formattedOldPrice}</div>
-                    <div class="new-price">${formattedPrice} <small>à vista</small></div>
-                </div>
-                <a href="${deal.link}" target="_blank" class="btn-deal">
-                    Ver na ${deal.store} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                <!-- Dynamic Coupon (Senior Sync v2) -->
+                ${deal.coupon ? `
+                <div class="coupon-gold-pill" onclick="copyToClipboard('${deal.coupon}')" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #92400e; padding: 10px; border-radius: 12px; border: 1px dashed #d97706; margin-bottom: 20px; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.3s ease;">
+                    <i class="fa-solid fa-ticket-simple"></i> CUPOM: <strong>${deal.coupon}</strong>
+                </div>` : ''}
+
+                <a href="${titaniumLinkAuditor(deal.link, 'shopee')}" target="_blank" class="btn-shopee-blue">
+                    Ver na Shopee <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
         `;
-
-        // Add vote listeners
-        const voteUpBtn = card.querySelector('.vote-up');
-        const voteDownBtn = card.querySelector('.vote-down');
-
-        voteUpBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleVote(deal.id, 1);
-        });
-
-        voteDownBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleVote(deal.id, -1);
-        });
 
         return card;
     }
@@ -771,23 +783,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 'shopee': 'Shopee'
             };
             const catName = categoryNames[category] || 'Ofertas';
-            const storeName = storeNames[currentStoreFilter] || 'Todas as Lojas';
-            sectionTitle.textContent = `${catName} - ${storeName} (Menor Preço)`;
+            const storeName = storeNames[currentStoreFilter] || 'Shopee';
+            sectionTitle.textContent = `${catName} - Curadoria ${storeName} (Auditada)`;
         }
 
         if (sortedByPrice.length === 0) {
             dealsGrid.innerHTML = `
-                <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px 20px; background: #f9fafb; border-radius: 15px;">
-                    <i class="fas fa-ghost" style="font-size: 3rem; color: #d1d5db; margin-bottom: 20px;"></i>
-                    <h3 style="color: #374151;">Ops! Sem ofertas locais nesta categoria...</h3>
-                    <p style="color: #6b7280; margin-bottom: 20px;">Mas não se preocupe! O Robô Titanium pode buscar ofertas frescas agora mesmo:</p>
-                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                        <button onclick="titaniumRedirect('${category}', 'mercadolivre')" style="background: #FFE600; color: #333; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">
-                            <i class="fas fa-rocket"></i> Buscar no Mercado Livre
-                        </button>
-                        <button onclick="titaniumRedirect('${category}', 'amazon')" style="background: #FF9900; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">
-                            <i class="fa-brands fa-amazon"></i> Buscar na Amazon
-                        </button>
+                    <div style="border: 2px dashed #ee4d2d; border-radius: 20px; padding: 40px; background: #fff5f2; max-width: 800px; margin: 0 auto; position: relative;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🤖</div>
+                        <h3 style="color: #4338ca; font-size: 1.8rem; margin-bottom: 15px;">O Robô Titanium está pronto!</h3>
+                        <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                            Não encontramos "<strong>${searchTerm}</strong>" na nossa vitrine curada, mas o <strong>Robô Titanium</strong> pode abrir a busca oficial da <strong>Shopee</strong> agora mesmo para você!
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                            <button onclick="titaniumDeepLink('${searchTerm}')" 
+                               style="background: linear-gradient(90deg, #ff4500, #ff8c00); color: white; padding: 18px 40px; border: none; border-radius: 50px; font-weight: 800; font-size: 1.2rem; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(255, 69, 0, 0.4); display: flex; align-items: center; gap: 10px; transition: transform 0.2s;">
+                                <i class="fas fa-mobile-screen-button"></i> Abrir no App Shopee agora
+                            </button>
+                            
+                            <button onclick="window.location.reload()" style="background: transparent; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px;">
+                                <i class="fas fa-home"></i> Voltar para a Página Inicial
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -874,33 +892,54 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (matches.length === 0) {
-                // Update section title to show the query
                 const sectionTitle = document.querySelector('.section-title');
                 if (sectionTitle) sectionTitle.innerHTML = `Busca por: "<strong>${query}</strong>"`;
 
                 dealsGrid.innerHTML = `
-                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: #f9fafb; border-radius: 20px; border: 2px dashed #e5e7eb;">
-                        <i class="fas fa-search" style="font-size: 3.5rem; color: #d1d5db; margin-bottom: 25px;"></i>
-                        <h3 style="font-size: 1.5rem; color: #374151; margin-bottom: 10px;">Ainda não temos essa oferta salva...</h3>
-                        <p style="color: #6b7280; max-width: 500px; margin: 0 auto 30px;">
-                            Não encontramos "<strong>${query}</strong>" no nosso cache local, mas o <strong>Robô Titanium</strong> pode buscar em tempo real para você no Mercado Livre!
+                    <div style="grid-column: 1/-1; border: 2px dashed #ee4d2d; border-radius: 20px; padding: 50px 20px; background: #fff5f2; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🤖</div>
+                        <h3 style="color: #4338ca; font-size: 1.8rem; margin-bottom: 15px;">O Robô Titanium está pronto!</h3>
+                        <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 30px;">
+                            Não encontramos "<strong>${query}</strong>" na nossa vitrine curada, mas o <strong>Robô Titanium</strong> pode abrir a busca oficial da <strong>Shopee</strong> agora mesmo para você!
                         </p>
-                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                            <button onclick="titaniumRedirect('${query}', 'mercadolivre')" style="background: #FFE600; color: #333; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255, 230, 0, 0.3);">
-                                <i class="fas fa-rocket"></i> Buscar no Mercado Livre (Menor Preço)
-                            </button>
-                            <button onclick="titaniumRedirect('${query}', 'amazon')" style="background: #FF9900; color: white; padding: 15px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);">
-                                <i class="fa-brands fa-amazon"></i> Buscar na Amazon
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                            <a href="https://shopee.com.br/search?keyword=${query}&utm_source=${TITANIUM_CONFIG.TAGS.shopee}" target="_blank" 
+                               style="background: linear-gradient(90deg, #ff4500, #ff8c00); color: white; padding: 18px 40px; border: none; border-radius: 50px; font-weight: 800; font-size: 1.2rem; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(255, 69, 0, 0.4); display: flex; align-items: center; gap: 10px; transition: transform 0.2s;">
+                                <i class="fas fa-search"></i> Buscar tudo na Shopee agora
+                            </a>
+                            
+                            <button onclick="window.location.reload()" style="background: white; color: #ee4d2d; border: 2px solid #ee4d2d; padding: 12px 30px; border-radius: 50px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.3s;">
+                                <i class="fas fa-home"></i> Voltar para a Página Inicial
                             </button>
                         </div>
                     </div>
                 `;
             } else {
-                // Update section title
                 const sectionTitle = document.querySelector('.section-title');
-                if (sectionTitle) sectionTitle.innerHTML = `Resultados para "<strong>${query}</strong>"`;
+                if (sectionTitle) {
+                    sectionTitle.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                            Resultados para "<strong>${query}</strong>"
+                            <button onclick="window.location.reload()" style="background: #f1f5f9; color: #475569; border: none; padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+                                <i class="fas fa-rotate-left"></i> Limpar e Voltar
+                            </button>
+                        </div>
+                    `;
+                }
 
-                renderDeals(matches);
+                // Limitar a 12 produtos para curadoria premium
+                renderDeals(matches.slice(0, 12));
+
+                const moreBtn = document.createElement('div');
+                moreBtn.style.cssText = "grid-column: 1/-1; text-align: center; margin-top: 30px;";
+                moreBtn.innerHTML = `
+                    <p style="color: #64748b; margin-bottom: 15px;">Deseja ver mais opções?</p>
+                    <button onclick="titaniumDeepLink('${query}')" style="background: white; color: #ee4d2d; padding: 12px 30px; border: 2px solid #ee4d2d; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+                        Abrir mais resultados no App <i class="fa-solid fa-mobile-screen-button"></i>
+                    </button>
+                `;
+                dealsGrid.appendChild(moreBtn);
             }
         }, 300);
     }
@@ -1477,100 +1516,55 @@ async function initTitaniumLightningBar() {
             return;
         }
 
-        // --- Logic: ROUND-ROBIN Balanced Selection (v10 fix) ---
-        // Garante que TODAS as lojas aparecem alternadamente na barra
-        const storesMap = {
-            'amazon': [],
-            'mercado livre': [],
-            'shopee': []
-        };
+        // --- Logic: SHOPEE EXCLUSIVE + HIGH IMPACT MIXER (v2026_v6) ---
+        const shopeeDeals = allDeals
+            .filter(d => d.store.toLowerCase().includes('shopee'))
+            .sort(() => 0.5 - Math.random());
 
-        allDeals.forEach(d => {
-            if (!d.store || !d.price || !d.link) return;
-            const storeKey = d.store.toLowerCase().trim();
-            if (storeKey.includes('amazon')) storesMap['amazon'].push(d);
-            else if (storeKey.includes('mercado')) storesMap['mercado livre'].push(d);
-            else if (storeKey.includes('shopee')) storesMap['shopee'].push(d);
+        // Mensagens Magnéticas focadas em Moda & Beleza
+        const highImpactItems = [
+            { isTrigger: true, type: 'coupon', text: '👗 RADAR FASHION: Looks em alta com Cupons ativos!' },
+            { isTrigger: true, type: 'urgency', text: '🔥 ESTOQUE: Vestidos Alfaiataria estão esgotando!' },
+            { isTrigger: true, type: 'coupon', text: '💄 BELEZA VIP: Kits de maquiagem com Frete Grátis' },
+            { isTrigger: true, type: 'urgency', text: '📉 QUEDA DE PREÇO: Itens de Skincare em oferta real' }
+        ];
+
+        const mixer = [];
+        shopeeDeals.slice(0, 20).forEach((deal, idx) => {
+            mixer.push(deal);
+            // Intercala um gatilho a cada 4 produtos
+            if (idx % 4 === 0 && highImpactItems[idx / 4]) {
+                mixer.push(highImpactItems[idx / 4]);
+            }
         });
 
-        // Diagnostic: Log per-store counts
-        console.log('[Titanium Bar] Produtos por loja:', {
-            amazon: storesMap['amazon'].length,
-            mercadoLivre: storesMap['mercado livre'].length,
-            shopee: storesMap['shopee'].length
-        });
-
-        // Shuffle each store's pool internally
-        Object.keys(storesMap).forEach(store => {
-            storesMap[store].sort(() => 0.5 - Math.random());
-        });
-
-        // ROUND-ROBIN: Alterna entre lojas garantindo visibilidade de TODAS
-        const storeOrder = ['amazon', 'mercado livre', 'shopee'];
-        const finalSelection = [];
-        const maxPerStore = 8; // Aumentado para mais variedade
-
-        for (let i = 0; i < maxPerStore; i++) {
-            storeOrder.forEach(store => {
-                if (storesMap[store][i]) {
-                    finalSelection.push(storesMap[store][i]);
-                }
-            });
-        }
-
-        if (finalSelection.length === 0) {
-            console.warn('[Titanium Bar] Nenhum produto filtrado para a barra.');
-            return;
-        }
-
-        // Duplicar para loop contínuo (sem shuffle — manter ordem round-robin!)
-        const loopDeals = [...finalSelection, ...finalSelection];
-
-        console.log('[Titanium Bar] Seleção final (round-robin):', finalSelection.map(d => d.store + ': ' + (d.title || '').substring(0, 25)));
+        // Duplicar para loop contínuo
+        const loopItems = [...mixer, ...mixer];
 
         let html = '';
-        loopDeals.forEach((deal, index) => {
-            try {
-                const storeLower = deal.store.toLowerCase();
-                let link = deal.link;
-
-                // --- SMART LINK LAYER (Senior Workflow: Tags NUNCA podem ser perdidas) ---
-
-                // AMAZON: Garantir tag de afiliado
-                if (storeLower.includes('amazon')) {
-                    if (!link.includes('tag=')) {
-                        link += (link.includes('?') ? '&' : '?') + `tag=${TITANIUM_CONFIG.TAGS.amazon}`;
-                    }
-                }
-                // MERCADO LIVRE: Usar Link Inteligente (fix v10: termo curto + try-catch)
-                else if (storeLower.includes('mercado')) {
-                    // Usa apenas as 3 primeiras palavras do título como busca
-                    const words = (deal.title || 'ofertas').split(' ').slice(0, 3).join(' ');
-                    link = buildMLAffiliateUrl(words);
-                    console.log(`[Titanium] ML Smart Link OK: "${words}" → ${link.substring(0, 60)}...`);
-                }
-                // SHOPEE: Preservar links oficiais ou injetar tag
-                else if (storeLower.includes('shopee')) {
-                    if (!link.includes('s.shopee.com.br') && !link.includes('utm_source=')) {
-                        link += (link.includes('?') ? '&' : '?') + `utm_source=${TITANIUM_CONFIG.TAGS.shopee}`;
-                    }
-                }
-
-                const displayTitle = (deal.title || '').length > 35 ? deal.title.substring(0, 32) + '...' : deal.title;
-                const safeTitle = (deal.title || '').replace(/'/g, "\\'");
-                const formattedPrice = deal.price ? `R$ ${parseFloat(deal.price).toFixed(2).replace('.', ',')}` : '';
-
+        loopItems.forEach((item, index) => {
+            if (item.isTrigger) {
+                // Renderiza Mensagem de Impacto
+                const color = item.type === 'coupon' ? '#fff' : '#ffeb3b';
+                const bg = item.type === 'coupon' ? 'rgba(255,255,255,0.2)' : 'transparent';
                 html += `
-                <a href="${link}" target="_blank" class="lightning-item" data-id="${deal.id}_${index}" 
-                   data-store="${deal.store}" data-title="${safeTitle}">
-                    <span class="lightning-badge">⚡ ${deal.store}</span>
-                    <strong>${displayTitle}</strong>
-                    <span class="lightning-price">${formattedPrice}</span>
-                    <div class="price-badge">Ver Oferta →</div>
-                </a>
-            `;
-            } catch (itemErr) {
-                console.error(`[Titanium] Erro no item ${index} (${deal.store}):`, itemErr);
+                    <div class="lightning-item trigger-item" style="display: flex; align-items: center; gap: 10px; background: ${bg}; padding: 5px 15px; border-radius: 50px; border: ${item.type === 'coupon' ? '1px dashed #fff' : 'none'};">
+                        <strong style="color: ${color}; font-size: 0.85rem; text-transform: uppercase;">${item.text}</strong>
+                    </div>
+                `;
+            } else {
+                // Renderiza Produto Shopee
+                const displayTitle = (item.title || '').length > 30 ? item.title.substring(0, 27) + '...' : item.title;
+                const formattedPrice = `R$ ${parseFloat(item.price).toFixed(2).replace('.', ',')}`;
+                
+                html += `
+                    <a href="${item.link}" target="_blank" class="lightning-item" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: white;">
+                        <span class="lightning-badge" style="background: white; color: #ee4d2d; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 800;">SHOPEE</span>
+                        <strong style="font-size: 0.85rem; font-weight: 500;">${displayTitle}</strong>
+                        <span class="lightning-price" style="color: #ffeb3b; font-weight: 800; font-size: 0.95rem;">${formattedPrice}</span>
+                        <div class="price-badge" style="background: white; color: #ee4d2d; padding: 2px 8px; border-radius: 50px; font-size: 0.7rem; font-weight: 800;">VER ➔</div>
+                    </a>
+                `;
             }
         });
 
@@ -1616,7 +1610,7 @@ async function initTitaniumLightningBar() {
 
         container.setAttribute('style', [
             'display: flex',
-            'width: ' + (loopDeals.length * 320) + 'px',
+            'width: ' + (loopItems.length * 320) + 'px',
             'animation: marquee-titanium 80s linear infinite'
         ].join('; '));
 
@@ -1665,33 +1659,22 @@ async function initTitaniumLightningBar() {
         });
 
         // Style price badges inline
-        container.querySelectorAll('.price-badge').forEach(price => {
-            price.setAttribute('style', [
-                'background: #fff',
+        container.querySelectorAll('.price-badge').forEach(badge => {
+            badge.setAttribute('style', [
+                'background: rgba(255,255,255,0.95)',
                 'color: #ee4d2d',
-                'padding: 2px 10px',
-                'border-radius: 20px',
-                'font-weight: 800'
+                'padding: 3px 12px',
+                'border-radius: 4px',
+                'font-size: 0.72rem',
+                'font-weight: 800',
+                'box-shadow: 0 4px 6px rgba(0,0,0,0.1)'
             ].join('; '));
         });
 
-        // Wait for paint, then verify
-        requestAnimationFrame(() => {
-            const rect = bar.getBoundingClientRect();
-            console.log(`[Titanium] Barra NUCLEAR. Dimensões: ${rect.width}x${rect.height}, Top: ${rect.top}`);
-            console.log(`[Titanium] Bar display: ${bar.style.display}, children: ${container.children.length}`);
-
-            if (rect.height === 0) {
-                // Last resort: force height
-                bar.style.height = '42px';
-                console.warn('[Titanium] FORÇANDO height=42px como último recurso.');
-            }
-        });
-
-        console.log(`[Titanium] Barra v6 NUCLEAR ATIVA com ${finalSelection.length} produtos.`);
+        console.log('[Titanium Bar] Estilos nucleares aplicados com sucesso.');
 
     } catch (err) {
-        console.error('[Titanium] Erro Crítico na Barra:', err);
+        console.error('[Titanium Bar Error]', err);
     }
 }
 
@@ -1746,10 +1729,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!assistant || !bubble) return;
 
         const messages = [
-            "<strong>🤖 Robô Titanium:</strong> Olá! Identifiquei que os preços da Amazon baixaram hoje. Aproveite!",
-            "<strong>🛡️ Link Seguro:</strong> Pode clicar sem medo: todos os links são auditados por mim.",
-            "<strong>🔥 Dica de Ouro:</strong> Os produtos com o selo de 'Menor Preço' são os mais concorridos!",
-            "<strong>✅ Verificado:</strong> Acabei de confirmar: os links do Mercado Livre estão 100% seguros."
+            "<strong>🤖 Robô Titanium:</strong> Olá! Acabei de sincronizar os dados da Shopee. Temos novas ofertas flash!",
+            "<strong>🛡️ Link Auditado:</strong> Todos os links desta vitrine são verificados pela API Oficial Shopee v2.",
+            "<strong>🔥 Dica Shopee:</strong> Os produtos com o selo de 'CUPOM' são os que esgotam mais rápido!",
+            "<strong>✅ 100% Seguro:</strong> Identifiquei que estes vendedores têm as melhores avaliações na Shopee hoje.",
+            "<strong>⚡ Ofertas do Momento:</strong> Acabei de detectar uma queda de preço em itens selecionados. Aproveite!",
+            "<strong>📱 App Shopee:</strong> Meus links abrem direto no App oficial para garantir seu rastreio e segurança!"
         ];
 
         let currentMsg = 0;

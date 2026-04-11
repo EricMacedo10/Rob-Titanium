@@ -12,9 +12,9 @@ As ofertas são atualizadas nos seguintes horários (horário de Brasília - BRT
 
 | Horário | Período | Justificativa |
 |---------|---------|---------------|
-| **07:00** | Manhã | Captura ofertas novas do dia + tráfego matinal |
+| **07:00** | Manhã | Captura looks novos do dia + tráfego matinal |
 | **13:00** | Tarde | Horário de almoço, pico de navegação mobile |
-| **20:00** | Noite | Pós-trabalho, maior engajamento de usuários |
+| **20:00** | Noite | Horário Nobre: Conversão máxima até 00h |
 
 ---
 
@@ -24,16 +24,11 @@ As ofertas são atualizadas nos seguintes horários (horário de Brasília - BRT
 
 ```mermaid
 graph LR
-    A[GitHub Actions<br/>Trigger] --> B[Checkout Código]
-    B --> C[Instalar Python<br/>& Dependências]
-    C --> D[Configurar<br/>Variáveis .env]
-    D --> E[Executar<br/>main.py]
-    E --> F{Produtos<br/>Encontrados?}
-    F -->|Sim| G[Salvar<br/>data.json]
-    F -->|Não| H[Manter<br/>Arquivo Atual]
-    G --> I[Upload FTP<br/>para Hostinger]
-    I --> J[✅ Site<br/>Atualizado]
-    H --> J
+    A[GitHub Actions] --> B[Checkout Shopee Gold]
+    B --> C[Setup Env]
+    C --> D[Executar core/orchestrator.py]
+    D --> E[Fim da Purga: Shopee 100%]
+    E --> F[Upload FTP Hostinger]
 ```
 
 ### Arquivo de Workflow
@@ -51,29 +46,17 @@ O workflow:
 
 ---
 
-## 🔐 Configuração de Credenciais (GitHub Secrets)
+## 🔐 Configuração de Secrets (GitHub)
 
-Para o workflow funcionar, você precisa configurar os seguintes **Secrets** no GitHub:
+Para o robô rodar sozinho, configure estes segredos no seu GitHub:
 
-### Como Adicionar Secrets
-
-1. Acesse seu repositório no GitHub
-2. Vá em **Settings** → **Secrets and variables** → **Actions**
-3. Clique em **New repository secret**
-4. Adicione cada secret abaixo:
-
-### Secrets Necessários
-
-| Nome do Secret | Descrição | Exemplo |
-|----------------|-----------|---------|
-| `SHOPEE_APP_ID` | App ID da Shopee API | `123456` |
-| `SHOPEE_SECRET` | Secret da Shopee API | `abc123xyz...` |
-| `MELI_CLIENT_ID` | Client ID do Mercado Livre | `7891234567890123` |
-| `MELI_CLIENT_SECRET` | Client Secret do Mercado Livre | `AbCdEfGh...` |
-| `AMAZON_AFFILIATE_TAG` | Tag de afiliado Amazon | `guiadodesco00-20` |
-| `FTP_HOST` | Host FTP da Hostinger | `ftp.guiadodesconto.com.br` |
-| `FTP_USER` | Usuário FTP | `u123456789` |
-| `FTP_PASS` | Senha FTP | `SuaSenhaSegura123!` |
+| Nome do Secret | Descrição |
+|----------------|-----------|
+| `SHOPEE_APP_ID` | App ID API Shopee |
+| `SHOPEE_SECRET` | Secret API Shopee |
+| `FTP_HOST` | Host FTP Hostinger |
+| `FTP_USER` | Usuário FTP |
+| `FTP_PASS` | Senha FTP |
 
 > [!IMPORTANT]
 > **NUNCA** commite o arquivo `.env` com credenciais reais no Git! Os secrets do GitHub são criptografados e seguros.

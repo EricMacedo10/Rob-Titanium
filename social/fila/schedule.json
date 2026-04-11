@@ -1,156 +1,44 @@
 [
     {
-        "data": "2026-02-11",
-        "imagem": "2026-02-11_amazon_carnaval_de_ofertas.png",
-        "loja": "amazon",
-        "categoria": "tecnologia",
-        "tema": "Carnaval de Ofertas - As melhores promoções da Amazon com preço de folia"
-    },
-    {
-        "data": "2026-02-12",
-        "imagem": "2026-02-12_mercadolivre_carnaval_de_ofertas.png",
-        "loja": "mercadolivre",
-        "categoria": "tecnologia",
-        "tema": "Carnaval de Ofertas - Produtos com frete grátis e cashback no Mercado Livre"
-    },
-    {
-        "data": "2026-02-13",
-        "imagem": "2026-02-13_mercadolivre_decoracao.png",
-        "loja": "mercadolivre",
-        "categoria": "casa",
-        "tema": "Decoração com preço especial - Renove sua casa com ofertas do Mercado Livre"
-    },
-    {
-        "data": "2026-02-14",
-        "imagem": "2026-02-14_amazon_automotivo.png",
-        "loja": "amazon",
-        "categoria": "automotivo",
-        "tema": "Acessórios Automotivos em promoção - Cuide do seu carro com descontos na Amazon"
-    },
-    {
-        "data": "2026-02-15",
-        "imagem": "2026-02-15_shopee_eletrodomesticos.png",
+        "data": "2026-04-11",
+        "imagem": "macaquinho_post_00.jpg",
         "loja": "shopee",
-        "categoria": "tecnologia",
-        "tema": "Eletrodomésticos com mega desconto - Ofertas imperdíveis na Shopee"
+        "categoria": "moda",
+        "tema": "CONJUNTO MACAQUINHO VIP - O look perfeito para quem busca conforto e elegância. Disponível na Shopee!"
     },
     {
-        "data": "2026-02-16",
-        "imagem": "2026-02-16_amazon_esportes.png",
-        "loja": "amazon",
-        "categoria": "esportes",
-        "tema": "Fitness e Esportes com preço de Carnaval - Equipamentos top na Amazon"
-    },
-    {
-        "data": "2026-02-20",
-        "imagem": "2026-02-20_amazon_ofertas_do_dia.jpeg",
-        "loja": "amazon",
-        "categoria": "tecnologia",
-        "tema": "Ofertas do Dia Amazon - Os melhores preços e descontos para você economizar hoje"
-    },
-    {
-        "data": "2026-02-21",
-        "imagem": "2026-02-21_amazon_shopee_mercadolivre_dia_internacional_da_mulher.jpeg",
-        "loja": "amazon",
-        "categoria": "beleza",
-        "tema": "Dia Internacional da Mulher - Celebre com ofertas exclusivas nas melhores lojas"
-    },
-    {
-        "data": "2026-02-22",
-        "imagem": "2026-02-22_amazon_shopee_mercadolivre_ofertas_do_dia.jpeg",
-        "loja": "amazon",
-        "categoria": "tecnologia",
-        "tema": "Mega Ofertas do Dia - Amazon, Shopee e Mercado Livre com preços imbatíveis"
-    },
-    {
-        "data": "2026-02-23",
-        "imagem": "2026-02-23_mercadolivre_automotivo.png",
-        "loja": "mercadolivre",
-        "categoria": "automotivo",
-        "tema": "Acessórios Automotivos - Ofertas especiais para o seu carro no Mercado Livre"
-    },
-    {
-        "data": "2026-02-24",
-        "imagem": "2026-02-24_shopee_beleza.png",
+        "data": "2026-04-12",
+        "imagem": "macaquinho_post_01.jpg",
         "loja": "shopee",
-        "categoria": "beleza",
-        "tema": "Beleza e Bem-estar - Cuide-se com as melhores ofertas da Shopee"
+        "categoria": "moda",
+        "tema": "DETALHES QUE ENCANTAM - Close no Macaquinho que é tendência absoluta nesta estação. Garanta o seu!"
     },
     {
-        "data": "2026-02-25",
-        "imagem": "2026-02-25_amazon_casa.png",
-        "loja": "amazon",
-        "categoria": "casa",
-        "tema": "Casa e Cozinha - Tudo para o seu lar com descontos exclusivos na Amazon"
-    },
-    {
-        "data": "2026-02-26",
-        "imagem": "2026-02-26_amazon_shopee_mercadolivre_ofertas_do_dia.jpeg",
+        "data": "2026-04-13",
+        "imagem": "macaquinho_post_02.jpg",
         "loja": "shopee",
-        "categoria": "tecnologia",
-        "tema": "Ofertas Imperdíveis - Seleção do dia nas melhores lojas parceiras"
+        "categoria": "moda",
+        "tema": "MODA QUE TRANSFORMA - Versatilidade e estilo com a curadoria exclusiva Titanium na Shopee."
     },
     {
-        "data": "2026-02-27",
-        "imagem": "2026-02-27_shopee_decoração.png",
+        "data": "2026-04-14",
+        "imagem": "macaquinho_post_03.jpg",
         "loja": "shopee",
-        "categoria": "casa",
-        "tema": "Decoração e Estilo - Renove seu ambiente com as ofertas da Shopee"
+        "categoria": "moda",
+        "tema": "ESSENCIA FASHION - O Macaquinho em alfaiataria que não pode faltar no seu guarda-roupa."
     },
     {
-        "data": "2026-02-28",
-        "imagem": "2026-02-28_amazon_eletrodomésticos.png",
-        "loja": "amazon",
-        "categoria": "casa",
-        "tema": "Eletrodomésticos em Promoção - Tecnologia e praticidade para sua casa na Amazon"
-    },
-    {
-        "data": "2026-03-01",
-        "imagem": "2026-03-01_mercadolivre_ofertas_do_dia.jpeg",
-        "loja": "mercadolivre",
-        "categoria": "tecnologia",
-        "tema": "Ofertas de Março - Comece o mês economizando no Mercado Livre"
-    },
-    {
-        "data": "2026-03-02",
-        "imagem": "2026-03-02_mercadolivre_esportes.png",
-        "loja": "mercadolivre",
-        "categoria": "esportes",
-        "tema": "Esportes e Lazer - Equipe-se para o seu treino com preços do Mercado Livre"
-    },
-    {
-        "data": "2026-03-03",
-        "imagem": "2026-03-03_shopee_ofertas_do_dia.jpeg",
+        "data": "2026-04-15",
+        "imagem": "macaquinho_post_04.jpg",
         "loja": "shopee",
-        "categoria": "tecnologia",
-        "tema": "Liquidação Shopee - As melhores ofertas do dia na palma da sua mão"
+        "categoria": "moda",
+        "tema": "BELEZA EM FOCO - Combine seu look com os melhores itens de beleza da nossa boutique Shopee."
     },
     {
-        "data": "2026-03-04",
-        "imagem": "2026-03-04_amazon_shopee_mercadolivre_dia_internacional_da_mulher.jpeg",
-        "loja": "amazon",
-        "categoria": "beleza",
-        "tema": "Dia da Mulher Antecipado - Presentes e ofertas especiais para celebrar"
-    },
-    {
-        "data": "2026-03-05",
-        "imagem": "2026-03-05_shoppe_ofertas_do_dia.png",
+        "data": "2026-04-16",
+        "imagem": "macaquinho_post_05.jpg",
         "loja": "shopee",
-        "categoria": "tecnologia",
-        "tema": "Ofertas do Dia Shopee - Os melhores preços na palma da sua mão"
-    },
-    {
-        "data": "2026-03-06",
-        "imagem": "2026-03-06_amazon_ofertas_do_dia.png",
-        "loja": "amazon",
-        "categoria": "tecnologia",
-        "tema": "Ofertas do Dia Amazon - Descontos exclusivos para você economizar hoje"
-    },
-    {
-        "data": "2026-03-07",
-        "imagem": "2026-03-07_mercadolivre_ofertas_do_dia.png",
-        "loja": "mercadolivre",
-        "categoria": "tecnologia",
-        "tema": "Ofertas do Dia Mercado Livre - Frete grátis e os melhores produtos"
+        "categoria": "moda",
+        "tema": "FINAL DE SEMANA CHEGANDO - Prepare seu look com a seleção VIP do Robô Titanium Shopee."
     }
 ]

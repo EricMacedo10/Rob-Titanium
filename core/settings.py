@@ -29,50 +29,42 @@ LOMADEE_API_URL = f"https://api.lomadee.com/v3/{LOMADEE_APP_TOKEN}/offer/_search
 MIN_DELAY = 8
 MAX_DELAY = 20
 
-# 3. Lista de Produtos para Monitorar (REBALANCEADA 50/50 - AMAZON/SHOPEE)
+# 3. Lista de Produtos para Monitorar (BOUTIQUE EXCLUSIVE - 100% SHOPEE)
 TARGETS = [
-    # 📱 TECNOLOGIA
-    {"term": "iphone 15 plus", "store": "amazon", "max_price": 6000.00, "category": "tecnologia"},
-    {"term": "samsung galaxy s24", "store": "amazon", "max_price": 5000.00, "category": "tecnologia"},
-    {"term": "notebook dell inspiron", "store": "amazon", "max_price": 4000.00, "category": "tecnologia"},
-    {"term": "fone jbl bluetooth", "store": "shopee", "max_price": 400.00, "category": "tecnologia"},
-    {"term": "monitor gamer curvo", "store": "amazon", "max_price": 1500.00, "category": "tecnologia"},
+    # 👗 MODA FEMININA (Categoria #1 Shopee)
+    {"term": "conjunto alfaiataria feminino luxo", "store": "shopee", "max_price": 400.00, "category": "moda"},
+    {"term": "vestido midi canelado elegante", "store": "shopee", "max_price": 200.00, "category": "moda"},
+    {"term": "calca pantalona linho premium", "store": "shopee", "max_price": 250.00, "category": "moda"},
+    {"term": "blazer feminino alongado forrado", "store": "shopee", "max_price": 300.00, "category": "moda"},
+    {"term": "body poliamida decote quadrado", "store": "shopee", "max_price": 100.00, "category": "moda"},
+    {"term": "saia midi alfaiataria fenda", "store": "shopee", "max_price": 200.00, "category": "moda"},
+    {"term": "macaquinho feminino transpassado", "store": "shopee", "max_price": 250.00, "category": "moda"},
+    {"term": "tshirt algodão pima feminina", "store": "shopee", "max_price": 120.00, "category": "moda"},
+    {"term": "vestido longo festa fluido", "store": "shopee", "max_price": 500.00, "category": "moda"},
+    {"term": "jaqueta couro ecologico feminina", "store": "shopee", "max_price": 350.00, "category": "moda"},
     
-    # 👗 MODA
-    {"term": "conjunto alfaiataria feminino", "store": "shopee", "max_price": 300.00, "category": "moda"},
-    {"term": "calca pantalona feminina", "store": "shopee", "max_price": 200.00, "category": "moda"},
-    {"term": "blazer feminino alongado", "store": "shopee", "max_price": 250.00, "category": "moda"},
-    {"term": "bolsa schutz leather", "store": "amazon", "max_price": 1000.00, "category": "moda"},
-    {"term": "tenis casual feminino", "store": "shopee", "max_price": 300.00, "category": "moda"},
-    
-    # 🏠 CASA & DECOR
-    {"term": "sofa retratil cinza", "store": "shopee", "max_price": 2500.00, "category": "casa"},
-    {"term": "luminaria mesa retro", "store": "shopee", "max_price": 150.00, "category": "casa"},
-    {"term": "jogo de panelas ceramic", "store": "amazon", "max_price": 800.00, "category": "casa"},
-    {"term": "kit toalha banho luxo", "store": "amazon", "max_price": 250.00, "category": "casa"},
-    
-    # 💄 BELEZA
-    {"term": "perfume carolina herrera", "store": "amazon", "max_price": 600.00, "category": "beleza"},
-    {"term": "maquiagem batom mac", "store": "amazon", "max_price": 150.00, "category": "beleza"},
-    {"term": "kit skincare cerave", "store": "amazon", "max_price": 300.00, "category": "beleza"},
-
-    # 🍳 ELETRODOMÉSTICOS / ELETRO
-    {"term": "geladeira duplex frost free", "store": "amazon", "max_price": 4000.00, "category": "eletro"},
-    {"term": "air fryer mundial", "store": "shopee", "max_price": 400.00, "category": "eletro"},
-
-    # 🚗 AUTOMOTIVO
-    {"term": "pneu aro 15", "store": "shopee", "max_price": 500.00, "category": "automotivo"},
-    {"term": "central multimidia", "store": "shopee", "max_price": 800.00, "category": "automotivo"}
+    # 💄 BELEZA & SKINCARE (Categoria #2 Shopee)
+    {"term": "kit pinceis maquiagem profissional", "store": "shopee", "max_price": 300.00, "category": "beleza"},
+    {"term": "serum vitamina c skin care", "store": "shopee", "max_price": 150.00, "category": "beleza"},
+    {"term": "paleta de sombras matte nude", "store": "shopee", "max_price": 200.00, "category": "beleza"},
+    {"term": "base maquiagem alta cobertura", "store": "shopee", "max_price": 150.00, "category": "beleza"},
+    {"term": "mascara cilios volume shopee", "store": "shopee", "max_price": 100.00, "category": "beleza"},
+    {"term": "kit limpeza facial profunda", "store": "shopee", "max_price": 300.00, "category": "beleza"},
+    {"term": "batom matte longa duracao", "store": "shopee", "max_price": 80.00, "category": "beleza"},
+    {"term": "secador de cabelo profissional", "store": "shopee", "max_price": 500.00, "category": "beleza"},
+    {"term": "chapinha nano titanium original", "store": "shopee", "max_price": 400.00, "category": "beleza"},
+    {"term": "babyliss modelador cachos", "store": "shopee", "max_price": 250.00, "category": "beleza"}
 ]
 
-# 📅 CATEGORIAS SAZONAIS
+# 📅 CAMPANHAS SAZONAIS (Foco em Presentes Shopee)
 SEASONAL_TARGETS = {
-    "natal": [
-        {"term": "presente natal", "max_price": 500.00},
-        {"term": "decoração natal", "max_price": 200.00}
+    "dia_dos_namorados": [
+        {"term": "lingerie luxo renda", "max_price": 200.00},
+        {"term": "perfume feminino importado", "max_price": 500.00}
     ],
     "dia_das_maes": [
-        {"term": "perfume feminino", "max_price": 400.00},
-        {"term": "joia prata", "max_price": 300.00}
+        {"term": "bolsa feminina luxo couro", "max_price": 400.00},
+        {"term": "kit semi joias banhadas", "max_price": 300.00}
     ]
 }
+
