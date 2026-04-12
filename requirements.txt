@@ -1,11 +1,2 @@
 requests
-beautifulsoup4
-selenium
-webdriver-manager
-flask
-flask-cors
-pyperclip
-groq
 python-dotenv
-Pillow
-moviepy
