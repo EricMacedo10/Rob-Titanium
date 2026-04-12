@@ -10,8 +10,7 @@ import sys
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# Adicionar diretório pai ao path para imports funcionarem
-from scraper.engines.mercadolivre_api import search_mercadolivre
+# Adicionar direto ao path para imports funcionarem
 from scraper.engines.shopee_affiliate import get_shopee_affiliate_link, search_shopee
 from core.ai_curator import decidir_com_fallback
 
@@ -75,50 +74,16 @@ class ArbitroDePreco:
     
     async def buscar_amazon(self, termo: str) -> Optional[dict]:
         """
-        Busca na Amazon usando Selenium
+        Amazon Desativada (Boutique Shopee Exclusive)
         """
-        from scraper.engines.amazon import search_amazon
-        
-        print(f"\n[Amazon] Buscando '{termo}'...")
-        
-        try:
-            # Usar função existente (roda em thread separada para não bloquear)
-            loop = asyncio.get_event_loop()
-            produto = await loop.run_in_executor(None, search_amazon, termo)
-            
-            if produto:
-                # Adicionar id_interno e link_afiliado
-                produto['id_interno'] = 1
-                produto['link_afiliado'] = produto.get('link', '')
-                produto['disponivel'] = True
-                produto['preco'] = produto.get('price', float('inf'))
-                produto['titulo'] = produto.get('title', f"{termo} - Amazon")
-                produto['loja'] = "Amazon"
-                
-                print(f"[Amazon] ✅ Produto encontrado: R$ {produto['preco']:.2f}")
-                return produto
-            else:
-                print(f"[Amazon] ⚠️ Nenhum produto encontrado")
-                return {
-                    "id_interno": 1,
-                    "titulo": f"{termo} - Amazon",
-                    "preco": float('inf'),
-                    "loja": "Amazon",
-                    "link_afiliado": "",
-                    "disponivel": False
-                }
-                
-        except Exception as e:
-            print(f"[Amazon] ❌ Erro: {e}")
-            return {
-                "id_interno": 1,
-                "titulo": f"{termo} - Amazon",
-                "preco": float('inf'),
-                "loja": "Amazon",
-                "link_afiliado": "",
-                "disponivel": False,
-                "erro": str(e)
-            }
+        return {
+            "id_interno": 1,
+            "titulo": f"{termo} - Amazon",
+            "preco": float('inf'),
+            "loja": "Amazon",
+            "link_afiliado": "",
+            "disponivel": False
+        }
 
     async def buscar_paralelo(self, termo: str) -> List[dict]:
         """
@@ -154,41 +119,16 @@ class ArbitroDePreco:
 
     async def buscar_mercadolivre(self, termo: str) -> Optional[dict]:
         """
-        Busca no Mercado Livre usando API oficial
+        Mercado Livre Desativado (Boutique Shopee Exclusive)
         """
-        print(f"\n[ML] Buscando '{termo}'...")
-        
-        try:
-            # Executar função síncrona em executor
-            loop = asyncio.get_event_loop()
-            produtos = await loop.run_in_executor(None, search_mercadolivre, termo)
-            
-            if produtos:
-                melhor_ml = produtos[0] # Pega o primeiro (mais barato/relevante)
-                print(f"[ML] ✅ Produto encontrado: R$ {melhor_ml['preco']:.2f}")
-                return melhor_ml
-            else:
-                print(f"[ML] ⚠️ Nenhum produto encontrado")
-                return {
-                    "id_interno": 2,
-                    "titulo": f"{termo} - Mercado Livre",
-                    "preco": float('inf'),
-                    "loja": "Mercado Livre",
-                    "link_afiliado": "",
-                    "disponivel": False
-                }
-                
-        except Exception as e:
-            print(f"[ML] ❌ Erro: {e}")
-            return {
-                "id_interno": 2,
-                "titulo": f"{termo} - Mercado Livre",
-                "preco": float('inf'),
-                "loja": "Mercado Livre",
-                "link_afiliado": "",
-                "disponivel": False,
-                "erro": str(e)
-            }
+        return {
+            "id_interno": 2,
+            "titulo": f"{termo} - Mercado Livre",
+            "preco": float('inf'),
+            "loja": "Mercado Livre",
+            "link_afiliado": "",
+            "disponivel": False
+        }
 
     async def buscar_shopee(self, termo: str) -> Optional[dict]:
         """

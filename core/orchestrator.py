@@ -7,7 +7,6 @@ load_dotenv()
 
 from core.settings import TARGETS
 from core.arbitrator import ArbitroDePreco
-from scraper.engines.ml_trends import update_site_with_trends
 from infra.upload_logic import upload_to_hostinger
 from core.phrases import generate_dynamic_phrases
 
