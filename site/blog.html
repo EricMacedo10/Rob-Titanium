@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Editorial Titanium: Tendências de Moda e Beleza Shopee comentadas por especialistas.">
+    <title>Editorial Titanium | Blog de Moda & Beleza</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .blog-container {
+            max-width: 800px;
+            margin: 120px auto;
+            padding: 0 20px;
+        }
+        .article-content {
+            line-height: 1.8;
+            color: #334155;
+            font-size: 1.1rem;
+        }
+        .article-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #0f172a;
+        }
+        .article-content h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 40px;
+            color: #FF4500;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .loading {
+            text-align: center;
+            padding: 100px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blog-container">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Voltar para a Boutique</a>
+        
+        <div id="article-root" class="loading">
+            Carregando editorial exclusivo...
+        </div>
+    </div>
+
+    <script>
+        async function loadArticle() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug') || 'guia-alfaiataria-luxo';
+            const root = document.getElementById('article-root');
+
+            try {
+                const response = await fetch(`blog/${slug}.html`);
+                if (!response.ok) throw new Error('Artigo não encontrado');
+                const html = await response.text();
+                root.innerHTML = `<div class="article-content">${html}</div>`;
+                root.classList.remove('loading');
+            } catch (err) {
+                root.innerHTML = `<div class="article-content"><h1>Oops! Artigo em Curadoria</h1><p>Estamos finalizando este conteúdo. Volte em breve!</p></div>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Acesso Restrito - Robô Titanium"
+AuthUserFile /home/u534624268/domains/guiadodesconto.com.br/public_html/teste/.htpasswd
+Require valid-user

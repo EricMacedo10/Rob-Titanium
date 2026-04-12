@@ -6,154 +6,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="A sua Boutique VIP de Moda Feminina e Beleza na Shopee. O Robô Titanium seleciona o que há de melhor em looks luxo, skincare e maquiagem.">
-    <title>Boutique Titanium | Moda Feminina & Beleza Shopee</title>
+    <title>Boutique Titanium | Curadoria de Elite em Moda & Beleza Shopee</title>
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://guiadodesconto.com.br/">
-    <meta property="og:title" content="Guia do Desconto | Encontre a Melhor Oferta">
+    <meta property="og:title" content="Boutique Titanium | Moda & Beleza Shopee">
     <meta property="og:description"
-        content="Encontre as melhores ofertas na Shopee com o Robô Titanium. Preços reais acompanhados diariamente em moda, tecnologia e beleza.">
-    <meta property="og:image" content="https://guiadodesconto.com.br/images/highlight-amazon.png">
+        content="Curadoria de elite com o Robô Titanium. O que há de melhor em Looks, Skincare e Tendências 100% Shopee.">
+    <meta property="og:image" content="https://guiadodesconto.com.br/images/fashion-hero.png">
     <meta property="og:locale" content="pt_BR">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Guia do Desconto | Melhores Ofertas do Brasil">
-    <meta name="twitter:description"
-        content="Encontre as melhores ofertas selecionadas na Shopee com segurança total.">
+    <meta name="twitter:title" content="Boutique Titanium | Shopee Fashion & Beauty">
+    <meta name="twitter:description" content="Sua vitrine VIP de tendências Shopee auditadas por IA.">
 
-    <!-- Schema.org: Organization + WebSite -->
+    <!-- Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "Organization",
-          "name": "Guia do Desconto",
-          "alternateName": "Oferta Certa",
+          "name": "Boutique Titanium",
           "url": "https://guiadodesconto.com.br",
           "logo": "https://guiadodesconto.com.br/favicon.ico",
-          "description": "Portal especializado em curadoria de ofertas exclusivas da Shopee Brasil, com links auditados e seguros.",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "contato@guiadodesconto.com.br",
-            "contactType": "customer service",
-            "availableLanguage": "Portuguese"
-          },
           "sameAs": ["https://www.instagram.com/oferta.certa10/"]
-        },
-          "description": "Encontre as melhores ofertas na Shopee com preços atualizados diariamente e links seguros auditados."
-    }
+        }
       ]
     }
     </script>
 
-    <!-- Security Tags (Relaxed for Staging Debug) -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=v15_shopee_clean">
-    <link rel="stylesheet" href="css/titanium-security.css?v=v15_shopee_clean">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css?v=v18">
+    <link rel="stylesheet" href="css/titanium-security.css?v=v18">
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJTW5MY84L"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-BJTW5MY84L');
     </script>
 
-    <!-- Google AdSense (Auto Ads & Core Script) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9241818899468539"
-        crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9241818899468539" crossorigin="anonymous"></script>
 
     <style>
-        /* Titanium Ad Layer: Auto-Collapse (Blindagem Visual) */
-        .ad-container {
-            display: none;
-            margin: 0;
-            text-align: center;
-            background: transparent;
-            padding: 0;
-            transition: opacity 0.3s ease;
+        /* Radar de Tendências IA Styles */
+        .radar-section {
+            padding: 40px 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        .ad-container .ad-label {
-            display: none;
-            font-size: 10px;
-            color: #999;
-            margin-bottom: 5px;
-            text-transform: uppercase;
+        .radar-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .radar-badge {
+            background: #FF4500;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        /* Exibe apenas se o AdSense injetar conteúdo real */
-        .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) {
-            display: block;
-            margin: 20px 0;
-            padding: 15px;
-            background: #f9fafb;
-            border-radius: 12px;
-            border: 1px dashed #eee;
+        #radar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 2;
         }
 
-        .ad-container:has(ins.adsbygoogle[data-ad-status="filled"]) .ad-label {
-            display: block;
+        .radar-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .radar-card:hover {
+            border-color: #FF4500;
+            background: rgba(255, 69, 0, 0.05);
+        }
+
+        .radar-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid #FF4500;
+        }
+
+        .radar-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+
+        .radar-review {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        /* Editorial Hub Styles */
+        .editorial-hub {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .article-content {
+            padding: 30px;
         }
     </style>
-    <!-- v1713 - Tag Install Sync & Anti-Reversion -->
 </head>
 
 <body>
 
-    <!-- Real-Time Sync Status Bar (Senior Automation) -->
+    <!-- 1. API Sync Banner -->
     <div class="api-sync-banner" style="background: #0f172a; color: white; padding: 10px 0; font-size: 0.75rem; text-align: center; font-weight: 700; letter-spacing: 1.5px; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; border-bottom: 2px solid #FF4500; position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
         <i class="fa-solid fa-sparkles" style="color: #ffeb3b;"></i> 
-        Boutique VIP: Tendências de Moda & Beleza Ativas
+        Boutique VIP: Tendências de Moda & Beleza Shopee Ativas
     </div>
 
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const banner = document.querySelector('.api-sync-banner');
-                const originalText = banner.innerHTML;
-                banner.style.background = "#059669";
-                banner.innerHTML = `<i class="fa-solid fa-check"></i> Cupom ${text} Copiado! Aproveite!`;
-                setTimeout(() => {
-                    banner.style.background = "#0f172a";
-                    banner.innerHTML = originalText;
-                }, 3000);
-            });
-        }
-    </script>
-
-    <!-- Titanium Lightning Bar (Staging v1) -->
-    <div class="lightning-bar" id="lightning-bar" style="display: none;">
-        <div class="lightning-bar-container" id="lightning-bar-content">
-            <!-- Dynamically Hydrated by JS -->
-        </div>
-    </div>
-
-    <!-- Header -->
-
+    <!-- 2. Main Header -->
     <header class="main-header">
         <div class="container header-flex">
             <div class="logo-area" onclick="window.location.href='index.html'" style="cursor:pointer">
                 <div class="logo">
                     <i class="fas fa-gift" style="color: #FF4500;"></i>
-                    <span><span style="color: #FF4500;">Guia do</span> <strong style="color: #4a0e4e;">Desconto</strong></span>
+                    <span><span style="color: #FF4500;">Boutique</span> <strong style="color: #4a0e4e;">Titanium</strong></span>
                 </div>
                 <div class="header-tagline" style="color: #FF4500; font-weight: bold;">Especialista em Moda & Beleza Shopee 🔥</div>
             </div>
@@ -170,156 +210,157 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- 3. Hero Section (Restaurado com Sacola 3D) -->
     <section class="hero-section">
-        <div class="hero-content">
-            <!-- Shopee Premium 3D Bag Icon -->
-            <div class="hero-icon-wrapper" style="margin-bottom: 20px;">
-                <i class="fa-solid fa-bag-shopping" style="font-size: 100px; color: #FF4500; filter: drop-shadow(0 10px 15px rgba(255, 69, 0, 0.3));"></i>
-            </div>
-
-            <h1>Sua <span class="highlight">Boutique VIP</span> de Moda & Beleza exclusiva <span class="shopee-text">Shopee</span>.</h1>
-
-            <!-- Modern Search Bar -->
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="search-input"
-                        placeholder="Qual look ou maquiagem você deseja hoje? (ex: Vestido, Base...)" autocomplete="off">
-                    <button class="btn-search">Buscar Agora</button>
-                    <!-- Suggestions -->
-                    <div id="search-suggestions" class="search-suggestions"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon-wrapper" style="margin-bottom: 20px;">
+                    <i class="fa-solid fa-bag-shopping" style="font-size: 100px; color: #FF4500; filter: drop-shadow(0 10px 15px rgba(255, 69, 0, 0.3));"></i>
                 </div>
-            </div>
 
-            <!-- Logos das Lojas Parceiras -->
-            <div class="partners-logos" style="display: none;">
-                <!-- Hide legacy logos -->
+                <h1>Sua <span class="highlight">Boutique VIP</span> de Moda & Beleza exclusiva <span class="shopee-text">Shopee</span>.</h1>
+                <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 30px;">Curadoria de Elite & Achados Reais auditados via API Oficial.</p>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="O que você deseja hoje? Vestidos, Maquiagem..." autocomplete="off">
+                        <button class="btn-search">Buscar Agora</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Ofertas do Momento (Agora no TOPO para maior conversão) -->
-    <section class="voted-deals">
+    <!-- 4. Radar de Tendências IA (O novo cérebro no corpo antigo) -->
+    <section class="radar-section">
         <div class="container">
-            <h2 class="section-title" style="margin-bottom: 20px;">✨ Moda & Beleza: Seleção VIP</h2>
+            <div class="radar-header">
+                <span class="radar-badge">Radar de Tendências</span>
+                <h2 style="color: white; margin-bottom: 0;">Escolhas da <span style="color: #FF4500;">IA Titanium</span></h2>
+            </div>
+            <div id="radar-grid">
+                <!-- Populado via JS -->
+            </div>
+        </div>
+    </section>
 
-            <!-- Anti-Scam Protection Banner (Gatilho de Segurança Azul) -->
-            <div class="anti-scam-banner" style="border-left: 5px solid #FF4500; background: #fff5f0;">
-                <i class="fas fa-shield-halved" style="color: #FF4500;"></i>
-                <div class="anti-scam-content">
-                    <h4 style="color: #8b2500;">Conexão Direta e Segura com a Shopee</h4>
-                    <p style="color: #8b2500;">O Robô Titanium verifica cada link via <strong>API Oficial GraphQL v2</strong>. Você será direcionado apenas para a Loja Oficial Shopee com a segurança de um link auditado.
-                    </p>
+    <!-- 5. Categories Filter -->
+    <section class="categories-filter">
+        <div class="container">
+            <div id="category-btns" class="category-btns">
+                <!-- Gerado por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Vitrine de Ofertas -->
+    <section class="voted-deals" id="loja">
+        <div class="container">
+            <h2 class="section-title">✨ Seleção VIP do Dia</h2>
+            
+            <!-- Anti-Scam Protection Banner -->
+            <div class="anti-scam-banner" style="border-left: 5px solid #FF4500; background: #fff5f0; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; align-items: center; gap: 20px;">
+                <i class="fas fa-shield-halved" style="color: #FF4500; font-size: 2rem;"></i>
+                <div>
+                    <h4 style="color: #8b2500; margin-bottom: 5px;">Conexão Direta e Segura com a Shopee</h4>
+                    <p style="color: #8b2500; font-size: 0.9rem;">O Robô Titanium verifica cada link via <strong>API Oficial</strong>. Você será direcionado apenas para lojas auditadas.</p>
                 </div>
             </div>
 
-            <p style="text-align:center; color:#6b7280; font-size:0.95rem; margin-bottom:24px;">Produtos selecionados
-                automaticamente com os melhores preços do dia vindos diretamente da <strong>Shopee</strong>.</p>
             <div id="deals-grid" class="deals-grid"></div>
         </div>
     </section>
 
-    <!-- Category sections removed for clean Shopee focus -->
-
-    <!-- Editor's Tips / Anti-Scam Curation -->
-    <section class="editor-tips-container">
+    <!-- 7. Editorial Hub -->
+    <section class="editorial-hub" id="blog">
         <div class="container">
-            <div class="editor-tip-card">
-                <div class="editor-avatar">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="editor-text">
-                    <h3>💡 Papo de Especialista: <span style="color: #FF4500;">Boutique de Ofertas Shopee</span>
-                    </h3>
-                    <p>
-                        "A cada minuto, milhares de ofertas surgem na Shopee. No
-                        <strong>Guia do Desconto</strong>, nossa missão é filtrar apenas as melhores e garantir que você clique em links 100% seguros. <span
-                            class="quote">O Robô Titanium audita cada oferta via API Oficial.</span> Se vir um selo de verificação no produto, sua economia está protegida e o direcionamento é para a loja oficial."
-                    </p>
-                </div>
+            <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+                <h2>Editorial <span>Titanium</span></h2>
+                <p>Tendências, Guias de Estilo e Segredos de Beleza Shopee</p>
+            </div>
+
+            <div class="editorial-grid">
+                <a href="blog.html?slug=guia-alfaiataria-luxo" class="article-card">
+                    <div class="article-image" style="background-image: url('images/fashion-hero.png');"></div>
+                    <div class="article-content">
+                        <span style="color: #FF4500; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Moda & Estilo</span>
+                        <h3>Guia Final: Alfaiataria em 2026</h3>
+                        <p>Descubra como transformar o look de escritório em visual luxuoso.</p>
+                    </div>
+                </a>
+                <a href="blog.html?slug=segredos-skincare-coreano" class="article-card">
+                    <div class="article-image" style="background-image: url('images/beauty-hero.png');"></div>
+                    <div class="article-content">
+                        <span style="color: #FF4500; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Beleza & Skincare</span>
+                        <h3>Os Segredos do Skincare Coreano</h3>
+                        <p>Nossa curadoria testou e aprovou os itens imperdíveis.</p>
+                    </div>
+                </a>
+                <a href="blog.html?slug=tendencia-inverno-jaqueta-couro" class="article-card">
+                    <div class="article-image" style="background-image: url('images/hero-bg-portuguese.png');"></div>
+                    <div class="article-content">
+                        <span style="color: #FF4500; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Tendências</span>
+                        <h3>Inverno 2026: Jaqueta de Couro</h3>
+                        <p>Analizamos o mercado e selecionamos as melhores opções com selo de qualidade.</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
-
-
-    <!-- Footer -->
+    <!-- 8. Main Footer (Restaurado com Selos de Confiança) -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="logo">
                         <i class="fas fa-gift" style="color: #FF4500;"></i>
-                        <span><span style="color: #FF4500;">Guia do</span> <strong style="color: #4a0e4e;">Desconto</strong></span>
+                        <span><span style="color: #FF4500;">Boutique</span> <strong style="color: #4a0e4e;">Titanium</strong></span>
                     </div>
-                    <p style="text-align: center;">Boutique de ofertas curadas via API Oficial Shopee.<br>Economia inteligente com links auditados.</p>
+                    <p>Boutique de ofertas curadas via API Oficial Shopee.<br>Economia inteligente com links auditados.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Links Úteis</h4>
                     <a href="sobre.html">Sobre</a>
-                    <a href="mailto:contato@guiadodesconto.com.br">Contato</a>
-                    <a href="privacidade.html">Política de Privacidade</a>
+                    <a href="privacidade.html">Privacidade</a>
                     <a href="termos.html">Termos de Uso</a>
                 </div>
                 <div class="footer-social">
                     <h4>Rede Social</h4>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/oferta.certa10/" target="_blank" rel="noopener"
-                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/oferta.certa10/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="footer-trust">
-                <div class="trust-badge">
+
+            <div class="footer-trust" style="display: flex; justify-content: center; gap: 30px; margin: 40px 0; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div class="trust-badge" style="display: flex; align-items: center; gap: 10px; color: #94a3b8;">
                     <i class="fas fa-shield-halved"></i>
-                    <div class="trust-text">
-                        <strong>Site Seguro</strong>
-                        <span>Navegação Protegida</span>
-                    </div>
+                    <div class="trust-text"><strong>Site Seguro</strong><span>Navegação Protegida</span></div>
                 </div>
-                <div class="trust-badge">
+                <div class="trust-badge" style="display: flex; align-items: center; gap: 10px; color: #94a3b8;">
                     <i class="fab fa-google"></i>
-                    <div class="trust-text">
-                        <strong>Google Safe Browsing</strong>
-                        <span>Verificado & Livre de Ameaças</span>
-                    </div>
+                    <div class="trust-text"><strong>Google Safe</strong><span>Verificado & Seguro</span></div>
                 </div>
-                <div class="trust-badge">
+                <div class="trust-badge" style="display: flex; align-items: center; gap: 10px; color: #94a3b8;">
                     <i class="fas fa-check-circle"></i>
-                    <div class="trust-text">
-                        <strong>Lojas Oficiais</strong>
-                        <span>Parceiros Certificados</span>
-                    </div>
+                    <div class="trust-text"><strong>Loja Oficial</strong><span>Parceiro Certificado</span></div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p class="price-disclaimer">
-                    Os preços e condições de pagamento são válidos para o momento da consulta e podem sofrer alterações
-                    sem aviso prévio.
-                    <br>Em caso de divergência, vale sempre o preço final na loja parceira.
-                </p>
-                <p>&copy; 2026 Guia do Desconto. Especialista em Inteligência Shopee.</p>
+
+            <div class="footer-bottom" style="text-align: center; color: #64748b; font-size: 0.8rem;">
+                <p>&copy; 2026 Boutique Titanium. Especialista em Inteligência Shopee.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bot Honeypot (Security v1140) -->
-    <a href="/admin-login-trap" class="titanium-trap" aria-hidden="true" tabindex="-1" id="titanium-bot-trap">Acesso
-        Administrativo</a>
-
-    <!-- Titanium Assistant (Safety Expert) -->
+    <!-- Assistant -->
     <div class="titanium-assistant" id="titanium-assistant">
-        <div class="assistant-bubble">
-            <div class="bubble-text"><strong>🛡️ Robô Titanium:</strong> Links verificados com segurança total.</div>
-        </div>
-        <div class="assistant-icon">
-            <div class="pulse-ring"></div>
-            <i class="fas fa-robot"></i>
-        </div>
+        <div class="assistant-icon"><i class="fas fa-robot"></i></div>
     </div>
 
-    <!-- Security Verification Overlay -->
+    <!-- Security Overlay -->
     <div class="security-overlay" id="security-overlay">
         <div class="security-loader">
             <i class="fas fa-circle-notch fa-spin"></i>
@@ -327,14 +368,11 @@
         </div>
         <div class="security-text">
             <h3>Verificando Link Seguro</h3>
-            <p>O Robô Titanium está estabelecendo uma conexão criptografada com a loja oficial...</p>
+            <p>Conectando à base oficial Shopee...</p>
             <div class="store-target" id="store-target-name">SHOPEE.COM.BR</div>
         </div>
     </div>
 
-    <!-- Scripts Principais -->
-    <script src="js/app.js?v=titanium_shopee_v15"></script>
-
+    <script src="js/app.js?v=v18"></script>
 </body>
-
 </html>

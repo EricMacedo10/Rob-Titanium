@@ -35,12 +35,14 @@ from core.arbitrator import ArbitroDePreco
 
 app = Flask(__name__)
 
-# CORS: Configuração Permissiva para Desenvolvimento (Aceita file:// e localhost)
+# CORS: Configuração via Variável de Ambiente (Padronizado para * em desenvolvimento)
+# Em produção, adicione CORS_ORIGINS=https://seusite.com.br no seu arquivo .env
+allowed_origins = os.getenv('CORS_ORIGINS', '*').split(',')
 CORS(app, resources={
     r"/api/*": {
-        "origins": "*",  # Permite qualquer origem (incluindo file://)
+        "origins": allowed_origins,
         "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
+        "allow_headers": ["Content-Type", "Authorization", "X-API-Key"]
     }
 })
 
@@ -340,10 +342,12 @@ def limpar_cache():
     Requer API Key
     """
     
-    # Verificar API Key (segurança básica)
+    # Verificar API Key (segurança forte)
     api_key = request.headers.get('X-API-Key')
+    admin_key = os.getenv('ADMIN_API_KEY')
     
-    if api_key != os.getenv('ADMIN_API_KEY', 'dev-key-change-me'):
+    # Bloqueia se a chave não estiver no .env ou se a chave enviada for incorreta
+    if not admin_key or api_key != admin_key:
         return jsonify({
             "erro": "Não autorizado"
         }), 401

@@ -1,0 +1,146 @@
+:root {
+    --primary-pink: #ff69b4;
+    --primary-navy: #4a0e4e;
+    --accent-gold: #FF9900;
+    --bg-light: #f8fafc;
+    --text-muted: #6b7280;
+    --shadow-premium: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Header Config */
+.category-header {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+    padding: 60px 0 40px;
+    border-bottom: 1px solid #fce4ec;
+}
+
+.breadcrumb {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.breadcrumb a {
+    color: var(--primary-pink);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.title-wrapper h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--primary-navy);
+    margin-bottom: 8px;
+}
+
+.title-wrapper p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Store Filters */
+.store-filters {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn i {
+    font-size: 1.1rem;
+}
+
+.filter-btn:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+    border-color: var(--primary-pink);
+}
+
+.filter-btn.active {
+    background: var(--primary-navy);
+    color: white;
+    border-color: var(--primary-navy);
+}
+
+.filter-btn.active[data-store="amazon"] { background: #232f3e; }
+.filter-btn.active[data-store="mercadolivre"] { background: #fff159; color: #333; }
+.filter-btn.active[data-store="shopee"] { background: #ee4d2d; }
+
+/* Grid Main Area */
+.category-main {
+    padding: 40px 0 100px;
+}
+
+.deal-card {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Permit badges to show */
+}
+
+.deal-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.loading-state {
+    text-align: center;
+    padding: 100px 0;
+    color: var(--text-muted);
+}
+
+.loading-state i {
+    font-size: 3rem;
+    color: var(--primary-pink);
+    margin-bottom: 20px;
+}
+
+/* UI Adjustments for Mobiles */
+@media (max-width: 768px) {
+    .title-wrapper h1 { font-size: 1.8rem; }
+    .store-filters { gap: 8px; }
+    .filter-btn { padding: 8px 16px; font-size: 0.8rem; }
+}
+
+/* Best Price Highlight */
+.deal-card.category-best-price {
+    border: 2px solid #FFD700;
+}
+
+.deal-card.category-best-price::after {
+    content: "🏆 Menor Preço";
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: #FFD700;
+    color: #333;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100 !important;
+}

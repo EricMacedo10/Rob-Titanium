@@ -1,0 +1,7 @@
+Boutique Titanium Debug Probe - v1.0
+Timestamp Local: 2026-04-11 19:12
+Identidade: 100% Shopee
+Pasta de Destino FTP: /teste/
+---------------------------------------
+Se voce esta lendo isso em teste.guiadodesconto.com.br/identidade_check.txt, 
+entao o caminho do FTP esta correto e os arquivos estao sendo entregues!

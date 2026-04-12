@@ -1442,36 +1442,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- TITANIUM METRICS: Click Tracking (Senior Workflow) ---
+// --- TITANIUM METRICS: Page Experience Tracking (Elite Workflow) ---
+function trackView() {
+    const data = JSON.stringify({
+        type: 'page_view',
+        path: window.location.pathname,
+        referrer: document.referrer || 'Direto / Desconhecido',
+        screen: `${window.innerWidth}x${window.innerHeight}`,
+        device_type: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
+        timestamp: new Date().toISOString()
+    });
+
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const trackerUrl = isLocal ? 'http://127.0.0.1:5001/api/track-view' : 'track_clicks.php';
+    
+    navigator.sendBeacon(trackerUrl, data);
+}
+
 function trackClick(store, category, title) {
     const data = JSON.stringify({
+        type: 'product_click',
         store: store,
         category: category,
         title: title,
+        referrer: document.referrer || 'Direto',
         timestamp: new Date().toISOString(),
         url: window.location.href
     });
 
-    // Environment Detection
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-    // Use 127.0.0.1 instead of localhost for better compatibility in local dev
-    // Use PHP tracker in Staging/Production (Hostinger)
-    const trackerUrl = isLocal
-        ? 'http://127.0.0.1:5001/api/track-click'
-        : 'track_clicks.php'; // Movido para a raiz para evitar 401/404 em pastas protegidas
-    const success = navigator.sendBeacon(trackerUrl, data);
-
-    if (success) {
-        console.log(`📊 Titanium Metrics: Click tracked [${store} - ${category}]`);
-    } else {
-        // Fallback for older browsers or specific security blocks
-        fetch(trackerUrl, { method: 'POST', body: data, keepalive: true }).catch(() => { });
-    }
+    const trackerUrl = isLocal ? 'http://127.0.0.1:5001/api/track-click' : 'track_clicks.php';
+    
+    navigator.sendBeacon(trackerUrl, data);
 }
 
-// Inicializar ouvintes de clique após o DOM carregar
+// Inicializar ouvintes de clique e contador de visitas após o DOM carregar
 document.addEventListener('DOMContentLoaded', () => {
-    // Capturar cliques em cards de oferta e hubs
+    // 1. Contar Visita Inicial
+    trackView();
+
+    // 2. Capturar cliques em cards de oferta e hubs
     const clickTargets = '.hub-card, .deal-card, .brand-tabs .tab-btn, .lightning-item';
 
     document.body.addEventListener('click', function (e) {
@@ -1771,5 +1781,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 40000);
     }
 
+    // === RADAR DE TENDÊNCIAS IA: CARREGAMENTO DINÂMICO ===
+    async function initTitaniumRadar() {
+        const radarGrid = document.getElementById('radar-grid');
+        if (!radarGrid) return;
+
+        try {
+            const response = await fetch('ai_reviews.json');
+            if (!response.ok) throw new Error('Radar offline');
+            const products = await response.json();
+
+            radarGrid.innerHTML = ''; // Limpa o loading
+
+            products.forEach(p => {
+                const auditedUrl = window.titaniumLinkAuditor ? window.titaniumLinkAuditor(p.link) : p.link;
+                
+                const card = document.createElement('a');
+                card.className = 'radar-card';
+                card.href = auditedUrl;
+                card.target = '_blank';
+                card.innerHTML = `
+                    <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='images/placeholder.png'">
+                    <div class="radar-info">
+                        <h4>${p.title.substring(0, 45)}...</h4>
+                        <div class="radar-review">${p.ai_review}</div>
+                    </div>
+                `;
+                radarGrid.appendChild(card);
+            });
+        } catch (err) {
+            console.warn('[Radar] Erro ao carregar tendências:', err);
+            radarGrid.innerHTML = '<div style="opacity:0.5; font-size: 0.8rem;">Radar em calibração. Volte em instantes!</div>';
+        }
+    }
+
+    initTitaniumRadar();
     initTitaniumAssistant();
 });
