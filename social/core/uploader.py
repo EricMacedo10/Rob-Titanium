@@ -43,15 +43,21 @@ class ResilientUploader:
                     f"social/{remote_name}"
                 )
                 if success:
-                    url = f"https://guiadodesconto.com.br/social/{remote_name}"
+                    env_mode = os.getenv('ENV_MODE', 'STAGING').upper()
+                    base_url = "https://guiadodesconto.com.br"
+                    if env_mode == "STAGING":
+                        url = f"{base_url}/teste/social/{remote_name}"
+                    else:
+                        url = f"{base_url}/social/{remote_name}"
+                    
                     if self._verify_link(url):
                         # BLINDAGEM: Verificação extra simulando o crawler do Meta
-                        print("--- 🔍 Verificação Meta-realista (simulando crawler do Facebook)...")
+                        print("--- Verificacao Meta-realista (simulando crawler do Facebook)...")
                         if self._verify_link_for_meta(url):
                             self.provider_used = "Hostinger (FTP)"
                             return url
                         else:
-                            print("--- ⚠️ Hostinger bloqueado para crawlers do Meta!")
+                            print("--- Aviso: Hostinger bloqueado para crawlers do Meta!")
                             print("--- Ativando fallback automático para ImgBB...")
             except Exception as e:
                 print(f"--- Erro no FTP: {e}")
@@ -80,7 +86,7 @@ class ResilientUploader:
                 data = response.json()
                 if data.get("success"):
                     imgbb_url = data["data"]["url"]
-                    print(f"--- ✅ ImgBB upload OK: {imgbb_url}")
+                    print(f"--- [OK] ImgBB upload OK: {imgbb_url}")
                     return imgbb_url
                 else:
                     print(f"--- Erro ImgBB: {data.get('error', {}).get('message')}")
@@ -120,16 +126,16 @@ class ResilientUploader:
             r.close()
 
             if r.status_code != 200:
-                print(f"--- ❌ Meta-check: Status {r.status_code} (esperado 200)")
+                print(f"--- [ERRO] Meta-check: Status {r.status_code} (esperado 200)")
                 return False
 
             if not content_type.startswith(("image/", "video/")):
-                print(f"--- ❌ Meta-check: Content-Type '{content_type}' (esperado image/* ou video/*)")
-                print(f"--- 💡 Hostinger provavelmente retornou uma página HTML de bloqueio.")
+                print(f"--- [ERRO] Meta-check: Content-Type '{content_type}' (esperado image/* ou video/*)")
+                print(f"--- Hostinger provavelmente retornou uma página HTML de bloqueio.")
                 return False
 
             if content_length < 10240:  # Menos de 10KB = provavelmente uma página de erro
-                print(f"--- ⚠️ Meta-check: Content-Length {content_length} bytes (muito pequeno para mídia)")
+                print(f"--- [AVISO] Meta-check: Content-Length {content_length} bytes (muito pequeno para mídia)")
                 return False
 
             # Segunda verificação (estabilidade — WAF pode bloquear após N requests)
@@ -139,10 +145,10 @@ class ResilientUploader:
             r2.close()
 
             if r2.status_code != 200 or not ct2.startswith(("image/", "video/")):
-                print(f"--- ⚠️ Meta-check (2ª tentativa): Instável — Status {r2.status_code}, CT: {ct2}")
+                print(f"--- [AVISO] Meta-check (2ª tentativa): Instável — Status {r2.status_code}, CT: {ct2}")
                 return False
 
-            print(f"--- ✅ Meta-check: OK (Content-Type: {content_type}, Size: {content_length} bytes)")
+            print(f"--- [OK] Meta-check: OK (Content-Type: {content_type}, Size: {content_length} bytes)")
             return True
 
         except Exception as e:

@@ -17,6 +17,14 @@ TRIGGERS = ["eu quero", "quero", "link", "valor", "preço", "eu quero o link"]
 
 # Mapeamento de links (Pode ser automatizado no futuro)
 OFFERT_DATA = {
+    "manga_japonesa": {
+        "link": "https://s.shopee.com.br/9pZrJjsyel",
+        "site": "https://guiadodesconto.com.br"
+    },
+    "vestido_midi": {
+        "link": "https://s.shopee.com.br/1qXZcVf23V",
+        "site": "https://guiadodesconto.com.br"
+    },
     "pantalona": {
         "link": "https://produto.mercadolivre.com.br/MLB-5653965336-calca-pantalona-alfaiataria-feminina-cintura-alta-elastico-_JM?matt_tool=188269638&matt_source=guiadodesconto",
         "site": "https://guiadodesconto.com.br"
@@ -67,7 +75,11 @@ def run_comment_responder():
         
         # Identificar qual produto é baseado na legenda
         product_key = "default"
-        if "pantalona" in caption:
+        if "manga japonesa" in caption:
+            product_key = "manga_japonesa"
+        elif "vestido" in caption:
+            product_key = "vestido_midi"
+        elif "pantalona" in caption:
             product_key = "pantalona"
         elif "suporte" in caption:
             product_key = "suporte" # (Implementar link se necessário)
@@ -96,12 +108,15 @@ def run_comment_responder():
                 # Resposta Pública no Comentário
                 public_message = f"Olá, {user}! 🎁 Te enviei o link com todos os detalhes lá no seu Direct (Inbox)! Corre lá pra conferir. 🏃‍♀️💨"
                 
-                # Resposta Privada (DM)
+                # Resposta Privada (DM) - Separando o link do produto do link do site
                 private_message = (
-                    f"Olá, {user}! 🎁 Aqui está o link da oferta que você pediu:\n\n"
-                    f"🔗 Produto: {offert['link']}\n\n"
-                    "Espero que aproveite! Se quiser explorar outras opções incríveis "
-                    f"com os melhores preços, visite nosso portal: {offert['site']} \n\n"
+                    f"Olá, {user}! 🎁 Aqui está o link oficial da oferta que você solicitou:\n\n"
+                    f"🛒 PRODUTO COM DESCONTO: {offert['link']}\n"
+                    "------------------------------------------\n"
+                    "🔎 QUER EXPLORAR OUTRAS OFERTAS?\n"
+                    "Confira os melhores achadinhos do dia no nosso portal oficial:\n"
+                    f"🌐 {offert['site']}\n\n"
+                    "Espero que aproveite! 🏃‍♀️💨\n\n"
                     "Atenciosamente,\n"
                     "Equipe Robô Titanium 🛡️💎"
                 )

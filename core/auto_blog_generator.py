@@ -20,7 +20,10 @@ def auto_generate_weekly_article():
     print(f"[Automação] Tema da Semana: {tema_escolhido}")
     
     engine = TitaniumEditorial()
-    engine.generate_article(tema_escolhido)
+    
+    # Extrai palavras-chave simplificadas do tema para SEO
+    keywords = ", ".join([w for w in tema_escolhido.split() if len(w) > 3])
+    engine.generate_article(tema_escolhido, keywords)
 
 if __name__ == "__main__":
     auto_generate_weekly_article()

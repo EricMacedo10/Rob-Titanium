@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "c:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\post_gabi_carousel.py", line 90, in <module>
+    post_gabi_carousel()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\post_gabi_carousel.py", line 30, in post_gabi_carousel
+    client = InstagramClient(ig_token, ig_business_id, page_id=page_id)
+  File "c:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\core\instagram_client.py", line 17, in __init__
+    self._init_page_token()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\ericm\OneDrive\┴rea de Trabalho\PESSOAL\Rob¶ Titanium\social\core\instagram_client.py", line 33, in _init_page_token
+    print("\u26a0\ufe0f Aviso: Falha ao obter Page Access Token. As DMs podem falhar.")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ericm\AppData\Local\Programs\Python\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>

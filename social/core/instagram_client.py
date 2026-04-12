@@ -2,6 +2,43 @@ import requests
 import json
 import time
 import os
+import functools
+
+def prevent_concurrent_posts(func):
+    """Decorator para impedir que dois scripts publiquem na Meta API simultaneamente."""
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        lock_file = os.path.join(os.path.dirname(__file__), "..", "..", "state", "post.lock")
+        lock_file = os.path.abspath(lock_file)
+        
+        if os.path.exists(lock_file):
+            try:
+                age = time.time() - os.path.getmtime(lock_file)
+                if age > 600: # 10 minutos
+                    print("--- [AVISO] Removendo lock de postagem obsoleto (>10 min)...")
+                    os.remove(lock_file)
+                else:
+                    print(f"--- [ERRO] Já existe uma postagem em andamento! (Lock ativo há {age:.0f}s)")
+                    print("--- Operacao cancelada automaticamente para impedir postagem duplicada na sua página.")
+                    return False
+            except Exception:
+                pass
+                
+        # Lock adquirido
+        os.makedirs(os.path.dirname(lock_file), exist_ok=True)
+        with open(lock_file, "w") as f:
+            f.write(str(time.time()))
+            
+        try:
+            return func(self, *args, **kwargs)
+        finally:
+            # Libera o lock
+            if os.path.exists(lock_file):
+                try:
+                    os.remove(lock_file)
+                except Exception:
+                    pass
+    return wrapper
 
 class InstagramClient:
     """
@@ -30,7 +67,7 @@ class InstagramClient:
             self.page_id = data["data"][0]["id"]
             self.page_access_token = data["data"][0]["access_token"]
         else:
-            print("⚠️ Aviso: Falha ao obter Page Access Token. As DMs podem falhar.")
+            print("[!] Aviso: Falha ao obter Page Access Token. As DMs podem falhar.")
 
     def get_latest_media(self, limit=10):
         """
@@ -123,34 +160,67 @@ class InstagramClient:
         """
         return self._create_and_publish(image_url, caption, media_type=None)
 
-    def post_carousel(self, image_urls, caption):
+    @prevent_concurrent_posts
+    def post_carousel(self, media_items, caption):
         """
         Realiza o fluxo completo de postagem para Carrossel (Album).
-        """
-        print(f"--- Iniciando postagem de CARROSSEL no Instagram...")
         
+        Aceita dois formatos:
+          - Lista de strings (URLs de imagens) → retrocompatível
+          - Lista de dicts: [{"url": "...", "type": "IMAGE"}, {"url": "...", "type": "VIDEO"}]
+        
+        Tipos suportados: IMAGE, VIDEO
+        Máximo de 10 itens. Mínimo de 2 itens.
+        """
+        print(f"--- Iniciando postagem de CARROSSEL MISTO no Instagram...")
+
+        # Normaliza para lista de dicts
+        normalized = []
+        video_exts = ('.mp4', '.mov', '.avi', '.webm')
+        for item in media_items:
+            if isinstance(item, str):
+                # Detecta tipo pela extensão da URL
+                ext = item.split('?')[0].lower()
+                item_type = "VIDEO" if any(ext.endswith(e) for e in video_exts) else "IMAGE"
+                normalized.append({"url": item, "type": item_type})
+            else:
+                normalized.append(item)
+
         child_ids = []
-        for i, url in enumerate(image_urls):
-            print(f"--- Criando container para imagem {i+1}/{len(image_urls)}...")
+        for i, item in enumerate(normalized):
+            url = item["url"]
+            item_type = item.get("type", "IMAGE").upper()
+            is_video = (item_type == "VIDEO")
+            
+            print(f"--- [RELAX] Aguardando 10s antes do item {i+1} para evitar erro 2 da Meta...")
+            time.sleep(10)
+
+            print(f"--- Criando container [{item_type}] para item {i+1}/{len(normalized)}...")
             container_url = f"{self.base_url}/media"
             payload = {
-                "image_url": url,
                 "is_carousel_item": "true",
                 "access_token": self.access_token
             }
+            if is_video:
+                payload["video_url"] = url
+                payload["media_type"] = "VIDEO"
+            else:
+                payload["image_url"] = url
+
             resp = requests.post(container_url, data=payload)
             data = resp.json()
             if "id" in data:
                 child_id = data["id"]
-                # BLINDAGEM: Aguardar o item do carrossel ser processado antes de continuar
-                print(f"--- Aguardando processamento do item {i+1}...")
-                if self._wait_for_processing(child_id):
+                print(f"--- Aguardando processamento do item {i+1} [{item_type}]...")
+                if self._wait_for_processing(child_id, is_video=is_video, is_carousel_item=True):
                     child_ids.append(child_id)
                 else:
                     print(f"--- Falha ao aguardar processamento do item {i+1}")
                     return False
             else:
                 print(f"--- Erro ao criar container filho: {data}")
+                if "error" in data:
+                    print(f"--- Meta Error Details: {json.dumps(data['error'], indent=2)}")
                 return False
         
         # Passo 2: Criar Carousel Container
@@ -179,21 +249,121 @@ class InstagramClient:
         if not self._wait_for_processing(creation_id):
             return False
             
-        # Passo 4: Publicar
+        # Passo 4: Publicar com retry (pois o processamento assíncrono interno pode demorar extra para vídeos)
         publish_url = f"{self.base_url}/media_publish"
         publish_payload = {
             "creation_id": creation_id,
             "access_token": self.access_token
         }
-        resp = requests.post(publish_url, data=publish_payload)
-        publish_data = resp.json()
         
-        if "id" in publish_data:
-            print(f"--- CARROSSEL PUBLICADO COM SUCESSO! (ID: {publish_data['id']})")
-            return True
-        else:
-            print(f"--- Erro ao publicar carrossel: {publish_data}")
+        max_pub_attempts = 5
+        for attempt in range(max_pub_attempts):
+            resp = requests.post(publish_url, data=publish_payload)
+            publish_data = resp.json()
+            
+            if "id" in publish_data:
+                print(f"--- [OK] CARROSSEL PUBLICADO COM SUCESSO! (ID: {publish_data['id']})")
+                return True
+            else:
+                err_msg = publish_data.get('error', {}).get('message', '')
+                if 'Media ID is not available' in err_msg or 'Please wait a moment' in err_msg:
+                    print(f"--- [AVISO] Backend do Meta ocupado (Tentativa {attempt+1}/{max_pub_attempts}). Aguardando 15s...")
+                    time.sleep(15)
+                else:
+                    print(f"--- [ERRO] Falha ao publicar carrossel: {publish_data}")
+                    return False
+        
+        print(f"--- ❌ Falha ao publicar carrossel após {max_pub_attempts} tentativas.")
+        return False
+
+    @prevent_concurrent_posts
+    def post_carousel_with_id(self, media_items, caption):
+        """
+        Similar ao post_carousel, mas retorna o dict da resposta da publicação (incluindo o ID)
+        em vez de apenas um booleano. Útil para bots de comentário.
+        """
+        print(f"--- Iniciando postagem de CARROSSEL COM ID no Instagram...")
+
+        # Normaliza para lista de dicts
+        normalized = []
+        video_exts = ('.mp4', '.mov', '.avi', '.webm')
+        for item in media_items:
+            if isinstance(item, str):
+                ext = item.split('?')[0].lower()
+                item_type = "VIDEO" if any(ext.endswith(e) for e in video_exts) else "IMAGE"
+                normalized.append({"url": item, "type": item_type})
+            else:
+                normalized.append(item)
+
+        child_ids = []
+        for i, item in enumerate(normalized):
+            url = item["url"]
+            item_type = item.get("type", "IMAGE").upper()
+            is_video = (item_type == "VIDEO")
+            
+            print(f"--- Aguardando 10s antes do item {i+1}...")
+            time.sleep(10)
+
+            container_url = f"{self.base_url}/media"
+            payload = {
+                "is_carousel_item": "true",
+                "access_token": self.access_token
+            }
+            if is_video:
+                payload["video_url"] = url
+                payload["media_type"] = "VIDEO"
+            else:
+                payload["image_url"] = url
+
+            resp = requests.post(container_url, data=payload)
+            data = resp.json()
+            if "id" in data:
+                child_id = data["id"]
+                if self._wait_for_processing(child_id, is_video=is_video, is_carousel_item=True):
+                    child_ids.append(child_id)
+                else:
+                    return False
+            else:
+                return False
+        
+        carousel_url = f"{self.base_url}/media"
+        carousel_payload = {
+            "media_type": "CAROUSEL",
+            "children": ",".join(child_ids),
+            "caption": caption,
+            "access_token": self.access_token
+        }
+        
+        resp = requests.post(carousel_url, data=carousel_payload)
+        data = resp.json()
+        if "id" not in data:
             return False
+            
+        creation_id = data["id"]
+        if not self._wait_for_processing(creation_id):
+            return False
+            
+        publish_url = f"{self.base_url}/media_publish"
+        publish_payload = {
+            "creation_id": creation_id,
+            "access_token": self.access_token
+        }
+        
+        max_pub_attempts = 5
+        for attempt in range(max_pub_attempts):
+            resp = requests.post(publish_url, data=publish_payload)
+            publish_data = resp.json()
+            
+            if "id" in publish_data:
+                print(f"--- [OK] CARROSSEL PUBLICADO COM SUCESSO! (ID: {publish_data['id']})")
+                return publish_data
+            else:
+                err_msg = publish_data.get('error', {}).get('message', '')
+                if 'Media ID is not available' in err_msg or 'Please wait a moment' in err_msg:
+                    time.sleep(15)
+                else:
+                    return False
+        return False
 
     def post_story(self, media_url, is_video=False):
         """
@@ -209,6 +379,7 @@ class InstagramClient:
         print(f"--- Postando Reels...")
         return self._create_and_publish(video_url, caption, media_type="REELS", is_video=True, cover_url=cover_url)
 
+    @prevent_concurrent_posts
     def _create_and_publish(self, media_url, caption, media_type=None, is_video=False, cover_url=None):
         """
         Abstração do fluxo de criação e publicação.
@@ -272,9 +443,13 @@ class InstagramClient:
             print(f"--- Falha critica no cliente Instagram: {e}")
             return False
 
-    def _wait_for_processing(self, creation_id, is_video=False):
+    def _wait_for_processing(self, creation_id, is_video=False, is_carousel_item=False):
         """
         Verifica o status do container até que esteja pronto ou expire.
+        
+        Nota: Para vídeos em itens de carrossel, a API do Instagram frequentemente
+        retorna status_code=null mesmo quando o vídeo está sendo processado corretamente.
+        Nesses casos, após max_none tentativas sem status, assumimos FINISHED e prosseguimos.
         """
         status_url = f"https://graph.facebook.com/v21.0/{creation_id}"
         params = {
@@ -282,10 +457,13 @@ class InstagramClient:
             "access_token": self.access_token
         }
         
-        # Aumentamos o timeout para Reels (vídeos pesados demoram mais)
-        max_attempts = 100 if is_video else 30
+        # Para Reels (vídeo standalone), timeout mais longo
+        # Para itens de carrossel (video + image), comportamento mais tolerante ao null
+        max_attempts = 60 if (is_video and not is_carousel_item) else 30
         none_count = 0
-        max_none = 15 if is_video else 5
+        # Número de tentativas null antes de assumir que está OK
+        # Carrossel: tolera mais nulos (API menos confiável para status de vídeo em carrossel)
+        max_none = 20 if (is_video and is_carousel_item) else (15 if is_video else 5)
         
         for attempt in range(max_attempts):
             try:
@@ -294,27 +472,29 @@ class InstagramClient:
                 status = data.get("status_code")
                 
                 if status == "FINISHED":
-                    print(f"--- Midia processada e pronta para publicacao.")
+                    print(f"--- [OK] Midia processada e pronta para publicacao.")
                     return True
                 elif status == "IN_PROGRESS":
                     none_count = 0
-                    print(f"--- Processando midia no Instagram Cloud... (Tentativa {attempt+1}/{max_attempts})")
+                    print(f"--- [..] Processando midia no Instagram Cloud... (Tentativa {attempt+1}/{max_attempts})")
                     time.sleep(10)
                 elif status == "ERROR":
-                    print(f"--- Erro no processamento da midia: {data}")
+                    failure = data.get("failure_reason", "desconhecido")
+                    print(f"--- [ERRO] Erro no processamento da midia: {failure} | {data}")
                     return False
                 else:
                     none_count += 1
-                    # Para vídeos, esperamos MUITO mais o status aparecer
-                    if not is_video and none_count >= max_none:
-                        print(f"--- Status nulo por {max_none} tentativas — assumindo imagem pronta (Feed).")
-                        return True
+                    # Status null = API ainda não registrou — comum em imagens e vídeos de carrossel
+                    if none_count >= max_none:
+                        print(f"--- [AVISO] Status nulo por {none_count} tentativas consecutivas.")
+                        if is_video and not is_carousel_item:
+                            print("--- Timeout aguardando inicio de processamento do video Reel.")
+                            return False
+                        else:
+                            print("--- Assumindo midia pronta (comportamento esperado da API para carrossel).")
+                            return True
                     
-                    if is_video and none_count >= max_attempts:
-                        print("--- Timeout aguardando inicio de processamento do video.")
-                        return False
-                        
-                    print(f"--- Aguardando inicio do processamento... ({status or 'Pendente'}) [{none_count}/{max_none if not is_video else max_attempts}]")
+                    print(f"--- Aguardando inicio do processamento... ({status or 'Pendente'}) [{none_count}/{max_none}]")
                     time.sleep(5)
             except Exception as e:
                 print(f"--- Erro ao checar status: {e}")

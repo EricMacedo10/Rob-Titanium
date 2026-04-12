@@ -1,56 +1,77 @@
 import os
 import ftplib
+import sys
 from dotenv import load_dotenv
+
+# Adiciona diretorio infra ao path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'infra'))
+from upload_logic import upload_to_hostinger
 
 load_dotenv()
 
-def sync_staging():
+def sync_titanium_staging():
+    """
+    Sincroniza a Boutique Titanium (Moda & Beleza) com o site de testes:
+    teste.guiadodesconto.com.br - INCLUINDO PAGINAS LEGAIS
+    """
+    print("="*60)
+    print("TITANIUM STAGING SYNC v12.3 - FULL BOUTIQUE PUSH")
+    print("="*60)
+
     ftp_host = os.getenv("FTP_HOST")
     ftp_user = os.getenv("FTP_USER")
     ftp_pass = os.getenv("FTP_PASS")
 
-    try:
-        session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
-        print(f"✅ Conectado: {ftp_user}")
+    if not all([ftp_host, ftp_user, ftp_pass]):
+        print("[!] Erro: Credenciais FTP nao encontradas no .env")
+        return
+
+    # MODO FORCADA: STAGING
+    os.environ['ENV_MODE'] = 'STAGING'
+
+    # Lista de arquivos vitais + Imagens + Paginas Legais
+    files_to_sync = [
+        # HTML Core
+        ("site/index.html", "index.html"),
+        ("site/index.html", "index_staging.html"),
+        ("site/categoria.html", "categoria.html"),
         
-        # Muda para pasta teste
-        session.cwd("/teste")
-        print("📁 Navegado para /teste")
-
-        files = [
-            ("site/index_staging.html", "index.html"),
-            ("site/index_staging.html", "index_staging.html"),
-            ("site/css/style.css", "css/style.css"),
-            ("site/js/app.js", "js/app.js"),
-            ("site/data.json", "data.json"),
-            ("site/js/family-widget.js", "js/family-widget.js"),
-            ("site/images/hero-bg-portuguese.png", "images/hero-bg-portuguese.png")
-        ]
-
-        print(f"🚀 Iniciando upload de {len(files)} arquivos...")
-
-        for local, remote in files:
-            print(f"📤 Subindo: {local} -> {remote}")
-            with open(local, "rb") as file:
-                # Trata subpastas remota (js/app.js -> cwd to /teste/js)
-                if "/" in remote:
-                    folder, filename = remote.split("/")
-                    try:
-                        session.cwd(f"/teste/{folder}")
-                    except:
-                        session.mkd(f"/teste/{folder}")
-                        session.cwd(f"/teste/{folder}")
-                    
-                    session.storbinary(f"STOR {filename}", file)
-                    session.cwd("/teste")
-                else:
-                    session.storbinary(f"STOR {remote}", file)
+        # Paginas Legais Atualizadas (Shopee Only)
+        ("site/sobre.html", "sobre.html"),
+        ("site/privacidade.html", "privacidade.html"),
+        ("site/termos.html", "termos.html"),
         
-        session.quit()
-        print("🏁 Sincronização v12 concluída!")
+        # Dados 
+        ("site/data.json", "data.json"),
+        ("site/notifications.json", "notifications.json"),
+        
+        # Estrutura
+        ("site/js/app.js", "js/app.js"),
+        ("site/css/style.css", "css/style.css"),
+        
+        # Imagens Hero
+        ("site/images/hero-bg-portuguese.png", "images/hero-bg-portuguese.png"),
+        ("site/images/hero-asset.png", "images/hero-asset.png"),
+        ("site/images/fashion-hero.png", "images/fashion-hero.png"),
+        ("site/images/beauty-hero.png", "images/beauty-hero.png"),
+        ("site/favicon.ico", "favicon.ico")
+    ]
 
-    except Exception as e:
-        print(f"❌ Erro: {e}")
+    print(f"[Info] Preparando envio de {len(files_to_sync)} arquivos para /teste/...")
+
+    success_count = 0
+    for local, remote in files_to_sync:
+        if os.path.exists(local):
+            print(f"\n>>> Sincronizando: {remote}")
+            if upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote):
+                success_count += 1
+        else:
+            print(f"\n[!] Arquivo nao encontrado (pulado): {local}")
+
+    print("\n" + "="*60)
+    print(f"RESULTADO: {success_count}/{len(files_to_sync)} arquivos sincronizados!")
+    print(f"🚀 BOUTIQUE 100% SHOPEE NO AR: http://teste.guiadodesconto.com.br")
+    print("="*60)
 
 if __name__ == "__main__":
-    sync_staging()
+    sync_titanium_staging()
