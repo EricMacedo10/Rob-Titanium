@@ -32,6 +32,8 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **ML produtos com imagem de logo/sem foto** | ML retorna SVG placeholder (Soft-Block). | Rodar `scraper/clean_db.py`. Corrigido no engine: `poly-card` image validation agora filtra `.svg` e `logos-api-admin`. |
 | **GitHub Action sobrescreve vitrine temática** | `core/settings.py` com keywords antigas (e.g. Ring Light). | Atualizar TARGETS no `settings.py` para as palavras-chave do novo nicho ANTES do próximo cron run. |
 | **data.json no server ainda mostra conteúdo antigo após deploy.py** | `deploy.py` exclui `data.json` por design (segurança). | Rodar manualmente `infra/upload_data.py` para fazer o override do JSON no servidor. |
+| **Robô de DM (`bot_instagram.php`) parou de funcionar** | Token expirado (OAuthException 190/463). | Renovar token, atualizar `.env` e `social/bot_instagram.php`, depois rodar `python c:/tmp/upload_bot.py` para subir ao servidor. |
+| **Robô de DM envia o link errado** | `ofertas.json` está desatualizado ou sem a hashtag do post. | Atualizar `social/ofertas.json` com a hashtag do novo post e rodar `python c:/tmp/upload_bot.py`. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -85,7 +87,21 @@ Esta sessão comprovou um bug crítico: ao mudar a vitrine para um novo nicho (e
 - **`infra/deploy.py`**: Envia APENAS assets de layout (HTML, CSS, JS, Imagens). Exclui `data.json` por design (proteção contra sobrescrita acidental).
 - **`infra/upload_data.py`**: Envia APENAS o `data.json`. Usa `ENV_MODE` para escolher entre produção (`/`) e staging (`/teste`). Use este script para forçar atualização de produtos sem alterar o layout.
 - **`sync_staging_v12.py`**: Script legado de sincronização para staging. Usa lista fixa de arquivos.
+- **`social/automate_fashion_carousel.py`** *(2026-03-21)*: Lê imagens de modelos IA (geradas pelo assistente) e cria as artes finais do carrossel (1080x1080 JPEG com badge de preço/loja) salvando em `social/fila/`.
+- **`social/post_fashion_carousel.py`** *(2026-03-21)*: Faz upload das imagens da fila via `ResilientUploader` e publica como Carrossel no Instagram via `InstagramClient.post_carousel()`. Executar com `python -m social.post_fashion_carousel` a partir da raiz do projeto.
+- **`social/bot_instagram.php`** *(Servidor Hostinger, raiz `/`)*: Bot PHP do robô de DM. Monitora comentários dos últimos 6 posts, detecta gatilhos e envia DM com link correto baseado no `ofertas.json`.
+- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python c:/tmp/upload_bot.py`.
+- **`social/titanium_token_manager.py`** *(2026-03-21)*: Gerenciador automático de tokens Meta/Instagram. Troca o User Token por um **Page Access Token permanente (♾️ nunca expira)** e atualiza o `.env`, `bot_instagram.php` e faz upload para o servidor em uma única execução. Executar com `python -m social.titanium_token_manager`.
 
+## 🚀 Hotfixes e Deploy Emergencial (Senior Only) [30/03]
+
+Para correções estruturais (CSS/JS) no Staging ou Produção:
+
+1.  **Cache-Busting Mandatório**: SEMPRE incremente a versão `?v=X.X` nas tags de `<link>` ou `<script>` do HTML ao subir alterações estéticas.
+2.  **Upload de HTML Atômico**: O script de Hotfix (`upload_hotfix_js.py`) deve enviar o arquivo HTML versionado **junto** com os ativos modificados.
+3.  **Validação Visual de Dispositivo**: Antes de declarar vitória, valide via screenshot a integridade do layout (Overflow, Alinhamento de Badges e Colisões de Estilo).
+
+---
 ## 🤖 Mission Statement for AI Agents
 > "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."
 

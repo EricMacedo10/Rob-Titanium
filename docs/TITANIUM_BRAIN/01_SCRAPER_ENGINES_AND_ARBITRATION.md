@@ -21,11 +21,13 @@ Titanium uses `asyncio` to search multiple stores simultaneously. This minimizes
   - *Legado:* SVG Soft-Block trapping (exigia filtragem severa).
   - *Legado:* Obrigatoriedade de `forceInApp=true` e `matt_tool`.
 
-### 3. Shopee Engine (`scraper/engines/shopee_affiliate.py`)
-- **Method**: REST API v4.
-- **Fallback**: Selenium-based search if the API rate limit is reached.
-- **Deep Link Strategy**: For search-based results, use the `/list/` path instead of `/search` to avoid the "Shop failed to load" error in the mobile app.
-- **ID Standard**: Use numeric `an_...` IDs in `utm_source` for maximum compatibility.
+### 3. Shopee Engine (`scraper/shopee_api_test_v2.py` & Integração GraphQL)
+- **Method**: GraphQL Open API v2 (Oficial).
+- **Authentication**: Protocolo **SHA256 Direct** (`hashlib.sha256(AppID + Timestamp + Payload + Secret)`).
+- **Endpoint BR**: `https://open-api.affiliate.shopee.com.br/graphql`.
+- **Performance**: Suporte a 8.000 chamadas/hora e uso de `scrollId` para paginação de alta escala (catálogos de 500+ itens por requisição).
+- **Deep Link Strategy**: Geração automática de links curtos oficiais (`s.shopee.com.br`) via API, garantindo abertura direta no App e maior taxa de conversão.
+- **Product Feed (Update 2026-03-05)**: Implementação de motores DELTA para sincronização diária apenas de mudanças de preço e estoque, otimizando largura de banda.
 
 ## 🤖 The AI Arbitration & Titanium Balancer (v1.4)
 The system goes beyond simplistic price picking by enforcing logical curations and, crucially, a visual balance in the UI.

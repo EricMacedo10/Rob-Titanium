@@ -37,6 +37,22 @@ Implementado como um seletor de lojas multi-camada nos cards de categoria:
 - **Dynamic CSS State**: Classes dinâmicas (`.active[data-store="..."]`) que alteram cores, sombras e brilhos específicos de cada marca em tempo real.
 - **Interactivity Engineering**: Uso de `z-index: 120` e `backdrop-filter: blur(15px)` nos tabs para garantir que o controle de navegação seja sempre soberano e legível sobre as imagens do banner.
 
+### 3. Boutique Shopee Design (v2.0)
+Foco exclusivo na plataforma Shopee com estética de vitrine premium.
+
+#### **A. Estrutura dos Cards (Clean White)**
+- **Background**: Branco absoluto (`#FFFFFF`) com bordas suaves (`#f1f3f5`).
+- **Shadow**: `0 4px 15px rgba(0,0,0,0.03)` (efeito flutuação).
+- **Aspect Ratio**: 1:1 para imagens, garantindo visualização simétrica.
+
+#### **B. Selos de Autoridade (Dynamic Badges)**
+1.  **Campeão de Vendas (Roxo)**: `#8e44ad` - Para produtos com alta temperatura.
+2.  **Oferta Relâmpago (Laranja)**: `#FF4500` - Para descontos acima de 20%.
+3.  **Link Seguro Verificado (Verde)**: Selo de confiança injetado via `app.js` após auditoria do Titanium Link Auditor v1.5.
+
+#### **C. Call to Action (CTA)**
+- **Botão Shopee Premium**: Cor `#2196F3` (Azul Shopee) para maximizar o CTR, diferenciando-se do laranja de navegação.
+
 ### Animation Architecture (Titanium Shine & Pulse)
 Engine de micro-animações para aumento de engajamento e percepção de qualidade:
 - **Titanium Shine**: Efeito de brilho linear metálico que percorre os ícones a cada 5 segundos, simulando reflexo de luxo.
@@ -52,9 +68,9 @@ Implementado em [style.css] e [app.js] para guiar o usuário:
 - **Minimalist UI ("Menos é Mais")**: Ocultação intencional de grids redundantes (`.voted-deals`) para evitar poluição visual e focar o usuário nas áreas de maior conversão (Hubs e Lightning Bar).
 - **Zero-Error Console (Premium Trust)**: Para um site inspirar confiança máxima e "Titanium Trust", o console do navegador do usuário deve ser limpo. A ausência de ativos estéticos raiz como `favicon.ico` gera erros silenciosos (404) que depreciam a qualidade técnica percebida pelas auditorias. É obrigatório manter todos os favicons e webmanifests presentes.
 - **Security Layer (Blindagem)**:
-- **Whitelist**: Todo redirecionamento é validado contra domínios permitidos (`amazon.com.br`, `mercadolivre.com.br`, `shopee.com.br`).
-- **Exclusion Logic**: Banners interativos e cards sazonais (.seasonal e .interactive-card) são ignorados pelo motor de renderização dinâmico para evitar estados de "Nenhuma oferta encontrada" ao retornar ao site.
-- **Cache Busting**: Uso mandatório de tags de versão (ex: `app.js?v=2026v7`) para garantir a entrega imediata de correções críticas.
+    - **Whitelist**: Domínios oficiais Amazon, Shopee e Mercado Livre.
+    - **Titanium Link Auditor (v1.5)**: Injeção ativa de tags de afiliado em tempo real nos cliques do usuário.
+    - **Cache Busting**: Versionamento agressivo de scripts (`?v=2026v15`).
 - **Content Security Policy (CSP)**: Implementa regras de "Zero Trust" mas permite especificamente a comunicação com domínios de rastreamento do Google (`www.googletagmanager.com`, `*.google-analytics.com`) para garantir métricas precisas.
 
 ## 🏗️ DOM Structure & IDs
@@ -76,10 +92,21 @@ The frontend is "re-hydrated" every time the browser loads:
 2.  Filters by current active category or search query.
 3.  **Fail-Safe Image Handling**: If a product image fails to load or matches a known "Blocked Image" pattern, `window.handleImageError` replaces it with a branded placeholder card to maintain site aesthetics.
 
-## 🎨 Design System
+## 🎨 Design System & Styling Rules
 - **Family Widget**: Specialized CSS for a premium, mobile-first look.
 - **Micro-Animations**: Confetti triggers on seasonal cards to enhance UX.
 - **Glassmorphism**: Applied to headers and card overlays for a premium feel.
+
+### 🛡️ Styling Protection Protocols (Senior Rules)
+
+1.  **CSS Class Isolation (Prefixing)**:
+    - **NUNCA** use nomes de classes genéricos como `.best-price-badge` em elementos injetados dinamicamente.
+    - O `style.css` legado possui centenas de regras que podem causar efeitos colaterais (ex: transformar um card em um banner gigante).
+    - **Sempre** use prefixos específicos (ex: `.category-best-price` ou `.titanium-card`) para garantir isolamento total.
+
+2.  **The "Relative Parent" Rule**:
+    - Todo elemento com `position: absolute` (Badges, Troféus, Selos) **DEVE** ter um container pai com `position: relative` definido explicitamente.
+    - Sem isso, o elemento absoluto "escapa" para o topo da Viewport (Página), quebrando o alinhamento visual no mobile e desktop.
 
 ## 💰 AdSense Content Compliance (Lição 2026-03-05)
 

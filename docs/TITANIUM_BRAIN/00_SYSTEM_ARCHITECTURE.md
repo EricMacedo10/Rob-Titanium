@@ -1,75 +1,67 @@
-# 🧠 Titanium Brain: System Architecture Map
+# 🧠 Titanium Brain: System Architecture Map (v2026)
 
-This document describes the high-level topology and data flow of the **Robô Titanium** ecosystem.
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Robô Titanium: Shopee Exclusive**.
 
-## 🏗️ Core Philosophy: Hybrid Decoupling
-The system is built on a "Stateless Pro-Active" architecture. The frontend is a high-performance static site, while the backend is a modular Python engine that injects state via JSON and FTP.
+---
 
-### Component Topology
+## 🏗️ 1. Filosofia: Desacoplamento de Estado (Stateless)
+
+O sistema segue uma arquitetura onde o **Frontend é agnóstico**:
+- O site em produção (Hostinger) não depende de um banco de dados SQL pesado.
+- Toda a "inteligência" e "estado" do site (ofertas, preços, textos de IA) são injetados via arquivos JSON estáticos.
+- Isso garante que o site carregue em menos de 1 segundo e suporte picos massivos de tráfego sem cair.
+
+---
+
+## 🗺️ 2. Topologia de Componentes
 
 ```mermaid
 graph TD
-    subgraph "Local/GitHub Environment"
-        ORCH["Core Orchestrator (orchestrator.py)"]
-        ARB["Arbitrator (arbitrator.py)"]
-        AI["AI Curator (Groq LLM)"]
-        SC["Scraper Engines (Amazon, ML, Shopee)"]
+    subgraph "Automação GitHub (Nuvem)"
+        ACTION["GitHub Actions (Cron/Manual)"]
+        PYTHON["Python Engine (Core)"]
+        AI["IA DeepSeek (Content/Radar)"]
     end
 
-    subgraph "External APIs & Sites"
-        AMZ["Amazon Site"]
-        MELI["Mercado Livre API"]
-        SHP["Shopee API"]
+    subgraph "Fontes de Dados (Oficiais)"
+        SHP["Shopee API v2 (Product Data)"]
     end
 
-    subgraph "Production (Hostinger)"
-        SITE["Static Frontend (index.html)"]
-        DATA["data.json (The State)"]
-        ASSETS["Images/Assets (FTP)"]
+    subgraph "Produção (Hostinger)"
+        SITE["Elite Frontend (HTML/CSS/JS)"]
+        STATE["State Storage (data.json / ai_reviews.json)"]
     end
 
-    ORCH --> ARB
-    ARB --> SC
-    SC -- "Headless Browser / API" --> AMZ
-    SC -- "OAuth / REST" --> MELI
-    SC -- "REST" --> SHP
-    ARB -- "Prompt Scoring" --> AI
-    ORCH -- "Manual Sync" --> DATA
-    ORCH -- "FTP Upload" --> SITE
+    ACTION --> PYTHON
+    PYTHON -- "Auth & Request" --> SHP
+    PYTHON -- "Context Injection" --> AI
+    AI -- "Generated Content" --> PYTHON
+    PYTHON -- "Atomic FTP Sync" --> STATE
+    PYTHON -- "Atomic FTP Sync" --> SITE
 ```
 
-## 📊 Data Flow Cycle
+---
 
-1.  **Trigger**: GitHub Actions (Cron) or Manual Execution.
-2.  **Scraping**: The engine parallelizes searches across e-commerce platforms.
-3.  **Arbitration**: 
-    - The **Arbitro** filters results for validity (Recency, Image quality, Price).
-    - The **AI Curator** compares matches and selects the single best "Deal of the Moment".
-4.  **Serialization**: The final product list is saved as `data.json`.
-5.  **Synchronization**: 
-    - Files are pushed via `infra/deploy.py` or directly to Hostinger via FTP.
-6.  **Hydration**: The frontend JS (`app.js`) fetches `data.json` and renders the cards dynamically.
+## 📊 3. Ciclo de Vida do Dado
 
-## 📁 Key Directories & Modules
-
-### `/core`: The Logic
-- `orchestrator.py`: The "Main Loop" that coordinates trends and manual updates.
-- `arbitrator.py`: The comparison engine.
-- `tokens.py`: Secure OAuth token handling for ML.
-
-### `/scraper`: The Ingestion
-- `engines/`: Store-specific scrapers.
-- `utils/`: Common scraping helpers (Driver setup, proxy-like delays).
-
-### `/social`: The Visibility
-- `automation/`: Post-scheduling scripts.
-- `core/bot.py`: Image generation and IG Graph API bridge.
-
-### `/infra`: The Backbone
-- `deploy.py`: Atomic FTP deployment for the site.
-- `upload_logic.py`: Resilient file transfer.
-- `ResilientUploader` (in `social/core/uploader.py`): Multi-channel orchestrator (FTP + ImgBB Cloud) optimized for Instagram Graph API accessibility.
+1.  **Gatilho (Trigger)**: O GitHub Actions "acorda" nos horários agendados (07h, 13h, 20h, Domingos).
+2.  **Mineração & Curação**:
+    - O motor Python acessa a API Oficial da Shopee.
+    - O **Arbitro** valida se os produtos ainda existem e se os preços são competitivos.
+    - A **IA DeepSeek** gera textos persuasivos e técnicos para o Editorial e o Radar.
+3.  **Sincronização Atômica**:
+    - Os arquivos de estado (`data.json`) são enviados via FTP.
+    - O `index.html` mestre é usado como template seguro.
+4.  **Hidratação Dinâmica**:
+    - O `app.js` no navegador do usuário faz um `fetch` leve do JSON e renderiza as ofertas instantaneamente.
 
 ---
-> [!NOTE]
-> This architecture is designed for **Resilience**. If any API component fails, the fallback scrapers take over. If the entire backend is down, the frontend remains functional using the last successful `data.json`.
+
+## 🔐 4. Protocolo de Segurança (Blindagem)
+
+- **Secrets Only**: Credenciais (`FTP`, `API_KEYS`) residem exclusivamente no GitHub Secrets de forma encriptada.
+- **Structural Shield**:Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) para evitar ataques de injeção ou corrupção de design.
+- **Link Auditing**: 100% dos links são gerados via deeplink oficial Shopee, garantindo a comissão do proprietário.
+
+---
+*Atualizado em: 11/04/2026 - Versão: 3.1.0-Elite*
