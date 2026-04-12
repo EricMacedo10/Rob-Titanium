@@ -186,16 +186,18 @@
             padding: 15px 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 250px;
+            width: 280px;
             font-size: 0.9rem;
             color: #1e293b;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
             border: 1px solid #e2e8f0;
+            z-index: 1005;
         }
 
+        .assistant-bubble.active,
         .titanium-assistant:hover .assistant-bubble {
             opacity: 1;
             transform: translateY(0);
@@ -411,7 +413,9 @@
 
     <!-- Assistant -->
     <div class="titanium-assistant" id="titanium-assistant">
-        <div class="assistant-bubble">Olá! Sou o Robô Titanium. Posso te ajudar com os achados Shopee?</div>
+        <div class="assistant-bubble">
+            <div class="bubble-text">Sincronizando ofertas de Elite...</div>
+        </div>
         <div class="assistant-icon"><i class="fas fa-robot"></i></div>
     </div>
 
