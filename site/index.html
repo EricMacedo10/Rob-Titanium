@@ -176,6 +176,32 @@
         .article-content {
             padding: 30px;
         }
+
+        /* Banner Slider Style */
+        .hero-slider {
+            width: 100%;
+            overflow: hidden;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 450px;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -210,7 +236,16 @@
         </div>
     </header>
 
-    <!-- 3. Hero Section (Restaurado com Sacola 3D) -->
+    <!-- 3. Hero Banner Slider (Robozinho) -->
+    <div class="hero-slider">
+        <div class="slider-track" id="heroSliderTrack">
+            <div class="slide"><img src="images/promo_new_site_v1143.png" alt="Robô Titanium"></div>
+            <div class="slide"><img src="images/promo_hub_v1143.png" alt="Hub de Ofertas"></div>
+            <div class="slide"><img src="images/promo_triade_v1143.png" alt="Tríade de Descontos"></div>
+        </div>
+    </div>
+
+    <!-- 4. Hero Section Elite (Sacola 3D) -->
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
@@ -325,6 +360,7 @@
                     <a href="sobre.html">Sobre</a>
                     <a href="privacidade.html">Privacidade</a>
                     <a href="termos.html">Termos de Uso</a>
+                    <a href="mailto:contato@guiadodesconto.com.br" style="font-size: 0.9rem; margin-top: 10px; display: block; color: #FF4500;"><i class="fas fa-envelope"></i> contato@guiadodesconto.com.br</a>
                 </div>
                 <div class="footer-social">
                     <h4>Rede Social</h4>
@@ -354,6 +390,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Auto Slider Script -->
+    <script>
+        const track = document.getElementById('heroSliderTrack');
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % 3;
+            track.style.transform = `translateX(-${index * 100}%)`;
+        }, 5000); // Muda a cada 5 segundos
+    </script>
 
     <!-- Assistant -->
     <div class="titanium-assistant" id="titanium-assistant">
