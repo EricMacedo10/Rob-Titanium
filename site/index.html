@@ -176,6 +176,59 @@
         .article-content {
             padding: 30px;
         }
+
+        /* Assistant & Notifications */
+        .assistant-bubble {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 250px;
+            font-size: 0.9rem;
+            color: #1e293b;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            pointer-events: none;
+            border: 1px solid #e2e8f0;
+        }
+
+        .titanium-assistant:hover .assistant-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification-container {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .family-notification {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-left: 5px solid #FF4500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(-120%);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 350px;
+        }
+
+        .family-notification.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 
@@ -358,8 +411,12 @@
 
     <!-- Assistant -->
     <div class="titanium-assistant" id="titanium-assistant">
+        <div class="assistant-bubble">Olá! Sou o Robô Titanium. Posso te ajudar com os achados Shopee?</div>
         <div class="assistant-icon"><i class="fas fa-robot"></i></div>
     </div>
+
+    <!-- Notification Engine Container -->
+    <div id="titanium-notifications" class="notification-container"></div>
 
     <!-- Security Overlay -->
     <div class="security-overlay" id="security-overlay">
