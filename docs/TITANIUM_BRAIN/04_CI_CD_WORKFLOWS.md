@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v2026 - Elite)
+# 🚀 Titanium Brain: CI/CD & Deployment (v3.2.0 - Elite)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -10,8 +10,8 @@ O Titanium utiliza três fluxos de trabalho principais (Workflows) localizados e
 
 | Workflow | Gatilho (Trigger) | Ação Principal |
 | :--- | :--- | :--- |
-| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine de ofertas principal via API Oficial. |
-| `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda o motor de IA para mudar o Radar de Tendências. |
+| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine de ofertas principal via API Oficial Shopee. |
+| `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA DeepSeek para atualizar o Radar de Tendências. |
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o artigo editorial da semana. |
 
 ---
@@ -23,20 +23,24 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 ### Servidor:
 - `FTP_HOST`, `FTP_USER`, `FTP_PASS`: Credenciais da Hostinger.
 
-### APIs:
-- `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados.
-- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA.
+### APIs de IA e Dados:
+- `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados Shopee.
+- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA para textos longos (Editorial/Radar).
+- `GROQ_API_KEY`: Acesso ao Llama 3 para curadoria ultrarrápida (Arbitragem).
 
 ---
 
-## 📦 3. Mecânica de Deploy
+## 📦 3. Mecânica de Deploy & Dependências
 
-### Sincronização Atômica (`sync_production_v12.py`)
+### Gestão de Bibliotecas:
+- O sistema utiliza o arquivo `requirements.txt` para garantir que bibliotecas como `beautifulsoup4`, `Pillow` e `groq` estejam sempre presentes no ambiente de nuvem.
+- **Protocolo**: O Workflow executa `pip install -r requirements.txt` antes de rodar os scripts core.
+
+### Sincronização Atômica (`sync_production_v12.py`):
 O sistema utiliza um script inteligente de sincronização que:
-1.  Faz o checkout do código mais recente no GitHub.
-2.  Determina o modo de execução (`PRODUCTION`).
-3.  Compara o hash dos arquivos locais com o servidor (se necessário).
-4.  Realiza o upload via FTP apenas dos dados necessários, garantindo a integridade do site.
+1.  Determina o modo de execução (`PRODUCTION`).
+2.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
+3.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
 ---
 
@@ -44,8 +48,9 @@ O sistema utiliza um script inteligente de sincronização que:
 
 Para garantir que o site nunca "volte atrás" no tempo ou no design:
 - **Git Push First**: Mudanças visuais no `index.html` devem ser enviadas ao GitHub ANTES da automação rodar.
-- **Pythonpath Fix**: Todas as Actions utilizam a variável `PYTHONPATH: .` para garantir que os módulos internos do sistema sejam carregados sem erros no ambiente Linux do GitHub.
-- **Fail-Safe Monitoring**: Caso um ciclo falhe, ele não afeta o site em produção (o site continua online com os dados da última atualização bem-sucedida).
+- **Structural Locking**: O robô principal (`orchestrator.py`) é bloqueado para NÃO sobrescrever arquivos de layout em produção por acidente.
+- **Fail-Safe Monitoring**: Se o GitHub Actions falhar, o site em produção permanece intacto e funcional com os últimos dados válidos.
 
 ---
-*Atualizado em: 11/04/2026 - Documento Técnico de Automação Elite*
+**IA Titanium**
+*Atualizado em: 12/04/2026 - Documento Técnico de Automação Elite*

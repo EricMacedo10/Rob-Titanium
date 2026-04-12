@@ -60,8 +60,9 @@ graph TD
 ## 🔐 4. Protocolo de Segurança (Blindagem)
 
 - **Secrets Only**: Credenciais (`FTP`, `API_KEYS`) residem exclusivamente no GitHub Secrets de forma encriptada.
-- **Structural Shield**:Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) para evitar ataques de injeção ou corrupção de design.
+- **Structural Shield**: Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) para evitar ataques de injeção ou corrupção de design (Blindagem Production).
+- **AI Dual-Engine**: Uso de **Groq (Llama 3)** para velocidade em curadoria e **DeepSeek** para qualidade editorial.
 - **Link Auditing**: 100% dos links são gerados via deeplink oficial Shopee, garantindo a comissão do proprietário.
 
 ---
-*Atualizado em: 11/04/2026 - Versão: 3.1.0-Elite*
+*Atualizado em: 12/04/2026 - Versão: 3.2.0-Elite (Shopee Full Sync)*
