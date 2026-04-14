@@ -137,6 +137,36 @@
             font-style: italic;
         }
 
+        /* Voucher Hub Shopee Styles */
+        .voucher-hub-banner {
+            display: block;
+            background: rgba(255, 69, 0, 0.08); /* Laranja Shopee translúcido base */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #FF4500;
+            text-align: center;
+            padding: 12px 15px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: neonPulse 2s infinite alternate;
+        }
+        
+        .voucher-hub-banner:hover {
+            background: rgba(255, 69, 0, 0.15);
+            color: #FF2400;
+            text-decoration: none;
+        }
+
+        @keyframes neonPulse {
+            0% { box-shadow: inset 0 0 5px rgba(255, 69, 0, 0.2); }
+            100% { box-shadow: inset 0 0 20px rgba(255, 69, 0, 0.6); }
+        }
+
         /* Editorial Hub Styles */
         .editorial-hub {
             padding: 100px 0;
@@ -241,6 +271,11 @@
         <i class="fa-solid fa-sparkles" style="color: #ffeb3b;"></i> 
         Boutique VIP: Tendências de Moda & Beleza Shopee Ativas
     </div>
+
+    <!-- 1.5. Voucher Hub Shopee -->
+    <a href="https://s.shopee.com.br/16RtbfSuP" target="_blank" rel="noopener noreferrer" class="voucher-hub-banner" id="voucher-hub">
+        <i class="fa-solid fa-ticket"></i> 🎟️ CENTRAL DE CUPONS: Resgate seus descontos de hoje aqui! <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+    </a>
 
     <!-- 2. Main Header -->
     <header class="main-header">

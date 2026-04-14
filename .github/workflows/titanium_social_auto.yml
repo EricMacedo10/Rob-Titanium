@@ -1,0 +1,55 @@
+name: "📱 TITANIUM: Social Auto-Post (Instagram)"
+
+on:
+  schedule:
+    # 08:30 BRT
+    - cron: '30 11 * * *'
+    # 14:30 BRT
+    - cron: '30 17 * * *'
+    # 19:30 BRT
+    - cron: '30 22 * * *'
+    # 23:30 BRT
+    - cron: '30 02 * * *'
+  workflow_dispatch:
+
+jobs:
+  social-post-cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛰️ Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🐍 Setup Python Stack
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install Core Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pandas  # Necessário para o CSV
+
+      - name: 🎨 Gerar Lote de Artes (CSV -> Fila)
+        env:
+          PYTHONPATH: .
+        run: python social/queue_csv_products.py
+
+      - name: 🚀 Publicar no Instagram (Fila -> Meta API)
+        env:
+          PYTHONPATH: .
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ID: ${{ secrets.IG_BUSINESS_ID }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+          ENV_MODE: PRODUCTION
+        run: python social/core/bot.py
+
+      - name: 📦 Arquivar Estado do CSV
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 Bot: Atualizando estado do carrossel (social/state_csv.json)"
+          file_pattern: 'social/state_csv.json social/fila/* social/postados/*'

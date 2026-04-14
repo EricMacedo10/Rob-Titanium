@@ -57,6 +57,22 @@ class Copywriter:
         
         return header + body
 
+    def generate_product_caption(self, title, price, store="Shopee"):
+        """
+        Gera uma legenda focada em um produto específico (nome e preço).
+        """
+        header = f"🚀 Achado incrível na {store.upper()}! 🚀"
+        
+        body = (
+            f"\n\n{title.upper()}\n\n"
+            f"💵 Por apenas: R$ {price}\n\n"
+            f"👉 Comente 'EU QUERO' que enviamos o link no seu Direct! 📩\n"
+            f"Ou acesse o link na nossa Bio.\n\n"
+            f"#shopee #achadinhos #ofertas #desconto #promocao"
+        )
+        
+        return header + body
+
     def generate_category_caption(self, store, category):
         """
         Gera legenda para postagens temáticas de categorias.

@@ -111,7 +111,17 @@ class SocialBot:
             store = parts[0] if len(parts) > 0 else "default"
             category = parts[1].split('.')[0] if len(parts) > 1 else "ofertas"
             
-            caption = self.copywriter.generate_category_caption(store, category)
+            json_path = local_path.replace(os.path.splitext(local_path)[1], '.json')
+            if os.path.exists(json_path):
+                try:
+                    with open(json_path, 'r', encoding='utf-8') as mj:
+                        meta = json.load(mj)
+                    caption = self.copywriter.generate_product_caption(meta['title'], meta['price'], store)
+                except Exception as e:
+                    print(f"Erro lendo metadata: {e}")
+                    caption = self.copywriter.generate_category_caption(store, category)
+            else:
+                caption = self.copywriter.generate_category_caption(store, category)
             
             local_image = local_path if not is_video else None
             local_video = local_path if is_video else f"social/temp_video_output.mp4"
@@ -187,6 +197,12 @@ class SocialBot:
                 # mas aqui target_banner é o arquivo original da FILA.
                 shutil.move(local_path, target_path)
                 print(f"📦 Arquivo arquivado em: {os.path.basename(target_path)}")
+                
+                # Move também o JSON associado para manter a fila limpa
+                json_path = local_path.replace(os.path.splitext(local_path)[1], '.json')
+                if os.path.exists(json_path):
+                    json_target = target_path.replace(os.path.splitext(target_path)[1], '.json')
+                    shutil.move(json_path, json_target)
                 
                 # Limpeza do temporário se gerado
                 temp_v = "social/temp_video_output.mp4"

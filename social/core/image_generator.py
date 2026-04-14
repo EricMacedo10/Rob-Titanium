@@ -78,16 +78,27 @@ class ImageGenerator:
                 img_data = BytesIO(response.content)
                 product_img = Image.open(img_data).convert("RGBA")
                 
-                # Redimensionar (MUITO MAIOR para destaque premium)
-                max_size = 900 if format == "post" else 1000
-                product_img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+                # Garantir Uniformidade (Mesmo Tamanho Exato e Aconchegante Independente da Origem)
+                max_size = 850 if format == "post" else 950
                 
-                # Centralizar imagem com sombra
-                img_x = (self.width - product_img.width) // 2
-                img_y = (self.height - product_img.height) // 2 - (50 if format == "post" else 150)
+                # 1. Força a amplificação se a imagem for pequena, ou redução se mto grande
+                img_w, img_h = product_img.size
+                ratio = min(max_size / img_w, max_size / img_h)
+                new_w, new_h = int(img_w * ratio), int(img_h * ratio)
                 
-                # Sombra Projetada (Simples)
-                shadow = Image.new("RGBA", product_img.size, (0, 0, 0, 60))
+                product_img = product_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                
+                # 2. Insere num "Box Invisível" do mesmo tamanho pra criar padronização e peso igual
+                box = Image.new('RGBA', (max_size, max_size), (0, 0, 0, 0))
+                box.paste(product_img, ((max_size - new_w) // 2, (max_size - new_h) // 2))
+                product_img = box
+                
+                # Centralizar o Box Uniforme no Canvas
+                img_x = (self.width - max_size) // 2
+                img_y = (self.height - max_size) // 2 - (50 if format == "post" else 150)
+                
+                # Sombra Projetada Uniforme
+                shadow = Image.new("RGBA", product_img.size, (0, 0, 0, 30))
                 canvas.paste(shadow, (img_x + 20, img_y + 20), shadow)
                 canvas.paste(product_img, (img_x, img_y), product_img)
             else:
@@ -105,23 +116,14 @@ class ImageGenerator:
             store_logo.thumbnail((250, 100), Image.Resampling.LANCZOS)
             canvas.paste(store_logo, (50, 50), store_logo)
 
-        # 4. Fontes
+        # 4. Fontes Minimalistas
         try:
             font_path = "C:\\Windows\\Fonts\\arialbd.ttf"
-            font_price = ImageFont.truetype(font_path, 130)  # Maior
-            font_campaign = ImageFont.truetype(font_path, 110) # Volta às Aulas
-            font_title = ImageFont.truetype(font_path, 50)
-            font_cta = ImageFont.truetype(font_path, 40)
+            font_price = ImageFont.truetype(font_path, 75)  # Tamanho Reduzido e Elegante
         except:
-            font_price = font_campaign = font_title = ImageFont.load_default()
+            font_price = ImageFont.load_default()
 
-        # 5. Campanha "Volta às Aulas" (Padrão das Referências)
-        brand_info = self.brand_colors.get(store_type.lower(), self.brand_colors["default"])
-        campaign_text = "Volta às Aulas"
-        draw.text(((self.width - draw.textlength(campaign_text, font=font_campaign))//2, self.height - 250), 
-                  campaign_text, font=font_campaign, fill=brand_info["text"])
-
-        # 6. Adicionar Preço (Badge Vibrante e Grande)
+        # 5. Adicionar Preço (Badge Premium Clean)
         try:
             raw_val = str(price).replace('R$', '').replace(' ', '').replace(',', '.')
             if raw_val.count('.') > 1:
@@ -133,30 +135,26 @@ class ImageGenerator:
             print(f"Erro na formatação de preço ({price}): {e}")
             price_formatted = f"R$ {price}"
         
-        badge_w, badge_h = 550, 180
+        badge_w, badge_h = 360, 110
         badge_x = (self.width - badge_w) // 2
-        badge_y = self.height - 450
+        badge_y = self.height - 200  # Posição focada no rodapé inferior centralizado
         
-        # Cor do badge contrastante
-        badge_fill = (255, 255, 255) if store_type.lower() != 'mercadolivre' else (51, 51, 51)
-        text_fill = (0, 0, 0) if store_type.lower() != 'mercadolivre' else (255, 255, 255)
+        # Cor do badge clean e contrastante (Fundo Branco, Fonte Laranja Shopee)
+        badge_fill = (255, 255, 255)
+        text_fill = (238, 77, 45) if store_type.lower() == 'shopee' else (51, 51, 51)
         
-        draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=40, fill=badge_fill)
-        draw.text((badge_x + (badge_w - font_price.getlength(price_formatted))//2, badge_y + 20), 
+        # Sombreamento ultra-suave para dar profundidade Elite Glassmorphism
+        shadow_overlay = Image.new('RGBA', canvas.size, (0,0,0,0))
+        shadow_draw = ImageDraw.Draw(shadow_overlay)
+        shadow_draw.rounded_rectangle([badge_x + 8, badge_y + 8, badge_x + badge_w + 8, badge_y + badge_h + 8], radius=35, fill=(0, 0, 0, 40))
+        canvas.paste(shadow_overlay, (0,0), shadow_overlay)
+
+        # Desenhar base do Preço
+        draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=35, fill=badge_fill)
+        draw.text((badge_x + (badge_w - font_price.getlength(price_formatted))//2, badge_y + 15), 
                   price_formatted, font=font_price, fill=text_fill)
 
-        # 7. Título do Produto (Acima do preço, com contorno se necessário)
-        clean_title = (product_title[:45] + '...') if len(product_title) > 45 else product_title
-        title_y = badge_y - 80
-        title_w = draw.textlength(clean_title, font=font_title)
-        draw.text(((self.width - title_w)//2, title_y), clean_title, font=font_title, fill=brand_info["text"])
-        
-        # 8. Call to Action (CTA)
-        cta_text = "LINK NA BIO 🔗"
-        draw.text(((self.width - draw.textlength(cta_text, font=font_cta))//2, self.height - 80), 
-                  cta_text, font=font_cta, fill=brand_info["text"])
-
-        # 7. Salvar
+        # 6. Salvar e Retornar
         canvas.convert("RGB").save(output_path, "JPEG", quality=95)
         return output_path
 
