@@ -261,6 +261,21 @@
         .family-notification.show {
             transform: translateX(0);
         }
+
+        /* Platinum Quality Badge & Glassmorphism Card Style */
+        .platinum-card {
+            background: linear-gradient(145deg, #ffffff, #fffdf5);
+            border: 1px solid rgba(255, 215, 0, 0.4) !important;
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.1) !important;
+            position: relative;
+        }
+
+        .platinum-card:hover {
+            border-color: #ffd700 !important;
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.2) !important;
+            transform: translateY(-5px);
+        }
+
     </style>
 </head>
 
@@ -341,6 +356,22 @@
             <div id="category-btns" class="category-btns">
                 <!-- Gerado por JS -->
             </div>
+        </div>
+    </section>
+
+    <!-- 5.5 Coleção Permanente: Seleção Platinum -->
+    <section class="specialist-collection" id="platinum">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px; margin-top: 20px;">
+                <div style="display:inline-block; padding: 5px 15px; background: rgba(255,215,0,0.1); color: #b8860b; border: 1px solid rgba(255,215,0,0.3); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px;">
+                    <i class="fas fa-crown"></i> COLEÇÃO PERMANENTE
+                </div>
+                <h2>Seleção da <span style="color: #FF4500;">Especialista</span></h2>
+                <p>Os achados com maior avaliação e conversão curados à mão.</p>
+            </div>
+
+            <!-- Será populado via JS app.js consumindo specialist.json -->
+            <div id="platinum-grid" class="deals-grid"></div>
         </div>
     </section>
 

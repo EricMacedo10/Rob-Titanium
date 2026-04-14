@@ -8,12 +8,6 @@ const TITANIUM_CONFIG = {
     TAGS: {
         shopee: "an_18318830863"
     },
-    // Configurações de Afiliado Legadas (vazias para evitar crashes)
-    ML_AFFILIATE: {
-        userId: "188269638",
-        source: "guiadodesconto",
-        trackingPrefix: "titanium"
-    },
     // Foco Total Shopee
     STATUS: {
         shopee: true
@@ -30,46 +24,7 @@ const TITANIUM_CONFIG = {
     }
 };
 
-/**
- * Gera um tracking_id único para rastreamento
- * @returns {string} ID único baseado em timestamp
- */
-function generateTrackingId() {
-    const prefix = TITANIUM_CONFIG.ML_AFFILIATE.trackingPrefix;
-    const userId = TITANIUM_CONFIG.ML_AFFILIATE.userId;
-    const timestamp = Date.now().toString(36);
-    const random = Math.random().toString(36).substr(2, 5);
-    return `${prefix}-${userId}-${timestamp}-${random}`;
-}
-
-/**
- * Constrói URL do Mercado Livre com todos os parâmetros de afiliado
- * @param {string} searchTerm - Termo de busca
- * @returns {string} URL completa com parâmetros de afiliado
- */
-function buildMLAffiliateUrl(searchTerm) {
-    const config = TITANIUM_CONFIG.ML_AFFILIATE;
-
-    // Normaliza termo para o padrão de URL do ML (troca espaço por hífen)
-    const normalizedTerm = encodeURIComponent(searchTerm).replace(/%20/g, '-');
-
-    // URL de busca com ordenação por Menor Preço nativa (_OrderId_PRICE)
-    const baseUrl = `https://lista.mercadolivre.com.br/${normalizedTerm}_OrderId_PRICE`;
-
-    // Parâmetros de afiliado oficiais (Matt-Tool System)
-    const params = new URLSearchParams({
-        'matt_tool': config.userId,              // ✅ Seu ID de Afiliado: 188269638
-        'matt_word': searchTerm,                 // Termo buscado para tracking
-        'matt_source': config.source,            // 'guiadodesconto'
-        'tracking_id': generateTrackingId(),     // ID único para cada clique
-        'forceInApp': 'true'                     // 📱 Força a abertura do App e rastreio persistente
-    });
-
-    const finalUrl = `${baseUrl}?${params.toString()}`;
-
-    console.log('[Titanium ML] Link Inteligente (forceInApp) gerado:', finalUrl);
-    return finalUrl;
-}
+// ML logic removed.
 
 /**
  * Constrói URL de busca da Shopee (Hybrid: Links Oficiais + Fallback)
@@ -157,13 +112,6 @@ function titaniumLinkAuditor(rawUrl, storeHint = "") {
     const config = TITANIUM_CONFIG.TAGS;
 
     try {
-        // --- AUDITORIA AMAZON ---
-        if (url.includes('amazon.com.br') && !url.includes('tag=')) {
-            const separator = url.includes('?') ? '&' : '?';
-            url = `${url}${separator}tag=${config.amazon}`;
-            console.log('[Titanium Auditor] Tag Amazon injetada via Auditoria.');
-        }
-
         // --- AUDITORIA SHOPEE (Deep Linking Dinâmico) ---
         if (url.includes('shopee.com.br')) {
             // Se for link direto (não for link curto s.shopee ou shope.ee) e não tiver tag
@@ -173,14 +121,6 @@ function titaniumLinkAuditor(rawUrl, storeHint = "") {
                 url = `${url}${separator}utm_source=${shopeeID}`;
                 console.log('[Titanium Auditor] Tag Shopee injetada via Auditoria.');
             }
-        }
-
-        // --- AUDITORIA MERCADO LIVRE ---
-        if (url.includes('mercadolivre.com.br') && !url.includes('matt_tool=')) {
-            const mlConfig = TITANIUM_CONFIG.ML_AFFILIATE;
-            const separator = url.includes('?') ? '&' : '?';
-            url = `${url}${separator}matt_tool=${mlConfig.userId}&matt_source=${mlConfig.source}`;
-            console.log('[Titanium Auditor] Tag ML injetada via Auditoria.');
         }
 
     } catch (e) {
@@ -205,11 +145,7 @@ window.handleImageError = function (imgElement, storeName, productTitle) {
     // Determine content based on store
     let contentHTML = '';
 
-    if (storeLower.includes('amazon')) {
-        contentHTML = '<i class="fa-brands fa-amazon"></i>';
-    } else if (storeLower.includes('mercadolivre')) {
-        contentHTML = '<img src="images/logo-mercadolivre.png" class="fallback-logo ml-logo" alt="Mercado Livre">';
-    } else if (storeLower.includes('shopee')) {
+    if (storeLower.includes('shopee')) {
         contentHTML = `
             <div class="shopee-logo-composite">
                 <i class="fa-solid fa-bag-shopping"></i>
@@ -283,13 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
 
-                <div class="filter-group-wrapper">
+                <div class="filter-group-wrapper" style="display:none;">
                     <span class="filter-label">Filtrar por Loja</span>
                     <div class="titanium-filter-bar store-bar">
                         <button class="filter-pill store-pill active" data-store="all">Todas</button>
-                        <button class="filter-pill store-pill amazon" data-store="amazon"><i class="fab fa-amazon"></i></button>
-                        <button class="filter-pill store-pill mercadolivre" data-store="mercadolivre"><i class="fas fa-handshake"></i></button>
-                        <button class="filter-pill store-pill shopee" data-store="shopee">S</button>
                     </div>
                 </div>
             </div>
@@ -425,6 +358,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializa carregamento
     loadDeals();
+    loadSpecialistDeals();
+
+    async function loadSpecialistDeals() {
+        const grid = document.getElementById('platinum-grid');
+        if (!grid) return;
+        
+        try {
+            const resp = await fetch('specialist.json?v=' + Date.now());
+            if (!resp.ok) throw new Error('specialist.json not found');
+            const data = await resp.json();
+            
+            if (data && data.length > 0) {
+                grid.innerHTML = '';
+                data.forEach(deal => {
+                    const card = createDealCard(deal, false, true); // (deal, isBestPrice, isPlatinum)
+                    grid.appendChild(card);
+                });
+            } else {
+                document.getElementById('platinum').style.display = 'none';
+            }
+        } catch(e) {
+            console.log('Coleção Especialista não renderizada (pode não ter sido configurada).', e);
+            document.getElementById('platinum').style.display = 'none';
+        }
+    }
 
     // === Render Functions ===
     function renderDeals(deals) {
@@ -473,9 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "https://via.placeholder.com/300" // Example for testing
     ];
 
-    function createDealCard(deal) {
+    function createDealCard(deal, isBestPrice = false, isPlatinum = false) {
         const card = document.createElement('div');
-        card.className = `product-card`;
+        card.className = isPlatinum ? `product-card platinum-card` : `product-card`;
         card.dataset.id = deal.id;
 
         // Formatação de Preços
@@ -714,34 +672,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // === Store Filter Functions ===
+    // === Store Filter Functions ===
     function createStoreFilterButtons(container) {
-        const filterHTML = `
-            <div class="store-filters" style="margin-bottom: 20px; text-align: center;">
-                <span style="margin-right: 10px; font-weight: 600;">Filtrar por loja:</span>
-                <button class="store-filter-btn active" data-store="all">Todas</button>
-                <button class="store-filter-btn" data-store="amazon">Amazon</button>
-                <button class="store-filter-btn" data-store="mercadolivre">Mercado Livre</button>
-                <button class="store-filter-btn" data-store="shopee">Shopee</button>
-                <button class="store-filter-btn" data-store="lomadee">Lomadee</button>
-            </div>
-        `;
-        container.insertAdjacentHTML('afterbegin', filterHTML);
-
-        // Add event listeners to filter buttons
-        const filterButtons = container.querySelectorAll('.store-filter-btn');
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentStoreFilter = btn.dataset.store;
-
-                // Re-render with current category and new filter
-                const currentCategory = container.dataset.currentCategory;
-                if (currentCategory) {
-                    filterAndRenderByCategory(currentCategory);
-                }
-            });
-        });
+        // Agora sendo 100% Shopee, não exibimos mais o filtro de multiloja.
     }
 
     function filterByStore(deals, store) {
