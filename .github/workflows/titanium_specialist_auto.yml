@@ -1,0 +1,44 @@
+name: Titanium Specialist Auto-Roleta
+
+on:
+  schedule:
+    # Horário 1: 10:22 (Horário de Brasília / UTC-3 -> 13:22 UTC)
+    - cron: '22 13 * * *'
+    # Horário 2: 17:34 (Horário de Brasília / UTC-3 -> 20:34 UTC)
+    - cron: '34 20 * * *'
+  workflow_dispatch: # Permite disparo manual
+
+jobs:
+  run-curator:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests python-dotenv
+
+    - name: Run Curator Engine (Roleta Premium)
+      env:
+        SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
+        SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
+        PYTHONPATH: .
+      run: |
+        python core/curator_csv_to_json.py
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add site/specialist.json
+        # Retorna código 0 se não houver alterações para não falhar a Action atoa
+        git diff-index --quiet HEAD || git commit -m "auto: Atualiza Coleção Especialista (Roleta Premium)"
+        git push origin HEAD:main

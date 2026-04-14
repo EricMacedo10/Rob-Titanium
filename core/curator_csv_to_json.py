@@ -65,8 +65,13 @@ def build_specialist_collection():
         print(f"Erro Leitura CSV: {e}")
         return
 
-    # Pega os 24 melhores/primeiros (Para preencher 8 linhas de 3 ou 6 de 4)
-    top_picks = products[:24]
+    import random
+    # Roleta Premium: Seleciona 24 achados aleatórios do universo do CSV
+    if len(products) > 24:
+        top_picks = random.sample(products, 24)
+    else:
+        top_picks = products # Fallback de proteção
+        
     curated_data = []
 
     print(f"[Curator] Processando {len(top_picks)} itens para a vitrine Platinum...")
