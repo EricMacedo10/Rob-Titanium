@@ -11,6 +11,9 @@ on:
     # 23:30 BRT
     - cron: '30 02 * * *'
   workflow_dispatch:
+  
+permissions:
+  contents: write
 
 jobs:
   social-post-cycle:

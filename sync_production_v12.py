@@ -41,7 +41,9 @@ def sync_titanium_production():
         ("site/track_clicks.php", "track_clicks.php"),
         ("site/js/app.js", "js/app.js"),
         ("site/css/style.css", "css/style.css"),
-        ("site/favicon.ico", "favicon.ico")
+        ("site/favicon.ico", "favicon.ico"),
+        ("site/specialist.json", "specialist.json"),  # NOVO: Seleção da Especialista
+        ("site/data.json", "data.json")               # Garantir sincronia do feed
     ]
 
     # Adicionar dinamicamente todos os artigos da pasta blog

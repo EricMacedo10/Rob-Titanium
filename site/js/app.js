@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="card-image">
-                    <img src="${deal.image}" alt="${deal.title}" loading="lazy" onerror="handleImageError(this, 'Shopee', '${deal.title}')">
+                    <img src="${deal.image}" alt="${deal.title.replace(/'/g, '&apos;')}" loading="lazy" onerror="handleImageError(this, 'Shopee', '${deal.title.replace(/'/g, "\\'")}')">
                 </div>
 
                 <!-- Base da Imagem: Tag Shopee Boutique -->
