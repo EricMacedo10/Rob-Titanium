@@ -59,7 +59,9 @@ class SocialBot:
         """
         Define a loja baseada na política 100% Shopee Exclusive.
         """
-        return "sh    def run_daily_cycle(self, ig_token=None, ig_business_id=None, force_store=None):
+        return "shopee"
+
+    def run_daily_cycle(self, ig_token=None, ig_business_id=None, force_store=None):
         """
         Orquestra a postagem PRIORIZANDO a fila de curadoria.
         Agora suporta CARROSSEL AUTOMÁTICO de até 10 itens.
