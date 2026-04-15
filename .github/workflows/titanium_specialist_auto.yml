@@ -20,14 +20,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests python-dotenv
+        pip install requests python-dotenv --retries 5 --timeout 60
 
     - name: Run Curator Engine (Roleta Premium)
       env:
@@ -35,7 +35,7 @@ jobs:
         SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
         PYTHONPATH: .
       run: |
-        python core/curator_csv_to_json.py
+        python -m core.curator_csv_to_json
 
     - name: Commit and Push changes
       run: |

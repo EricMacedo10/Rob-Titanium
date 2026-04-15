@@ -66,7 +66,7 @@ def run():
         return
 
     start_idx = state["last_index"]
-    batch_size = 5
+    batch_size = 4
     end_idx = min(start_idx + batch_size, len(products))
     
     if start_idx >= len(products):

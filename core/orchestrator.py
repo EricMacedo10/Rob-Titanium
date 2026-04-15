@@ -9,6 +9,7 @@ from core.settings import TARGETS
 from core.arbitrator import ArbitroDePreco
 from infra.upload_logic import upload_to_hostinger
 from core.phrases import generate_dynamic_phrases
+from core.link_builder import build_affiliate_link
 
 DATA_FILE = 'site/data.json'
 
@@ -146,7 +147,6 @@ def main():
             final_seen.add(norm_title)
             
             # 3. Standardize Keys & Forced Store Name (Ensure Affiliate Tags)
-            from .link_builder import build_affiliate_link
             p['image'] = image 
             p['link'] = build_affiliate_link(link, 'shopee')
             p['store'] = 'Shopee'
