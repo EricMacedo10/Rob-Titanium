@@ -101,9 +101,12 @@ def run():
             path = os.path.join(QUEUE_DIR, f"{base_name}.jpg")
             json_path = os.path.join(QUEUE_DIR, f"{base_name}.json")
             try:
+                from core.link_builder import build_affiliate_link
+                final_link = build_affiliate_link(item['offer'], "shopee")
+                
                 gen.generate_post(item['name'], item['price'], img_url, "shopee", path)
                 with open(json_path, 'w', encoding='utf-8') as mj:
-                    json.dump({"title": item['name'], "price": item['price'], "link": item['offer']}, mj, ensure_ascii=False)
+                    json.dump({"title": item['name'], "price": item['price'], "link": final_link}, mj, ensure_ascii=False)
                 print(f"OK -> {os.path.basename(path)}")
                 success_count += 1
             except Exception as e: print(f"Erro: {e}")

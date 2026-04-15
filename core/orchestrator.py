@@ -145,9 +145,10 @@ def main():
             if norm_title in final_seen: continue
             final_seen.add(norm_title)
             
-            # 3. Standardize Keys & Forced Store Name
+            # 3. Standardize Keys & Forced Store Name (Ensure Affiliate Tags)
+            from .link_builder import build_affiliate_link
             p['image'] = image 
-            p['link'] = link   
+            p['link'] = build_affiliate_link(link, 'shopee')
             p['store'] = 'Shopee'
             
             sanitized_list.append(p)

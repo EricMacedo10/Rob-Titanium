@@ -35,9 +35,13 @@ def build_affiliate_link(url, store, keyword=None):
                 return url
             
         elif store == 'shopee':
-            # Shopee links geralmente precisam ser convertidos na plataforma
-            # TODO: Integrar quando API Shopee estiver disponível (23/01)
-            return url
+            tag = AFFILIATE_TAGS.get('shopee', 'an_18318830863')
+            if not tag:
+                return url
+            
+            # Adiciona utm_source=an_18318830863
+            sep = "&" if "?" in url else "?"
+            return f"{url}{sep}utm_source={tag}"
             
         return url
         

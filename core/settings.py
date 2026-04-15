@@ -9,7 +9,7 @@ load_dotenv()
 
 # 1. Configurações de Afiliado
 AFFILIATE_TAGS = {
-    "shopee": "shopee_affiliate",  # Gerenciado via API Dinâmica
+    "shopee": "an_18318830863",  # Seu ID Shopee Oficial (v2026)
 }
 
 # Shopee API Configuration
