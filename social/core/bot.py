@@ -53,19 +53,9 @@ class SocialBot:
 
     def get_scheduled_store(self):
         """
-        Define a loja baseada na hora do dia:
-        Manhã (5h-12h): Amazon
-        Tarde (12h-18h): Shopee
-        Noite (18h-24h): Mercado Livre
+        Define a loja baseada na política 100% Shopee Exclusive.
         """
-        from datetime import datetime
-        hour = datetime.now().hour
-        if 5 <= hour < 12:
-            return "amazon"
-        elif 12 <= hour < 18:
-            return "shopee"
-        else:
-            return "mercadolivre"
+        return "shopee"
 
     def run_daily_cycle(self, ig_token=None, ig_business_id=None, force_store=None):
         """
