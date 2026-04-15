@@ -760,19 +760,6 @@ nav a.active::after {
     /* Helps white backgrounds blend */
 }
 
-/* MERCADO LIVRE IMAGE OPTIMIZATION (v2026)
-   ML images often have huge white margins. This forges a "zoom" 
-   effect specifically for ML products to match Amazon/Shopee visual weight. */
-.product-card[data-store*="Mercado Livre"] .card-header img,
-.product-card[data-store*="mercado livre"] .card-header img {
-    transform: scale(1.15); /* Compensates the white padding */
-}
-
-.product-card[data-store*="Mercado Livre"]:hover .card-header img,
-.product-card[data-store*="mercado livre"]:hover .card-header img {
-    transform: scale(1.25); /* More intense hover zoom for ML */
-}
-
 .product-card:hover .card-header img {
     transform: scale(1.05);
 }

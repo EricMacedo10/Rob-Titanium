@@ -1006,20 +1006,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 
 /**
- * Define qual loja deve estar ativa baseado no horário atual (Rodízio 30 min)
- * @returns {string} 'amazon', 'mercadolivre' ou 'shopee'
+ * Define qual loja deve estar ativa baseado no horário atual (Filtro Shopee Total)
+ * @returns {string} 'shopee'
  */
 function getCurrentRotationStore() {
-    const now = new Date();
-    const minutesSinceMidnight = now.getHours() * 60 + now.getMinutes();
-    const halfHourBlocks = Math.floor(minutesSinceMidnight / 30);
-    const rotationStores = ['shopee'];
-    const selected = rotationStores[halfHourBlocks % 3];
-
-    console.log(`[Titanium Rotation] Block: ${halfHourBlocks} | Selected Store: ${selected}`);
-    return selected;
+    return 'shopee';
 }
-
 
 /**
  * Configura um banner interativo com abas de marcas
@@ -1028,71 +1020,42 @@ function getCurrentRotationStore() {
  */
 function setupTitaniumInteractiveBanner(cardId, config) {
     const card = document.getElementById(cardId);
-    if (!card) {
-        console.warn(`[Titanium Hub] Card não encontrado: ${cardId}`);
-        return;
-    }
+    if (!card) return;
 
     const tabs = card.querySelectorAll('.tab-btn');
     const bannerImg = card.querySelector('img');
-    const defaultStore = config.defaultStore || 'shopee';
+    const defaultStore = 'shopee';
 
-    // Estado local do card
     let currentStore = defaultStore;
 
-    // 1. Configurar cliques nas abas
     tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita disparar o click do card principal
-
-            // Remove active de todas
+            e.stopPropagation();
             tabs.forEach(t => t.classList.remove('active'));
-            // Adiciona active na clicada
             tab.classList.add('active');
 
-            // Atualiza loja atual
             const store = tab.dataset.store;
             currentStore = store;
 
-            // Troca imagem com fade suave
             bannerImg.style.opacity = '0.7';
             setTimeout(() => {
                 bannerImg.src = config.banners[store];
                 bannerImg.style.opacity = '1';
-
-                // Feedback visual de "pulso" no card
                 card.classList.add('titaniumGlowPulse');
                 setTimeout(() => card.classList.remove('titaniumGlowPulse'), 600);
             }, 150);
-
-            console.log(`[Titanium Hub] ${cardId} switched to ${store}`);
         });
     });
 
-    // 2. Configurar clique no card (Redirecionamento)
     card.addEventListener('click', (e) => {
-        // Se clicou na aba, ignora (já tratado acima via stopPropagation, mas garantindo)
         if (e.target.closest('.brand-tabs')) return;
-
         const term = config.searchTerms[currentStore];
-
-        console.log(`[Titanium Hub] Redirecting ${cardId} -> ${currentStore} (Term: ${term})`);
-
-        // Usa a função central de redirecionamento do Titanium
         titaniumRedirect(term, currentStore);
     });
 
-    // 3. Inicializar com Rodízio Automático (v1136)
-    const rotationStore = getCurrentRotationStore();
-    const activeTab = Array.from(tabs).find(t => t.dataset.store === rotationStore);
-
-    if (activeTab) {
-        console.log(`[Titanium Hub] Auto-selecting ${rotationStore} for ${cardId}`);
-        // Força o clique na aba correta para sincronizar UI e Imagem
-        activeTab.click();
-    }
-
-    console.log(`[Titanium Hub] Initialized: ${cardId}`);
+    // Auto-select Shopee tab
+    const shopeeTab = Array.from(tabs).find(t => t.dataset.store === 'shopee');
+    if (shopeeTab) shopeeTab.click();
 }
 
 // Inicialização dos Banners Interativos
@@ -1100,213 +1063,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Tecnologia
     setupTitaniumInteractiveBanner('tech-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_tecnologia_amazon.png?v=titanium_fix_900',
-            mercadolivre: 'images/banner_mercadolivre_tecnologia.png?v=titanium_fix_900',
-            shopee: 'images/banner_shopee_tecnologia.png?v=titanium_fix_900'
-        },
-        searchTerms: {
-            amazon: 'computador pc gamer hardware ssd',
-            mercadolivre: 'notebook computador pc desktop',
-            shopee: 'notebook barato chromebook acessorios pc'
-        }
+        banners: { shopee: 'images/banner_shopee_tecnologia.png?v=901' },
+        searchTerms: { shopee: 'notebook barato chromebook acessorios pc' }
     });
 
     // 2. Casa e Jardim
     setupTitaniumInteractiveBanner('home-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_casa_amazon.png?v=titanium_fix_900',
-            mercadolivre: 'images/banner_casa_mercadolivre.png?v=titanium_fix_900',
-            shopee: 'images/banner_casa_shopee.png?v=titanium_fix_900'
-        },
-        searchTerms: {
-            amazon: 'organizador cozinha utilidades domesticas',
-            mercadolivre: 'moveis decoracao casa utilidades',
-            shopee: 'decoracao casa barato cozinha'
-        }
+        banners: { shopee: 'images/banner_casa_shopee.png?v=901' },
+        searchTerms: { shopee: 'decoracao casa barato cozinha' }
     });
 
     // 3. Automotivo
     setupTitaniumInteractiveBanner('automotive-hub-card', {
-        defaultStore: 'shopee',
-        banners: {
-            amazon: 'images/banner_automotivo_amazon.png?v=1012',
-            mercadolivre: 'images/banner_automotivo_mercadolivre.png?v=1012',
-            shopee: 'images/banner_automotivo_shopee.png?v=1012'
-        },
-        searchTerms: {
-            amazon: 'acessorios carro automotivo limpeza automotiva',
-            mercadolivre: 'pecas carro acessorios som automotivo',
-            shopee: 'acessorios automotivos barato capa banco'
-        }
+        banners: { shopee: 'images/banner_automotivo_shopee.png?v=901' },
+        searchTerms: { shopee: 'acessorios automotivos barato capa banco' }
     });
 
     // 4. Moda
     setupTitaniumInteractiveBanner('fashion-hub-card', {
-        defaultStore: 'shopee',
-        banners: {
-            amazon: 'images/banner_moda_amazon.png?v=1013',
-            mercadolivre: 'images/banner_moda_mercadolivre.png?v=1013',
-            shopee: 'images/banner_moda_shopee.png?v=1013'
-        },
-        searchTerms: {
-            amazon: 'roupas femininas masculinas moda',
-            mercadolivre: 'roupas moda vestuario calcados',
-            shopee: 'roupas baratas moda vestidos blusas'
-        }
+        banners: { shopee: 'images/banner_moda_shopee.png?v=901' },
+        searchTerms: { shopee: 'roupas baratas moda vestidos blusas' }
     });
 
     // 5. Beleza
     setupTitaniumInteractiveBanner('beauty-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_beleza_amazon.png?v=1014',
-            mercadolivre: 'images/banner_beleza_mercadolivre.png?v=1014',
-            shopee: 'images/banner_beleza_shopee.png?v=1014'
-        },
-        searchTerms: {
-            amazon: 'maquiagem skincare perfumes importados',
-            mercadolivre: 'cosmeticos beleza cuidados pele cabelo',
-            shopee: 'maquiagem barata skincare coreano pincel'
-        }
+        banners: { shopee: 'images/banner_beleza_shopee.png?v=901' },
+        searchTerms: { shopee: 'maquiagem barata skincare coreano pincel' }
     });
 
     // 6. Esportes
     setupTitaniumInteractiveBanner('sports-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_esportes_amazon.png?v=1015',
-            mercadolivre: 'images/banner_esportes_mercadolivre.png?v=1015',
-            shopee: 'images/banner_esportes_shopee.png?v=1015'
-        },
-        searchTerms: {
-            amazon: 'equipamentos fitness musculacao',
-            mercadolivre: 'bicicleta patins skate futebol',
-            shopee: 'roupas esportivas fitness barato'
-        }
+        banners: { shopee: 'images/banner_esportes_shopee.png?v=901' },
+        searchTerms: { shopee: 'roupas esportivas fitness barato' }
     });
 
     // 7. Games
     setupTitaniumInteractiveBanner('games-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_games_amazon.png?v=1022',
-            mercadolivre: 'images/banner_games_mercadolivre.png?v=1022',
-            shopee: 'images/banner_games_shopee.png?v=1022'
-        },
-        searchTerms: {
-            amazon: 'playstation xbox nintendo jogos console',
-            mercadolivre: 'video game console controle ps5 xbox',
-            shopee: 'jogos baratos acessorios gamer controle'
-        }
+        banners: { shopee: 'images/banner_games_shopee.png?v=901' },
+        searchTerms: { shopee: 'jogos baratos acessorios gamer controle' }
     });
 
     // 8. Pet Shop
     setupTitaniumInteractiveBanner('pet-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_petshop_amazon.png?v=1023',
-            mercadolivre: 'images/banner_petshop_mercadolivre.png?v=1023',
-            shopee: 'images/banner_petshop_shopee.png?v=1023'
-        },
-        searchTerms: {
-            amazon: 'racao cachorro gato petiscos',
-            mercadolivre: 'acessorios pet coleira caminha',
-            shopee: 'brinquedos pet roupas cachorro'
-        }
+        banners: { shopee: 'images/banner_petshop_shopee.png?v=901' },
+        searchTerms: { shopee: 'brinquedos pet roupas cachorro' }
     });
 
     // 9. Eletrodomésticos
     setupTitaniumInteractiveBanner('electro-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_eletro_amazon.png?v=1024',
-            mercadolivre: 'images/banner_eletro_mercadolivre.png?v=1024',
-            shopee: 'images/banner_eletro_shopee.png?v=1024'
-        },
-        searchTerms: {
-            amazon: 'liquidificador air fryer panela eletrica',
-            mercadolivre: 'geladeira fogao microondas',
-            shopee: 'eletrodomesticos cozinha barato portatil'
-        }
+        banners: { shopee: 'images/banner_eletro_shopee.png?v=901' },
+        searchTerms: { shopee: 'eletrodomesticos cozinha barato portatil' }
     });
 
     // 10. Ferramentas
     setupTitaniumInteractiveBanner('tools-hub-card', {
-        defaultStore: 'mercadolivre',
-        banners: {
-            amazon: 'images/banner_ferramentas_amazon.png?v=1025',
-            mercadolivre: 'images/banner_ferramentas_mercadolivre.png?v=1025',
-            shopee: 'images/banner_ferramentas_shopee.png?v=1025'
-        },
-        searchTerms: {
-            amazon: 'furadeira parafusadeira kit ferramentas',
-            mercadolivre: 'ferramentas construcao reforma',
-            shopee: 'ferramentas manuais barato kit'
-        }
+        banners: { shopee: 'images/banner_ferramentas_shopee.png?v=901' },
+        searchTerms: { shopee: 'ferramentas manuais barato kit' }
     });
 
     // 11. Papelaria
     setupTitaniumInteractiveBanner('stationery-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_papelaria_amazon.png?v=1026',
-            mercadolivre: 'images/banner_papelaria_mercadolivre.png?v=1026',
-            shopee: 'images/banner_papelaria_shopee.png?v=1026'
-        },
-        searchTerms: {
-            amazon: 'caderno caneta mochila escolar',
-            mercadolivre: 'material escolar papelaria',
-            shopee: 'cadernos baratos material escolar'
-        }
+        banners: { shopee: 'images/banner_papelaria_shopee.png?v=901' },
+        searchTerms: { shopee: 'cadernos baratos material escolar' }
     });
 
     // 12. Decoração
     setupTitaniumInteractiveBanner('decor-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/banner_decoracao_amazon.png?v=1101',
-            mercadolivre: 'images/banner_decoracao_mercadolivre.png?v=1101',
-            shopee: 'images/banner_decoracao_shopee.png?v=1101'
-        },
-        searchTerms: {
-            amazon: 'quadros decorativos almofadas cortinas',
-            mercadolivre: 'decoracao casa sala quarto',
-            shopee: 'decoracao barata enfeites casa'
-        }
+        banners: { shopee: 'images/banner_decoracao_shopee.png?v=901' },
+        searchTerms: { shopee: 'decoracao barata enfeites casa' }
     });
 
     // 13. Carnaval (SAZONAL)
     setupTitaniumInteractiveBanner('carnaval-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/amazon-app-day-carnaval.png?v=1102',
-            mercadolivre: 'images/amazon-app-day-carnaval.png?v=1102',
-            shopee: 'images/amazon-app-day-carnaval.png?v=1102'
-        },
-        searchTerms: {
-            amazon: 'fantasias carnaval glitter aderecos acessorios festa',
-            mercadolivre: 'caixa de som jbl termica cooler fantasias',
-            shopee: 'fantasias baratas carnaval decoracao festa kit folia'
-        }
+        banners: { shopee: 'images/shopee-festas-carnaval.png?v=901' },
+        searchTerms: { shopee: 'fantasias baratas carnaval decoracao festa kit folia' }
     });
-
-    // 13. Carnaval (SAZONAL)
-    setupTitaniumInteractiveBanner('carnaval-hub-card', {
-        defaultStore: 'amazon',
-        banners: {
-            amazon: 'images/amazon-app-day-carnaval.png?v=1102',
-            mercadolivre: 'images/amazon-app-day-carnaval.png?v=1102',
-            shopee: 'images/amazon-app-day-carnaval.png?v=1102'
-        },
-        searchTerms: {
-            amazon: 'fantasias carnaval glitter aderecos acessorios festa',
-            mercadolivre: 'caixa de som jbl termica cooler fantasias',
-            shopee: 'fantasias baratas carnaval decoracao festa kit folia'
-        }
-    });
+});
 
     // Titanium Sync Timestamp: 2026-02-10-12:50 (v1157_RESTORED_CARNAVAL)
 });
@@ -1419,11 +1251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = e.target.closest(clickTargets);
         if (!target) return;
 
-        let store = 'Unknown';
-        if (target.classList.contains('amazon')) store = 'Amazon';
-        else if (target.classList.contains('mercadolivre')) store = 'Mercado Livre';
-        else if (target.classList.contains('shopee')) store = 'Shopee';
-        else if (target.dataset.store) store = target.dataset.store;
+        let store = 'Shopee';
 
         let title = target.querySelector('h3')?.innerText || target.innerText || 'Action';
         let category = target.closest('section')?.querySelector('h2')?.innerText ||
@@ -1642,12 +1470,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const url = dealBtn.href;
 
-            // Extrai o nome da loja do texto do botão (ex: "Ver na Amazon")
-            let store = "Loja Oficial";
             const btnText = dealBtn.textContent.toLowerCase();
-            if (btnText.includes('amazon')) store = "AMAZON.COM.BR";
-            else if (btnText.includes('mercado')) store = "MERCADOLIVRE.COM.BR";
-            else if (btnText.includes('shopee')) store = "SHOPEE.COM.BR";
+            let store = btnText.includes('shopee') ? "SHOPEE.COM.BR" : "LOJA OFICIAL";
 
             // Ativa o overlay de segurança
             storeTargetName.textContent = store;
