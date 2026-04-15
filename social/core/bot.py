@@ -184,10 +184,8 @@ class SocialBot:
         """Lógica de banners de categoria se a fila estiver vazia (simplificada para manter histórico)"""
         # (Aqui iria a lógica antiga de banners, mantida como fallback)
         print("⚠️ Pulando fallback por enquanto: Prioridade total na CURADORIA.")
-        sys.exit(0) # Sem falha, apenas sem trabalho.move(temp_v)
-        else:
-            print("❌ Falha crítica no ciclo de postagem.")
-            
+        sys.exit(0) # Sem falha, apenas sem trabalho.
+
 
 if __name__ == "__main__":
     from dotenv import load_dotenv
