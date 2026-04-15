@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import random
 from social.core.image_generator import ImageGenerator
 from social.core.instagram_client import InstagramClient
