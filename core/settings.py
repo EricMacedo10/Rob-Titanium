@@ -9,8 +9,7 @@ load_dotenv()
 
 # 1. Configurações de Afiliado
 AFFILIATE_TAGS = {
-    "amazon": os.getenv("AMAZON_AFFILIATE_TAG", "guiadodesco00-20"),
-    "shopee": "shopee_affiliate",  # Gerenciado via API
+    "shopee": "shopee_affiliate",  # Gerenciado via API Dinâmica
 }
 
 # Shopee API Configuration

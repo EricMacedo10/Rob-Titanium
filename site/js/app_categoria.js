@@ -60,10 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Aplicar Filtro de Loja
-        const filtered = currentStoreFilter === 'all' 
-            ? products 
-            : products.filter(p => p.store.toLowerCase().includes(currentStoreFilter));
+        // Filtro de Loja (Fixo para Shopee v3.2.0)
+        const filtered = products.filter(p => p.store.toLowerCase().includes('shopee'));
 
         // Encontrar Menor Preço da Categoria para o Badge 🏆
         const minPrice = filtered.length > 0 ? Math.min(...filtered.map(p => parseFloat(p.price) || 999999)) : 0;

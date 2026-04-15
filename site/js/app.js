@@ -710,14 +710,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 'volta-aulas': 'Volta às Aulas'
             };
             const storeNames = {
-                'all': 'Todas as Lojas',
-                'amazon': 'Amazon',
-                'mercadolivre': 'Mercado Livre',
+                'all': 'Shopee Exclusive',
                 'shopee': 'Shopee'
             };
             const catName = categoryNames[category] || 'Ofertas';
             const storeName = storeNames[currentStoreFilter] || 'Shopee';
-            sectionTitle.textContent = `${catName} - Curadoria ${storeName} (Auditada)`;
+            sectionTitle.textContent = `${catName} - Curadoria Shopee Elite (Auditada)`;
         }
 
         if (sortedByPrice.length === 0) {
@@ -1015,7 +1013,7 @@ function getCurrentRotationStore() {
     const now = new Date();
     const minutesSinceMidnight = now.getHours() * 60 + now.getMinutes();
     const halfHourBlocks = Math.floor(minutesSinceMidnight / 30);
-    const rotationStores = ['amazon', 'mercadolivre', 'shopee'];
+    const rotationStores = ['shopee'];
     const selected = rotationStores[halfHourBlocks % 3];
 
     console.log(`[Titanium Rotation] Block: ${halfHourBlocks} | Selected Store: ${selected}`);
@@ -1037,7 +1035,7 @@ function setupTitaniumInteractiveBanner(cardId, config) {
 
     const tabs = card.querySelectorAll('.tab-btn');
     const bannerImg = card.querySelector('img');
-    const defaultStore = config.defaultStore || 'amazon';
+    const defaultStore = config.defaultStore || 'shopee';
 
     // Estado local do card
     let currentStore = defaultStore;

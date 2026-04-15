@@ -1,6 +1,6 @@
 """
-Árbitro de Preços - Comparador Inteligente de Produtos
-Busca em paralelo nas 3 lojas e usa IA para escolher o melhor
+Árbitro de Preços - Boutique Shopee Elite (v3.2.0)
+Foco exclusivo na Shopee API v2 para máxima conversão
 """
 
 import asyncio
@@ -62,73 +62,25 @@ class ArbitroDePreco:
         print(f"[Cache] ❌ Miss. Buscando nas lojas...")
         return None
 
-    # Import Amazon wrapper locally or assume it's imported at top
-    # But wait, looking at imports in Step 270, 'search_amazon' is MISSING too!
-    # I need to add the import at the top as well?
-    # No, I can't add imports with this tool easily in the same call (non-contiguous).
-    # I will assume I need to fix imports later or now. 
-    # Actually, import scan in Step 270 line 14-15 shows ONLY ML and Shopee.
-    # Amazon import is MISSING.
-    # I will add Amazon import inside the method to avoid 'insert' mess, or fix imports separately.
-    # 'from scraper.amazon import search_amazon' was removed.
-    
-    async def buscar_amazon(self, termo: str) -> Optional[dict]:
-        """
-        Amazon Desativada (Boutique Shopee Exclusive)
-        """
-        return {
-            "id_interno": 1,
-            "titulo": f"{termo} - Amazon",
-            "preco": float('inf'),
-            "loja": "Amazon",
-            "link_afiliado": "",
-            "disponivel": False
-        }
+
 
     async def buscar_paralelo(self, termo: str) -> List[dict]:
         """
-        Busca em todas as lojas em paralelo (assíncrono)
+        Busca na Shopee (Único motor ativo v3.2.0 Elite)
         """
         print(f"\n{'='*70}")
-        print(f"🔍 BUSCANDO: '{termo}'")
+        print(f"🔍 BUSCANDO NA SHOPEE: '{termo}'")
         print(f"{'='*70}")
         
-        # Executar buscas em paralelo
-        resultados = await asyncio.gather(
-            self.buscar_shopee(termo),
-            self.buscar_amazon(termo),
-            self.buscar_mercadolivre(termo),
-            return_exceptions=True  # Não falhar se uma loja der erro
-        )
+        try:
+            resultado = await self.buscar_shopee(termo)
+            if resultado:
+                return [resultado]
+        except Exception as e:
+            print(f"[Erro] Falha na busca Shopee: {e}")
         
-        # Filtrar resultados válidos
-        produtos = []
-        for r in resultados:
-            if isinstance(r, dict):
-                produtos.append(r)
-            elif r is None:
-                continue # Ignorar resultados vazios (lojas offline/sem produto)
-            elif isinstance(r, Exception):
-                print(f"[Erro] Falha em uma das lojas: {r}")
-        
-        print(f"\n[Resumo] Produtos encontrados: {len(produtos)}")
-        for p in produtos:
-            print(f"   ► {p.get('loja')}: R$ {p.get('preco', 0):.2f} - {p.get('titulo')[:30]}...")
+        return []
 
-        return produtos
-
-    async def buscar_mercadolivre(self, termo: str) -> Optional[dict]:
-        """
-        Mercado Livre Desativado (Boutique Shopee Exclusive)
-        """
-        return {
-            "id_interno": 2,
-            "titulo": f"{termo} - Mercado Livre",
-            "preco": float('inf'),
-            "loja": "Mercado Livre",
-            "link_afiliado": "",
-            "disponivel": False
-        }
 
     async def buscar_shopee(self, termo: str) -> Optional[dict]:
         """

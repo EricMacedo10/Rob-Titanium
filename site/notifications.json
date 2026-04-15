@@ -2,27 +2,33 @@
     "notifications": [
         {
             "id": 1,
-            "text": "Aproveite as ofertas do dia! Os estoques podem acabar a qualquer momento.",
+            "text": "📱 APP FIRST: Links otimizados para abrir direto no seu App Shopee.",
             "time": "Agora",
-            "icon": "fa-comment"
+            "icon": "fa-robot"
         },
         {
-            "id": 1,
-            "text": "Nossa família selecionou o que há de melhor para você economizar.",
+            "id": 2,
+            "text": "🤖 MONITOR: Robô Titanium sincronizado com a Shopee API v2.",
             "time": "Agora",
-            "icon": "fa-comment"
+            "icon": "fa-robot"
         },
         {
-            "id": 1,
-            "text": "Se virem o ícone de 🔥, é porque a oferta está muito quente!",
+            "id": 3,
+            "text": "🛡️ SEGURANÇA: Todas as ofertas de hoje são de Vendedores Oficiais.",
             "time": "Agora",
-            "icon": "fa-fire"
+            "icon": "fa-robot"
         },
         {
-            "id": 1,
-            "text": "Hoje é dia de moda! Confira as melhores opções.",
+            "id": 4,
+            "text": "🎫 DICA: Lembre de ativar seus Cupons de Frete Grátis no App.",
             "time": "Agora",
-            "icon": "fa-comment"
+            "icon": "fa-ticket-alt"
+        },
+        {
+            "id": 5,
+            "text": "🛍️ Temos 106 peças auditadas na vitrine de hoje!",
+            "time": "Agora",
+            "icon": "fa-robot"
         }
     ]
 }
