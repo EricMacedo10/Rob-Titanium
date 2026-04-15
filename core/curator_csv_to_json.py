@@ -84,6 +84,9 @@ def build_specialist_collection():
         if not img_url:
             img_url = "https://guiadodesconto.com.br/images/fashion-hero.png"
 
+        from core.link_builder import build_affiliate_link
+        final_link = build_affiliate_link(item['link_afiliado'], "shopee")
+
         curated_data.append({
             "id": f"specialist_{item['id_interno']}",
             "title": item['titulo'],
@@ -91,7 +94,7 @@ def build_specialist_collection():
             "old_price": item['preco'] * 1.25, # Cria um preço antigo cenográfico
             "discount": item['desconto'],
             "image": img_url,
-            "link": item['link_afiliado'],
+            "link": final_link,
             "store": item['loja'],
             "category": "Premium"
         })
