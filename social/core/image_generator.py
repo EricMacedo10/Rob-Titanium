@@ -116,8 +116,6 @@ class ImageGenerator:
             store_logo.thumbnail((250, 100), Image.Resampling.LANCZOS)
             canvas.paste(store_logo, (50, 50), store_logo)
 
-        # 4. Fontes Minimalistas
-        try:
         # 4. Fontes Minimalistas (Compatibilidade Windows/Linux)
         try:
             # Lista de caminhos possíveis para Arial Bold ou similar
