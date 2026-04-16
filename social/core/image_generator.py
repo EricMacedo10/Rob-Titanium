@@ -119,7 +119,7 @@ class ImageGenerator:
         # 4. Fontes Minimalistas
         try:
             font_path = "C:\\Windows\\Fonts\\arialbd.ttf"
-            font_price = ImageFont.truetype(font_path, 75)  # Tamanho Reduzido e Elegante
+            font_price = ImageFont.truetype(font_path, 140)  # Aumentado para Impacto e Legibilidade Elite
         except:
             font_price = ImageFont.load_default()
 
@@ -135,9 +135,11 @@ class ImageGenerator:
             print(f"Erro na formatação de preço ({price}): {e}")
             price_formatted = f"R$ {price}"
         
-        badge_w, badge_h = 360, 110
+        # Cálculo Dinâmico da Moldura do Preço
+        text_width = font_price.getlength(price_formatted)
+        badge_w, badge_h = int(text_width + 80), 160
         badge_x = (self.width - badge_w) // 2
-        badge_y = self.height - 200  # Posição focada no rodapé inferior centralizado
+        badge_y = self.height - 180  # Posição focada e proporcional ao Hub Original
         
         # Cor do badge clean e contrastante (Fundo Branco, Fonte Laranja Shopee)
         badge_fill = (255, 255, 255)
@@ -151,7 +153,7 @@ class ImageGenerator:
 
         # Desenhar base do Preço
         draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=35, fill=badge_fill)
-        draw.text((badge_x + (badge_w - font_price.getlength(price_formatted))//2, badge_y + 15), 
+        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 5), 
                   price_formatted, font=font_price, fill=text_fill)
 
         # 6. Salvar e Retornar
