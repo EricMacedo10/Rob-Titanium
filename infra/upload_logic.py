@@ -76,8 +76,20 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
     file_size = os.path.getsize(local_file_path)
     print(f"   --- Tamanho local:   {file_size} bytes")
 
-    try:
-        session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
+    max_retries = 3
+    session = None
+    for attempt in range(max_retries):
+        try:
+            print(f"   --- Tentativa {attempt + 1}/{max_retries} de conexao FTP...")
+            session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
+            break
+        except Exception as e:
+            if attempt == max_retries - 1: raise e
+            print(f"   --- ⚠️ Timeout/Erro na conexao ({e}). Tentando novamente em 5s...")
+            import time
+            time.sleep(5)
+
+    if session:
         print(f"   --- Conectado! PWD inicial: {session.pwd()}")
 
         # Split remote_path into directory + filename

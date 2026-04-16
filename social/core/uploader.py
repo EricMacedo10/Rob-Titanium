@@ -67,8 +67,14 @@ class ResilientUploader:
             print(f"--- Fallback: Tentando upload via ImgBB API...")
             url = self._upload_to_imgbb(local_path)
             if url and self._verify_link(url):
-                self.provider_used = "ImgBB (fallback)"
-                return url
+                print("--- Verificacao Meta-realista para ImgBB...")
+                if self._verify_link_for_meta(url):
+                    self.provider_used = "ImgBB (fallback)"
+                    return url
+                else:
+                    print("--- ❌ ERRO: ImgBB tambem falhou na verificacao Meta!")
+            else:
+                print("--- ❌ ERRO: ImgBB falhou no upload ou primeiro check.")
 
         print("--- Todas as tentativas de upload falharam.")
         return None
