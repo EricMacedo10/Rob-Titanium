@@ -76,76 +76,79 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
     file_size = os.path.getsize(local_file_path)
     print(f"   --- Tamanho local:   {file_size} bytes")
 
-    max_retries = 3
-    session = None
-    for attempt in range(max_retries):
-        try:
-            print(f"   --- Tentativa {attempt + 1}/{max_retries} de conexao FTP...")
-            session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
-            break
-        except Exception as e:
-            if attempt == max_retries - 1: raise e
-            print(f"   --- ⚠️ Timeout/Erro na conexao ({e}). Tentando novamente em 5s...")
-            import time
-            time.sleep(5)
+    try:
+        max_retries = 3
+        session = None
+        for attempt in range(max_retries):
+            try:
+                print(f"   --- Tentativa {attempt + 1}/{max_retries} de conexao FTP...")
+                session = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
+                break
+            except Exception as e:
+                if attempt == max_retries - 1: raise e
+                print(f"   --- ⚠️ Timeout/Erro na conexao ({e}). Tentando novamente em 5s...")
+                import time
+                time.sleep(5)
 
-    if session:
-        print(f"   --- Conectado! PWD inicial: {session.pwd()}")
+        if session:
+            print(f"   --- Conectado! PWD inicial: {session.pwd()}")
 
-        # Split remote_path into directory + filename
-        if "/" in remote_path:
-            remote_dir = "/".join(remote_path.split("/")[:-1])  # e.g. 'js'
-            remote_filename = remote_path.split("/")[-1]        # e.g. 'app.js'
-        else:
-            remote_dir = ""
-            remote_filename = remote_path                       # e.g. 'data.json'
-
-        # Navigate to correct destination
-        if base_dir:
-            final_pwd = _ensure_remote_dir(session, base_dir, remote_dir)
-        else:
-            # PRODUCTION: navigate from root
-            _navigate_to_root(session)
-            if remote_dir:
-                parts = remote_dir.strip("/").split("/")
-                for part in parts:
-                    try:
-                        session.cwd(part)
-                    except ftplib.error_perm:
-                        session.mkd(part)
-                        session.cwd(part)
-            final_pwd = session.pwd()
-
-        print(f"   --- Navegado para:   {final_pwd}")
-
-        # Check if file already exists
-        existing = []
-        session.retrlines('LIST', existing.append)
-        if any(remote_filename in l for l in existing):
-            print(f"   --- {remote_filename} ja existe (sera sobrescrito)")
-        else:
-            print(f"   --- {remote_filename} novo (sera criado)")
-
-        # Upload
-        print(f"   --- Enviando arquivo como {remote_filename}...")
-        with open(local_file_path, 'rb') as f:
-            result = session.storbinary(f'STOR {remote_filename}', f)
-        print(f"   --- Resposta do servidor: {result}")
-
-        # Verify size
-        try:
-            remote_size = session.size(remote_filename)
-            print(f"   --- Tamanho no servidor: {remote_size} bytes")
-            if remote_size == file_size:
-                print(f"   --- ✅ Tamanhos conferem!")
+            # Split remote_path into directory + filename
+            if "/" in remote_path:
+                remote_dir = "/".join(remote_path.split("/")[:-1])  # e.g. 'js'
+                remote_filename = remote_path.split("/")[-1]        # e.g. 'app.js'
             else:
-                print(f"   --- ⚠️ Tamanhos DIFERENTES! Local: {file_size}, Remoto: {remote_size}")
-        except Exception:
-            print(f"   --- (Verificacao de tamanho nao suportada pelo servidor)")
+                remote_dir = ""
+                remote_filename = remote_path                       # e.g. 'data.json'
 
-        session.quit()
-        print("--- Upload concluido com sucesso!")
-        return True
+            # Navigate to correct destination
+            if base_dir:
+                final_pwd = _ensure_remote_dir(session, base_dir, remote_dir)
+            else:
+                # PRODUCTION: navigate from root
+                _navigate_to_root(session)
+                if remote_dir:
+                    parts = remote_dir.strip("/").split("/")
+                    for part in parts:
+                        try:
+                            session.cwd(part)
+                        except ftplib.error_perm:
+                            session.mkd(part)
+                            session.cwd(part)
+                final_pwd = session.pwd()
+
+            print(f"   --- Navegado para:   {final_pwd}")
+
+            # Check if file already exists
+            existing = []
+            session.retrlines('LIST', existing.append)
+            if any(remote_filename in l for l in existing):
+                print(f"   --- {remote_filename} ja existe (sera sobrescrito)")
+            else:
+                print(f"   --- {remote_filename} novo (sera criado)")
+
+            # Upload
+            print(f"   --- Enviando arquivo como {remote_filename}...")
+            with open(local_file_path, 'rb') as f:
+                result = session.storbinary(f'STOR {remote_filename}', f)
+            print(f"   --- Resposta do servidor: {result}")
+
+            # Verify size
+            try:
+                remote_size = session.size(remote_filename)
+                print(f"   --- Tamanho no servidor: {remote_size} bytes")
+                if remote_size == file_size:
+                    print(f"   --- ✅ Tamanhos conferem!")
+                else:
+                    print(f"   --- ⚠️ Tamanhos DIFERENTES! Local: {file_size}, Remoto: {remote_size}")
+            except Exception:
+                print(f"   --- (Verificacao de tamanho nao suportada pelo servidor)")
+
+            session.quit()
+            print("--- Upload concluido com sucesso!")
+            return True
+        else:
+            return False
 
     except Exception as e:
         import traceback
