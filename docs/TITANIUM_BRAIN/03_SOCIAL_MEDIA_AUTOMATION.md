@@ -10,12 +10,14 @@ The bot operates in two distinct modes:
 ### 1. Curadoria Mode (Priority)
 - **Queue**: Looks for files in `social/fila/`.
 - **Logic**: Any image (`.jpg`, `.png`) or video (`.mp4`) placed here is treated as a priority post.
-- **Workflow**:
-    - Selects the oldest file in the queue.
-    - Generates a category-aware caption via the **Copywriter**.
-    - If it's an image, it converts it to a 5-second video (Reels) using the Ken Burns effect (`social/utils/video_utils.py`).
-    - **Resolution Standard**: Always use **720p (720x1280)** for Reels. Higher resolutions (1080p) often cause Meta processing timeouts when posted via API.
-    - Post-success: Moves the file to `social/postados/`.
+- **Workflow (v2.0.0 - Cluster Mode)**:
+    - Agrupa automaticamente até **10 itens** da fila para criar um **Carrossel**.
+    - Se houver apenas 1 item, converte automaticamente para Reels (Ken Burns).
+    - Lê metadados de arquivos `.json` vinculados (mesmo nome da imagem) para preencher títulos e preços na legenda.
+    - Se for uma imagem única, ela é convertida em um vídeo de 5 segundos (Reels) usando o efeito Ken Burns (`social/utils/video_utils.py`).
+    - **Resolution Standard**: Always use **720p (720x1280)** for Reels. Higher resolutions (1080p) often cause Meta processing timeouts quando postado via API.
+    - Post-success: Moves image/video and its JSON metadata to `social/postados/`.
+    - **CI/CD Compliance**: Usa `sys.exit(0)` para sucesso e `sys.exit(1)` para falha, permitindo que o GitHub Actions reporte erros de postagem fielmente.
 
 ### 3. Fila Agendada (Scheduled Manifesto)
 - **File**: `social/fila/schedule.json`.
@@ -209,14 +211,11 @@ The bot operates in two distinct modes:
 - **Maintenance**: Requires periodic updates (at least once a week) to ensure the queue never dries up. If the current date is not in the manifesto, the automation will skip the post to avoid errors.
 - **Manual Overrides**: For special dates (e.g., International Women's Day), a dedicated script `post_manual_X.py` can be used. These scripts should follow the `ResilientUploader` protocol and manually archive the image after success to keep the queue in sync.
 
-### 2. Category Fallback Mode (Automated)
-- **Trigger**: Used when the queue is empty.
-- **Schedule**:
-    - **Morning**: Amazon deals.
-    - **Afternoon**: Shopee deals.
-    - **Evening**: Mercado Livre deals.
-- **Logic**: Selects the best category banner and the top-discounted product for that store.
-- **CI/CD Sync**: The automated workflow in GitHub Actions uses a `git pull --rebase` strategy before pushing archival changes to avoid conflicts between local and remote environments.
+### 2. CSV Import Mode (Bulk Inventory)
+- **Source**: `site/specialist.json` and external CSVs.
+- **Logic**: O script `social/queue_csv_products.py` lê os links de produtos selecionados, valida o estoque e cria automaticamente a fila de imagens para postagem.
+- **AI Copywriter (DeepSeek)**: A legenda é gerada exclusivamente pela **IA DeepSeek Chat**, focando em elegância e desejo de compra.
+- **CI/CD Sync**: A branch `main` atua como fonte da verdade, sincronizando arquivos de estado (`social/state_csv.json`) para evitar postagens duplicadas entre as rodadas do GitHub Actions.
 
 ## 🎞️ Media Processing
 Titanium prioritizes **Reels** over static images because of higher algorithmic reach.

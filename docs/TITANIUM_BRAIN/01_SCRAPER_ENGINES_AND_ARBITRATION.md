@@ -20,7 +20,8 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
 - **Método**: GraphQL Open API v2 (Oficial).
 - **Autenticação**: Protocolo **SHA256 Direct** para segurança máxima.
 - **Deep Link Strategy**: Gerador automático de links curtos (`s.shopee.com.br`) que forçam a abertura direta no App Shopee do usuário, aumentando a conversão em 40%.
-- **Boutique targets**: O sistema sorteia sub-categorias aleatórias da lista de `TARGETS` (Vestidos, Conjuntos, Calçados) a cada execução para manter a vitrine sempre nova.
+- **Boutique targets**: O sistema sorteia **15 sub-categorias** aleatórias da lista de `TARGETS` (Vestidos, Conjuntos, Calçados) a cada execução (via `random.sample`) para manter a vitrine sempre nova e evitar sobrecarga da API.
+- **Duplicate Prevention**: Utiliza normalização de títulos (lowercase + strip) para garantir que o catálogo não contenha ofertas idênticas de diferentes buscas.
 
 ---
 
@@ -37,6 +38,7 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 
 ## 💾 4. Gerenciamento de Estado & Cache
 - **Localização**: `site/data.json` (Produção) e `state/arbitro_cache.json` (Debug).
+- **Refresh Strategy (12+N)**: A cada rodada, o sistema preserva os 12 produtos mais recentes do Shopee e injeta as novas ofertas válidas, garantindo um "frescor" contínuo sem perder o histórico imediato.
 - **Cache de Busca**: Mantido por **5 minutos** para evitar chamadas redundantes à API de IA.
 - **Atomic Sync**: O sistema atualiza o JSON no servidor via FTP atômico, garantindo que o site nunca fique "quebrado" durante a atualização.
 

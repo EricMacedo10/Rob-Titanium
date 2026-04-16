@@ -9,6 +9,7 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
     - User Review Required section.
     - Detailed File Mapping (MODIFY/NEW/DELETE).
     - Verification Plan (Automated + Manual).
+- **Exit Code Compliance**: Scripts de automação executados em CI/CD **DEVEM** usar `sys.exit(1)` em falhas críticas e `sys.exit(0)` em sucesso para integração perfeita com GitHub Actions.
 3.  **Verification Walkthrough**: Every task must end with a `walkthrough.md` documenting results with screenshots or logs.
 
 ## 🚫 The "Don't Touch" List
@@ -61,8 +62,9 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
 - **Status atual:** Desativada temporariamente via `display: none !important` no `style.css`.
 - **Motivo:** O scraper genérico retornava produtos irrelevantes (ex: liquidificador de brinquedo) e preços sem centavos corretos.
 - **Abordagem recomendada para reativação:**
-  - Não usar scraping por keyword. Usar **lista curada** dos produtos já presentes nos banners do site.
-  - Buscar preço via API do produto específico (PAAPI da Amazon, API do ML), não de resultados de busca.
+  - **Regra de Ouro (Isolamento de Ambiente)**: 
+    - O Robô Titanium em modo **STAGING** é o único autorizado a atualizar arquivos de layout (`index.html`, `js`, `css`). 
+    - Em modo **PRODUCTION**, o sistema opera sob **Blindagem**, atualizando exclusivamente o `data.json` e `notifications.json`. Nunca tente "corrigir" o layout de produção via scripts automáticos agendados.
   - Gate obrigatório de preço mínimo por categoria antes de exibir qualquer produto.
 
 ### 🎨 Conservadorismo de Visual (The Minimalist Look)
@@ -102,7 +104,13 @@ Para correções estruturais (CSS/JS) no Staging ou Produção:
 3.  **Validação Visual de Dispositivo**: Antes de declarar vitória, valide via screenshot a integridade do layout (Overflow, Alinhamento de Badges e Colisões de Estilo).
 
 ---
-## 🤖 Mission Statement for AI Agents
-> "Your role is to protect the integrity of the Titanium ecosystem. Priority 1 is a functional site with working affiliate links. Priority 2 is automation freshness. Priority 3 is performance."
+## 🚀 AI-Driven Trend Radar (v3.5)
 
-**When in doubt, fallback to a working static state.**
+O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
+1. **Filtro de Desejo**: A IA DeepSeek não apenas analisa preços, mas a "curva de desejo" (Fashion Intensity) de cada item.
+2. **Editorial On-the-Fly**: Textos curtos e persuasivos são injetados no frontend para evitar o estigma de "site de links" (Thin Affiliate Defense).
+3. **Blindagem de Atribuição (Universal Linker)**: 
+   - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
+   - Garantir que o `utm_source` seja sempre `titanium_radar` para facilitar a auditoria no painel da Shopee.
+
+*Última Auditoria Técnica: 15/04/2026 - Status: 100% Shopee Exclusive.*

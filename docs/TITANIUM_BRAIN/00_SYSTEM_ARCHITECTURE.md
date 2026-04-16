@@ -1,6 +1,6 @@
 # 🧠 Titanium Brain: System Architecture Map (v2026)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Robô Titanium: Shopee Exclusive**.
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.5-Elite).
 
 ---
 
@@ -20,7 +20,7 @@ graph TD
     subgraph "Automação GitHub (Nuvem)"
         ACTION["GitHub Actions (Cron/Manual)"]
         PYTHON["Python Engine (Core)"]
-        AI["IA DeepSeek (Content/Radar)"]
+        AI["IA DeepSeek Chat (Paid Account)"]
     end
 
     subgraph "Fontes de Dados (Oficiais)"
@@ -60,9 +60,13 @@ graph TD
 ## 🔐 4. Protocolo de Segurança (Blindagem)
 
 - **Secrets Only**: Credenciais (`FTP`, `API_KEYS`) residem exclusivamente no GitHub Secrets de forma encriptada.
-- **Structural Shield**: Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) para evitar ataques de injeção ou corrupção de design (Blindagem Production).
-- **AI Dual-Engine**: Uso de **Groq (Llama 3)** para velocidade em curadoria e **DeepSeek** para qualidade editorial.
-- **Link Auditing**: 100% dos links são gerados via deeplink oficial Shopee, garantindo a comissão do proprietário.
+- **Structural Shield**: Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) em modo PRODUCTION. Mudanças de layout são exclusivas do modo STAGING ou via scripts de força bruta (`force_asset_upload.py`), o que garante a Blindagem Production.
+- **Isolated Environments**: 
+    - **PRODUCTION**: Atualiza estritamente o `data.json` e `notifications.json`.
+    - **STAGING**: Sincroniza `index_staging.html`, `app.js` e `style.css` automaticamente para validação imediata.
+- **AI-Only (DeepSeek)**: Uso exclusivo da API **DeepSeek Chat (v3)** para curadoria e editorial de alto nível. O uso de Groq/Llama foi depreciado para garantir consistência de tom de voz.
+- **Link Auditing (Universal)**: 100% dos links (API, CSV e Social) passam pelo `core/link_builder.py` para injeção mandatória da tag `an_18318830863`.
+- **Analytics Shield**: Integração de eventos `click` via `gtag` para comparação direta tráfego vs. conversão Shopee.
 
 ---
-*Atualizado em: 12/04/2026 - Versão: 3.2.0-Elite (Shopee Full Sync)*
+*Atualizado em: 15/04/2026 - Versão: 3.5.0-Elite (Shopee Full Blindagem)*

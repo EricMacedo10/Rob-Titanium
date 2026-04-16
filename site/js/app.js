@@ -1141,7 +1141,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
     // Titanium Sync Timestamp: 2026-02-10-12:50 (v1157_RESTORED_CARNAVAL)
-});
 
 /**
  * Roda frases de incentivo nos CTAs dos banners para aumentar CTR (v2026_v2_premium)
@@ -1237,6 +1236,15 @@ function trackClick(store, category, title) {
     const trackerUrl = isLocal ? 'http://127.0.0.1:5001/api/track-click' : 'track_clicks.php';
     
     navigator.sendBeacon(trackerUrl, data);
+
+    // 2. Enviar para Google Analytics (gtag) para comparação direta
+    if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+            'event_category': category,
+            'event_label': title,
+            'store': store
+        });
+    }
 }
 
 // Inicializar ouvintes de clique e contador de visitas após o DOM carregar
