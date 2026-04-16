@@ -118,9 +118,23 @@ class ImageGenerator:
 
         # 4. Fontes Minimalistas
         try:
-            font_path = "C:\\Windows\\Fonts\\arialbd.ttf"
-            font_price = ImageFont.truetype(font_path, 140)  # Aumentado para Impacto e Legibilidade Elite
-        except:
+        # 4. Fontes Minimalistas (Compatibilidade Windows/Linux)
+        try:
+            # Lista de caminhos possíveis para Arial Bold ou similar
+            font_candidates = [
+                "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",  # Linux (Ubuntu)
+                "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf", # Linux (Alternative)
+                "C:\\Windows\\Fonts\\arialbd.ttf" # Windows
+            ]
+            font_price = None
+            for p in font_candidates:
+                if os.path.exists(p):
+                    font_price = ImageFont.truetype(p, 180) # TAMANHO EXTRA-GRANDE ELITE
+                    break
+            
+            if not font_price:
+                font_price = ImageFont.load_default() # Fallback final
+        except Exception:
             font_price = ImageFont.load_default()
 
         # 5. Adicionar Preço (Badge Premium Clean)
@@ -136,10 +150,10 @@ class ImageGenerator:
             price_formatted = f"R$ {price}"
         
         # Cálculo Dinâmico da Moldura do Preço
-        text_width = font_price.getlength(price_formatted)
-        badge_w, badge_h = int(text_width + 80), 160
+        text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 300
+        badge_w, badge_h = int(text_width + 100), 200 # Badge maior para fonte 180
         badge_x = (self.width - badge_w) // 2
-        badge_y = self.height - 180  # Posição focada e proporcional ao Hub Original
+        badge_y = self.height - 180  # Posição proporcional
         
         # Cor do badge clean e contrastante (Fundo Branco, Fonte Laranja Shopee)
         badge_fill = (255, 255, 255)
@@ -153,7 +167,7 @@ class ImageGenerator:
 
         # Desenhar base do Preço
         draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=35, fill=badge_fill)
-        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 5), 
+        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 10), 
                   price_formatted, font=font_price, fill=text_fill)
 
         # 6. Salvar e Retornar
