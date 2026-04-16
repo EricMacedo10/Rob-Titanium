@@ -127,7 +127,7 @@ class ImageGenerator:
             font_price = None
             for p in font_candidates:
                 if os.path.exists(p):
-                    font_price = ImageFont.truetype(p, 135) # TAMANHO MÉDIO ELITE
+                    font_price = ImageFont.truetype(p, 180) # TAMANHO EXTRA-GRANDE ELITE
                     break
             
             if not font_price:
@@ -148,8 +148,8 @@ class ImageGenerator:
             price_formatted = f"R$ {price}"
         
         # Cálculo Dinâmico da Moldura do Preço
-        text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 250
-        badge_w, badge_h = int(text_width + 80), 150 # Badge mais elegante/slim
+        text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 300
+        badge_w, badge_h = int(text_width + 100), 200 # Badge maior para fonte 180
         badge_x = (self.width - badge_w) // 2
         badge_y = self.height - 180  # Posição proporcional
         
@@ -165,7 +165,7 @@ class ImageGenerator:
 
         # Desenhar base do Preço
         draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=35, fill=badge_fill)
-        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 5), 
+        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 10), 
                   price_formatted, font=font_price, fill=text_fill)
 
         # 6. Salvar e Retornar
