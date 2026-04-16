@@ -3,6 +3,7 @@ import random
 import sys
 import shutil
 import os
+import json
 from datetime import datetime
 from social.core.image_generator import ImageGenerator
 from social.core.instagram_client import InstagramClient

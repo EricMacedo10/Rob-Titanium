@@ -36,6 +36,8 @@ jobs:
       - name: 🎨 Gerar Lote de Artes (CSV -> Fila)
         env:
           PYTHONPATH: .
+          SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
+          SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
         run: python -m social.queue_csv_products
 
       - name: 🚀 Publicar no Instagram (Fila -> Meta API)
@@ -48,6 +50,8 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
           IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+          SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
+          SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
           ENV_MODE: PRODUCTION
         run: python -m social.core.bot
 
@@ -55,4 +59,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🤖 Bot: Atualizando estado do carrossel (social/state_csv.json)"
-          file_pattern: 'social/state_csv.json social/fila/* social/postados/*'
+          file_pattern: 'social/state_csv.json social/fila/ social/postados/'
