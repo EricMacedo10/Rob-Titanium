@@ -127,7 +127,7 @@ class ImageGenerator:
             font_price = None
             for p in font_candidates:
                 if os.path.exists(p):
-                    font_price = ImageFont.truetype(p, 180) # TAMANHO EXTRA-GRANDE ELITE
+                    font_price = ImageFont.truetype(p, 90) # REDUZIDO EM 50% (MINIMALISTA)
                     break
             
             if not font_price:
@@ -147,11 +147,11 @@ class ImageGenerator:
             print(f"Erro na formatação de preço ({price}): {e}")
             price_formatted = f"R$ {price}"
         
-        # Cálculo Dinâmico da Moldura do Preço
-        text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 300
-        badge_w, badge_h = int(text_width + 100), 200 # Badge maior para fonte 180
+        # Cálculo Dinâmico da Moldura do Preço (SLIM)
+        text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 200
+        badge_w, badge_h = int(text_width + 60), 100 # Reduzido proporcionalmente
         badge_x = (self.width - badge_w) // 2
-        badge_y = self.height - 180  # Posição proporcional
+        badge_y = self.height - 160  # Posição focada no rodapé inferior
         
         # Cor do badge clean e contrastante (Fundo Branco, Fonte Laranja Shopee)
         badge_fill = (255, 255, 255)
@@ -165,7 +165,7 @@ class ImageGenerator:
 
         # Desenhar base do Preço
         draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=35, fill=badge_fill)
-        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 10), 
+        draw.text((badge_x + (badge_w - text_width)//2, badge_y + 0), 
                   price_formatted, font=font_price, fill=text_fill)
 
         # 6. Salvar e Retornar
