@@ -3,25 +3,24 @@
 This document details how Titanium maintains a social presence on Instagram without manual intervention.
 
 ## 🤖 The Social Bot Orchestrator
-Implemented in [bot.py](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/Robô Titanium/social/core/bot.py).
+Implemented in `social/core/bot.py`.
 
 The bot operates in two distinct modes:
 
 ### 1. Curadoria Mode (Priority)
 - **Queue**: Looks for files in `social/fila/`.
 - **Logic**: Any image (`.jpg`, `.png`) or video (`.mp4`) placed here is treated as a priority post.
-- **Workflow (v2.0.0 - Cluster Mode)**:
-    - Agrupa automaticamente até **10 itens** da fila para criar um **Carrossel**.
-    - Se houver apenas 1 item, converte automaticamente para Reels (Ken Burns).
+- **Workflow (v2.1.0 - Post Único)**:
+    - Seleciona **1 item** da fila por ciclo de execução para postagem.
+    - A imagem é convertida automaticamente em um vídeo de 5 segundos (Reels) usando o efeito Ken Burns (`social/utils/video_utils.py`).
     - Lê metadados de arquivos `.json` vinculados (mesmo nome da imagem) para preencher títulos e preços na legenda.
-    - Se for uma imagem única, ela é convertida em um vídeo de 5 segundos (Reels) usando o efeito Ken Burns (`social/utils/video_utils.py`).
     - **Resolution Standard**: Always use **720p (720x1280)** for Reels. Higher resolutions (1080p) often cause Meta processing timeouts quando postado via API.
     - Post-success: Moves image/video and its JSON metadata to `social/postados/`.
     - **CI/CD Compliance**: Usa `sys.exit(0)` para sucesso e `sys.exit(1)` para falha, permitindo que o GitHub Actions reporte erros de postagem fielmente.
 
-### 3. Fila Agendada (Scheduled Manifesto)
-- **File**: `social/fila/schedule.json`.
-- **Logic**: Defines exactly which image/video will be posted on specific dates.
+> [!NOTE]
+> **Geração de artes (`queue_csv_products.py`)**: O script lê o CSV `BatchProductLinks.csv` em lotes de **1 produto por execução**, busca a imagem via Shopee API e gera a arte final na fila. O estado de progresso é salvo em `social/state_csv.json`.
+
 ### 2. Category Fallback Mode (Automated)
 - **Trigger**: Used when the queue is empty.
 - **Schedule**:
@@ -42,7 +41,7 @@ The bot operates in two distinct modes:
 Titanium prioritizes **Reels** over static images because of higher algorithmic reach.
 - **Ken Burns Effect**: Static images are animated with subtle zoom/pan.
 - **720p Rule**: Videos are encoded/resized to 720p (Original Size) to ensure instant cloud transcoding.
-- **Resilient Upload Strategy (v1157 — Tri-Layer Defense)**: 
+- **Resilient Upload Strategy (v1157 — Tri-Layer Defense)**:
     1.  **Prioridade 1: Hostinger (FTP)** -> `guiadodesconto.com.br/social/`. Esta rota é mais estável para os servidores do Meta devido à proximidade geográfica e menor latência.
     2.  **Verificação Meta-Realista**: Após upload FTP, `_verify_link_for_meta()` simula o crawler do Facebook (`User-Agent: facebookexternalhit/1.1`) com GET completo, valida `Content-Type` e tamanho mínimo. Se o WAF do Hostinger bloquear → fallback automático.
     3.  **Prioridade 2: ImgBB** (Fallback). Ativado automaticamente quando a verificação Meta falha no Hostinger, ou quando o container retorna erro 9004.
@@ -63,43 +62,20 @@ Titanium prioritizes **Reels** over static images because of higher algorithmic 
 - **Solução**: O script agora utiliza busca dinâmica via `os.listdir()` e matching em lowercase para garantir que o arquivo seja encontrado independente do encoding do sistema operacional.
 
 ## 🔗 Instagram Graph API Orchestration
-The [InstagramClient](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/Robô Titanium/social/core/instagram_client.py) handles a optimized 3-step publishing process:
+O `InstagramClient` (`social/core/instagram_client.py`) handles an optimized 3-step publishing process:
 1.  **Media Container**: Sends the public URL to Meta.
-2.  **Smart Polling (v1158 — Carousel Video Fix)**: 
+2.  **Smart Polling (v1158)**:
     - Waits for Meta's cloud processing.
-    - **Fix**: Detects `is_carousel_item`. For carousel videos, Meta often returns `status_code: null`. After 20 consecutive `null` polls, the client now assumes the video is ready for private assembling and proceeds to prevent indefinite timeouts.
-3.  **Publication (Resilient Publish)**: Triggers `media_publish` with a 5-attempt retry loop to handle the "Media ID is not available" transient error commonly seen in mixed carousels.
-
----
-## 🎭 Mixed Carousels (Photo + Video — New 2026-03-27)
-Titanium now supports mixed albums (up to 10 items) combining high-quality videos and static photos in the same feed post.
-
-### 🛠️ Technical Protocol
-- **Method**: `InstagramClient.post_carousel(media_items, caption)`.
-- **Input Format**: 
-  ```python
-  media_items = [
-    {"url": "...", "type": "VIDEO"},
-    {"url": "...", "type": "IMAGE"},
-    ...
-  ]
-  ```
-- **Video Requirements**: Must be MP4/MOV, up to 2 minutes, ideally 1080x1080 or 4:5.
-- **Hosting**: **MANDATORY FTP/Hostinger** for videos. Cloud services like ImgBB often convert to `.webp`, which Instagram REJECTS in carousel containers.
-
-### 🏗️ Reference Implementation (Brick 3D)
-- **Script**: `social/post_brick3d_carousel.py`.
-- **Logic**: Orchestrates a 5-slide post (1 video + 4 images) for the Amazon/Shopee affiliate campaign. 
-- **Automation**: Automatically injects the affiliate tag `af_id` (Shopee) or `tag` (Amazon) into the product URL before generating the state file.
+    - After 20 consecutive `null` status polls, the client assumes the video is ready and proceeds to prevent indefinite timeouts.
+3.  **Publication (Resilient Publish)**: Triggers `media_publish` with a 5-attempt retry loop to handle the "Media ID is not available" transient error.
 
 ---
 ## 🎯 DM Automation & Link Injection Strategy (MANDATORY RULE)
 Titanium uses a 24/7 standalone PHP Bot (`bot_instagram.php`) deployed on Hostinger via Cron Job to monitor comments and send direct messages (DMs) with affiliate links.
-To make the link routing intelligent and dynamic without changing the codebase:
 
 1. **Rule for the AI Copywriter**: **EVERY SINGLE POST** generated for Instagram MUST contain a unique internal tracking hashtag in the caption (e.g., `#ofertaX`, `#panela1`, `#drone4k`). This hashtag can be placed subtly at the end of the text.
-2. **Rule for the Operator (Human)**: Every time a new post is scheduled or published, the user must update the `ofertas.json` file hosted on Hostinger via FTP (ou rodar `python c:/tmp/upload_bot.py`).
-   - Example format: `{"#drone4k": "https://mercadolivre.com.br/...", "#default": "https://guiadodesconto.com.br"}`
+2. **Rule for the Operator (Human)**: Every time a new post is scheduled or published, update the `ofertas.json` file on Hostinger via FTP running: `python -m social.upload_ofertas`
+   - Example format: `{"#drone4k": "https://shopee.com.br/...", "#default": "https://guiadodesconto.com.br"}`
 3. **Execution**: The `bot_instagram.php` reads the caption of the post being commented on, extracts the hashtag, lookups the `ofertas.json` dictionary, and sends the corresponding link straight to the user's Inbox via Meta Graph API edge `/{PAGE_ID}/messages`.
 
 ### 📂 Arquivos do Robô de DM no Servidor (Hostinger)
@@ -129,40 +105,37 @@ O script faz **tudo automaticamente**:
 6. Faz upload automático para o servidor Hostinger via FTP
 
 #### 📋 Credenciais do App Meta (necessárias para o script):
-- **App ID**: `[REDACTED_APP_ID]`
-- **App Secret**: armazenado no `social/titanium_token_manager.py` (NÃO commitar este arquivo com secrets no GitHub)
-- **Page ID**: `[REDACTED_PAGE_ID]`
-- **IG Business ID**: `[REDACTED_BUSINESS_ID]`
+- **App ID**: armazenado no GitHub Secrets / `.env` local (`META_APP_ID`)
+- **App Secret**: armazenado no `social/titanium_token_manager.py` — **NÃO commitar este arquivo com secrets no GitHub**
+- **Page ID**: armazenado no GitHub Secrets / `.env` local (`META_PAGE_ID`)
+- **IG Business ID**: armazenado no GitHub Secrets / `.env` local (`IG_BUSINESS_ID`)
 
 #### 🩺 Sintomas de Token Expirado:
 - `bot_instagram.php` para de enviar DMs
 - Script Python retorna `OAuthException code: 190, subcode: 463`
-- O `post_fashion_carousel.py` falha na criação do container
+- O `social/core/bot.py` falha na criação do container
 
 **Último token renovado**: 2026-03-21 (Page Token permanente ativo)
 
 ---
-## 🎨 Carrossel com Modelos IA (Implementado em 2026-03-21)
+## 🎨 Posts com Modelos IA
 
-Fluxo completo para criar e publicar carrosséis de moda com modelos geradas por Inteligência Artificial:
+Fluxo completo para criar e publicar posts de moda com modelos geradas por Inteligência Artificial:
 
 ### Passo 1: Geração das Modelos IA
-- Usar o `generate_image` tool do assistente para criar 6 imagens (1 capa + 5 looks).
-- As imagens são geradas com prompts de **moda premium, alta costura e iluminação cinematográfica**.
-- Salvas em: `C:/Users/ericm/.gemini/antigravity/brain/{conversation_id}/`.
+- Usar o assistente para criar imagens com prompts de **moda premium, alta costura e iluminação cinematográfica**.
+- Salvas na pasta de trabalho do assistente para uso nos scripts de composição.
 
 ### Passo 2: Composição das Artes Finais
 - Script: `social/automate_fashion_carousel.py`
 - Lê as imagens da IA e sobrepõe **preço (badge Shopee laranja)**, **título do produto** e **logo da loja**.
-- **Output**: Salva 6 arquivos `fashion_post_00.jpg` a `fashion_post_05.jpg` em **`social/fila/`**.
-- Dimensões: **1080x1080 (1:1)** — formato padrão de carrossel do Instagram.
+- **Output**: Salva as artes em **`social/fila/`** para processamento pelo bot.
+- Dimensões: **1080x1080 (1:1)** — formato padrão do Instagram.
 
-### Passo 3: Upload e Publicação
-- Script: `social/post_fashion_carousel.py`
-- Usa `ResilientUploader` para fazer upload de cada imagem para `guiadodesconto.com.br/social/`.
-- Usa `InstagramClient.post_carousel(image_urls, caption)` para postar o álbum.
-- A **legenda DEVE conter a hashtag de DM** (ex: `#look_shopee1`) para que o robô funcione.
-- Executar com: `python -m social.post_fashion_carousel` (rodar da raiz do projeto).
+### Passo 3: Upload e Publicação (Automático via CI/CD)
+- O `social/core/bot.py` pega 1 item da fila por ciclo, converte em Reel (Ken Burns) e publica.
+- A **legenda DEVE conter a hashtag de DM** (ex: `#look_shopee1`) para que o robô de DM funcione.
+- Para publicação manual: `python -m social.core.bot` (rodar da raiz do projeto).
 
 ### Hashtags Atualmente Mapeadas no ofertas.json
 | Hashtag | Destino |
@@ -171,15 +144,15 @@ Fluxo completo para criar e publicar carrosséis de moda com modelos geradas por
 | `#pantalona` | Link Shopee direto |
 | `#blazer` | Link Shopee direto |
 | `#vestido` | Link Shopee direto |
-| `#perfume` | Link Amazon com tag afiliado |
-| `#bolsa` | Link Amazon com tag afiliado |
-| `#relogio` | Link Amazon com tag afiliado |
-| `#make` | Link Amazon com tag afiliado |
+| `#perfume` | Link Shopee direto |
+| `#bolsa` | Link Shopee direto |
+| `#relogio` | Link Shopee direto |
+| `#make` | Link Shopee direto |
 | `#default` | guiadodesconto.com.br |
 
 ---
 ## 🤖 Python Comment Bot (Active Monitor)
-While the PHP bot handles general scaling, Titanium uses `social/bot_comentario_brick3d.py` for high-priority local monitoring.
+Titanium usa `social/bot_comentario_brick3d.py` para monitoramento local de alta prioridade.
 
 ### 🚀 Features:
 - **Keyword Trigger**: Detects "QUERO", "LINK", "VALOR".
@@ -190,3 +163,4 @@ While the PHP bot handles general scaling, Titanium uses `social/bot_comentario_
 - **Interval**: Set to 60s to stay under Meta's rate-limit thresholds for automated actions.
 
 ---
+*Atualizado em: 18/04/2026 - Versão: v2.1.0 (Post Único | Shopee Exclusive)*

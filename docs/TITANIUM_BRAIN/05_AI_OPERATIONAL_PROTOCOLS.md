@@ -33,8 +33,8 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **ML produtos com erro** | (LEGACY) Mercado Livre desativado. | Engine atualizado para foco 100% Shopee. |
 | **GitHub Action sobrescreve vitrine temática** | `core/settings.py` com keywords antigas (e.g. Ring Light). | Atualizar TARGETS no `settings.py` para as palavras-chave do novo nicho ANTES do próximo cron run. |
 | **data.json no server ainda mostra conteúdo antigo após deploy.py** | `deploy.py` exclui `data.json` por design (segurança). | Rodar manualmente `infra/upload_data.py` para fazer o override do JSON no servidor. |
-| **Robô de DM (`bot_instagram.php`) parou de funcionar** | Token expirado (OAuthException 190/463). | Renovar token, atualizar `.env` e `social/bot_instagram.php`, depois rodar `python c:/tmp/upload_bot.py` para subir ao servidor. |
-| **Robô de DM envia o link errado** | `ofertas.json` está desatualizado ou sem a hashtag do post. | Atualizar `social/ofertas.json` com a hashtag do novo post e rodar `python c:/tmp/upload_bot.py`. |
+| **Robô de DM (`bot_instagram.php`) parou de funcionar** | Token expirado (OAuthException 190/463). | Renovar token, atualizar `.env` e `social/bot_instagram.php`, depois rodar `python -m social.titanium_token_manager` para subir ao servidor. |
+| **Robô de DM envia o link errado** | `ofertas.json` está desatualizado ou sem a hashtag do post. | Atualizar `social/ofertas.json` com a hashtag do novo post e rodar `python -m social.upload_ofertas`. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -90,9 +90,9 @@ Esta sessão comprovou um bug crítico: ao mudar a vitrine para um novo nicho (e
 - **`infra/upload_data.py`**: Envia APENAS o `data.json`. Usa `ENV_MODE` para escolher entre produção (`/`) e staging (`/teste`). Use este script para forçar atualização de produtos sem alterar o layout.
 - **`sync_staging_v12.py`**: Script legado de sincronização para staging. Usa lista fixa de arquivos.
 - **`social/automate_fashion_carousel.py`** *(2026-03-21)*: Lê imagens de modelos IA (geradas pelo assistente) e cria as artes finais do carrossel (1080x1080 JPEG com badge de preço/loja) salvando em `social/fila/`.
-- **`social/post_fashion_carousel.py`** *(2026-03-21)*: Faz upload das imagens da fila via `ResilientUploader` e publica como Carrossel no Instagram via `InstagramClient.post_carousel()`. Executar com `python -m social.post_fashion_carousel` a partir da raiz do projeto.
+- **`social/core/bot.py`** *(v2.1.0 - 18/04/2026)*: Bot principal. Posta **1 item por ciclo** da fila como Reel. Executar com `python -m social.core.bot` a partir da raiz do projeto.
 - **`social/bot_instagram.php`** *(Servidor Hostinger, raiz `/`)*: Bot PHP do robô de DM. Monitora comentários dos últimos 6 posts, detecta gatilhos e envia DM com link correto baseado no `ofertas.json`.
-- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python c:/tmp/upload_bot.py`.
+- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python -m social.upload_ofertas`.
 - **`social/titanium_token_manager.py`** *(2026-03-21)*: Gerenciador automático de tokens Meta/Instagram. Troca o User Token por um **Page Access Token permanente (♾️ nunca expira)** e atualiza o `.env`, `bot_instagram.php` e faz upload para o servidor em uma única execução. Executar com `python -m social.titanium_token_manager`.
 
 ## 🚀 Hotfixes e Deploy Emergencial (Senior Only) [30/03]
@@ -113,4 +113,4 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
    - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
    - Garantir que o `utm_source` seja sempre `titanium_radar` para facilitar a auditoria no painel da Shopee.
 
-*Última Auditoria Técnica: 15/04/2026 - Status: 100% Shopee Exclusive.*
+*Última Auditoria Técnica: 18/04/2026 - Status: 100% Shopee Exclusive | Bot v2.1.0 (Post Único)*

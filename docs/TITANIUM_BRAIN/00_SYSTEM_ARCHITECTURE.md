@@ -69,4 +69,4 @@ graph TD
 - **Analytics Shield**: Integração de eventos `click` via `gtag` para comparação direta tráfego vs. conversão Shopee.
 
 ---
-*Atualizado em: 15/04/2026 - Versão: 3.5.0-Elite (Shopee Full Blindagem)*
+*Atualizado em: 18/04/2026 - Versão: 3.5.0-Elite (Shopee Full Blindagem)*
