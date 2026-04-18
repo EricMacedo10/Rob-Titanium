@@ -68,7 +68,7 @@ class SocialBot:
         Agora suporta CARROSSEL AUTOMÁTICO de até 10 itens.
         """
         print("\n" + "="*60)
-        print("🤖 INICIANDO TITANIUM SOCIAL BOT - MODO CARROSSEL (v2.0.0)")
+        print("🤖 INICIANDO TITANIUM SOCIAL BOT - MODO POST ÚNICO (v2.1.0)")
         print("="*60)
         
         from social.utils.video_utils import image_to_video
@@ -97,8 +97,8 @@ class SocialBot:
         # --- NOVA LÓGICA DE AGRUPAMENTO (CARROSSEL) ---
         # Pegamos o primeiro item para definir o contexto (loja/categoria)
         # e então tentamos agrupar itens similares que estejam na fila.
-        target_files = arquivos_fila[:self.max_carousel_size]
-        print(f"📂 Encontrado(s) {len(arquivos_fila)} arquivo(s). Agrupando {len(target_files)} para postagem...")
+        target_files = arquivos_fila[:1]  # Modo Post Único: processa 1 por ciclo
+        print(f"📂 Encontrado(s) {len(arquivos_fila)} arquivo(s). Selecionando 1 para postagem...")
         
         media_to_upload = []
         combined_captions = []
