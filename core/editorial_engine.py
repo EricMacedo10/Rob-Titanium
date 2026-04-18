@@ -11,7 +11,7 @@ class TitaniumEditorial:
         self.api_url = "https://api.deepseek.com/chat/completions"
         
     def generate_article(self, topic, keywords):
-        """Usa DeepSeek para criar um artigo de alta autoridade para o AdSense"""
+        """Usa DeepSeek-V3.2 para criar um artigo de alta autoridade para o AdSense"""
         print(f"[Info] Solicitando artigo sobre: {topic}...")
         
         prompt = f"""

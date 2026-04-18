@@ -20,7 +20,7 @@ graph TD
     subgraph "Automação GitHub (Nuvem)"
         ACTION["GitHub Actions (Cron/Manual)"]
         PYTHON["Python Engine (Core)"]
-        AI["IA DeepSeek Chat (Paid Account)"]
+        AI["IA DeepSeek-V3.2 (Speciale / Agentic)"]
     end
 
     subgraph "Fontes de Dados (Oficiais)"
@@ -64,7 +64,7 @@ graph TD
 - **Isolated Environments**: 
     - **PRODUCTION**: Atualiza estritamente o `data.json` e `notifications.json`.
     - **STAGING**: Sincroniza `index_staging.html`, `app.js` e `style.css` automaticamente para validação imediata.
-- **AI-Only (DeepSeek)**: Uso exclusivo da API **DeepSeek Chat (v3)** para curadoria e editorial de alto nível. O uso de Groq/Llama foi depreciado para garantir consistência de tom de voz.
+- **AI-Only (DeepSeek)**: Uso exclusivo da API **DeepSeek-V3.2 (Speciale)** para curadoria e editorial de alto nível. O sistema aproveita o "Extreme Reasoning" para garantir que cada recomendação de produto seja cirúrgica.
 - **Link Auditing (Universal)**: 100% dos links (API, CSV e Social) passam pelo `core/link_builder.py` para injeção mandatória da tag `an_18318830863`.
 - **Analytics Shield**: Integração de eventos `click` via `gtag` para comparação direta tráfego vs. conversão Shopee.
 

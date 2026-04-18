@@ -43,7 +43,7 @@ class TitaniumRadar:
             print(f"[Sucesso] Radar de Tendências atualizado: {self.output_file}")
 
     def _ask_deepseek(self, product):
-        """Solicita um mini-review de luxo para o produto"""
+        """Solicita um mini-review de luxo usando DeepSeek-V3.2"""
         prompt = f"""
         Você é a Consultora de Estilo da Boutique Titanium. 
         Escreva um parágrafo curto, sofisticado e persuasivo (máximo 60 palavras) explicando por que este produto é uma tendência imperdível agora.

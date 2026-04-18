@@ -50,6 +50,5 @@ def test_ftp():
 if __name__ == "__main__":
     test_internet()
     test_api_reachability("Shopee API (Home)", "https://shopee.com.br")
-    test_api_reachability("Google Gemini API", "https://generativelanguage.googleapis.com")
-    test_api_reachability("DeepSeek API", "https://api.deepseek.com")
+    test_api_reachability("DeepSeek-V3.2 API", "https://api.deepseek.com")
     test_ftp()

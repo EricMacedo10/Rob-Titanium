@@ -8,7 +8,7 @@ A evolução do design do Guia do Desconto prioriza a **autoridade técnica** em
 
 ### 1. Header: Autoridade & Confiança (The "Anti-Truck" Clause)
 Após testes A/B com animações complexas (caminhões e scanners), o projeto estabilizou em um **Header Estático e Premium**:
-- **Logo Area**: Foco na identidade visual Shopee (Laranja) + Amazon (Amarelo).
+- **Logo Area**: Foco na identidade visual Shopee (Laranja) Platinum.
 - **Trust Badges**: Uso de "Pills" de status ("Robô Online", "Links Auditados") para converter através da segurança.
 - **Tagline**: "Monitoramento Inteligente de Preços" reforça o valor utilitário.
 
@@ -23,18 +23,16 @@ The frontend implements a resilient redirection system to ensure that affiliate 
 Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOAL/Robô Titanium/site/js/app.js).
 
 1.  **Normalization**: The store name is normalized (lowercase, no spaces) to ensure it matches the `TITANIUM_CONFIG.TAGS` keys.
-2.  **Fallback Priority**: If no store is specified or the preferred store is inactive, the system follows `PRIORIDADE: ['amazon', 'mercadolivre', 'shopee']`.
-3.  **Store-Specific Builders**:
-    - **Amazon**: Direct URL with `&tag=guiadodesco00-20&s=price-asc-rank`.
-    - **Mercado Livre**: Calls `buildMLAffiliateUrl`. It uses `forceInApp=true` to force handover to the native app, which is crucial for search/list pages that lack social deeplinks.
-    - **Shopee**: Calls `buildShopeeAffiliateUrl`.
-        - **Verified Links**: High-priority short links (`s.shopee.com.br`).
-        - **Dynamic Search**: Uses the `https://shopee.com.br/list/{keyword}` path. This path is essential for mobile-first redirection as it prevents the app from misidentifying "search" as a shop username.
+2.  **Fallback Priority**: O sistema agora é **Shopee Exclusive**. Fallbacks para Amazon/ML foram desativados.
+3.  **Amazon / ML Builders**: (DEPRECATED) Mantidos apenas no arquivo de legacy.
+4.  **Shopee**: Calls `buildShopeeAffiliateUrl`.
+    - **Verified Links**: High-priority short links (`s.shopee.com.br`).
+    - **Dynamic Search**: Uses the `https://shopee.com.br/list/{keyword}` path. This path is essential for mobile-first redirection as it prevents the app from misidentifying "search" as a shop username.
 
 ### Interactive Brand Tabs (v2026_v2)
 Implementado como um seletor de lojas multi-camada nos cards de categoria:
-- **On-the-Fly Store Switching**: Permite ao usuário alternar instantaneamente entre Amazon, Mercado Livre e Shopee sem sair do card.
-- **Dynamic CSS State**: Classes dinâmicas (`.active[data-store="..."]`) que alteram cores, sombras e brilhos específicos de cada marca em tempo real.
+- **On-the-Fly Category Switching**: Permite ao usuário alternar instantaneamente entre categorias Shopee sem sair do card.
+- **Dynamic CSS State**: Classes dinâmicas (`.active[data-store="..."]`) que alteram cores, sombras e brilhos exclusivos Shopee em tempo real.
 - **Interactivity Engineering**: Uso de `z-index: 120` e `backdrop-filter: blur(15px)` nos tabs para garantir que o controle de navegação seja sempre soberano e legível sobre as imagens do banner.
 
 ### 3. Boutique Shopee Design (v2.0)
@@ -68,7 +66,7 @@ Implementado em [style.css] e [app.js] para guiar o usuário:
 - **Minimalist UI ("Menos é Mais")**: Ocultação intencional de grids redundantes (`.voted-deals`) para evitar poluição visual e focar o usuário nas áreas de maior conversão (Hubs e Lightning Bar).
 - **Zero-Error Console (Premium Trust)**: Para um site inspirar confiança máxima e "Titanium Trust", o console do navegador do usuário deve ser limpo. A ausência de ativos estéticos raiz como `favicon.ico` gera erros silenciosos (404) que depreciam a qualidade técnica percebida pelas auditorias. É obrigatório manter todos os favicons e webmanifests presentes.
 - **Security Layer (Blindagem)**:
-    - **Whitelist**: Domínios oficiais Amazon, Shopee e Mercado Livre.
+    - **Whitelist**: Domínios oficiais Shopee.
     - **Titanium Link Auditor (v1.5)**: Injeção ativa de tags de afiliado em tempo real nos cliques do usuário.
     - **Cache Busting**: Versionamento agressivo de scripts (`?v=2026v15`).
 - **Content Security Policy (CSP)**: Implementa regras de "Zero Trust" mas permite especificamente a comunicação com domínios de rastreamento do Google (`www.googletagmanager.com`, `*.google-analytics.com`) para garantir métricas precisas.

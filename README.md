@@ -5,10 +5,10 @@ O **Robô Titanium** é um ecossistema de automação de alta performance projet
 ---
 
 ## 🚀 Funcionalidades Principais
-- **Mineração Shopee Elite**: Scraper via GraphQL API v2 oficial para ofertas de alta precisão.
-- **Curadoria IA Dual-Core**: 
-  - **Groq (Llama 3)**: Decisões ultrarrápidas de qual produto exibir.
-  - **DeepSeek**: Geração de artigos editoriais e reviews de tendências complexas.
+- **Curadoria IA Titanium (DeepSeek-V3.2)**: 
+  - Geração de artigos editoriais luxuosos.
+  - Reviews de tendências complexas com foco em Agentic Reasoning.
+  - Decisões de arbitragem de produtos (Arbitro Elite).
 - **Social Automation**: Publicação automática de carrosséis (fotos e vídeos Ken Burns) e bot de resposta de comentários ("QUERO").
 - **Design Elite**: Interface moderníssima com Glassmorphism, Neon Pulse e Radar de Tendências IA.
 - **Deploy Blindado**: CI/CD via GitHub Actions com sincronização atômica via FTP.
@@ -26,7 +26,7 @@ O **Robô Titanium** é um ecossistema de automação de alta performance projet
 
 ## 🛠️ Como Iniciar
 1. Instale as dependências: `pip install -r requirements.txt`
-2. Configure o arquivo `.env` com suas chaves (Shopee, Groq, DeepSeek, FTP).
+2. Configure o arquivo `.env` com suas chaves (Shopee, DeepSeek, FTP).
 3. Execute o minerador: `python core/orchestrator.py`
 4. Deploy manual: `python sync_production_v12.py`
 

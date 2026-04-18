@@ -29,7 +29,7 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
 Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos de alta qualidade cheguem à vitrine.
 
 ### Lógica `decidir_com_fallback`:
-1.  **Motor Groq (Llama 3.3 70B)**: Analisa os resultados da busca em milissegundos.
+1.  **Motor DeepSeek-V3.2 (Speciale)**: Analisa os resultados da busca com Extreme Reasoning, garantindo curadoria de elite.
 2.  **Filtro de Relevância**: A IA descarta acessórios (capas, cabos) se o usuário buscou por vestuário.
 3.  **Sanatização**: O `ArbitroDePreco` valida se a imagem é real (`http`) e se o preço não é um placeholder (infinito).
 4.  **Fallback**: Se a API da IA falhar, o sistema escolhe automaticamente o produto com **Maior Desconto** ou **Menor Preço**.

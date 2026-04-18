@@ -1,6 +1,6 @@
 """
-Curadoria Inteligente de Produtos usando DeepSeek LLM (Plano Pago)
-Usa DeepSeek-Chat para escolher o melhor produto baseado no termo de busca
+Curadoria Inteligente de Produtos usando DeepSeek-V3.2 (Speciale / Agentic)
+O "Cérebro" do Robô Titanium para tomada de decisões de alta precisão.
 """
 
 import os
@@ -66,7 +66,7 @@ RESPOSTA:"""
     }
 
     try:
-        print(f"[IA Titanium] Consultando DeepSeek para curadoria de '{termo_busca}'...")
+        print(f"[IA Titanium] Consultando DeepSeek-V3.2 para curadoria de '{termo_busca}'...")
         response = requests.post(DEEPSEEK_BASE_URL, headers=headers, json=payload, timeout=15)
         response.raise_for_status()
         

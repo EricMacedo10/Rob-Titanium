@@ -25,15 +25,14 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 
 ### APIs de IA e Dados:
 - `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados Shopee.
-- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA para textos longos (Editorial/Radar).
-- `GROQ_API_KEY`: Acesso ao Llama 3 para curadoria ultrarrápida (Arbitragem).
+- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA total (Editorial, Radar e Arbitragem).
 
 ---
 
 ## 📦 3. Mecânica de Deploy & Dependências
 
 ### Gestão de Bibliotecas:
-- O sistema utiliza o arquivo `requirements.txt` para garantir que bibliotecas como `beautifulsoup4`, `Pillow` e `groq` estejam sempre presentes no ambiente de nuvem.
+- O sistema utiliza o arquivo `requirements.txt` para garantir que bibliotecas como `beautifulsoup4` e `Pillow` estejam sempre presentes no ambiente de nuvem.
 - **Protocolo**: O Workflow executa `pip install -r requirements.txt` antes de rodar os scripts core.
 
 ### Sincronização Atômica (`sync_production_v12.py`):

@@ -2,7 +2,6 @@ requests
 python-dotenv
 beautifulsoup4
 Pillow
-groq
 moviepy
 pandas
 numpy
