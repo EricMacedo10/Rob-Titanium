@@ -1550,7 +1550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!radarGrid) return;
 
         try {
-            const response = await fetch('ai_reviews.json');
+            const response = await fetch('ai_reviews.json?v=' + Date.now());
             if (!response.ok) throw new Error('Radar offline');
             const products = await response.json();
 
