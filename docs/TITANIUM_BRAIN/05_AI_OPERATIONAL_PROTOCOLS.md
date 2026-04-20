@@ -101,7 +101,8 @@ Para correções estruturais (CSS/JS) no Staging ou Produção:
 O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
 1. **Filtro de Desejo**: A IA DeepSeek-V3.2 (Speciale) não apenas analisa preços, mas a "curva de desejo" (Fashion Intensity) de cada item via Extreme Reasoning.
 2. **Editorial On-the-Fly**: Textos curtos e persuasivos são injetados no frontend para evitar o estigma de "site de links" (Thin Affiliate Defense).
-3. **Blindagem de Atribuição (Universal Linker)**: 
+3. **Simetria Obrigatória (Compliance Visual)**: O motor `review_engine.py` **deve obrigatoriamente gerar exatos 18 itens**. Essa é uma regra matemática (múltiplo de 3) essencial para evitar espaços em branco (grid flutuante) e garantir que a inspeção visual do Google Adsense aprove a coesão do layout.
+4. **Blindagem de Atribuição (Universal Linker)**: 
    - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
    - Garantir que o `utm_source` seja sempre `titanium_radar` para facilitar a auditoria no painel da Shopee.
 

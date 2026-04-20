@@ -18,9 +18,13 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
 
 ## 🛰️ 2. Motor Shopee Massive Datafeed (`scraper/datafeed_shopee.py`)
 - **Método**: Download de CSV oficial (100.000+ produtos).
+- **Domínio Absoluto (v4.0)**: O Datafeed de Moda & Beleza é agora o coração 100% autônomo do site. Ele alimenta OBRIGATORIAMENTE 3 setores primários de forma autônoma:
+  1. `core/orchestrator.py` (Vitrines Diárias)
+  2. `core/review_engine.py` (Radar de Tendências IA com 18 itens de grade simétrica)
+  3. `core/curator_csv_to_json.py` (Coleção Platinum/Seleção da Especialista)
 - **Filtragem**: O sistema filtra por categorias de interesse (Moda e Beleza) e palavras-chave de "luxo".
 - **Busca de Imagem**: Como o CSV não contém imagens, o sistema usa o `TitaniumArbitrator._fetch_image_for_product()` para buscar a miniatura oficial via GraphQL usando as 5 primeiras palavras do título.
-- **Vantagem**: Escala massiva sem risco de banimento de IP por excesso de requisições.
+- **Vantagem**: Escala massiva sem risco de banimento de IP por excesso de requisições e 100% rastreabilidade via API.
 
 ## 📡 3. Motor Shopee API (`scraper/engines/shopee_affiliate.py`)
 - **Método**: GraphQL Open API v2 (Oficial).

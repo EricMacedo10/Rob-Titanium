@@ -118,6 +118,11 @@ O Google AdSense pode bloquear anúncios em sites classificados como **"Thin Aff
 | **Seção Editorial** ("Como funciona") | ✅ | Entre Seasonal e Daily Deals |
 | **`hub-desc`** em todas as 12 categorias | ✅ | Dentro de cada `.hub-card` |
 | **Alt text descritivo** nas imagens | ✅ | Cada banner de categoria |
+| **Densidade Textual Simétrica** | ✅ `v26` | O `Radar de Tendências IA` gera exatos 18 itens na grade simétrica. |
+
+### Regra Crítica de Layout: Textos Longos (Radar)
+- NUNCA comprimir textos longos via `display: flex` horizontal com imagens (`flex-direction: row`).
+- O Radar de Tendências (`.radar-card`) **DEVE OBRIGATORIAMENTE** usar `flex-direction: column` com imagens no topo e textos de IA ocupando largura total (`width: 100%`) alinhados à esquerda (`text-align: left`). Isso garante densidade textual elegante sem achatamento, otimizado para o AdSense ler grandes massas de texto harmoniosamente.
 
 ### Regra Crítica: `display:none` é Invisível para o Googlebot
 - Seções ocultas via CSS **não são indexadas** pelo Google
