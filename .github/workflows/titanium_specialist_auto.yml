@@ -33,6 +33,7 @@ jobs:
       env:
         SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
         SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
+        SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
         PYTHONPATH: .
       run: |
         python -m core.curator_csv_to_json

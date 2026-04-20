@@ -28,18 +28,77 @@ def _format_product_for_site(prod, analise, index, category):
         "reason": analise.get('motivo', 'Melhor oferta encontrada')
     }
 
-def update_manual_targets():
+def update_from_datafeed():
     """
-    Scrape products defined in TARGETS list (settings.py)
+    Fonte PRIMÁRIA: Busca produtos do Shopee Datafeed (100K pool).
+    Retorna lista formatada para o data.json.
     """
     print("\n" + "="*60)
-    print("ATUALIZANDO TARGETS DEFINIDOS")
+    print("🛰️ DATAFEED SHOPEE: Minerando Pool de 100K Produtos")
+    print("="*60)
+    
+    try:
+        from scraper.datafeed_shopee import get_best_deals, get_datafeed_products
+    except ImportError:
+        print("⚠️ Módulo datafeed_shopee não encontrado. Pulando...")
+        return []
+    
+    new_products = []
+    
+    # Estratégia: Pegar os melhores achados (alta comissão + preço acessível)
+    best_deals = get_best_deals(count=30, max_price=300.0)
+    
+    if not best_deals:
+        print("⚠️ Datafeed retornou 0 produtos. Fallback para API GraphQL...")
+        return []
+    
+    print(f"✅ Datafeed retornou {len(best_deals)} achados de Moda & Beleza!")
+    
+    for i, prod in enumerate(best_deals):
+        # Buscar imagem via API GraphQL (o Datafeed não traz imagens)
+        img_url = _fetch_image_for_product(prod['titulo'])
+        
+        formatted = {
+            "id": f"prod_{int(time.time())}_{i}_{random.randint(0, 999)}",
+            "title": prod['titulo'],
+            "price": prod['preco'],
+            "old_price": prod['preco'] * 1.25,
+            "discount": int(prod.get('commission_rate', 20)),
+            "store": "Shopee",
+            "category": "moda" if any(kw in prod['titulo'].lower() for kw in ['vestido','blusa','calça','conjunto','saia','blazer','jaqueta','shorts','short','body','cropped']) else "beleza",
+            "image": img_url or "",
+            "link": prod.get('link_afiliado', prod.get('url_produto', '')),
+            "reason": f"Datafeed Titanium: {prod.get('shop_name', 'Shopee')}"
+        }
+        new_products.append(formatted)
+    
+    return new_products
+
+def _fetch_image_for_product(product_name: str) -> str:
+    """Busca imagem de um produto via Shopee GraphQL API (5 primeiras palavras)."""
+    try:
+        from scraper.engines.shopee_affiliate import search_shopee
+        search_q = " ".join(product_name.split()[:5])
+        results = search_shopee(search_q, limit=1)
+        if results and results[0].get('imagem'):
+            return results[0]['imagem']
+    except Exception:
+        pass
+    return ""
+
+def update_manual_targets():
+    """
+    Fonte SECUNDÁRIA (Fallback): Scrape products defined in TARGETS list (settings.py)
+    Ativado automaticamente quando o Datafeed retorna vazio.
+    """
+    print("\n" + "="*60)
+    print("FALLBACK: ATUALIZANDO TARGETS VIA API GRAPHQL")
     print("="*60)
     
     arbitro = ArbitroDePreco()
     new_products = []
     
-    # --- NOVO: Embaralhar e selecionar targets aleatórios ---
+    # --- Embaralhar e selecionar targets aleatórios ---
     max_targets_per_run = 15
     selected_targets = random.sample(TARGETS, min(len(TARGETS), max_targets_per_run))
     print(f"\n🎲 Sorteando {len(selected_targets)} termos de um total de {len(TARGETS)} cadastrados...")
@@ -52,7 +111,7 @@ def update_manual_targets():
         try:
             # Foco Exclusivo: Shopee API Titanium
             from scraper.engines.shopee_affiliate import search_shopee
-            res = search_shopee(term, limit=10) # Aumentado para 10 para compensar outras lojas
+            res = search_shopee(term, limit=10)
 
             if res and len(res) > 0:
                 for prod in res:
@@ -67,7 +126,7 @@ def update_manual_targets():
         except Exception as e:
             print(f"❌ Erro ao buscar {term}: {e}")
             
-        # Delay anti-ban (mais curto pois a API da Shopee é robusta)
+        # Delay anti-ban
         time.sleep(random.uniform(1, 2))
         
     return new_products
@@ -78,16 +137,21 @@ def main():
     # Ensure site directory exists
     os.makedirs('site', exist_ok=True)
     
-    # 1. Update ML Trends (DESATIVADO - BOUTIQUE SHOPEE)
-    print(">>> Status: Mercado Livre Trends Desativado (Boutique Shopee Exclusive)")
-        
-    # 2. Update Manual Targets
-    print("\n>>> Executando Minerador de Alta Precisão (Shopee)...")
+    # 1. FONTE PRIMÁRIA: Datafeed 100K (Moda & Beleza)
+    print("\n>>> Fonte Primária: Datafeed Shopee (100K Pool)...")
     fixed_products = []
     try:
-        fixed_products = update_manual_targets()
+        fixed_products = update_from_datafeed()
     except Exception as e:
-        print(f"❌ Erro fatal durante a busca de targets: {e}")
+        print(f"⚠️ Datafeed falhou: {e}")
+    
+    # 2. FALLBACK: API GraphQL (TARGETS do settings.py)
+    if not fixed_products:
+        print("\n>>> Fallback: Minerador API GraphQL (Shopee)...")
+        try:
+            fixed_products = update_manual_targets()
+        except Exception as e:
+            print(f"❌ Erro fatal durante a busca de targets: {e}")
     
     # 3. Merge Strategies
     final_list = []

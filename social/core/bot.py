@@ -152,14 +152,13 @@ class SocialBot:
                 print(f"📢 Publicando CARROSSEL com {len(public_urls)} itens...")
                 success = self.instagram.post_carousel(public_urls, final_caption)
             else:
-                # Se só sobrou 1 (ou a fila só tinha 1), posta como Reel
+                # Se só sobrou 1 (ou a fila só tinha 1), posta conforme o tipo original
                 item = public_urls[0]
                 if item["type"] == "IMAGE":
-                    video_temp = "social/temp_reel.mp4"
-                    image_to_video(media_to_upload[0]["local"], video_temp)
-                    url = self.uploader.upload(video_temp, f"reel_{int(time.time())}.mp4")
-                    success = self.instagram.post_reels(url, final_caption)
+                    print(f"📸 Postando IMAGEM estática no feed...")
+                    success = self.instagram.post_image(item["url"], final_caption)
                 else:
+                    print(f"🎬 Postando VÍDEO original como Reels...")
                     success = self.instagram.post_reels(item["url"], final_caption)
         else:
             print("🧪 [SIMULAÇÃO] Postagem de Carrossel Simulada com Sucesso.")

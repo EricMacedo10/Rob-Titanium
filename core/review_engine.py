@@ -14,20 +14,40 @@ class TitaniumRadar:
         self.output_file = 'site/ai_reviews.json'
 
     def generate_reviews(self):
-        """Sorteia 3 produtos e gera reviews de elite com IA"""
-        if not os.path.exists(self.data_file):
-            print("[Erro] Arquivo de dados não encontrado.")
-            return
+        """Sorteia 3 produtos do pool combinado (site + datafeed) e gera reviews de elite com IA"""
+        # Fonte 1: Produtos já no site
+        site_products = []
+        if os.path.exists(self.data_file):
+            with open(self.data_file, 'r', encoding='utf-8') as f:
+                site_products = json.load(f)
 
-        with open(self.data_file, 'r', encoding='utf-8') as f:
-            all_products = json.load(f)
+        # Fonte 2: Produtos frescos do Datafeed (Moda & Beleza)
+        datafeed_products = []
+        try:
+            from scraper.datafeed_shopee import get_datafeed_products
+            raw_feed = get_datafeed_products(max_items=50)
+            # Normaliza para o formato do data.json
+            for p in raw_feed:
+                datafeed_products.append({
+                    "title": p.get("titulo", "Produto Shopee"),
+                    "price": p.get("preco", 0),
+                    "category": "moda",
+                    "link": p.get("link_afiliado", ""),
+                    "store": "Shopee",
+                    "source": "datafeed_100k"
+                })
+        except Exception as e:
+            print(f"[Info] Datafeed indisponível para Radar: {e}")
 
+        # Pool combinado (prioriza datafeed para novidade)
+        all_products = datafeed_products + site_products
+        
         if len(all_products) < 3:
             print("[Erro] Poucos produtos para o radar.")
             return
 
         # Sorteia 3 produtos aleatórios
-        selected = random.sample(all_products, 3)
+        selected = random.sample(all_products, min(3, len(all_products)))
         print(f"[Info] Selecionados para o Radar: {[p['title'][:30] for p in selected]}")
 
         reviews = []

@@ -26,6 +26,7 @@ jobs:
       - name: ✍️ Gerar Novo Artigo Semanal
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
           PYTHONPATH: .
         run: python -m core.auto_blog_generator
 

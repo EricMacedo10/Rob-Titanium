@@ -32,41 +32,66 @@ def build_specialist_collection():
     print("[Titanium Curator] Iniciando: Gerando Selecao da Especialista...")
     
     products = []
+    
+    # 1. Tentamos o Datafeed massivo 100K primeiro
+    print("[Curator] Tentando buscar do Datafeed de 100K primeiro...")
     try:
-        with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
-            lines = f.readlines()[1:] # Pula cabeçalho
-            for line in lines:
-                clean_line = line.strip()
-                if not clean_line: continue
-                if clean_line.startswith('"') and clean_line.endswith('"'):
-                    clean_line = clean_line[1:-1]
-                clean_line = clean_line.replace('""', '"')
-                
-                parts = next(csv.reader([clean_line]))
-                
-                if len(parts) >= 8:
-                    
-                    price_str = parts[2].strip()
-                    try:
-                        price = float(price_str.replace('"', '').replace('.', '').replace(',', '.'))
-                    except:
-                        price = 99.99
-                        
-                    products.append({
-                        "id_interno": parts[0].strip(),
-                        "titulo": parts[1].strip(),
-                        "preco": price,
-                        "url_produto": parts[-2].strip(), 
-                        "link_afiliado": parts[-1].strip(),
-                        "desconto": 25, # Desconto fixo simulado para a curadoria
-                        "loja": "Shopee"
-                    })
+        from scraper.datafeed_shopee import get_datafeed_products
+        # Pega uma amostra de 200 para sortear 24
+        df_products = get_datafeed_products(max_items=200)
+        if df_products:
+            for p in df_products:
+                products.append({
+                    "id_interno": p.get("id_interno", "0"),
+                    "titulo": p.get("titulo", "Produto"),
+                    "preco": p.get("preco", 99.90),
+                    "url_produto": p.get("url_produto", ""),
+                    "link_afiliado": p.get("link_afiliado", ""),
+                    "desconto": 25,
+                    "loja": "Shopee"
+                })
+            print(f"[Curator] Datafeed injetou {len(products)} produtos na roleta!")
     except Exception as e:
-        print(f"Erro Leitura CSV: {e}")
-        return
+        print(f"[Curator] Datafeed offline ou indisponível: {e}")
+
+    # 2. Se falhar ou estiver vazio, fazemos fallback pro CSV local antigo
+    if not products:
+        print("[Curator] Usando Fallback: BatchProductLinks.csv local")
+        try:
+            with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
+                lines = f.readlines()[1:] # Pula cabeçalho
+                for line in lines:
+                    clean_line = line.strip()
+                    if not clean_line: continue
+                    if clean_line.startswith('"') and clean_line.endswith('"'):
+                        clean_line = clean_line[1:-1]
+                    clean_line = clean_line.replace('""', '"')
+                    
+                    parts = next(csv.reader([clean_line]))
+                    
+                    if len(parts) >= 8:
+                        
+                        price_str = parts[2].strip()
+                        try:
+                            price = float(price_str.replace('"', '').replace('.', '').replace(',', '.'))
+                        except:
+                            price = 99.99
+                            
+                        products.append({
+                            "id_interno": parts[0].strip(),
+                            "titulo": parts[1].strip(),
+                            "preco": price,
+                            "url_produto": parts[-2].strip(), 
+                            "link_afiliado": parts[-1].strip(),
+                            "desconto": 25, # Desconto fixo simulado para a curadoria
+                            "loja": "Shopee"
+                        })
+        except Exception as e:
+            print(f"Erro Leitura CSV: {e}")
+            return
 
     import random
-    # Roleta Premium: Seleciona 24 achados aleatórios do universo do CSV
+    # Roleta Premium: Seleciona 24 achados aleatórios do universo do CSV ou Datafeed
     if len(products) > 24:
         top_picks = random.sample(products, 24)
     else:
