@@ -1564,11 +1564,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.href = auditedUrl;
                 card.target = '_blank';
                 card.innerHTML = `
-                    <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='images/placeholder.png'">
-                    <div class="radar-info">
-                        <h4>${p.title.substring(0, 45)}...</h4>
-                        <div class="radar-review">${p.ai_review}</div>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='images/placeholder.png'">
+                        <h4 style="font-size: 1.05rem; margin: 0; color: #f8fafc; line-height: 1.3;">${p.title.substring(0, 45)}...</h4>
                     </div>
+                    <div class="radar-review" style="margin-top: 15px;">${p.ai_review}</div>
                 `;
                 radarGrid.appendChild(card);
             });

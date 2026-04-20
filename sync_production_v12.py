@@ -33,6 +33,7 @@ def sync_titanium_production():
     files_to_sync = [
         ("site/ads.txt", "ads.txt"),
         ("site/index.html", "index.html"),
+        ("site/clear_cache_titanium.php", "clear_cache_titanium.php"),
         ("site/blog.html", "blog.html"),
         ("site/sobre.html", "sobre.html"),
         ("site/privacidade.html", "privacidade.html"),

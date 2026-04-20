@@ -46,9 +46,9 @@ class TitaniumRadar:
             print("[Erro] Poucos produtos para o radar.")
             return
 
-        # Sorteia 16 produtos aleatórios
-        selected = random.sample(all_products, min(16, len(all_products)))
-        print(f"[Info] Selecionados para o Radar: {[p['title'][:30] for p in selected]}")
+        # Sorteia 18 produtos aleatórios (múltiplo de 3 para simetria de grade)
+        selected = random.sample(all_products, min(18, len(all_products)))
+        print(f"[Info] Selecionados para o Radar: {len(selected)} itens.")
 
         reviews = []
         for product in selected:
