@@ -17,15 +17,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- CONFIGURAÇÕES ---
-APP_ID = "1834207343896407"
-APP_SECRET = "9a6dfa1b1269447273e3251afd153881"
-PAGE_ID = "1032000233318987"
+APP_ID = os.getenv("APP_ID", "YOUR_APP_ID")
+APP_SECRET = os.getenv("APP_SECRET", "YOUR_APP_SECRET")
+PAGE_ID = os.getenv("PAGE_ID", "YOUR_PAGE_ID")
 CURRENT_TOKEN = os.getenv("IG_ACCESS_TOKEN")
 BOT_PATH = r"c:\Users\ericm\OneDrive\Área de Trabalho\PESSOAL\Robô Titanium\social\bot_instagram.php"
 ENV_PATH = r"c:\Users\ericm\OneDrive\Área de Trabalho\PESSOAL\Robô Titanium\.env"
 FTP_HOST = os.getenv("FTP_HOST", "guiadodesconto.com.br")
-FTP_USER = os.getenv("FTP_USER", "u534624268.guiadodesconto")
-FTP_PASS = os.getenv("FTP_PASS", "IsaManu@14")
+FTP_USER = os.getenv("FTP_USER")
+FTP_PASS = os.getenv("FTP_PASS")
 
 print("="*60)
 print("🤖 TITANIUM TOKEN MANAGER - Iniciando...")

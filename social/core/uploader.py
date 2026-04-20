@@ -163,5 +163,6 @@ class ResilientUploader:
 
 if __name__ == "__main__":
     # Teste isolado
-    up = ResilientUploader(imgbb_api_key="TEST_KEY")
+    import os
+    up = ResilientUploader(imgbb_api_key=os.getenv("IMGBB_API_KEY", "YOUR_IMGBB_API_KEY"))
     # print(up.upload("social/temp_post_0.jpg", "test_resilience.jpg"))

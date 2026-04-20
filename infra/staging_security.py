@@ -11,11 +11,11 @@ def protect_staging():
     FTP_PASS = os.getenv("FTP_PASS")
     
     # Credenciais do Site de Teste (ATUALIZADAS v1149.1)
-    USER = "deiamanuisa"
-    PASS = "IsaManu@14" 
+    USER = os.getenv("STAGING_USER", "usuario_teste")
+    PASS = os.getenv("STAGING_PASS", "senha_teste") 
     
-    # Hash APR1 real para 'deiamanuisa' : 'IsaManu@14'
-    HASH_LINE = "deiamanuisa:$apr1$Xy7z8w9v$91v5wF3xjIZt2K0kB/XVu." 
+    # Hash APR1 real deve vir do .env
+    HASH_LINE = f"{USER}:{os.getenv('STAGING_HTPASSWD_HASH', '$apr1$hash_gerado')}"
 
     print("\n" + "="*60)
     print("🛡️ PROTEGENDO AMBIENTE DE STAGING - v1149")
@@ -34,8 +34,7 @@ def protect_staging():
     )
     
     # Gerar .htpasswd com hash MD5 APR1 (específico para Apache)
-    # Valor real para deiamanuisa:IsaManu@14
-    htpasswd_content = "deiamanuisa:$apr1$Xy7z8w9v$91v5wF3xjIZt2K0kB/XVu." 
+    htpasswd_content = HASH_LINE 
 
     with open("scripts/.htaccess", "w", encoding="utf-8") as f:
         f.write(htaccess_content)

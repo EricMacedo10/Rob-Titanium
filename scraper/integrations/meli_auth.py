@@ -2,9 +2,11 @@ import requests
 import json
 from urllib.parse import urlencode
 
+import os
+
 # --- CONFIGURAÇÕES DO MERCADO LIVRE ---
-CLIENT_ID = "2181313931486448"
-CLIENT_SECRET = "9Zx4P9wmJtIzHuryQxVL8e5HArKdZxlH"
+CLIENT_ID = os.getenv("MELI_CLIENT_ID", "YOUR_MELI_CLIENT_ID")
+CLIENT_SECRET = os.getenv("MELI_CLIENT_SECRET", "YOUR_MELI_CLIENT_SECRET")
 REDIRECT_URI = "https://www.guiadodesconto.com.br" 
 
 # --- ENDPOINTS ---

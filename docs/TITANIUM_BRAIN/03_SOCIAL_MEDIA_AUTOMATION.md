@@ -19,7 +19,7 @@ The bot operates in two distinct modes:
     - **CI/CD Compliance**: Usa `sys.exit(0)` para sucesso e `sys.exit(1)` para falha, permitindo que o GitHub Actions reporte erros de postagem fielmente.
 
 > [!NOTE]
-> **Geração de artes (`queue_csv_products.py`)**: O script lê o CSV `BatchProductLinks.csv` em lotes de **1 produto por execução**, busca a imagem via Shopee API e gera a arte final na fila. O estado de progresso é salvo em `social/state_csv.json`.
+> **Datafeed Scale-up (2026-04-20)**: O bot social agora se abastece do pool de 100K produtos do Datafeed. O script `queue_csv_products.py` foi atualizado para extrair produtos de Moda & Beleza diretamente do feed massivo, garantindo que a fila do Instagram nunca fique sem conteúdo variado.
 
 ### 2. Category Fallback Mode (Automated)
 - **Trigger**: Used when the queue is empty.
@@ -163,4 +163,4 @@ Titanium usa `social/bot_comentario_brick3d.py` para monitoramento local de alta
 - **Interval**: Set to 60s to stay under Meta's rate-limit thresholds for automated actions.
 
 ---
-*Atualizado em: 18/04/2026 - Versão: v2.1.0 (Post Único | Shopee Exclusive)*
+*Atualizado em: 20/04/2026 - Versão: v2.2.0 (Massive Datafeed Support)*

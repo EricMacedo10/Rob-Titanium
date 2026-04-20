@@ -1,9 +1,11 @@
 from scraper.upload import upload_to_hostinger
 
-# Credentials provided by user
-ftp_host = "ftp.guiadodesconto.com.br"
-ftp_user = "u534624268.guiadodesconto"
-ftp_pass = "IsaManu@14"
+import os
+
+# Credentials provided by user or env
+ftp_host = os.getenv("FTP_HOST", "ftp.guiadodesconto.com.br")
+ftp_user = os.getenv("FTP_USER")
+ftp_pass = os.getenv("FTP_PASS")
 
 print("🔥 Iniciando upload manual de emergência...")
 

@@ -4,9 +4,11 @@ import time
 import json
 import requests
 
+import os
+
 # CREDENCIAIS DO PRINT (Revisado: O -> 0 e X -> X)
-APP_ID = "18318830863"
-APP_SECRET = "04546A3D5KC664BG6SDHB0EMNTUMSX07"
+APP_ID = os.getenv("SHOPEE_APP_ID", "YOUR_APP_ID")
+APP_SECRET = os.getenv("SHOPEE_SECRET", "YOUR_APP_SECRET")
 ENDPOINT = "https://open-api.affiliate.shopee.com.br/v2/api/graphql"
 
 def get_shopee_products(keyword="moda feminina", limit=5):

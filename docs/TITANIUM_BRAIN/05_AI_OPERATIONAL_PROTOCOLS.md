@@ -22,19 +22,11 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 
 | **Symptom** | **Probable Cause** | **Action** |
 | :--- | :--- | :--- |
-| **Site Empty** | `data.json` is 0KB or invalid. | Check `orchestrator.log` for Scraper blocks. |
-| **Links not tracking** | Tag normalized incorrectly. | Check `normalizeStore` logic in `app.js`. |
-| **ML Search Failing** | (LEGACY) Mercado Livre desativado. | Consultar `archive_legacy/` se necessário. |
-| **Social Bot not posting** | IG Container Timeout / code 9004. | Prioritize Hostinger (FTP) over ImgBB. |
-| **File Deletion Bug** | Shared filename in tmp logic. | Use Unique Timestamped Temps (Rule of Traceability). |
-| **Lightning Bar não aparece** | `staging-mode` class ausente OU URL não contém 'staging'. | Verificar se `index.html` do subdomínio é o `index_staging.html`. Checar condição de ativação no `app.js`. |
-| **Elemento persiste após JS remover** | Cache do browser ou `display:block` inline do JS. | Adicionar `display: none !important` no CSS como camada definitiva. |
-| **Upload FTP não navega para subpasta** | `upload_logic.py` sem navegação recursiva. | Usar `_ensure_remote_dir()` que cria subpastas automaticamente. |
-| **ML produtos com erro** | (LEGACY) Mercado Livre desativado. | Engine atualizado para foco 100% Shopee. |
-| **GitHub Action sobrescreve vitrine temática** | `core/settings.py` com keywords antigas (e.g. Ring Light). | Atualizar TARGETS no `settings.py` para as palavras-chave do novo nicho ANTES do próximo cron run. |
-| **data.json no server ainda mostra conteúdo antigo após deploy.py** | `deploy.py` exclui `data.json` por design (segurança). | Rodar manualmente `infra/upload_data.py` para fazer o override do JSON no servidor. |
-| **Robô de DM (`bot_instagram.php`) parou de funcionar** | Token expirado (OAuthException 190/463). | Renovar token, atualizar `.env` e `social/bot_instagram.php`, depois rodar `python -m social.titanium_token_manager` para subir ao servidor. |
-| **Robô de DM envia o link errado** | `ofertas.json` está desatualizado ou sem a hashtag do post. | Atualizar `social/ofertas.json` com a hashtag do novo post e rodar `python -m social.upload_ofertas`. |
+| **data.json vazio** | Falha no download do Datafeed 100K. | Verificar secret `SHOPEE_DATAFEED_URLS`. Se persistir, o sistema usará o fallback da API GraphQL automaticamente. |
+| **Erro de Importação PHP**| Falha ao carregar `core.` | Qualquer script executado via GitHub Action deve usar o prefixo `core.` (ex: `from core.editorial_engine`) para respeitar o PYTHONPATH do servidor. |
+| **Link do Editorial Quebrado**| Sitemap desatualizado. | Rodar `python update_sitemap.py` para sincronizar os novos artigos com o Google Search Console/AdSense. |
+| **Robô de DM falhando** | Token expirado (190/463). | Renovar token via `python -m social.titanium_token_manager`. |
+| **Imagens genéricas no blog** | Placeholder detectado. | Usar assets locais (`images/fashion_post_X.jpg`) que agora estão mapeados no Editorial em vez de gerar novas imagens via IA que podem falhar por cota. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -113,4 +105,4 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
    - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
    - Garantir que o `utm_source` seja sempre `titanium_radar` para facilitar a auditoria no painel da Shopee.
 
-*Última Auditoria Técnica: 18/04/2026 - Status: 100% Shopee Exclusive | Bot v2.1.0 (Post Único)*
+*Última Auditoria Técnica: 20/04/2026 - Status: 100% Shopee Massive Datafeed | Bot v2.2.0*

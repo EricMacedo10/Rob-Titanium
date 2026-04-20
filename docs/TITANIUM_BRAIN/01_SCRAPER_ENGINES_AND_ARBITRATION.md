@@ -1,6 +1,6 @@
 # 🔍 Titanium Brain: Scraper Engines & Arbitration (Shopee Exclusive)
 
-Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.2.0).
+Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.6.0-Massive).
 
 ---
 
@@ -16,12 +16,17 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
 
 ---
 
-## 🛰️ 2. Motor Shopee (`scraper/engines/shopee_affiliate.py`)
+## 🛰️ 2. Motor Shopee Massive Datafeed (`scraper/datafeed_shopee.py`)
+- **Método**: Download de CSV oficial (100.000+ produtos).
+- **Filtragem**: O sistema filtra por categorias de interesse (Moda e Beleza) e palavras-chave de "luxo".
+- **Busca de Imagem**: Como o CSV não contém imagens, o sistema usa o `TitaniumArbitrator._fetch_image_for_product()` para buscar a miniatura oficial via GraphQL usando as 5 primeiras palavras do título.
+- **Vantagem**: Escala massiva sem risco de banimento de IP por excesso de requisições.
+
+## 📡 3. Motor Shopee API (`scraper/engines/shopee_affiliate.py`)
 - **Método**: GraphQL Open API v2 (Oficial).
+- **Papel Atual**: Atua como **Fonte de Fallback** e buscador de imagens para o Datafeed.
 - **Autenticação**: Protocolo **SHA256 Direct** para segurança máxima.
-- **Deep Link Strategy**: Gerador automático de links curtos (`s.shopee.com.br`) que forçam a abertura direta no App Shopee do usuário, aumentando a conversão em 40%.
-- **Boutique targets**: O sistema sorteia **15 sub-categorias** aleatórias da lista de `TARGETS` (Vestidos, Conjuntos, Calçados) a cada execução (via `random.sample`) para manter a vitrine sempre nova e evitar sobrecarga da API.
-- **Duplicate Prevention**: Utiliza normalização de títulos (lowercase + strip) para garantir que o catálogo não contenha ofertas idênticas de diferentes buscas.
+- **Deep Link Strategy**: Gerador automático de links curtos (`s.shopee.com.br`) que forçam a abertura direta no App Shopee.
 
 ---
 
@@ -52,5 +57,6 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 | `infra/upload_logic.py` | Sistema de blindagem de upload FTP (Production/Staging). |
 
 ---
+---
 **IA Titanium**
-*Atualizado em: 18/04/2026 - Foco: Shopee Elite Marketplace*
+*Atualizado em: 20/04/2026 - Foco: Datafeed 100K & Shopee Elite*

@@ -77,8 +77,9 @@ def md5_apr1(password, salt=None):
 
 if __name__ == "__main__":
     # Test
-    pwd = "IsaManu@14"
-    user = "deiamanuisa"
+    import os
+    pwd = os.getenv("FTP_PASS", "YOUR_PASSWORD")
+    user = os.getenv("FTP_USER", "YOUR_USER")
     salt = "Xy7z8w9v" # Salt fixo para consistência
     hash_val = md5_apr1(pwd, salt)
     print(f"{user}:{hash_val}")

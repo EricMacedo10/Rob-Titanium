@@ -3,8 +3,10 @@ import time
 import json
 import requests
 
-APP_ID = "18318830863"
-APP_SECRET = "O4546A3D5KC664BG6SDHBOEMNTUMSXO7"
+import os
+
+APP_ID = os.getenv("SHOPEE_APP_ID", "YOUR_APP_ID")
+APP_SECRET = os.getenv("SHOPEE_SECRET", "YOUR_APP_SECRET")
 
 # Variações de Endpoints comuns da Shopee Affiliate API
 endpoints = [

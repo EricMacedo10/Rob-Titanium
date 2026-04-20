@@ -8,8 +8,8 @@ STATE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "state")
 TOKEN_FILE = os.path.join(STATE_DIR, "meli_tokens.json")
 
 # --- CREDENCIAIS ---
-CLIENT_ID = "2181313931486448"
-CLIENT_SECRET = "9Zx4P9wmJtIzHuryQxVL8e5HArKdZxlH"
+CLIENT_ID = os.getenv("MELI_CLIENT_ID", "YOUR_MELI_CLIENT_ID")
+CLIENT_SECRET = os.getenv("MELI_CLIENT_SECRET", "YOUR_MELI_CLIENT_SECRET")
 REDIRECT_URI = "https://www.guiadodesconto.com.br"
 
 def exchange_code_for_token(code):

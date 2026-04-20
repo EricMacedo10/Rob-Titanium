@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v3.2.0 - Elite)
+# 🚀 Titanium Brain: CI/CD & Deployment (v3.6.0 - Massive)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -25,7 +25,8 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 
 ### APIs de IA e Dados:
 - `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados Shopee.
-- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA total (Editorial, Radar e Arbitragem).
+- `SHOPEE_DATAFEED_URLS`: URLs do Datafeed oficial para extração em massa (Formato: `url1 | url2`).
+- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA total.
 
 ---
 
@@ -51,5 +52,6 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 - **Fail-Safe Monitoring**: Se o GitHub Actions falhar, o site em produção permanece intacto e funcional com os últimos dados válidos.
 
 ---
+---
 **IA Titanium**
-*Atualizado em: 18/04/2026 - Documento Técnico de Automação Elite*
+*Atualizado em: 20/04/2026 - Tecnologia Shopee Datafeed 100K*

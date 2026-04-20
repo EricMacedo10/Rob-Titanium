@@ -3,9 +3,11 @@ import time
 import json
 import requests
 
-# CREDENCIAIS OFICIAIS (Extraídas do texto do usuário)
-APP_ID = "18318830863"
-APP_SECRET = "O4546A3D5KC664BG6SDHBOEMNTUMSXO7"
+import os
+
+# CREDENCIAIS OFICIAIS
+APP_ID = os.getenv("SHOPEE_APP_ID", "YOUR_APP_ID")
+APP_SECRET = os.getenv("SHOPEE_SECRET", "YOUR_APP_SECRET")
 ENDPOINT = "https://open-api.affiliate.shopee.com.br/v2/api/graphql"
 
 def get_top_selling_feminino():

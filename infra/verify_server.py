@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-STAGING_USER = os.getenv('STAGING_USER', 'deiamanuisa')
-STAGING_PASS = os.getenv('STAGING_PASS', 'IsaManu@14')
+STAGING_USER = os.getenv('STAGING_USER', 'test_user')
+STAGING_PASS = os.getenv('STAGING_PASS', 'test_pass')
 BASE_URL = "https://teste.guiadodesconto.com.br"
 
 checks = [

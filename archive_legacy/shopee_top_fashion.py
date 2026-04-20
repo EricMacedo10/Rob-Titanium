@@ -3,9 +3,11 @@ import time
 import json
 import requests
 
+import os
+
 # CREDENCIAIS E ENDPOINT VALIDADOS (Robô Titanium v2.2)
-APP_ID = "18318830863"
-APP_SECRET = "O4546A3D5KC664BG6SDHBOEMNTUMSXO7"
+APP_ID = os.getenv("SHOPEE_APP_ID", "YOUR_APP_ID")
+APP_SECRET = os.getenv("SHOPEE_SECRET", "YOUR_APP_SECRET")
 ENDPOINT = "https://open-api.affiliate.shopee.com.br/graphql"
 
 def get_titanium_top_fashion():

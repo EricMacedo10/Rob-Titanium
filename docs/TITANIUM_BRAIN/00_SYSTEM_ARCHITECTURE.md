@@ -1,6 +1,6 @@
 # 🧠 Titanium Brain: System Architecture Map (v2026)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.5-Elite).
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.6.0-Massive).
 
 ---
 
@@ -25,6 +25,7 @@ graph TD
 
     subgraph "Fontes de Dados (Oficiais)"
         SHP["Shopee API v2 (Product Data)"]
+        FEED["Shopee Datafeed (100K+ Products CSV)"]
     end
 
     subgraph "Produção (Hostinger)"
@@ -33,7 +34,8 @@ graph TD
     end
 
     ACTION --> PYTHON
-    PYTHON -- "Auth & Request" --> SHP
+    PYTHON -- "Massive Filtering" --> FEED
+    PYTHON -- "Auth & Request (Fallback)" --> SHP
     PYTHON -- "Context Injection" --> AI
     AI -- "Generated Content" --> PYTHON
     PYTHON -- "Atomic FTP Sync" --> STATE
@@ -68,5 +70,7 @@ graph TD
 - **Link Auditing (Universal)**: 100% dos links (API, CSV e Social) passam pelo `core/link_builder.py` para injeção mandatória da tag `an_18318830863`.
 - **Analytics Shield**: Integração de eventos `click` via `gtag` para comparação direta tráfego vs. conversão Shopee.
 
+- **Editorial SEO Max**: O sistema gera artigos semanais com mais de 1000 palavras, injetando produtos reais do Datafeed para máxima autoridade (E-E-A-T) e aprovação no AdSense.
+
 ---
-*Atualizado em: 18/04/2026 - Versão: 3.5.0-Elite (Shopee Full Blindagem)*
+*Atualizado em: 20/04/2026 - Versão: 3.6.0-Massive (Datafeed 100K + SEO Power)*

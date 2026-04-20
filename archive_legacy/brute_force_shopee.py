@@ -3,18 +3,20 @@ import time
 import json
 import requests
 
+import os
+
 # AppID confirmado
-APP_ID = "18318830863"
+APP_ID = os.getenv("SHOPEE_APP_ID", "YOUR_APP_ID")
 ENDPOINT = "https://open-api.affiliate.shopee.com.br/v2/api/graphql"
 
 # Variações possíveis da Senha (Baseado na leitura visual do print)
 # Pos 9: Pode ser K ou X
 # Pos 21: Pode ser 0 ou O
 secrets_to_test = [
-    "04546A3D5KC664BG6SDHB0EMNTUMSX07", # Guess 1 (K e 0)
-    "04546A3D5KC664BG6SDHBOEMNTUMSX07", # Guess 2 (K e O)
-    "04546A3D5XC664BG6SDHB0EMNTUMSX07", # Guess 3 (X e 0)
-    "04546A3D5XC664BG6SDHBOEMNTUMSX07"  # Guess 4 (X e O)
+    "YOUR_SECRET_GUESS_1", 
+    "YOUR_SECRET_GUESS_2", 
+    "YOUR_SECRET_GUESS_3", 
+    "YOUR_SECRET_GUESS_4"  
 ]
 
 def test_permutation(secret):
