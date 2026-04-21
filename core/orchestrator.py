@@ -46,7 +46,7 @@ def update_from_datafeed():
     new_products = []
     
     # Estratégia: Pegar os melhores achados (alta comissão + preço acessível)
-    best_deals = get_best_deals(count=30, max_price=300.0)
+    best_deals = get_best_deals(count=100, max_price=300.0)
     
     if not best_deals:
         print("[!] Datafeed retornou 0 produtos. Fallback para API GraphQL...")
@@ -199,7 +199,7 @@ def main():
                 unique_new.append(p)
                 seen_titles.add(p_title) 
                 
-        final_list = [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:12] + unique_new # Mantém 12 antigos + novos
+        final_list = [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:80] + unique_new # Mantém 80 antigos + novos
         
         # Final Filtering & Sanitation
         sanitized_list = []

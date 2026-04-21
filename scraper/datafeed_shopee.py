@@ -85,38 +85,38 @@ def _download_and_parse_csv(url: str) -> list:
         
         # Decodifica o conteúdo
         content = resp.content.decode('utf-8-sig')
-        reader = csv.reader(io.StringIO(content))
+        # 🛡️ IDENTIFICAÇÃO DINÂMICA DE SEPARADOR & CABEÇALHO
+        # Shopee às vezes muda entre , e ;
+        delimiter = ';' if ';' in content[:1000] else ','
+        reader = csv.reader(io.StringIO(content), delimiter=delimiter)
         
-        # Pula o cabeçalho
         header = next(reader, None)
         if not header:
             print("[Datafeed] CSV vazio ou sem cabeçalho.")
             return []
         
-        # Identifica as colunas pelo cabeçalho
-        # Formato esperado: Item Id, Item Name, Price, Sales, Shop Name, 
-        #                    Commission Rate, Commission, Product Link, Offer Link
         col_map = {}
-        header_lower = [h.strip().lower() for h in header]
+        header_lower = [h.strip().lower().replace('"', '') for h in header]
         
         for i, col in enumerate(header_lower):
-            if 'item id' in col or 'id' == col:
+            # Mapeamento Flexível (Aceita variações de nome de coluna PT/EN)
+            if any(k in col for k in ['item id', 'id do item', 'id_item']):
                 col_map['id'] = i
-            elif 'item name' in col or 'name' in col:
+            elif any(k in col for k in ['item name', 'nome do item', 'titulo', 'title']):
                 col_map['name'] = i
-            elif col == 'price' or 'price' in col:
+            elif any(k in col for k in ['price', 'preco', 'preço']):
                 col_map['price'] = i
-            elif 'sales' in col:
+            elif 'sales' in col or 'vendas' in col:
                 col_map['sales'] = i
-            elif 'shop name' in col or 'shop' in col:
+            elif any(k in col for k in ['shop name', 'shop', 'nome da loja', 'loja']):
                 col_map['shop'] = i
-            elif 'commission rate' in col:
+            elif any(k in col for k in ['commission rate', 'taxa de comissão', 'taxa_comissao']):
                 col_map['commission_rate'] = i
             elif 'commission' in col and 'rate' not in col:
                 col_map['commission'] = i
-            elif 'product link' in col:
+            elif any(k in col for k in ['product link', 'link do produto', 'url']):
                 col_map['product_link'] = i
-            elif 'offer link' in col:
+            elif any(k in col for k in ['offer link', 'link de oferta', 'link_afiliado']):
                 col_map['offer_link'] = i
         
         print(f"[Datafeed] Colunas detectadas: {list(col_map.keys())}")

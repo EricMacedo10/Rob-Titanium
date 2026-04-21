@@ -2,9 +2,9 @@
     "notifications": [
         {
             "id": 1,
-            "text": "🔥 ALERTA: Detectei novas quedas de preço na Shopee AGORA!",
+            "text": "✨ ACHADO: Short Transpassado – Teci... está com 54% OFF!",
             "time": "Agora",
-            "icon": "fa-fire"
+            "icon": "fa-robot"
         },
         {
             "id": 2,
@@ -14,21 +14,21 @@
         },
         {
             "id": 3,
-            "text": "🛡️ SEGURANÇA: Todas as ofertas de hoje são de Vendedores Oficiais.",
-            "time": "Agora",
-            "icon": "fa-robot"
-        },
-        {
-            "id": 4,
             "text": "📱 APP FIRST: Links otimizados para abrir direto no seu App Shopee.",
             "time": "Agora",
             "icon": "fa-robot"
         },
         {
-            "id": 5,
-            "text": "🎫 DICA: Lembre de ativar seus Cupons de Frete Grátis no App.",
+            "id": 4,
+            "text": "🛍️ Temos 79 peças auditadas na vitrine de hoje!",
             "time": "Agora",
-            "icon": "fa-ticket-alt"
+            "icon": "fa-robot"
+        },
+        {
+            "id": 5,
+            "text": "🛡️ SEGURANÇA: Todas as ofertas de hoje são de Vendedores Oficiais.",
+            "time": "Agora",
+            "icon": "fa-robot"
         }
     ]
 }
