@@ -5,99 +5,139 @@ import time
 import requests
 import hashlib
 import re
-from PIL import Image, ImageDraw, ImageFont
+import random
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Configurações de Caminho
 STATE_FILE = "social/state_csv.json"
 CSV_FILE = "BatchProductLinks.csv"
 QUEUE_DIR = "social/fila"
+POSTED_DIR = "social/postados"
 SHOPEE_APP_ID = os.getenv("SHOPEE_APP_ID")
 SHOPEE_SECRET = os.getenv("SHOPEE_SECRET")
 
 from social.core.image_generator import ImageGenerator
+from scraper.datafeed_shopee import get_datafeed_products
 
-def get_shopee_image_api(keyword):
-    if not SHOPEE_APP_ID or not SHOPEE_SECRET: return None
-    url = "https://open-api.affiliate.shopee.com.br/graphql"
-    timestamp = int(time.time())
-    query = "query productOfferV2($keyword: String, $limit: Int) { productOfferV2(keyword: $keyword, limit: $limit) { nodes { imageUrl } } }"
-    payload = {"query": query, "variables": {"keyword": keyword, "limit": 1}}
-    payload_str = json.dumps(payload, separators=(',', ':'))
-    signature = hashlib.sha256(f"{SHOPEE_APP_ID}{timestamp}{payload_str}{SHOPEE_SECRET}".encode('utf-8')).hexdigest()
-    headers = {"Content-Type": "application/json", "Authorization": f"SHA256 Credential={SHOPEE_APP_ID}, Signature={signature}, Timestamp={timestamp}"}
-    try:
-        resp = requests.post(url, headers=headers, data=payload_str, timeout=10)
-        nodes = resp.json().get("data", {}).get("productOfferV2", {}).get("nodes", [])
-        return nodes[0].get("imageUrl") if nodes else None
-    except: return None
+def get_posted_titles():
+    """Le titulos ja postados para evitar duplicidade no feed."""
+    titles = set()
+    if os.path.exists(POSTED_DIR):
+        for f in os.listdir(POSTED_DIR):
+            if f.endswith('.json'):
+                try:
+                    with open(os.path.join(POSTED_DIR, f), 'r', encoding='utf-8') as j:
+                        data = json.load(j)
+                        if 'title' in data:
+                            titles.add(data['title'].lower().strip())
+                except: continue
+    return titles
 
 def load_state():
     if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, 'r') as f: return json.load(f)
-    return {"last_index": 0}
+        try:
+            with open(STATE_FILE, 'r') as f: return json.load(f)
+        except: pass
+    return {"last_index": 0, "source": "csv"}
 
 def save_state(state):
     with open(STATE_FILE, 'w') as f: json.dump(state, f, indent=4)
 
 def run():
-    print("[Titanium Elite] Iniciando Parser Customizado para CSV Complexo...")
+    print(f"\n{'='*60}")
+    print("TITANIUM SOCIAL: GERACAO DE FILA (MODO 100K DATAFEED)")
+    print(f"{'='*60}")
+    
     state = load_state()
+    posted_titles = get_posted_titles()
+    batch_size = 5 
     
     products = []
+    source_used = "datafeed"
+
+    # 1. TENTAR DATAFEED 100K
     try:
-        with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
-            lines = f.readlines()[1:] # Pula cabecalho
-            for line in lines:
-                clean_line = line.strip()
-                if not clean_line: continue
-                
-                # O CSV do Titanium vem todo envolto em aspas por linha
-                if clean_line.startswith('"') and clean_line.endswith('"'):
-                    clean_line = clean_line[1:-1]
-                clean_line = clean_line.replace('""', '"')
-                
-                parts = next(csv.reader([clean_line]))
-                if len(parts) >= 8:
-                    products.append({
-                        "id": parts[0].strip(),
-                        "name": parts[1].strip(),
-                        "price": parts[2].strip(),
-                        "url": parts[-2].strip(),
-                        "offer": parts[-1].strip()
-                    })
+        print("[Datafeed] Buscando melhores achados no pool de 100K...")
+        raw_products = get_datafeed_products(max_items=100)
+        
+        for p in raw_products:
+            title_lower = p['titulo'].lower().strip()
+            if title_lower not in posted_titles:
+                products.append({
+                    "id": p['id_interno'],
+                    "name": p['titulo'],
+                    "price": str(p['preco']),
+                    "url": p['url_produto'],
+                    "offer": p['link_afiliado'],
+                    "image_api": None 
+                })
+        
+        if not products:
+            print("[Aviso] Nenhum produto novo no Datafeed. Recorrendo ao CSV.")
+            source_used = "csv"
     except Exception as e:
-        print(f"Erro Leitura: {e}")
-        return
+        print(f"[Erro Datafeed] {e}. Recorrendo ao CSV.")
+        source_used = "csv"
 
-    start_idx = state["last_index"]
-    batch_size = 10
-    end_idx = min(start_idx + batch_size, len(products))
+    # 2. FALLBACK CSV
+    if source_used == "csv":
+        print("[CSV] Lendo Curadoria BatchProductLinks.csv...")
+        try:
+            with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
+                lines = f.readlines()[1:] 
+                csv_pool = []
+                for line in lines:
+                    clean_line = line.strip()
+                    if not clean_line: continue
+                    if clean_line.startswith('"') and clean_line.endswith('"'):
+                        clean_line = clean_line[1:-1]
+                    clean_line = clean_line.replace('""', '"')
+                    parts = next(csv.reader([clean_line]))
+                    if len(parts) >= 8:
+                        title = parts[1].strip()
+                        if title.lower().strip() not in posted_titles:
+                            csv_pool.append({
+                                "id": parts[0].strip(),
+                                "name": title,
+                                "price": parts[2].strip(),
+                                "url": parts[-2].strip(),
+                                "offer": parts[-1].strip()
+                            })
+                
+                start_idx = state.get("last_index", 0)
+                products = csv_pool[start_idx:]
+                if not products: 
+                    print("[CSV] Fim do arquivo. Reiniciando.")
+                    state["last_index"] = 0
+                    products = csv_pool
+        except Exception as e:
+            print(f"[Erro CSV] {e}")
+            return
+
+    # 3. PROCESSAMENTO DO BATCH
+    batch = products[:batch_size]
+    print(f"Selecionados {len(batch)} itens via {source_used.upper()} para processamento.")
     
-    if start_idx >= len(products):
-        print("Ciclo completo. Reiniciando.")
-        state["last_index"] = 0
-        save_state(state)
-        return
-
-    print(f"Processando {start_idx} a {end_idx} de {len(products)}...")
-    batch = products[start_idx:end_idx]
     gen = ImageGenerator(assets_path="site/images")
     os.makedirs(QUEUE_DIR, exist_ok=True)
     
     success_count = 0
     for item in batch:
-        # Limpeza para busca
-        search_q = " ".join(item['name'].split()[:5])
-        print(f"Buscando: {search_q}...")
+        img_url = None
+        search_q = " ".join(item['name'].split()[:6])
+        print(f"Buscando imagem Elite para: {search_q}...")
         
-        img_url = get_shopee_image_api(search_q)
-        
+        from core.shopee_api import get_shopee_image_api
+        try:
+            img_url = get_shopee_image_api(search_q)
+        except: pass
+
         if not img_url:
-            print("Tentando Fallback Scraper...")
+            print("   -> Usando Scraper de imagem (Fallback)...")
             try:
-                res = requests.get(item['url'], headers={"User-Agent": "Mozilla/5.0"}, timeout=5)
+                res = requests.get(item['url'], headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
                 m = re.search(r'property="og:image" content="(.*?)"', res.text)
                 if m: img_url = m.group(1)
             except: pass
@@ -106,21 +146,36 @@ def run():
             base_name = f"shopee_{int(time.time())}_{success_count}"
             path = os.path.join(QUEUE_DIR, f"{base_name}.jpg")
             json_path = os.path.join(QUEUE_DIR, f"{base_name}.json")
+            
             try:
-                from core.link_builder import build_affiliate_link
-                final_link = build_affiliate_link(item['offer'], "shopee")
+                final_link = item['offer']
+                if source_used == "csv" or "utm_source" not in final_link:
+                    from core.link_builder import build_affiliate_link
+                    final_link = build_affiliate_link(item['offer'], "shopee")
                 
                 gen.generate_post(item['name'], item['price'], img_url, "shopee", path)
+                
                 with open(json_path, 'w', encoding='utf-8') as mj:
-                    json.dump({"title": item['name'], "price": item['price'], "link": final_link}, mj, ensure_ascii=False)
+                    json.dump({
+                        "title": item['name'], 
+                        "price": item['price'], 
+                        "link": final_link,
+                        "source": source_used
+                    }, mj, ensure_ascii=False)
+                
                 print(f"OK -> {os.path.basename(path)}")
                 success_count += 1
-            except Exception as e: print(f"Erro: {e}")
-        else: print("Imagem nao encontrada.")
+            except Exception as e:
+                print(f"Erro na geracao: {e}")
+        else:
+            print("Imagem nao encontrada. Pulando item.")
 
-    state["last_index"] = end_idx
+    if source_used == "csv":
+        state["last_index"] = state.get("last_index", 0) + batch_size
+    state["source"] = source_used
     save_state(state)
-    print(f"Concluido: {success_count} artes prontas na fila.")
+    
+    print(f"\nCiclo concluido: {success_count} novas artes na fila social.")
 
 if __name__ == "__main__":
     run()
