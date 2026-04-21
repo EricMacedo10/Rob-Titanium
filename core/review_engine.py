@@ -21,11 +21,22 @@ class TitaniumRadar:
             with open(self.data_file, 'r', encoding='utf-8') as f:
                 site_products = json.load(f)
 
+        # Fonte 1.5: Especialista (Platinum) - SERÁ EXCLUÍDO DO RADAR
+        specialist_titles = set()
+        spec_file = 'site/specialist.json'
+        if os.path.exists(spec_file):
+            try:
+                with open(spec_file, 'r', encoding='utf-8') as f:
+                    spec_data = json.load(f)
+                    specialist_titles = {str(p.get('title', '')).lower().strip() for p in spec_data}
+            except Exception as e:
+                print(f"[!] Erro ao carregar specialist para deduplicação: {e}")
+
         # Fonte 2: Produtos frescos do Datafeed (Moda & Beleza)
         datafeed_products = []
         try:
             from scraper.datafeed_shopee import get_datafeed_products
-            raw_feed = get_datafeed_products(max_items=50)
+            raw_feed = get_datafeed_products(max_items=150)
             # Normaliza para o formato do data.json
             for p in raw_feed:
                 img_url = p.get("image") or p.get("imagem") or p.get("thumbnail")
@@ -44,8 +55,13 @@ class TitaniumRadar:
         except Exception as e:
             print(f"[Info] Datafeed indisponível para Radar: {e}")
 
-        # Pool combinado - APENAS PRODUTOS COM IMAGEM
-        all_products = datafeed_products + [p for p in site_products if p.get('image')]
+        # Pool combinado - APENAS PRODUTOS COM IMAGEM E NÃO REPETIDOS
+        all_products = []
+        for p in (datafeed_products + site_products):
+            p_title = str(p.get('title', '')).lower().strip()
+            if not p.get('image'): continue
+            if p_title in specialist_titles: continue # DEDUPLICAÇÃO MASTER
+            all_products.append(p)
         
         if len(all_products) < 3:
             print("[Erro] Poucos produtos para o radar.")

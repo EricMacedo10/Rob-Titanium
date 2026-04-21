@@ -47,9 +47,9 @@ def generate_dynamic_phrases(products):
     try:
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(notification_data, f, indent=4, ensure_ascii=False)
-        print(f"✅ Maestro: Frases Shopee atualizadas em {output_path}")
+        print(f"[OK] Maestro: Frases Shopee atualizadas em {output_path}")
     except Exception as e:
-        print(f"❌ Erro ao salvar frases: {e}")
+        print(f"[ERROR] Erro ao salvar frases: {e}")
 
 if __name__ == "__main__":
     # Teste de Boutique Fashion

@@ -174,6 +174,19 @@ def main():
         
         # Create set of normalized titles for fast lookup
         seen_titles = {str(p.get('title', '')).lower().strip() for p in current_shopee}
+
+        # 🛡️ DEDUPLICAÇÃO GLOBAL (Senior Workflow)
+        # Excluir o que estiver no Radar (ai_reviews) ou Especialista (specialist)
+        forbidden_titles = set()
+        for fyle in ['site/specialist.json', 'site/ai_reviews.json']:
+            if os.path.exists(fyle):
+                try:
+                    with open(fyle, 'r', encoding='utf-8') as f:
+                        f_data = json.load(f)
+                        forbidden_titles.update({str(p.get('title', '')).lower().strip() for p in f_data})
+                except Exception: pass
+        
+        print(f"[Deduplicador] {len(forbidden_titles)} títulos reservados (Radar/Especialista).")
         
         unique_new = []
         for p in fixed_products:
@@ -182,11 +195,11 @@ def main():
             if not p.get('image') or not p_title:
                 continue
 
-            if p_title not in seen_titles:
+            if p_title not in seen_titles and p_title not in forbidden_titles:
                 unique_new.append(p)
                 seen_titles.add(p_title) 
                 
-        final_list = current_shopee[:12] + unique_new # Mantém 12 antigos + novos
+        final_list = [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:12] + unique_new # Mantém 12 antigos + novos
         
         # Final Filtering & Sanitation
         sanitized_list = []
