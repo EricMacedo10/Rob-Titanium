@@ -28,10 +28,15 @@ class TitaniumRadar:
             raw_feed = get_datafeed_products(max_items=50)
             # Normaliza para o formato do data.json
             for p in raw_feed:
+                img_url = p.get("image") or p.get("imagem") or p.get("thumbnail")
+                if not img_url:
+                    continue # REQUISITO SENIOR: Não postar sem imagem
+                
                 datafeed_products.append({
                     "title": p.get("titulo", "Produto Shopee"),
                     "price": p.get("preco", 0),
                     "category": "moda",
+                    "image": img_url,
                     "link": p.get("link_afiliado", ""),
                     "store": "Shopee",
                     "source": "datafeed_100k"
@@ -39,8 +44,8 @@ class TitaniumRadar:
         except Exception as e:
             print(f"[Info] Datafeed indisponível para Radar: {e}")
 
-        # Pool combinado (prioriza datafeed para novidade)
-        all_products = datafeed_products + site_products
+        # Pool combinado - APENAS PRODUTOS COM IMAGEM
+        all_products = datafeed_products + [p for p in site_products if p.get('image')]
         
         if len(all_products) < 3:
             print("[Erro] Poucos produtos para o radar.")
