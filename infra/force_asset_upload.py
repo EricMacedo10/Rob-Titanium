@@ -34,7 +34,12 @@ def force_upload():
             ('site/css/titanium-security.css', 'css/titanium-security.css'),
             ('site/images/hero-asset.png', 'images/hero-asset.png'),
             ('site/images/hero-bg-portuguese.png', 'images/hero-bg-portuguese.png'),
+            ('site/images/placeholder.png', 'images/placeholder.png'),
             ('site/index.html',          'index.html'),
+            ('site/ads.txt',             'ads.txt'),
+            ('site/robots.txt',          'robots.txt'),
+            ('site/data.json',           'data.json'),
+            ('site/ai_reviews.json',     'ai_reviews.json'),
         ]
 
     for local, remote in assets:
