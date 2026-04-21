@@ -10,16 +10,15 @@ The bot operates in two distinct modes:
 ### 1. Curadoria Mode (Priority)
 - **Queue**: Looks for files in `social/fila/`.
 - **Logic**: Any image (`.jpg`, `.png`) or video (`.mp4`) placed here is treated as a priority post.
-- **Workflow (v2.1.0 - Post Único)**:
+- **Workflow (v2.3.0 - Datafeed 100K Support)**:
     - Seleciona **1 item** da fila por ciclo de execução para postagem.
+    - **Datafeed Scale-up**: O robô agora se abastece do pool de 100K produtos do Datafeed via `social/queue_csv_products.py`.
+    - **Smart Deduplication**: O bot verifica todos os títulos em `social/postados/` para garantir que o Instagram nunca poste o mesmo achadinho duas vezes.
+    - **Image Quality**: Utiliza `core/shopee_api.py` para buscar imagens de alta qualidade via GraphQL oficial antes de compor a arte.
     - A imagem é convertida automaticamente em um vídeo de 5 segundos (Reels) usando o efeito Ken Burns (`social/utils/video_utils.py`).
-    - Lê metadados de arquivos `.json` vinculados (mesmo nome da imagem) para preencher títulos e preços na legenda.
-    - **Resolution Standard**: Always use **720p (720x1280)** for Reels. Higher resolutions (1080p) often cause Meta processing timeouts quando postado via API.
+    - Lê metadados de arquivos `.json` vinculados para preencher títulos, preços e o link de afiliado rastreável.
+    - **Resolution Standard**: Always use **720p (720x1280)** for Reels to ensure Meta processing success.
     - Post-success: Moves image/video and its JSON metadata to `social/postados/`.
-    - **CI/CD Compliance**: Usa `sys.exit(0)` para sucesso e `sys.exit(1)` para falha, permitindo que o GitHub Actions reporte erros de postagem fielmente.
-
-> [!NOTE]
-> **Datafeed Scale-up (2026-04-20)**: O bot social agora se abastece do pool de 100K produtos do Datafeed. O script `queue_csv_products.py` foi atualizado para extrair produtos de Moda & Beleza diretamente do feed massivo, garantindo que a fila do Instagram nunca fique sem conteúdo variado.
 
 ### 2. Category Fallback Mode (Automated)
 - **Trigger**: Used when the queue is empty.
@@ -163,4 +162,4 @@ Titanium usa `social/bot_comentario_brick3d.py` para monitoramento local de alta
 - **Interval**: Set to 60s to stay under Meta's rate-limit thresholds for automated actions.
 
 ---
-*Atualizado em: 20/04/2026 - Versão: v2.2.0 (Massive Datafeed Support)*
+*Atualizado em: 21/04/2026 - Versão: v2.3.0 (Massive Datafeed & Official Image API Support)*

@@ -1,14 +1,18 @@
 # 🧠 Titanium Brain: System Architecture Map (v2026)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.6.0-Massive).
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.7.0-Massive).
 
 ---
 
-## 🏗️ 1. Filosofia: Desacoplamento de Estado (Stateless)
+## 🏗️ 1. Filosofia: Desacoplamento de Estado & Deduplicação Master
 
 O sistema segue uma arquitetura onde o **Frontend é agnóstico**:
 - O site em produção (Hostinger) não depende de um banco de dados SQL pesado.
 - Toda a "inteligência" e "estado" do site (ofertas, preços, textos de IA) são injetados via arquivos JSON estáticos.
+- **Deduplicação Master**: Implementado um sistema de exclusividade hierárquica para garantir que nenhum produto se repita entre as seções:
+    1. **Prioridade 1: Specialist (Platinum)** - Itens fixos de alta curadoria.
+    2. **Prioridade 2: Radar de Tendências (IA)** - Tendências dinâmicas geradas pela DeepSeek.
+    3. **Prioridade 3: Vitrine Principal (Maestro)** - Ofertas diárias em massa.
 - Isso garante que o site carregue em menos de 1 segundo e suporte picos massivos de tráfego sem cair.
 
 ---
@@ -23,21 +27,22 @@ graph TD
         AI["IA DeepSeek-V3.2 (Speciale / Agentic)"]
     end
 
-    subgraph "Fontes de Dados (Oficiais)"
-        SHP["Shopee API v2 (Product Data)"]
+    subgraph "Fontes de Dados (Elite)"
+        SHP["Shopee API v2 (Product & Image Data)"]
         FEED["Shopee Datafeed (100K+ Products CSV)"]
     end
 
     subgraph "Produção (Hostinger)"
         SITE["Elite Frontend (HTML/CSS/JS)"]
-        STATE["State Storage (data.json / ai_reviews.json)"]
+        STATE["State Storage (data.json / specialist.json / ai_reviews.json)"]
     end
 
     ACTION --> PYTHON
-    PYTHON -- "Massive Filtering" --> FEED
-    PYTHON -- "Auth & Request (Fallback)" --> SHP
-    PYTHON -- "Context Injection" --> AI
+    PYTHON -- "Flexible Parsing (Delimiters/Headers)" --> FEED
+    PYTHON -- "Official Image Fetching" --> SHP
+    PYTHON -- "Context Injection (Moda & Beleza)" --> AI
     AI -- "Generated Content" --> PYTHON
+    PYTHON -- "Master Deduplication" --> STATE
     PYTHON -- "Atomic FTP Sync" --> STATE
     PYTHON -- "Atomic FTP Sync" --> SITE
 ```
@@ -72,5 +77,7 @@ graph TD
 
 - **Editorial SEO Max**: O sistema gera artigos semanais com mais de 1000 palavras, injetando produtos reais do Datafeed para máxima autoridade (E-E-A-T) e aprovação no AdSense.
 
+- **Extreme Vitrine Density**: Expansão do pool de mineração de 30 para **100 itens** e retenção de até **80 produtos históricos**, garantindo uma vitrine sempre densa e luxuosa (70-90 itens únicos após deduplicação).
+
 ---
-*Atualizado em: 20/04/2026 - Versão: 3.6.0-Massive (Datafeed 100K + SEO Power)*
+*Atualizado em: 21/04/2026 - Versão: 3.7.0-Elite (Deduplicação Master + 100K Datafeed)*

@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v3.6.0 - Massive)
+# 🚀 Titanium Brain: CI/CD & Deployment (v3.7.0 - Elite)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -10,9 +10,11 @@ O Titanium utiliza três fluxos de trabalho principais (Workflows) localizados e
 
 | Workflow | Gatilho (Trigger) | Ação Principal |
 | :--- | :--- | :--- |
-| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine de ofertas principal via API Oficial Shopee. |
+| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine de ofertas principal (Maestro). |
 | `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA DeepSeek para atualizar o Radar de Tendências. |
-| `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o artigo editorial da semana. |
+| `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o artigo editorial da semana (SEO). |
+| `titanium_social_post.yml` | Cron (4x ao dia) | Gera artes e publica automaticamente no Instagram. |
+| `shopee_specialist_roleta.yml`| Cron (2x ao dia) | Atualiza a Seleção da Especialista (Fundo Platinum). |
 
 ---
 
@@ -54,4 +56,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 ---
 ---
 **IA Titanium**
-*Atualizado em: 20/04/2026 - Tecnologia Shopee Datafeed 100K*
+*Atualizado em: 21/04/2026 - Tecnologia Shopee Datafeed 100K + Multi-Channel Sync*

@@ -1,6 +1,4 @@
-# 🔍 Titanium Brain: Scraper Engines & Arbitration (Shopee Exclusive)
-
-Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.6.0-Massive).
+Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.7.0-Elite).
 
 ---
 
@@ -45,10 +43,10 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 
 ---
 
-## 💾 4. Gerenciamento de Estado & Cache
+## 💾 4. Gerenciamento de Estado & Cache (Refresh Strategy 80+100)
 - **Localização**: `site/data.json` (Produção) e `state/arbitro_cache.json` (Debug).
-- **Refresh Strategy (12+N)**: A cada rodada, o sistema preserva os 12 produtos mais recentes do Shopee e injeta as novas ofertas válidas, garantindo um "frescor" contínuo sem perder o histórico imediato.
-- **Cache de Busca**: Mantido por **5 minutos** para evitar chamadas redundantes à API de IA.
+- **Refresh Strategy**: A cada rodada, o sistema preserva até **80 produtos históricos** do Shopee e injeta até **100 novas ofertas** válidas.
+- **Master Deduplication**: Antes de salvar o `data.json`, o sistema realiza o cross-check mandatório contra `specialist.json` (Platinum) e `ai_reviews.json` (IA Radar). Qualquer ID duplicado é removido da vitrine principal para dar lugar a itens novos.
 - **Atomic Sync**: O sistema atualiza o JSON no servidor via FTP atômico, garantindo que o site nunca fique "quebrado" durante a atualização.
 
 ---
@@ -63,4 +61,4 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 ---
 ---
 **IA Titanium**
-*Atualizado em: 20/04/2026 - Foco: Datafeed 100K & Shopee Elite*
+*Atualizado em: 21/04/2026 - Versão: 3.7.0-Elite (Parser Flexível + Massive Pool Expansion)*
