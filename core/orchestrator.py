@@ -34,13 +34,13 @@ def update_from_datafeed():
     Retorna lista formatada para o data.json.
     """
     print("\n" + "="*60)
-    print("🛰️ DATAFEED SHOPEE: Minerando Pool de 100K Produtos")
+    print("[DATAFEED] SHOPEE: Minerando Pool de 100K Produtos")
     print("="*60)
     
     try:
         from scraper.datafeed_shopee import get_best_deals, get_datafeed_products
     except ImportError:
-        print("⚠️ Módulo datafeed_shopee não encontrado. Pulando...")
+        print("[!] Módulo datafeed_shopee não encontrado. Pulando...")
         return []
     
     new_products = []
@@ -49,10 +49,10 @@ def update_from_datafeed():
     best_deals = get_best_deals(count=30, max_price=300.0)
     
     if not best_deals:
-        print("⚠️ Datafeed retornou 0 produtos. Fallback para API GraphQL...")
+        print("[!] Datafeed retornou 0 produtos. Fallback para API GraphQL...")
         return []
     
-    print(f"✅ Datafeed retornou {len(best_deals)} achados de Moda & Beleza!")
+    print(f"[OK] Datafeed retornou {len(best_deals)} achados de Moda & Beleza!")
     
     for i, prod in enumerate(best_deals):
         # Buscar imagem via API GraphQL (o Datafeed não traz imagens)
@@ -101,7 +101,7 @@ def update_manual_targets():
     # --- Embaralhar e selecionar targets aleatórios ---
     max_targets_per_run = 15
     selected_targets = random.sample(TARGETS, min(len(TARGETS), max_targets_per_run))
-    print(f"\n🎲 Sorteando {len(selected_targets)} termos de um total de {len(TARGETS)} cadastrados...")
+    print(f"\n[RANDOM] Sorteando {len(selected_targets)} termos de um total de {len(TARGETS)} cadastrados...")
     # --------------------------------------------------------
     
     for i, target in enumerate(selected_targets):
@@ -119,12 +119,12 @@ def update_manual_targets():
                         analise = {"motivo": f"Curadoria Titanium: {term}"}
                         formatted = _format_product_for_site(prod, analise, i, target.get('category', 'all'))
                         new_products.append(formatted)
-                print(f"✅ Shopee Encontrou {len(res)} itens para {term}")
+                print(f"[OK] Shopee Encontrou {len(res)} itens para {term}")
             else:
-                print(f"⚠️ Nenhum produto Shopee para {term}")
+                print(f"[!] Nenhum produto Shopee para {term}")
                 
         except Exception as e:
-            print(f"❌ Erro ao buscar {term}: {e}")
+            print(f"[ERROR] Erro ao buscar {term}: {e}")
             
         # Delay anti-ban
         time.sleep(random.uniform(1, 2))
@@ -132,7 +132,7 @@ def update_manual_targets():
     return new_products
 
 def main():
-    print("🚀 INICIANDO ATUALIZAÇÃO AUTOMÁTICA: BOUTIQUE TITANIUM (SHOPEE EXCLUSIVE)")
+    print("[TITANIUM] INICIANDO ATUALIZAÇÃO AUTOMÁTICA: BOUTIQUE TITANIUM (SHOPEE EXCLUSIVE)")
     
     # Ensure site directory exists
     os.makedirs('site', exist_ok=True)
@@ -143,7 +143,7 @@ def main():
     try:
         fixed_products = update_from_datafeed()
     except Exception as e:
-        print(f"⚠️ Datafeed falhou: {e}")
+        print(f"[!] Datafeed falhou: {e}")
     
     # 2. FALLBACK: API GraphQL (TARGETS do settings.py)
     if not fixed_products:
@@ -151,7 +151,7 @@ def main():
         try:
             fixed_products = update_manual_targets()
         except Exception as e:
-            print(f"❌ Erro fatal durante a busca de targets: {e}")
+            print(f"[ERROR] Erro fatal durante a busca de targets: {e}")
     
     # 3. Merge Strategies
     final_list = []
@@ -219,12 +219,12 @@ def main():
             
         final_list = sanitized_list
 
-        print(f"\n✨ SUCESSO! Catálogo Titanium 100% Shopee com {len(final_list)} produtos.")
+        print(f"\n*** SUCESSO! Catálogo Titanium 100% Shopee com {len(final_list)} produtos.")
         
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)
             
-        print(f"✅ {DATA_FILE} atualizado com sucesso!")
+        print(f"[OK] {DATA_FILE} atualizado com sucesso!")
         print("\n>>> Gerando Frases Dinâmicas...")
         generate_dynamic_phrases(final_list)
         # --------------------------------------
@@ -233,7 +233,7 @@ def main():
     # 4. Fail-Safe & Integrity Check
     # ----------------------------------------------------------------------
     if not final_list:
-        print("\n❌ ERRO CRÍTICO: Nenhum produto encontrado (Lista Vazia)!")
+        print("\n[ERROR] ERRO CRÍTICO: Nenhum produto encontrado (Lista Vazia)!")
         print("   >>> BLOQUEIO DE UPLOAD ATIVADO: Preservando site funcional.")
         print("   Isso pode indicar falha geral nas APIs ou bloqueio de IP.")
         import sys
@@ -287,13 +287,13 @@ def main():
                 print(f"\n>>> Sincronizando Asset ({env_mode}): {remote}")
                 upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote)
             else:
-                print(f"⚠️ Asset local não encontrado, pulado: {local}")
+                print(f"[!] Asset local não encontrado, pulado: {local}")
         
-        print("\n✅ SITE ATUALIZADO COM SUCESSO!")
+        print("\n[OK] SITE ATUALIZADO COM SUCESSO!")
     else:
-        print("⚠️ Credenciais FTP não encontradas. Upload pulado.")
+        print("[!] Credenciais FTP não encontradas. Upload pulado.")
 
-    print("\n🏁 EXECUÇÃO CONCLUÍDA com SUCESSO!")
+    print("\n[FINISH] EXECUÇÃO CONCLUÍDA com SUCESSO!")
 
 if __name__ == "__main__":
     main()

@@ -19,7 +19,7 @@ def decidir_melhor_oferta(termo_busca: str, produtos: list) -> int:
     Usa DeepSeek para escolher o melhor produto baseado no termo de busca
     """
     if not DEEPSEEK_API_KEY:
-        print("⚠️ Erro: DEEPSEEK_API_KEY não configurada.")
+        print("[!] Erro: DEEPSEEK_API_KEY não configurada.")
         raise Exception("DEEPSEEK_API_KEY ausente")
 
     # Preparar dados para a IA (sem mostrar links para economizar tokens)
@@ -85,7 +85,7 @@ RESPOSTA:"""
         raise ValueError(f"IA retornou ID inválido: {resposta}")
 
     except Exception as e:
-        print(f"[IA Titanium] ❌ Erro na API DeepSeek: {e}")
+        print(f"[IA Titanium] [ERROR] Erro na API DeepSeek: {e}")
         raise
 
 def decidir_com_fallback(termo_busca: str, produtos: list) -> int:

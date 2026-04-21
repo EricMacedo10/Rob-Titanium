@@ -56,10 +56,10 @@ class ArbitroDePreco:
             
             # Cache válido por 5 minutos (300 segundos)
             if (datetime.now().timestamp() - timestamp) < 300:
-                print(f"[Cache] ✅ Hit! Resultado de {int(datetime.now().timestamp() - timestamp)}s atrás")
+                print(f"[Cache] [OK] Hit! Resultado de {int(datetime.now().timestamp() - timestamp)}s atrás")
                 return cached.get('resultado')
         
-        print(f"[Cache] ❌ Miss. Buscando nas lojas...")
+        print(f"[Cache] [MISS] Miss. Buscando nas lojas...")
         return None
 
 
@@ -69,7 +69,7 @@ class ArbitroDePreco:
         Busca na Shopee (Único motor ativo v3.2.0 Elite)
         """
         print(f"\n{'='*70}")
-        print(f"🔍 BUSCANDO NA SHOPEE: '{termo}'")
+        print(f"[SEARCH] BUSCANDO NA SHOPEE: '{termo}'")
         print(f"{'='*70}")
         
         try:
@@ -95,10 +95,10 @@ class ArbitroDePreco:
             
             if produtos:
                 melhor_shopee = produtos[0]
-                print(f"[Shopee] ✅ Produto encontrado: R$ {melhor_shopee['preco']:.2f}")
+                print(f"[Shopee] [OK] Produto encontrado: R$ {melhor_shopee['preco']:.2f}")
                 return melhor_shopee
             else:
-                print(f"[Shopee] ⚠️ Nenhum produto encontrado")
+                print(f"[Shopee] [!] Nenhum produto encontrado")
                 return {
                     "id_interno": 0,
                     "titulo": f"{termo} - Shopee",
@@ -109,7 +109,7 @@ class ArbitroDePreco:
                 }
             
         except Exception as e:
-            print(f"[Shopee] ❌ Erro: {e}")
+            print(f"[Shopee] [ERROR] Erro: {e}")
             return {
                 "id_interno": 0,
                 "titulo": f"{termo} - Shopee",
@@ -157,14 +157,14 @@ class ArbitroDePreco:
         
         # 4. Usar IA para decidir o melhor
         print(f"\n{'='*70}")
-        print(f"🤖 CURADORIA COM IA")
+        print(f"[AI] CURADORIA COM IA")
         print(f"{'='*70}")
         
         try:
             id_vencedor = decidir_com_fallback(termo, produtos_disponiveis)
             melhor_produto = produtos_disponiveis[id_vencedor]
         except Exception as e:
-            print(f"[IA] ❌ Erro na curadoria: {e}")
+            print(f"[IA] [ERROR] Erro na curadoria: {e}")
             # Fallback manual: menor preço
             id_vencedor = min(
                 enumerate(produtos_disponiveis),
@@ -195,7 +195,7 @@ class ArbitroDePreco:
         self._save_cache()
         
         print(f"\n{'='*70}")
-        print(f"✅ RESULTADO FINAL")
+        print(f"[OK] RESULTADO FINAL")
         print(f"{'='*70}")
         print(f"Melhor oferta: {melhor_produto.get('titulo', '')}")
         print(f"Preço: R$ {melhor_produto.get('preco', 0):.2f}")
@@ -216,9 +216,9 @@ if __name__ == "__main__":
     resultado = arbitro.processar_pedido(termo_teste)
     
     if "erro" not in resultado:
-        print(f"\n✅ Teste bem-sucedido!")
+        print(f"\n[OK] Teste bem-sucedido!")
         print(f"Melhor produto: {resultado['melhor_produto']['titulo']}")
         print(f"Preço: R$ {resultado['melhor_produto']['preco']:.2f}")
         print(f"Loja: {resultado['melhor_produto']['loja']}")
     else:
-        print(f"\n⚠️ Erro no teste: {resultado['erro']}")
+        print(f"\n[!] Erro no teste: {resultado['erro']}")

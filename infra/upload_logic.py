@@ -86,7 +86,7 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
                 break
             except Exception as e:
                 if attempt == max_retries - 1: raise e
-                print(f"   --- ⚠️ Timeout/Erro na conexao ({e}). Tentando novamente em 5s...")
+                print(f"   --- [!] Timeout/Erro na conexao ({e}). Tentando novamente em 5s...")
                 import time
                 time.sleep(5)
 
@@ -138,9 +138,9 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
                 remote_size = session.size(remote_filename)
                 print(f"   --- Tamanho no servidor: {remote_size} bytes")
                 if remote_size == file_size:
-                    print(f"   --- ✅ Tamanhos conferem!")
+                    print(f"   --- [OK] Tamanhos conferem!")
                 else:
-                    print(f"   --- ⚠️ Tamanhos DIFERENTES! Local: {file_size}, Remoto: {remote_size}")
+                    print(f"   --- [!] Tamanhos DIFERENTES! Local: {file_size}, Remoto: {remote_size}")
             except Exception:
                 print(f"   --- (Verificacao de tamanho nao suportada pelo servidor)")
 
@@ -152,6 +152,6 @@ def upload_to_hostinger(local_file_path, ftp_host, ftp_user, ftp_pass, remote_pa
 
     except Exception as e:
         import traceback
-        print(f"--- ❌ Erro no upload FTP: {e}")
+        print(f"--- [ERROR] Erro no upload FTP: {e}")
         traceback.print_exc()
         return False

@@ -126,12 +126,12 @@ def run_scheduled_post():
     ENV_MODE = os.getenv("ENV_MODE", "STAGING").upper()
     
     print("\n" + "=" * 60)
-    print("📅 POSTAGEM AGENDADA - FEED DO INSTAGRAM")
+    print("[POSTAGEM] POSTAGEM AGENDADA - FEED DO INSTAGRAM")
     print("=" * 60)
     
     # 1. Obter data de hoje (BRT)
     today = datetime.now().strftime("%Y-%m-%d")
-    print(f"📆 Data atual: {today}")
+    print(f"[DATA] Data atual: {today}")
     
     # 2. Ler manifesto
     base_proj = os.getcwd()
@@ -140,13 +140,13 @@ def run_scheduled_post():
     schedule_path = os.path.join(fila_dir, "schedule.json")
     
     if not os.path.exists(schedule_path):
-        print("❌ Erro: schedule.json não encontrado em social/fila/")
+        print("[!] Erro: schedule.json não encontrado em social/fila/")
         sys.exit(1)
     
     with open(schedule_path, "r", encoding="utf-8") as f:
         schedule = json.load(f)
     
-    print(f"📋 Manifesto carregado: {len(schedule)} entradas")
+    print(f"[INFO] Manifesto carregado: {len(schedule)} entradas")
     
     # 3. Procurar entrada para hoje
     entry_hoje = None
@@ -156,10 +156,10 @@ def run_scheduled_post():
             break
     
     if not entry_hoje:
-        print(f"🚫 Nenhuma postagem agendada para {today}. Saindo.")
+        print(f"[SKIP] Nenhuma postagem agendada para {today}. Saindo.")
         sys.exit(0)
     
-    print(f"\n🎯 Postagem encontrada para hoje:")
+    print(f"\n[TARGET] Postagem encontrada para hoje:")
     print(f"   Imagem:    {entry_hoje['imagem']}")
     print(f"   Loja:      {entry_hoje['loja']}")
     print(f"   Categoria: {entry_hoje['categoria']}")
@@ -169,7 +169,7 @@ def run_scheduled_post():
     campos_obrigatorios = ["data", "imagem", "loja", "categoria", "tema"]
     for campo in campos_obrigatorios:
         if not entry_hoje.get(campo):
-            print(f"❌ ERRO CRÍTICO: Campo '{campo}' vazio no manifesto. Recusando postagem.")
+            print(f"[ERROR] ERRO CRÍTICO: Campo '{campo}' vazio no manifesto. Recusando postagem.")
             sys.exit(1)
     
     # 5. Verificar se a imagem existe (Blindagem contra erros de encoding/casing)
@@ -177,20 +177,20 @@ def run_scheduled_post():
     imagem_file = next((f for f in arquivos_disponiveis if f.lower() == entry_hoje["imagem"].lower()), None)
     
     if not imagem_file:
-        print(f"❌ Erro: Imagem '{entry_hoje['imagem']}' não encontrada em {fila_dir}/")
+        print(f"[ERROR] Erro: Imagem '{entry_hoje['imagem']}' não encontrada em {fila_dir}/")
         print(f"📂 Arquivos disponíveis: {arquivos_disponiveis}")
         sys.exit(1)
     
     imagem_path = os.path.join(fila_dir, imagem_file)
-    print(f"✅ Imagem encontrada: {imagem_path}")
+    print(f"[OK] Imagem encontrada: {imagem_path}")
     
     # 6. Anti-duplicata: verificar se já postou hoje
     os.makedirs(postados_dir, exist_ok=True)
     postados_arquivos = os.listdir(postados_dir)
     for arquivo in postados_arquivos:
         if arquivo.startswith(today):
-            print(f"⚠️ DUPLICATA DETECTADA: '{arquivo}' já existe em postados/")
-            print("🚫 Cancelando postagem para evitar duplicata.")
+            print(f"[!] DUPLICATA DETECTADA: '{arquivo}' já existe em postados/")
+            print("[SKIP] Cancelando postagem para evitar duplicata.")
             sys.exit(0)
     
     # 7. Gerar legenda
@@ -202,7 +202,7 @@ def run_scheduled_post():
     
     # 8. Verificar modo
     if ENV_MODE != "PRODUCTION":
-        print(f"\n🧪 MODO {ENV_MODE}: Simulação encerrada com sucesso.")
+        print(f"\n[TEST] MODO {ENV_MODE}: Simulação encerrada com sucesso.")
         print("Para postar, defina ENV_MODE=PRODUCTION no .env")
         return True
     
@@ -241,14 +241,14 @@ def run_scheduled_post():
             if uploader.provider_used:
                 print(f"📡 Provedor utilizado: {uploader.provider_used}")
     except Exception as e:
-        print(f"❌ Erro no processamento da imagem: {e}")
+        print(f"[ERROR] Erro no processamento da imagem: {e}")
         # Limpar temp antes de sair
         if os.path.exists(temp_jpg_path):
             os.remove(temp_jpg_path)
         sys.exit(1)
     
     if not public_url:
-        print("❌ Falha no upload da imagem. Abortando.")
+        print("[ERROR] Falha no upload da imagem. Abortando.")
         if os.path.exists(temp_jpg_path):
             os.remove(temp_jpg_path)
         sys.exit(1)
@@ -307,11 +307,11 @@ def run_scheduled_post():
     publish_data = publish_resp.json()
     
     if "id" not in publish_data:
-        print(f"❌ Erro na publicação: {publish_data}")
+        print(f"[!] Erro na publicação: {publish_data}")
         sys.exit(1)
     
     post_id = publish_data["id"]
-    print(f"\n🏆 POST PUBLICADO COM SUCESSO! (Post ID: {post_id})")
+    print(f"\n[WIN] POST PUBLICADO COM SUCESSO! (Post ID: {post_id})")
     print(f"📡 Provedor final: {uploader.provider_used}")
     
     # 11. Arquivar imagem (Anti-duplicata e Blindagem)
@@ -323,9 +323,9 @@ def run_scheduled_post():
         
     dest_path = os.path.join(postados_dir, dest_name)
     
-    print(f"📦 Movendo arquivo para postados: {dest_name}")
+    print(f"[OK] Movendo arquivo para postados: {dest_name}")
     shutil.move(imagem_path, dest_path)
-    print(f"✅ Arquivamento concluído.")
+    print(f"[OK] Arquivamento concluído.")
     
     # 12. Log de sucesso
     log_entry = {
@@ -347,8 +347,8 @@ def run_scheduled_post():
     with open(log_path, "w", encoding="utf-8") as f:
         json.dump(logs, f, ensure_ascii=False, indent=2)
     
-    print(f"📝 Log salvo em {log_path}")
-    print("\n✅ EXECUÇÃO CONCLUÍDA COM SUCESSO!")
+    print(f"[DONE] Log salvo em {log_path}")
+    print("\n[OK] EXECUÇÃO CONCLUÍDA COM SUCESSO!")
     return True
 
 

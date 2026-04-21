@@ -50,23 +50,29 @@ def run():
         with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
             lines = f.readlines()[1:] # Pula cabecalho
             for line in lines:
-                # Limpa aspas externas e quebra por virgula
-                clean_line = line.strip().strip('"')
-                parts = clean_line.split(',')
+                clean_line = line.strip()
+                if not clean_line: continue
+                
+                # O CSV do Titanium vem todo envolto em aspas por linha
+                if clean_line.startswith('"') and clean_line.endswith('"'):
+                    clean_line = clean_line[1:-1]
+                clean_line = clean_line.replace('""', '"')
+                
+                parts = next(csv.reader([clean_line]))
                 if len(parts) >= 8:
                     products.append({
                         "id": parts[0].strip(),
                         "name": parts[1].strip(),
-                        "price": parts[2].replace('"', '').strip(),
-                        "url": parts[-2].strip(), # Product Link costuma ser o penultimo
-                        "offer": parts[-1].strip() # Offer Link o ultimo
+                        "price": parts[2].strip(),
+                        "url": parts[-2].strip(),
+                        "offer": parts[-1].strip()
                     })
     except Exception as e:
         print(f"Erro Leitura: {e}")
         return
 
     start_idx = state["last_index"]
-    batch_size = 1
+    batch_size = 10
     end_idx = min(start_idx + batch_size, len(products))
     
     if start_idx >= len(products):

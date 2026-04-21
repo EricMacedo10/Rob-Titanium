@@ -433,10 +433,10 @@ class InstagramClient:
             publish_data = publish_response.json()
             
             if "id" in publish_data:
-                print(f"--- POSTAGEM REALIZADA COM SUCESSO! (ID: {publish_data['id']})")
+                print(f"--- [OK] POSTAGEM REALIZADA COM SUCESSO! (ID: {publish_data['id']})")
                 return True
             else:
-                print(f"--- Erro ao publicar: {publish_data}")
+                print(f"--- [ERRO] Erro ao publicar: {publish_data}")
                 return False
                 
         except Exception as e:
@@ -500,5 +500,5 @@ class InstagramClient:
                 print(f"--- Erro ao checar status: {e}")
                 time.sleep(5)
                 
-        print("--- Timeout total aguardando processamento da midia.")
+        print("--- [!] Timeout total aguardando processamento da midia.")
         return False

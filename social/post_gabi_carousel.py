@@ -35,12 +35,12 @@ def post_gabi_carousel():
     
     public_urls = []
     
-    print("🚀 Iniciando upload das 6 imagens do carrossel Gabi...")
+    print("[UP] Iniciando upload das 6 imagens do carrossel Gabi...")
     
     for filename in files:
         local_path = os.path.join(fila_dir, filename)
         if not os.path.exists(local_path):
-            print(f"❌ Arquivo não encontrado: {local_path}")
+            print(f"[!] Arquivo não encontrado: {local_path}")
             return
             
         print(f"--- Processando {filename}...")
@@ -51,11 +51,11 @@ def post_gabi_carousel():
         if url:
             public_urls.append(url)
         else:
-            print(f"❌ Falha crítica no upload de {filename}. Abortando postagem.")
+            print(f"[ERROR] Falha crítica no upload de {filename}. Abortando postagem.")
             return
 
     if len(public_urls) < 6:
-        print("❌ Erro: Nem todas as imagens foram carregadas corretamente.")
+        print("[ERROR] Erro: Nem todas as imagens foram carregadas corretamente.")
         return
 
     # Legenda estratégica
@@ -81,10 +81,10 @@ O look perfeito para mulheres que amam unir sofisticação e conforto. Ideal par
     success = client.post_carousel(public_urls, caption)
     
     if success:
-        print("\n🏆 SUCESSO! O carrossel de moda Conjunto Gabi está no ar.")
+        print("\n[OK] SUCESSO! O carrossel de moda Conjunto Gabi está no ar.")
         # Opcional: mover arquivos para 'postados' se desejar automação total
     else:
-        print("\n❌ Falha na postagem do carrossel.")
+        print("\n[!] Falha na postagem do carrossel.")
 
 if __name__ == "__main__":
     post_gabi_carousel()

@@ -1565,7 +1565,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.target = '_blank';
                 card.innerHTML = `
                     <div style="display: flex; gap: 15px; align-items: center;">
-                        <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='images/placeholder.png'">
+                        <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='https://placehold.co/400x400/0f172a/cbd5e1?text=Boutique+Titanium'">
                         <h4 style="font-size: 1.05rem; margin: 0; color: #f8fafc; line-height: 1.3;">${p.title.substring(0, 45)}...</h4>
                     </div>
                     <div class="radar-review" style="margin-top: 15px;">${p.ai_review}</div>

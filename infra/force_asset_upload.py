@@ -4,7 +4,7 @@ from infra.upload_logic import upload_to_hostinger
 
 def force_upload():
     load_dotenv(override=True) # Force variables from .env to override shell env
-    print("🚀 TITANIUM FORCE ASSET UPLOAD")
+    print("[FORCE] TITANIUM FORCE ASSET UPLOAD")
     
     ftp_host = os.getenv('FTP_HOST')
     ftp_user = os.getenv('FTP_USER')
@@ -12,7 +12,7 @@ def force_upload():
     env_mode = os.getenv('ENV_MODE', 'STAGING').upper()
     
     if not all([ftp_host, ftp_user, ftp_pass]):
-        print("❌ Erro: Credenciais FTP não encontradas no .env")
+        print("[!] Erro: Credenciais FTP não encontradas no .env")
         return
 
     if env_mode == 'STAGING':
@@ -42,9 +42,9 @@ def force_upload():
             print(f"\n>>> Subindo: {local} -> {remote}")
             upload_to_hostinger(local, ftp_host, ftp_user, ftp_pass, remote_path=remote)
         else:
-            print(f"⚠️ Aviso: Arquivo não encontrado: {local}")
+            print(f"[!] Aviso: Arquivo não encontrado: {local}")
 
-    print("\n✅ ASSETS ESTRUTURAIS SINCRONIZADOS!")
+    print("\n[OK] ASSETS ESTRUTURAIS SINCRONIZADOS!")
 
 if __name__ == "__main__":
     force_upload()
