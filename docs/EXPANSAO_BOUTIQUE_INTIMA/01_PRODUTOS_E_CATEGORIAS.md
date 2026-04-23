@@ -17,14 +17,24 @@ Este documento define a hierarquia de produtos e a estratégia de nomenclatura p
 | **6** | Óleos e Velas | `Elixires Corporais Sensoriais` | Presentes e Mimos |
 | **7** | Kits Completos | `Rituais de Bem-Estar (Combo)` | Maximizar Lucro por Venda |
 
-### 2. 📁 Categorias da Vertical
-O menu da Boutique Sensual será dividido em:
+### 2. 📊 Arquitetura de Vitrines (Conversão Titanium)
+
+A Boutique Sensual opera com 3 camadas de exposição para maximizar o ticket médio e a recorrência:
+
+| Vitrine | Seção no Site | Quantidade | Foco do Copy |
+| :--- | :--- | :--- | :--- |
+| **01** | Radar Desejo (Sextech) | 18 Itens | Hype, Inovação e Curiosidade |
+| **02** | Seleção Especialista (Moda) | 24 Itens | Estética, Luxo e Autoconfiança |
+| **03** | Ofertas do Momento (Cosmética) | 24 Itens | Recorrência e Cuidado Diário |
+
+### 3. 📁 Categorias da Vertical
+O menu e filtros da Boutique Sensual serão divididos em:
 1.  **Tecnologia Íntima**: Toys, Sugadores e Tech.
 2.  **Moda & Luxo**: Lingerie, Camisolas e Bodies.
 3.  **Cosmética Sensorial**: Óleos, Velas e Hidratação.
 4.  **Acessórios Premium**: Mimos em cetim e detalhes.
 
-### 3. 📝 Regras de Copywriting (IA Titanium)
+### 4. 📝 Regras de Copywriting (IA Titanium)
 Para garantir a sofisticação, a IA deve seguir este dicionário:
 
 | ❌ Evitar (Vulgar) | ✅ Usar (Sofisticado) |

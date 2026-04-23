@@ -1,5 +1,5 @@
 # ⚙️ Expansão: Boutique Sensual Íntima
-## Documento 02: Arquitetura Técnica e Integração
+## Documento 02: Arquitetura Técnica e Integração (Status: Arquivos Criados)
 
 Este documento detalha como a nova vertical se integra ao sistema **Titanium v3.8** existente.
 

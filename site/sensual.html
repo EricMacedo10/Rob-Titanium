@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Boutique Sensual Íntima | Curadoria de Elite em Lingerie, Bem-Estar e Sextech Shopee. Luxo e discrição garantidos.">
+    <title>Boutique Sensual Íntima | Sofisticação & Bem-Estar Shopee</title>
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://guiadodesconto.com.br/sensual.html">
+    <meta property="og:title" content="Boutique Sensual | Curadoria de Elite">
+    <meta property="og:description"
+        content="Descubra a tecnologia de bem-estar e lingerie de luxo auditadas pelo Robô Titanium.">
+    <meta property="og:image" content="https://guiadodesconto.com.br/images/sensual-hero.png">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css?v=v3.8.0-sensual">
+    <link rel="stylesheet" href="css/titanium-security.css?v=v3.8.0-sensual">
+    
+    <style>
+        /* Sensual Vertical Exclusive Styles */
+        :root {
+            --sensual-primary: #4a0e4e; /* Deep Mauve */
+            --sensual-accent: #D4AF37;  /* Soft Gold */
+            --shopee-orange: #FF4500;
+        }
+
+        .sensual-gradient {
+            background: linear-gradient(135deg, var(--sensual-primary) 0%, #2d0a30 100%);
+        }
+
+        .radar-section.sensual-theme {
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2d0a30 0%, #1e293b 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-top: 2px solid var(--sensual-accent);
+        }
+
+        .radar-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .radar-badge.sensual {
+            background: var(--sensual-accent);
+            color: var(--sensual-primary);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        #radar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .radar-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .radar-card:hover {
+            border-color: var(--sensual-accent);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .radar-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid var(--sensual-accent);
+        }
+
+        .logo strong.sensual-brand {
+            color: var(--sensual-accent) !important;
+        }
+
+        .hero-section.sensual-hero {
+            background: #fffdf5;
+            position: relative;
+        }
+
+        .hero-section.sensual-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #fffdf5);
+        }
+
+        .sensual-footer {
+            background: var(--sensual-primary);
+        }
+
+        .btn-search.sensual {
+            background: var(--sensual-primary);
+        }
+
+        /* Voucher Hub Sensual Theme */
+        .voucher-hub-banner.sensual {
+            background: rgba(74, 14, 78, 0.08);
+            color: var(--sensual-primary);
+            border-bottom: 1px solid rgba(74, 14, 78, 0.2);
+        }
+
+        .category-pill.active {
+            background: var(--sensual-primary) !important;
+            border-color: var(--sensual-primary) !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. API Sync Banner -->
+    <div class="api-sync-banner" style="background: var(--sensual-primary); color: white; padding: 10px 0; font-size: 0.75rem; text-align: center; font-weight: 700; letter-spacing: 1.5px; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; border-bottom: 2px solid var(--sensual-accent); position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <i class="fa-solid fa-sparkles" style="color: var(--sensual-accent);"></i> 
+        Boutique Sensual: Tecnologia de Bem-Estar & Lingerie de Luxo
+    </div>
+
+    <!-- 1.5. Voucher Hub Shopee -->
+    <a href="https://s.shopee.com.br/16RtbfSuP" target="_blank" rel="noopener noreferrer" class="voucher-hub-banner sensual" id="voucher-hub">
+        <i class="fa-solid fa-ticket"></i> 🎟️ CENTRAL DE CUPONS: Resgate seus descontos exclusivos aqui! <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+    </a>
+
+    <!-- 2. Main Header -->
+    <header class="main-header">
+        <div class="container header-flex">
+            <div class="logo-area" onclick="window.location.href='index.html'" style="cursor:pointer">
+                <div class="logo">
+                    <i class="fas fa-heart" style="color: var(--sensual-primary);"></i>
+                    <span><span style="color: var(--sensual-primary);">Boutique</span> <strong class="sensual-brand">Sensual</strong></span>
+                </div>
+                <div class="header-tagline" style="color: var(--sensual-primary); font-weight: bold;">Bem-Estar, Luxo & Discrição 🔥</div>
+            </div>
+
+            <nav class="header-nav" style="display: flex; gap: 20px; align-items: center;">
+                <a href="index.html" style="text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.9rem;">Boutique Titanium</a>
+                <div class="header-trust-badges" style="margin-left: 10px;">
+                    <div class="trust-pill security" style="background: var(--sensual-primary); color: white;">
+                        <i class="fas fa-shield-halved"></i> Links Auditados
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 3. Hero Section -->
+    <section class="hero-section sensual-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon-wrapper" style="margin-bottom: 20px;">
+                    <i class="fa-solid fa-gem" style="font-size: 80px; color: var(--sensual-primary); filter: drop-shadow(0 10px 15px rgba(74, 14, 78, 0.2));"></i>
+                </div>
+
+                <h1>A sua <span class="highlight" style="background: linear-gradient(to right, var(--sensual-primary), #8e44ad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Curadoria VIP</span> de Bem-Estar Íntimo & Lingerie.</h1>
+                <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 30px;">Tecnologia avançada e design sofisticado com discrição absoluta.</p>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="O que você busca? Lingerie, Massageadores..." autocomplete="off">
+                        <button class="btn-search sensual">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Vitrine 1: Radar Desejo (Sextech - Tecnologia & Bem-Estar) -->
+    <section class="radar-section sensual-theme" id="radar">
+        <div class="container">
+            <div class="radar-header">
+                <span class="radar-badge sensual">Radar Desejo</span>
+                <h2 style="color: white; margin-bottom: 0;">Escolhas da <span style="color: var(--sensual-accent);">IA Titanium</span></h2>
+            </div>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 30px; font-size: 0.95rem;">Análise algorítmica de performance, design e discrição em SexTech.</p>
+            <div id="radar-grid">
+                <!-- Populado via JS app_sensual.js (18 itens) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Vitrine 2: Seleção da Especialista (Moda Íntima Premium - Lingerie) -->
+    <section class="specialist-collection" id="lingerie" style="padding: 60px 0; background: #fffdf5;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <div style="display:inline-block; padding: 5px 15px; background: rgba(74, 14, 78, 0.1); color: var(--sensual-primary); border: 1px solid rgba(74, 14, 78, 0.3); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px;">
+                    <i class="fas fa-crown"></i> COLEÇÃO EXCLUSIVA
+                </div>
+                <h2 style="color: var(--sensual-primary);">Seleção da <span style="color: var(--sensual-accent);">Especialista</span></h2>
+                <p>Curadoria de Rendas Francesas, Seda e Design Sculpture.</p>
+            </div>
+            <div id="platinum-grid" class="deals-grid">
+                <!-- Populado via JS app_sensual.js (24 itens) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Vitrine 3: Ofertas do Momento (Cosmética Erótica & Recorrência) -->
+    <section class="voted-deals" id="cosmetica" style="padding: 60px 0; background: white;">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--sensual-primary);">✨ Ofertas do Momento: Cosmética & Bem-Estar</h2>
+            <p style="margin-top: -20px; margin-bottom: 40px; color: #64748b;">Itens de recorrência: Séruns, Elixires e Velas de Massagem.</p>
+            
+            <!-- Privacy Protection Banner -->
+            <div class="anti-scam-banner" style="border-left: 5px solid var(--sensual-primary); background: #fdf2ff; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; align-items: center; gap: 20px;">
+                <i class="fas fa-box-open" style="color: var(--sensual-primary); font-size: 2rem;"></i>
+                <div>
+                    <h4 style="color: var(--sensual-primary); margin-bottom: 5px;">Privacidade & Discrição Garantidas</h4>
+                    <p style="color: #4a0e4e; font-size: 0.9rem;">Todas as encomendas são enviadas em <strong>embalagem 100% neutra</strong>. Sua segurança e sigilo são nossa prioridade máxima.</p>
+                </div>
+            </div>
+
+            <div id="deals-grid" class="deals-grid">
+                <!-- Populado via JS app_sensual.js (24 itens) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Footer -->
+    <footer class="main-footer sensual-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-heart" style="color: var(--sensual-accent);"></i>
+                        <span><span style="color: white;">Boutique</span> <strong style="color: var(--sensual-accent);">Sensual</strong></span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.7);">A sua vertical de luxo e bem-estar.<br>Discrição, tecnologia e sofisticação.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 style="color: white;">Boutiques</h4>
+                    <a href="index.html" style="color: rgba(255,255,255,0.7);">Boutique Titanium (Moda)</a>
+                    <a href="sensual.html" style="color: var(--sensual-accent); font-weight: bold;">Boutique Sensual</a>
+                </div>
+                <div class="footer-social">
+                    <h4 style="color: white;">Rede Social</h4>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/oferta.certa10/" target="_blank" style="color: white;"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <p>&copy; 2026 Boutique Sensual Íntima. Todos os direitos reservados.</p>
+                <p style="margin-top: 10px; font-size: 0.7rem;">Este site recebe comissão por vendas através de links de afiliados auditados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Assistant -->
+    <div class="titanium-assistant" id="titanium-assistant">
+        <div class="assistant-bubble">
+            <div class="bubble-text">Preparando sua curadoria de bem-estar...</div>
+        </div>
+        <div class="assistant-icon" style="background: var(--sensual-primary);"><i class="fas fa-sparkles"></i></div>
+    </div>
+
+    <!-- Security Overlay -->
+    <div class="security-overlay" id="security-overlay">
+        <div class="security-loader">
+            <i class="fas fa-circle-notch fa-spin" style="color: var(--sensual-primary);"></i>
+            <i class="fas fa-heart" style="color: var(--sensual-primary);"></i>
+        </div>
+        <div class="security-text">
+            <h3 style="color: var(--sensual-primary);">Criptografando Link Seguro</h3>
+            <p>Privacidade e sigilo ativos...</p>
+        </div>
+    </div>
+
+    <script src="js/app_sensual.js?v=v3.8.0-sensual"></script>
+</body>
+</html>
