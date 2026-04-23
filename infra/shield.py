@@ -47,17 +47,17 @@ def shield_url(url):
 
 def apply_nuclear_shield():
     print("="*60)
-    print("🛡️  INICIANDO BLINDAGEM NUCLEAR TITANIUM (v3.8)")
+    print("SHIELD: INICIANDO BLINDAGEM NUCLEAR TITANIUM (v3.8)")
     print("="*60)
 
     total_fixed = 0
 
     for file_path in FILES_TO_SHIELD:
         if not os.path.exists(file_path):
-            print(f"⚠️  Aviso: {file_path} não encontrado. Pulando...")
+            print(f"WARN: {file_path} nao encontrado. Pulando...")
             continue
 
-        print(f"🔍 Auditando {file_path}...")
+        print(f"INFO: Auditando {file_path}...")
         
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -66,14 +66,12 @@ def apply_nuclear_shield():
             modified = False
             for item in data:
                 original_link = item.get('link', '')
-                # Suporte para diferentes esquemas de JSON (ai_reviews usa 'link', data usa 'link')
                 if not original_link and 'product_url' in item:
                     original_link = item['product_url']
                 
                 shielded_link = shield_url(original_link)
                 
                 if original_link != shielded_link:
-                    # Atualiza o link no objeto (preservando a chave original)
                     if 'link' in item: item['link'] = shielded_link
                     if 'product_url' in item: item['product_url'] = shielded_link
                     modified = True
@@ -82,16 +80,16 @@ def apply_nuclear_shield():
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
                     json.dump(data, f, ensure_ascii=False, indent=4)
-                print(f"✅ {file_path} BLINDADO com sucesso.")
+                print(f"SUCCESS: {file_path} BLINDADO com sucesso.")
             else:
-                print(f"✨ {file_path} já estava 100% íntegro.")
+                print(f"OK: {file_path} ja estava 100% integro.")
 
         except Exception as e:
-            print(f"❌ Erro ao blindar {file_path}: {e}")
+            print(f"ERROR: Erro ao blindar {file_path}: {e}")
 
     print("="*60)
-    print(f"📊 RESUMO DA OPERAÇÃO: {total_fixed} links corrigidos.")
-    print("🛡️  SISTEMA BLINDADO E PRONTO PARA DEPLOY.")
+    print(f"STATS: {total_fixed} links corrigidos.")
+    print("SHIELD: SISTEMA BLINDADO E PRONTO PARA DEPLOY.")
     print("="*60)
     
     return True

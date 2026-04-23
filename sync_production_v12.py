@@ -28,12 +28,12 @@ def sync_titanium_production():
 
     # === TITANIUM NUCLEAR SHIELD (MANDATORY GATE) ===
     try:
-        from shield import apply_nuclear_shield
+        from infra.shield import apply_nuclear_shield
         if not apply_nuclear_shield():
-            print("❌ Falha crítica na blindagem dos dados. Abortando deploy.")
+            print("[!] Falha critica na blindagem dos dados. Abortando deploy.")
             return
     except Exception as e:
-        print(f"❌ Erro ao carregar motor de blindagem: {e}")
+        print(f"[!] Erro ao carregar motor de blindagem: {e}")
         return
 
     # MODO FORCADO: PRODUCTION
