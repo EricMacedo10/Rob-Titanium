@@ -1,5 +1,5 @@
-# 🌹 Expansão: Boutique Sensual Íntima (v1.0)
-## Documento 00: Visão Geral e Posicionamento de Marca
+# 🌹 Expansão: Boutique Sensual Íntima (v1.1)
+## Documento 00: Visão Geral e Posicionamento de Marca (Status: IMPLEMENTADO)
 
 Este documento detalha o conceito estratégico para a criação da vertical de bem-estar íntimo dentro do ecossistema **Guia do Desconto**.
 

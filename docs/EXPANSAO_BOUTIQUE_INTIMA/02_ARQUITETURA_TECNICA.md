@@ -1,5 +1,8 @@
-# ⚙️ Expansão: Boutique Sensual Íntima
-## Documento 02: Arquitetura Técnica e Integração (Status: Arquivos Criados)
+# ⚙️ Expansão: Boutique Sensual Íntima (v1.1)
+## Documento 02: Arquitetura Técnica e Integração (Status: OPERACIONAL)
+
+> [!TIP]
+> **Diferencial Técnico**: Implementado o selo dinâmico `TITANIUM CHOICE` no arquivo `app_sensual.js` para destacar ofertas com desconto superior a 30% via CSS Glassmorphism.
 
 Este documento detalha como a nova vertical se integra ao sistema **Titanium v3.8** existente.
 
