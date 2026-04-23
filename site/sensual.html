@@ -33,28 +33,49 @@
         /* Sensual Vertical Exclusive Styles */
         :root {
             --sensual-primary: #4a0e4e; /* Deep Mauve */
+            --sensual-secondary: #2d0a30;
             --sensual-accent: #D4AF37;  /* Soft Gold */
             --shopee-orange: #FF4500;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: #fffdf5;
         }
 
         .sensual-gradient {
-            background: linear-gradient(135deg, var(--sensual-primary) 0%, #2d0a30 100%);
+            background: linear-gradient(135deg, var(--sensual-primary) 0%, var(--sensual-secondary) 100%);
         }
 
         .radar-section.sensual-theme {
-            padding: 40px 0;
-            background: linear-gradient(135deg, #2d0a30 0%, #1e293b 100%);
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a051c 0%, #2d0a30 100%);
             color: white;
             position: relative;
             overflow: hidden;
-            border-top: 2px solid var(--sensual-accent);
+            border-top: 3px solid var(--sensual-accent);
+        }
+
+        /* Subtle background ornament */
+        .radar-section.sensual-theme::before {
+            content: 'TITANIUM';
+            position: absolute;
+            top: -50px;
+            right: -20px;
+            font-size: 15rem;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.03);
+            pointer-events: none;
+            user-select: none;
         }
 
         .radar-header {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 50px;
             position: relative;
             z-index: 2;
         }
@@ -62,74 +83,92 @@
         .radar-badge.sensual {
             background: var(--sensual-accent);
             color: var(--sensual-primary);
-            padding: 5px 12px;
+            padding: 6px 16px;
             border-radius: 50px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         #radar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
             position: relative;
             z-index: 2;
         }
 
         .radar-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            transition: all 0.3s ease;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             color: inherit;
         }
 
         .radar-card:hover {
+            transform: translateY(-10px);
             border-color: var(--sensual-accent);
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(212, 175, 55, 0.07);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .radar-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 15px;
+            width: 110px;
+            height: 110px;
+            border-radius: 20px;
             object-fit: cover;
             border: 2px solid var(--sensual-accent);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .radar-review {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            border-left: 2px solid var(--sensual-accent);
+            padding-left: 15px;
         }
 
         .logo strong.sensual-brand {
             color: var(--sensual-accent) !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .hero-section.sensual-hero {
-            background: #fffdf5;
-            position: relative;
+            background: radial-gradient(circle at top right, #fffdf5 0%, #fdf2ff 100%);
+            padding: 100px 0;
         }
 
-        .hero-section.sensual-hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(to bottom, transparent, #fffdf5);
+        .hero-icon-wrapper i {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
         .sensual-footer {
             background: var(--sensual-primary);
+            border-top: 5px solid var(--sensual-accent);
         }
 
         .btn-search.sensual {
             background: var(--sensual-primary);
+            box-shadow: 0 4px 15px rgba(74, 14, 78, 0.3);
         }
 
         /* Voucher Hub Sensual Theme */

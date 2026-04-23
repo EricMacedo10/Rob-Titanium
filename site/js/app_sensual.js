@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedOldPrice = deal.old_price ? formatter.format(deal.old_price) : '';
 
             const leftBadges = [];
+            if (deal.discount >= 30) {
+                leftBadges.push(`<div class="mini-badge gold" style="background: var(--sensual-accent, #D4AF37); color: #4a0e4e; padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(212,175,55,0.4);"><i class="fas fa-crown"></i> TITANIUM CHOICE</div>`);
+            }
             if (deal.discount >= 20) {
                 leftBadges.push(`<div class="mini-badge green" style="background: #22c55e; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 4px;"><i class="fas fa-arrow-trend-down"></i> MENOR PREÇO 30D</div>`);
             } else {
