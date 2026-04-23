@@ -1,4 +1,4 @@
-Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.7.0-Elite).
+Este documento explica como o Titanium ingere dados da Shopee e decide qual oferta é o "Melhor Negócio" (v3.8.0-Nuclear).
 
 ---
 
@@ -61,4 +61,4 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 ---
 ---
 **IA Titanium**
-*Atualizado em: 21/04/2026 - Versão: 3.7.0-Elite (Parser Flexível + Massive Pool Expansion)*
+*Atualizado em: 23/04/2026 - Versão: 3.8.0-Nuclear (Nuclear Shield Gate Integrated)*

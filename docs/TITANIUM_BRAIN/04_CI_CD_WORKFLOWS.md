@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v3.7.0 - Elite)
+# 🚀 Titanium Brain: CI/CD & Deployment (v3.8.0 - Nuclear)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -40,9 +40,9 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 
 ### Sincronização Atômica (`sync_production_v12.py`):
 O sistema utiliza um script inteligente de sincronização que:
-1.  Determina o modo de execução (`PRODUCTION`).
-2.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
-3.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
+2.  **Nuclear Shield Audit Gate**: Executa `infra/shield.py` para validar e corrigir 100% das tags de afiliado antes do upload.
+3.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
+4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
 ---
 
@@ -56,4 +56,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 ---
 ---
 **IA Titanium**
-*Atualizado em: 21/04/2026 - Tecnologia Shopee Datafeed 100K + Multi-Channel Sync*
+*Atualizado em: 23/04/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.8*

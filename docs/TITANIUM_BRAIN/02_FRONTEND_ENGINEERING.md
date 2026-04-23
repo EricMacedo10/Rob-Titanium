@@ -46,7 +46,7 @@ Foco exclusivo na plataforma Shopee com estética de vitrine premium.
 #### **B. Selos de Autoridade (Dynamic Badges)**
 1.  **Campeão de Vendas (Roxo)**: `#8e44ad` - Para produtos com alta temperatura.
 2.  **Oferta Relâmpago (Laranja)**: `#FF4500` - Para descontos acima de 20%.
-3.  **Link Seguro Verificado (Verde)**: Selo de confiança injetado via `app.js` após auditoria do Titanium Link Auditor v1.5.
+3.  **Link Seguro Verificado (Verde)**: Selo de confiança injetado via `app.js` após auditoria do Titanium Link Auditor v3.8.
 
 #### **C. Call to Action (CTA)**
 - **Botão Shopee Premium**: Cor `#2196F3` (Azul Shopee) para maximizar o CTR, diferenciando-se do laranja de navegação.
@@ -67,7 +67,9 @@ Implementado em [style.css] e [app.js] para guiar o usuário:
 - **Zero-Error Console (Premium Trust)**: Para um site inspirar confiança máxima e "Titanium Trust", o console do navegador do usuário deve ser limpo. A ausência de ativos estéticos raiz como `favicon.ico` gera erros silenciosos (404) que depreciam a qualidade técnica percebida pelas auditorias. É obrigatório manter todos os favicons e webmanifests presentes.
 - **Security Layer (Blindagem)**:
     - **Whitelist**: Domínios oficiais Shopee.
-    - **Titanium Link Auditor (v1.5)**: Injeção ativa de tags de afiliado em tempo real nos cliques do usuário.
+    - **Titanium Link Auditor (v3.8)**: Injeção ativa de tags de afiliado em tempo real nos cliques do usuário com inteligência de substituição de tags de terceiros.
++    - **MutationObserver Shield**: Monitoramento em tempo real do DOM para auditar links dinâmicos assim que são injetados na tela.
++    - **Global Click Interceptor**: Captura global de cliques em links Shopee para garantir auditoria mandatória antes da navegação.
     - **Cache Busting**: Versionamento agressivo de scripts (`?v=2026v15`).
 - **Content Security Policy (CSP)**: Implementa regras de "Zero Trust" mas permite especificamente a comunicação com domínios de rastreamento do Google (`www.googletagmanager.com`, `*.google-analytics.com`) para garantir métricas precisas.
 

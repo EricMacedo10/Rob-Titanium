@@ -102,8 +102,8 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
 1. **Filtro de Desejo**: A IA DeepSeek-V3.2 (Speciale) não apenas analisa preços, mas a "curva de desejo" (Fashion Intensity) de cada item via Extreme Reasoning.
 2. **Master Deduplication Strategy**: O motor de IA é instruído a ignorar qualquer item contido no `specialist.json`, focando em novidades puras para o Radar.
 3. **Simetria Obrigatória (Compliance Visual)**: O motor `review_engine.py` **deve obrigatoriamente gerar exatos 18 itens**.
-4. **Blindagem de Atribuição (Universal Linker)**: 
+4. **Nuclear Shield v3.8 (Anti-Loss Protection)**: 
    - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
-   - Garantir que o `utm_source` seja sempre `titanium_radar` ou venha direto do Datafeed Elite.
+   - O Gatekeeper `infra/shield.py` validará e corrigirá qualquer link gerado pela IA antes do upload final.
 
-*Última Auditoria Técnica: 21/04/2026 - Status: 100% Shopee Massive Datafeed | Bot v2.3.0 | Deduplicação Master Ativa*
+*Última Auditoria Técnica: 23/04/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Bot v2.4.0*

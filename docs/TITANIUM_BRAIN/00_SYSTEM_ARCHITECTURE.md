@@ -1,6 +1,6 @@
 # 🧠 Titanium Brain: System Architecture Map (v2026)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.7.0-Massive).
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.8.0-Nuclear).
 
 ---
 
@@ -72,7 +72,7 @@ graph TD
     - **PRODUCTION**: Atualiza estritamente o `data.json` e `notifications.json`.
     - **STAGING**: Sincroniza `index_staging.html`, `app.js` e `style.css` automaticamente para validação imediata.
 - **AI-Only (DeepSeek)**: Uso exclusivo da API **DeepSeek-V3.2 (Speciale)** para curadoria e editorial de alto nível. O sistema aproveita o "Extreme Reasoning" para garantir que cada recomendação de produto seja cirúrgica.
-- **Link Auditing (Universal)**: 100% dos links (API, CSV e Social) passam pelo `core/link_builder.py` para injeção mandatória da tag `an_18318830863`.
+- **Nuclear Shield (v3.8)**: 100% dos links (API, CSV e Social) passam pelo `core/link_builder.py` e são auditados obrigatoriamente pelo `infra/shield.py` antes de qualquer upload. Injeção mandatória da tag `an_18318830863` com inteligência anti-duplicação.
 - **Analytics Shield**: Integração de eventos `click` via `gtag` para comparação direta tráfego vs. conversão Shopee.
 
 - **Editorial SEO Max**: O sistema gera artigos semanais com mais de 1000 palavras, injetando produtos reais do Datafeed para máxima autoridade (E-E-A-T) e aprovação no AdSense.
@@ -80,4 +80,4 @@ graph TD
 - **Extreme Vitrine Density**: Expansão do pool de mineração de 30 para **100 itens** e retenção de até **80 produtos históricos**, garantindo uma vitrine sempre densa e luxuosa (70-90 itens únicos após deduplicação).
 
 ---
-*Atualizado em: 21/04/2026 - Versão: 3.7.0-Elite (Deduplicação Master + 100K Datafeed)*
+*Atualizado em: 23/04/2026 - Versão: 3.8.0-Nuclear (Nuclear Shield + MutationObserver Protection)*

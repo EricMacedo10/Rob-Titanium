@@ -162,4 +162,4 @@ Titanium usa `social/bot_comentario_brick3d.py` para monitoramento local de alta
 - **Interval**: Set to 60s to stay under Meta's rate-limit thresholds for automated actions.
 
 ---
-*Atualizado em: 21/04/2026 - Versão: v2.3.0 (Massive Datafeed & Official Image API Support)*
+*Atualizado em: 23/04/2026 - Versão: v3.8.0 (Nuclear Shield Logic Applied to Queue)*
