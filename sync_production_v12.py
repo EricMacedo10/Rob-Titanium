@@ -26,6 +26,16 @@ def sync_titanium_production():
         print("[!] Erro: Credenciais FTP nao encontradas no .env")
         return
 
+    # === TITANIUM NUCLEAR SHIELD (MANDATORY GATE) ===
+    try:
+        from shield import apply_nuclear_shield
+        if not apply_nuclear_shield():
+            print("❌ Falha crítica na blindagem dos dados. Abortando deploy.")
+            return
+    except Exception as e:
+        print(f"❌ Erro ao carregar motor de blindagem: {e}")
+        return
+
     # MODO FORCADO: PRODUCTION
     os.environ['ENV_MODE'] = 'PRODUCTION'
 

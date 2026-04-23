@@ -108,15 +108,28 @@ function titaniumLinkAuditor(rawUrl, storeHint = "") {
     if (!rawUrl) return rawUrl;
     
     let url = rawUrl;
-    const store = (storeHint || "").toLowerCase();
-    const config = TITANIUM_CONFIG.TAGS;
+    const shopeeID = TITANIUM_CONFIG.TAGS.shopee || "an_18318830863";
 
     try {
-        // --- AUDITORIA SHOPEE (Deep Linking Dinâmico) ---
+        // --- AUDITORIA SHOPEE (Deep Linking Dinâmico & Anti-Perda) ---
         if (url.includes('shopee.com.br')) {
-            // Se for link direto (não for link curto s.shopee ou shope.ee) e não tiver tag
-            if (!url.includes('utm_source=') && !url.includes('s.shopee.com.br') && !url.includes('shope.ee')) {
-                const shopeeID = "an_18318830863"; // ID oficial do Eric
+            // 1. Se for link curto oficial, confiamos no backend (mas garantimos que não seja link quebrado)
+            if (url.includes('s.shopee.com.br') || url.includes('shope.ee')) {
+                return url;
+            }
+
+            // 2. Se já tem a nossa tag, perfeito.
+            if (url.includes(`utm_source=${shopeeID}`)) {
+                return url;
+            }
+
+            // 3. Se tem utm_source de terceiros ou está sem tag, nós corrigimos/injetamos
+            if (url.includes('utm_source=')) {
+                // Substitui qualquer utm_source pelo nosso
+                url = url.replace(/utm_source=[^&]*/, `utm_source=${shopeeID}`);
+                console.log('[Titanium Auditor] Tag Shopee corrigida via Auditoria.');
+            } else {
+                // Injeta nova tag
                 const separator = url.includes('?') ? '&' : '?';
                 url = `${url}${separator}utm_source=${shopeeID}`;
                 console.log('[Titanium Auditor] Tag Shopee injetada via Auditoria.');
@@ -1334,8 +1347,10 @@ async function initTitaniumLightningBar() {
                 const displayTitle = (item.title || '').length > 30 ? item.title.substring(0, 27) + '...' : item.title;
                 const formattedPrice = `R$ ${parseFloat(item.price).toFixed(2).replace('.', ',')}`;
                 
+                const auditedLink = window.titaniumLinkAuditor ? window.titaniumLinkAuditor(item.link) : item.link;
+                
                 html += `
-                    <a href="${item.link}" target="_blank" class="lightning-item" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: white;">
+                    <a href="${auditedLink}" target="_blank" class="lightning-item" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: white;">
                         <span class="lightning-badge" style="background: white; color: #ee4d2d; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 800;">SHOPEE</span>
                         <strong style="font-size: 0.85rem; font-weight: 500;">${displayTitle}</strong>
                         <span class="lightning-price" style="color: #ffeb3b; font-weight: 800; font-size: 0.95rem;">${formattedPrice}</span>
@@ -1580,4 +1595,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initTitaniumRadar();
     initTitaniumAssistant();
+
+    // === GLOBAL LINK PROTECTOR: Last Line of Defense (v3.8) ===
+    // 1. MutationObserver: Corrige links assim que aparecem no DOM
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Element
+                    const links = node.tagName === 'A' ? [node] : node.querySelectorAll('a');
+                    links.forEach(link => {
+                        if (link.href && link.href.includes('shopee.com.br') && !link.dataset.audited) {
+                            link.href = titaniumLinkAuditor(link.href);
+                            link.dataset.audited = "true";
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // 2. Interceptor de Clique (Capture Phase) - Proteção para links injetados via innerHTML
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (link && link.href && link.href.includes('shopee.com.br')) {
+            const originalUrl = link.href;
+            const auditedUrl = titaniumLinkAuditor(originalUrl);
+            
+            if (originalUrl !== auditedUrl) {
+                console.log('[Titanium Global Shield] Link interceptado e corrigido no clique.');
+                link.href = auditedUrl;
+            }
+            link.dataset.audited = "true";
+        }
+    }, true); 
 });

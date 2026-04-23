@@ -39,7 +39,16 @@ def build_affiliate_link(url, store, keyword=None):
             if not tag:
                 return url
             
-            # Adiciona utm_source=an_18318830863
+            # Se já tem a nossa tag exata, não duplica
+            if f"utm_source={tag}" in url:
+                return url
+                
+            # Se tem utm_source mas é outro ID, substitui (Prevenção de Perda)
+            import re
+            if "utm_source=" in url:
+                return re.sub(r'utm_source=[^&]*', f'utm_source={tag}', url)
+            
+            # Se não tem nada, adiciona
             sep = "&" if "?" in url else "?"
             return f"{url}{sep}utm_source={tag}"
             

@@ -23,6 +23,16 @@ def upload_data_json():
         print("❌ site/data.json not found!")
         return False
 
+    # === TITANIUM NUCLEAR SHIELD (MANDATORY GATE) ===
+    try:
+        from infra.shield import apply_nuclear_shield
+        if not apply_nuclear_shield():
+            print("❌ Falha na blindagem. Abortando.")
+            return False
+    except Exception as e:
+        print(f"❌ Erro na blindagem: {e}")
+        return False
+
     try:
         ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
         print("✅ Connected to FTP")
