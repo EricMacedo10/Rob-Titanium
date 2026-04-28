@@ -137,7 +137,11 @@ class ResilientUploader:
 
             if not content_type.startswith(("image/", "video/")):
                 print(f"--- [ERRO] Meta-check: Content-Type '{content_type}' (esperado image/* ou video/*)")
-                print(f"--- Hostinger provavelmente retornou uma página HTML de bloqueio.")
+                # Se for HTML, verificamos se é um erro conhecido do WAF
+                if "text/html" in content_type:
+                    body_sample = r.content[:1024].decode('utf-8', errors='ignore').lower()
+                    if "browser challenge" in body_sample or "blocked" in body_sample:
+                        print(f"--- [ERRO] Meta-check: Detectado desafio de browser ou bloqueio (WAF).")
                 return False
 
             if content_length < 10240:  # Menos de 10KB = provavelmente uma página de erro

@@ -39,18 +39,23 @@ def build_affiliate_link(url, store, keyword=None):
             if not tag:
                 return url
             
-            # Se já tem a nossa tag exata, não duplica
-            if f"utm_source={tag}" in url:
-                return url
-                
-            # Se tem utm_source mas é outro ID, substitui (Prevenção de Perda)
-            import re
-            if "utm_source=" in url:
-                return re.sub(r'utm_source=[^&]*', f'utm_source={tag}', url)
+            # Use urllib.parse para garantir que a tag seja única e limpa
+            from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
+            parsed = urlparse(url)
+            params = parse_qs(parsed.query)
             
-            # Se não tem nada, adiciona
-            sep = "&" if "?" in url else "?"
-            return f"{url}{sep}utm_source={tag}"
+            # Substitui qualquer utm_source existente pela nossa tag oficial
+            params['utm_source'] = [tag]
+            
+            new_query = urlencode(params, doseq=True)
+            return urlunparse((
+                parsed.scheme,
+                parsed.netloc,
+                parsed.path,
+                parsed.params,
+                new_query,
+                parsed.fragment
+            ))
             
         return url
         

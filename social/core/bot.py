@@ -68,7 +68,7 @@ class SocialBot:
         Agora suporta CARROSSEL AUTOMÁTICO de até 10 itens.
         """
         print("\n" + "="*60)
-        print("🤖 INICIANDO TITANIUM SOCIAL BOT - MODO POST ÚNICO (v2.1.0)")
+        print("🤖 INICIANDO TITANIUM SOCIAL BOT - MODO POST ÚNICO (v2.2.0)")
         print("="*60)
         
         from social.utils.video_utils import image_to_video
@@ -85,6 +85,7 @@ class SocialBot:
 
         fila_dir = "social/fila"
         postados_dir = "social/postados"
+        temp_dir = "social/temp_videos"
         formatos_validos = ('.png', '.jpg', '.jpeg', '.mp4', '.mov')
         arquivos_fila = sorted([f for f in os.listdir(fila_dir) if f.lower().endswith(formatos_validos)])
         
@@ -103,13 +104,18 @@ class SocialBot:
         media_to_upload = []
         combined_captions = []
         full_paths = []
+        temp_video_paths = []  # Rastrear vídeos temporários para limpeza
         
         store = "shopee" # Default
         category = "ofertas"
 
+        # Garantir diretório temporário para vídeos convertidos
+        os.makedirs(temp_dir, exist_ok=True)
+
         for i, filename in enumerate(target_files):
             local_path = os.path.join(fila_dir, filename)
             full_paths.append(local_path)
+            is_image = filename.lower().endswith(('.png', '.jpg', '.jpeg'))
             is_video = filename.lower().endswith(('.mp4', '.mov'))
             
             # Identificação básica
@@ -125,9 +131,26 @@ class SocialBot:
                     combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {meta['price']}")
                 except: pass
 
-            media_to_upload.append({"local": local_path, "type": "VIDEO" if is_video else "IMAGE"})
+            # BLINDAGEM v3: Converter TODAS as imagens para vídeo (Ken Burns)
+            # Motivo: O WAF do Hostinger retorna Content-Type: application/octet-stream
+            # para imagens .jpg, causando rejeição pelo crawler da Meta (erro 9004).
+            # Vídeos .mp4 são servidos corretamente e postados como Reels (3-5x mais alcance).
+            if is_image:
+                video_filename = os.path.splitext(filename)[0] + ".mp4"
+                video_path = os.path.join(temp_dir, video_filename)
+                print(f"🎬 [BLINDAGEM] Convertendo imagem → vídeo dinâmico (Ken Burns): {filename}")
+                conversion_ok = image_to_video(local_path, video_path, duration=5, fps=30)
+                if conversion_ok and os.path.exists(video_path):
+                    media_to_upload.append({"local": video_path, "type": "VIDEO"})
+                    temp_video_paths.append(video_path)
+                    print(f"✅ Conversão concluída: {video_filename}")
+                else:
+                    print(f"⚠️ Falha na conversão de {filename}. Tentando upload direto como imagem (fallback)...")
+                    media_to_upload.append({"local": local_path, "type": "IMAGE"})
+            else:
+                media_to_upload.append({"local": local_path, "type": "VIDEO"})
 
-        # Construir Legenda Premium do Carrossel
+        # Construir Legenda Premium
         header = f"✨ SELEÇÃO EXCLUSIVA: {store.upper()} ✨\n\n"
         body = "\n".join(combined_captions) if combined_captions else f"Novidades incríveis em {category.upper()} para você! 🚀"
         footer = f"\n\n💬 Comente **'QUERO'** que o nosso robô Titanium manda todos os links no seu direct! 🦾🤖\n\n#TitaniumBot #ShopeeBrasil #Achadinhos #Moda #Curadoria"
@@ -136,32 +159,31 @@ class SocialBot:
         # --- EXECUÇÃO DO UPLOAD ---
         public_urls = []
         for item in media_to_upload:
-            ext = ".mp4" if item["type"] == "VIDEO" else ".jpg"
             remote_name = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['local'])}"
             url = self.uploader.upload(item["local"], remote_name)
             if url:
                 public_urls.append({"url": url, "type": item["type"]})
             else:
                 print(f"❌ Falha crítica no upload de {item['local']}. Abortando ciclo.")
+                # Limpeza de temporários antes de sair
+                for tmp in temp_video_paths:
+                    if os.path.exists(tmp): os.remove(tmp)
                 sys.exit(1)
 
         # --- POSTAGEM ---
         success = False
         if self.instagram and public_urls:
-            if len(public_urls) > 1:
-                print(f"📢 Publicando CARROSSEL com {len(public_urls)} itens...")
-                success = self.instagram.post_carousel(public_urls, final_caption)
+            # Com a blindagem, TODOS os itens são vídeos agora → postar como Reels
+            item = public_urls[0]
+            if item["type"] == "VIDEO":
+                print(f"🎬 Postando REELS dinâmico (Ken Burns) no Instagram...")
+                success = self.instagram.post_reels(item["url"], final_caption)
             else:
-                # Se só sobrou 1 (ou a fila só tinha 1), posta conforme o tipo original
-                item = public_urls[0]
-                if item["type"] == "IMAGE":
-                    print(f"📸 Postando IMAGEM estática no feed...")
-                    success = self.instagram.post_image(item["url"], final_caption)
-                else:
-                    print(f"🎬 Postando VÍDEO original como Reels...")
-                    success = self.instagram.post_reels(item["url"], final_caption)
+                # Fallback raro: imagem que falhou na conversão
+                print(f"📸 Postando IMAGEM estática no feed (fallback)...")
+                success = self.instagram.post_image(item["url"], final_caption)
         else:
-            print("🧪 [SIMULAÇÃO] Postagem de Carrossel Simulada com Sucesso.")
+            print("🧪 [SIMULAÇÃO] Postagem Simulada com Sucesso.")
             success = True
 
         # --- FINALIZAÇÃO ---
@@ -169,15 +191,21 @@ class SocialBot:
             print("🎉 CICLO CONCLUÍDO COM SUCESSO!")
             os.makedirs(postados_dir, exist_ok=True)
             for path in full_paths:
-                # Move imagem/vídeo
+                # Move imagem/vídeo original
                 shutil.move(path, os.path.join(postados_dir, os.path.basename(path)))
-                # Move JSON
+                # Move JSON de metadata
                 jp = path.replace(os.path.splitext(path)[1], '.json')
                 if os.path.exists(jp):
                     shutil.move(jp, os.path.join(postados_dir, os.path.basename(jp)))
+            # Limpeza de vídeos temporários
+            for tmp in temp_video_paths:
+                if os.path.exists(tmp): os.remove(tmp)
             sys.exit(0)
         else:
             print("❌ Falha crítica no ciclo de postagem.")
+            # Limpeza de temporários antes de sair
+            for tmp in temp_video_paths:
+                if os.path.exists(tmp): os.remove(tmp)
             sys.exit(1)
 
     def _run_fallback_cycle(self, force_store):

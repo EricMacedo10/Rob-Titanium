@@ -14,22 +14,16 @@ FILES_TO_SHIELD = [
 def shield_url(url):
     """
     Aplica a blindagem atômica em uma única URL Shopee.
+    Garante que a tag utm_source seja única e correta.
     """
     if not url or 'shopee.com.br' not in url:
         return url
 
-    # Pula links curtos que já são domínios de afiliado (confiamos no backend de encurtamento)
-    if 's.shopee.com.br' in url or 'shope.ee' in url:
-        return url
-
-    # Remove parâmetros de tracking 'sujos' que podem interferir
-    url = re.sub(r'[?&](sp_atk|xptdk)=[^&]*', '', url)
-
-    # Parse da URL
+    # Parse da URL para garantir integridade
     parsed = urlparse(url)
     params = parse_qs(parsed.query)
 
-    # Se já tem utm_source mas é diferente, substitui. Se não tem, adiciona.
+    # Injeção/Substituição atômica da Tag
     params['utm_source'] = [TARGET_TAG]
 
     # Reconstrói a URL limpa e blindada
