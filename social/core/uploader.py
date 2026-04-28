@@ -80,24 +80,23 @@ class ResilientUploader:
         return None
 
     def _upload_to_imgbb(self, local_path):
-        """Upload simples para ImgBB API."""
-        url = "https://api.imgbb.com/1/upload"
+        """Upload para tmpfiles (substituindo ImgBB que bloqueia o Meta)"""
+        url = "https://tmpfiles.org/api/v1/upload"
         try:
             with open(local_path, "rb") as file:
-                payload = {
-                    "key": self.imgbb_api_key,
-                    "image": base64.b64encode(file.read()),
-                }
-                response = requests.post(url, payload, timeout=30)
+                files = {"file": file}
+                response = requests.post(url, files=files, timeout=30)
                 data = response.json()
-                if data.get("success"):
-                    imgbb_url = data["data"]["url"]
-                    print(f"--- [OK] ImgBB upload OK: {imgbb_url}")
-                    return imgbb_url
+                if data.get("status") == "success":
+                    raw_url = data["data"]["url"]
+                    # Converter URL de viewer para direct link (ex: tmpfiles.org/123/img.jpg -> tmpfiles.org/dl/123/img.jpg)
+                    direct_url = raw_url.replace("tmpfiles.org/", "tmpfiles.org/dl/")
+                    print(f"--- [OK] Tmpfiles upload OK: {direct_url}")
+                    return direct_url
                 else:
-                    print(f"--- Erro ImgBB: {data.get('error', {}).get('message')}")
+                    print(f"--- Erro Tmpfiles: {data}")
         except Exception as e:
-            print(f"--- Falha critica no ImgBB: {e}")
+            print(f"--- Falha critica no Tmpfiles: {e}")
         return None
 
     def _verify_link(self, url):

@@ -158,7 +158,7 @@ class InstagramClient:
         """
         Realiza o fluxo completo de postagem para Feed (Imagem).
         """
-        return self._create_and_publish(image_url, caption, media_type=None)
+        return self._create_and_publish(image_url, caption, media_type="IMAGE")
 
     @prevent_concurrent_posts
     def post_carousel(self, media_items, caption):
