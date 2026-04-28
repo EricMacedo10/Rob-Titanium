@@ -26,4 +26,10 @@ O cérebro humano tem a tendência de preencher lacunas ou testar coisas copiand
 O repositório utiliza mecanismos para prevenir que desenvolvedores cometam erros e deem push em senhas acidentalmente.
 Nós utilizamos o **detect-secrets** como pre-commit hook. Ao detectar uma senha, o commit é cancelado.
 
+## 4. GitHub Advanced Security (Nuvem)
+Além do bloqueio local, o repositório conta com três camadas de proteção ativa nos servidores do GitHub (configurados em `Settings > Code security and analysis`):
+1. **Push Protection**: Rejeita ativamente qualquer comando `git push` que contenha tokens de parceiros identificáveis (AWS, Meta, Github, etc).
+2. **Secret Scanning**: Varredura assíncrona constante em busca de vazamentos de chaves de API não cobertas pelo Push Protection.
+3. **Dependabot Alerts & Updates**: Monitoramento contínuo do arquivo `requirements.txt`. O GitHub notifica proativamente sobre vulnerabilidades descobertas em dependências Python (ex: `requests`, `pillow`) e gera *Pull Requests* automáticos de segurança.
+
 *Versão: 1.0 (Segurança do Titanium Brain)*
