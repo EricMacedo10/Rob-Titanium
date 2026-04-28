@@ -131,22 +131,10 @@ class SocialBot:
                     combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {meta['price']}")
                 except: pass
 
-            # BLINDAGEM v3: Converter TODAS as imagens para vídeo (Ken Burns)
-            # Motivo: O WAF do Hostinger retorna Content-Type: application/octet-stream
-            # para imagens .jpg, causando rejeição pelo crawler da Meta (erro 9004).
-            # Vídeos .mp4 são servidos corretamente e postados como Reels (3-5x mais alcance).
+            # O usuário prefere a postagem original de FOTOS.
+            # O bypass do Hostinger WAF é feito via fallback para o ImgBB no uploader.py
             if is_image:
-                video_filename = os.path.splitext(filename)[0] + ".mp4"
-                video_path = os.path.join(temp_dir, video_filename)
-                print(f"🎬 [BLINDAGEM] Convertendo imagem → vídeo dinâmico (Ken Burns): {filename}")
-                conversion_ok = image_to_video(local_path, video_path, duration=5, fps=24)
-                if conversion_ok and os.path.exists(video_path):
-                    media_to_upload.append({"local": video_path, "type": "VIDEO", "fallback_local": local_path})
-                    temp_video_paths.append(video_path)
-                    print(f"✅ Conversão concluída: {video_filename}")
-                else:
-                    print(f"⚠️ Falha na conversão de {filename}. Tentando upload direto como imagem (fallback)...")
-                    media_to_upload.append({"local": local_path, "type": "IMAGE"})
+                media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
             else:
                 media_to_upload.append({"local": local_path, "type": "VIDEO", "fallback_local": None})
 
@@ -164,10 +152,11 @@ class SocialBot:
             if url:
                 public_urls.append({"url": url, "type": item["type"]})
             else:
-                if item.get("fallback_local") and os.path.exists(item["fallback_local"]):
+                fallback_path = item.get("fallback_local")
+                if fallback_path and os.path.exists(fallback_path):
                     print(f"⚠️ Falha no upload do vídeo. Tentando fallback seguro para IMAGEM original...")
-                    remote_name_img = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['fallback_local'])}"
-                    url_img = self.uploader.upload(item["fallback_local"], remote_name_img)
+                    remote_name_img = f"titanium_cluster_{int(time.time())}_{os.path.basename(fallback_path)}"
+                    url_img = self.uploader.upload(fallback_path, remote_name_img)
                     if url_img:
                         public_urls.append({"url": url_img, "type": "IMAGE"})
                         continue
