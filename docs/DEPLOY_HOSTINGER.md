@@ -157,7 +157,7 @@ O GitHub Actions precisa fazer upload do `data.json` atualizado automaticamente.
 2. Clique em **Criar conta FTP**
 3. Preencha:
    - **Nome de usuário**: `robo-titanium` (ou outro nome)
-   - **Senha**: Gere uma senha forte (ex: `Rb@T1t4n1um2026!`)
+   - **Senha**: Gere uma senha forte (ex: `<SUA_SENHA_AQUI>`)
    - **Diretório**: `/public_html` (ou deixe padrão)
 4. Clique em **Criar**
 
@@ -168,7 +168,7 @@ Após criar, você terá:
 ```
 FTP_HOST: ftp.guiadodesconto.com.br
 FTP_USER: robo-titanium@guiadodesconto.com.br
-FTP_PASS: Rb@T1t4n1um2026!
+FTP_PASS: <SUA_SENHA_FTP>
 ```
 
 > [!IMPORTANT]
@@ -183,7 +183,7 @@ Você pode testar a conexão usando FileZilla:
 3. Preencha:
    - **Host**: `ftp.guiadodesconto.com.br`
    - **Usuário**: `robo-titanium@guiadodesconto.com.br`
-   - **Senha**: `Rb@T1t4n1um2026!`
+   - **Senha**: `<SUA_SENHA_FTP>`
    - **Porta**: `21`
 4. Clique em **Quickconnect**
 5. Se conectar, está funcionando! ✅
@@ -217,7 +217,7 @@ Agora que temos as credenciais FTP, vamos adicioná-las ao GitHub Secrets.
 
 1. Clique em **New repository secret**
 2. **Name**: `FTP_PASS`
-3. **Secret**: `Rb@T1t4n1um2026!` (use a senha que você criou)
+3. **Secret**: `<SUA_SENHA_FTP>` (use a senha que você criou)
 4. Clique em **Add secret**
 
 ### Passo 5: Atualizar .env local
@@ -230,7 +230,7 @@ Edite o arquivo `.env` local e descomente as linhas FTP:
 # ========================================
 FTP_HOST=ftp.guiadodesconto.com.br
 FTP_USER=robo-titanium@guiadodesconto.com.br
-FTP_PASS=Rb@T1t4n1um2026!
+FTP_PASS=<SUA_SENHA_FTP>
 ```
 
 > [!WARNING]
