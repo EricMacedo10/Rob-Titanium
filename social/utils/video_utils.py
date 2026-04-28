@@ -31,7 +31,8 @@ def image_to_video(image_path, output_path, duration=5, fps=30):
             audio=False, 
             threads=4, 
             logger=None, 
-            preset='medium' # Estabilidade sobre velocidade
+            bitrate="1000k",
+            preset='fast' # Rapidez e compressão equilibradas
         )
         
         clip.close()

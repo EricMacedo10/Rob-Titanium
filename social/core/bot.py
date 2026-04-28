@@ -139,16 +139,16 @@ class SocialBot:
                 video_filename = os.path.splitext(filename)[0] + ".mp4"
                 video_path = os.path.join(temp_dir, video_filename)
                 print(f"🎬 [BLINDAGEM] Convertendo imagem → vídeo dinâmico (Ken Burns): {filename}")
-                conversion_ok = image_to_video(local_path, video_path, duration=5, fps=30)
+                conversion_ok = image_to_video(local_path, video_path, duration=5, fps=24)
                 if conversion_ok and os.path.exists(video_path):
-                    media_to_upload.append({"local": video_path, "type": "VIDEO"})
+                    media_to_upload.append({"local": video_path, "type": "VIDEO", "fallback_local": local_path})
                     temp_video_paths.append(video_path)
                     print(f"✅ Conversão concluída: {video_filename}")
                 else:
                     print(f"⚠️ Falha na conversão de {filename}. Tentando upload direto como imagem (fallback)...")
                     media_to_upload.append({"local": local_path, "type": "IMAGE"})
             else:
-                media_to_upload.append({"local": local_path, "type": "VIDEO"})
+                media_to_upload.append({"local": local_path, "type": "VIDEO", "fallback_local": None})
 
         # Construir Legenda Premium
         header = f"✨ SELEÇÃO EXCLUSIVA: {store.upper()} ✨\n\n"
@@ -164,6 +164,14 @@ class SocialBot:
             if url:
                 public_urls.append({"url": url, "type": item["type"]})
             else:
+                if item.get("fallback_local") and os.path.exists(item["fallback_local"]):
+                    print(f"⚠️ Falha no upload do vídeo. Tentando fallback seguro para IMAGEM original...")
+                    remote_name_img = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['fallback_local'])}"
+                    url_img = self.uploader.upload(item["fallback_local"], remote_name_img)
+                    if url_img:
+                        public_urls.append({"url": url_img, "type": "IMAGE"})
+                        continue
+
                 print(f"❌ Falha crítica no upload de {item['local']}. Abortando ciclo.")
                 # Limpeza de temporários antes de sair
                 for tmp in temp_video_paths:
