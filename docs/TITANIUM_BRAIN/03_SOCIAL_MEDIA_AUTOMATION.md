@@ -24,10 +24,11 @@ O bot opera em três frentes de atuação:
 ## 🎞️ Media Processing & Resilience
 
 Titanium prioriza **Reels** devido ao alcance orgânico superior.
-- **Resilient Upload Strategy (v1158)**:
-    1.  **Prioridade 1: Hostinger (FTP)** -> `/social/`.
-    2.  **Auto-fallback ImgBB**: Ativado se o crawler do Facebook for bloqueado pelo WAF do Hostinger.
-    3.  **Smart Polling**: O `InstagramClient` monitora o processamento na nuvem do Meta com loops de retry e timeout inteligente.
+- **Resilient Upload Strategy (v2.4.2)**:
+    1.  **Prioridade 1: Cloud Bypass (Tmpfiles.org)** -> Usado como `force_cloud=True` para driblar bloqueios ativos da Meta na hospedagem primária.
+    2.  **Por que Tmpfiles?**: Substituiu o ImgBB porque o domínio `ibb.co` foi bloqueado pelo crawler do Facebook (resultando no Erro OAuthException 9004: "Only photo or video can be accepted").
+    3.  **Hostinger WAF**: A Hostinger bloqueava o User-Agent do Facebook via ModSecurity dinâmico. A migração para a nuvem resolveu este impasse garantindo 100% de acessibilidade.
+    4.  **Smart Polling**: O `InstagramClient` monitora o processamento na nuvem do Meta com loops de retry e timeout tolerantes a containers nulos (especial para mídias mistas).
 
 ---
 
@@ -50,4 +51,4 @@ Ativado por palavras como: `"link"`, `"quero"`, `"valor"`, `"preco"`.
 - **Sensual Boutique**: Deep Mauve, Soft Gold e Transparências.
 
 ---
-*Atualizado em: 23/04/2026 - Versão: v3.8.1 (Multivirtines Social Support)*
+*Atualizado em: 28/04/2026 - Versão: v3.8.2 (Multivitrines e Bypass Cloud Social)*
