@@ -1,0 +1,53 @@
+name: '🦾 Titanium: Sensual Niche Auto-Update'
+
+on:
+  schedule:
+    # Rodando em horários alternados para não colidir com Moda/Beleza
+    # 03:15, 09:15, 15:15, 21:15 UTC
+    - cron: '15 3 * * *'
+    - cron: '15 9 * * *'
+    - cron: '15 15 * * *'
+    - cron: '15 21 * * *'
+  workflow_dispatch: # Permite rodar manualmente para testes
+
+# Trava de Segurança Nuclear: Impede que dois updates do mesmo nicho rodem ao mesmo tempo
+concurrency:
+  group: niche-sensual
+  cancel-in-progress: true
+
+jobs:
+  update-sensual-niche:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🦾 Step 1: Sensual Miner (Busca & Filtro de Luxo)
+        run: python scraper/production_sensual_miner.py
+        env:
+          PYTHONPATH: .
+
+      - name: 🧠 Step 2: Sensual Radar (IA Review Generation)
+        run: python core/production_sensual_radar.py
+        env:
+          PYTHONPATH: .
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_SENSUAL }}
+
+      - name: 🚀 Step 3: Sync & Commit (Staging Environment)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Titanium Bot"
+          git add site/data_sensual.json site/ai_reviews_sensual.json
+          git commit -m "🦾 [Bot] Sensual Niche: Automação Periódica (Staging Update)" || echo "Sem mudanças para commitar"
+          git push

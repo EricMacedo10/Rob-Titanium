@@ -149,16 +149,30 @@
         .hero-section.sensual-hero {
             background: radial-gradient(circle at top right, #fffdf5 0%, #fdf2ff 100%);
             padding: 100px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-icon-wrapper i {
-            animation: float 6s ease-in-out infinite;
+        /* Subtle Sensual Background Image - Maximum Visibility */
+        .hero-section.sensual-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url('images/boutique_sensual_silhouette_v2.png'); /* Forçando Opção 3 */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.85; /* Força total conforme solicitado */
+            z-index: 1;
+            mask-image: linear-gradient(to left, rgba(0,0,0,1), transparent);
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), transparent);
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .sensual-footer {
@@ -167,15 +181,78 @@
         }
 
         .btn-search.sensual {
-            background: var(--sensual-primary);
-            box-shadow: 0 4px 15px rgba(74, 14, 78, 0.3);
+            background: #FF4500;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
-        /* Voucher Hub Sensual Theme */
+        .btn-search.sensual:hover {
+            background: #FF2400;
+            transform: scale(1.05);
+        }
+
+        /* Voucher Hub Sensual Theme - Premium Upgrade */
         .voucher-hub-banner.sensual {
-            background: rgba(74, 14, 78, 0.08);
+            background: linear-gradient(90deg, #4a0e4e 0%, #631469 50%, #4a0e4e 100%);
+            background-size: 200% auto;
+            color: white;
+            border-bottom: 1px solid var(--sensual-accent);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            animation: shimmerBanner 4s linear infinite;
+        }
+
+        .voucher-hub-banner.sensual:hover {
+            background-position: right center;
+            color: var(--sensual-accent);
+        }
+
+        .voucher-hub-banner.sensual i {
+            color: var(--sensual-accent);
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+        }
+
+        /* Shine Effect Overlay */
+        .voucher-hub-banner.sensual::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4), transparent);
+            transform: skewX(-25deg);
+            animation: shineSweep 5s infinite;
+        }
+
+        @keyframes shimmerBanner {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes shineSweep {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .coupon-hot-badge {
+            background: var(--sensual-accent);
             color: var(--sensual-primary);
-            border-bottom: 1px solid rgba(74, 14, 78, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            margin-right: 5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
         .category-pill.active {
@@ -194,9 +271,10 @@
         Boutique Sensual: Tecnologia de Bem-Estar & Lingerie de Luxo
     </div>
 
-    <!-- 1.5. Voucher Hub Shopee -->
+    <!-- 1.5. Voucher Hub Shopee (Versão Brilho de Luxo) -->
     <a href="https://s.shopee.com.br/16RtbfSuP" target="_blank" rel="noopener noreferrer" class="voucher-hub-banner sensual" id="voucher-hub">
-        <i class="fa-solid fa-ticket"></i> 🎟️ CENTRAL DE CUPONS: Resgate seus descontos exclusivos aqui! <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+        <span class="coupon-hot-badge">VIP</span>
+        <i class="fa-solid fa-ticket"></i> <strong>CENTRAL DE CUPONS:</strong> Resgate seus privilégios e descontos de hoje aqui! <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
     </a>
 
     <!-- 2. Main Header -->
@@ -204,16 +282,20 @@
         <div class="container header-flex">
             <div class="logo-area" onclick="window.location.href='index.html'" style="cursor:pointer">
                 <div class="logo">
-                    <i class="fas fa-heart" style="color: var(--sensual-primary);"></i>
-                    <span><span style="color: var(--sensual-primary);">Boutique</span> <strong class="sensual-brand">Sensual</strong></span>
+                    <i class="fas fa-heart" style="color: #FF4500;"></i>
+                    <span><span style="color: #FF4500;">Boutique</span> <strong style="color: #4a0e4e;">Sensual</strong></span>
                 </div>
-                <div class="header-tagline" style="color: var(--sensual-primary); font-weight: bold;">Bem-Estar, Luxo & Discrição 🔥</div>
+                <div class="header-tagline" style="color: #FF4500; font-weight: bold;">Especialista em Bem-Estar & Luxo Shopee 🔥</div>
             </div>
 
             <nav class="header-nav" style="display: flex; gap: 20px; align-items: center;">
                 <a href="index.html" style="text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.9rem;">Boutique Titanium</a>
-                <div class="header-trust-badges" style="margin-left: 10px;">
-                    <div class="trust-pill security" style="background: var(--sensual-primary); color: white;">
+                <div class="header-trust-badges" style="display: flex; gap: 10px; align-items: center; margin-left: 10px;">
+                    <div class="trust-pill shopee-active" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <span class="status-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block;"></span>
+                        <i class="fas fa-robot"></i> Robô Online
+                    </div>
+                    <div class="trust-pill security" style="background: rgba(37, 99, 235, 0.1); color: #2563eb; border: 1px solid rgba(37, 99, 235, 0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
                         <i class="fas fa-shield-halved"></i> Links Auditados
                     </div>
                 </div>
@@ -221,22 +303,22 @@
         </div>
     </header>
 
-    <!-- 3. Hero Section -->
+    <!-- 3. Hero Section (Padronizado Shopee) -->
     <section class="hero-section sensual-hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-icon-wrapper" style="margin-bottom: 20px;">
-                    <i class="fa-solid fa-gem" style="font-size: 80px; color: var(--sensual-primary); filter: drop-shadow(0 10px 15px rgba(74, 14, 78, 0.2));"></i>
+                    <i class="fa-solid fa-bag-shopping" style="font-size: 100px; color: #FF4500; filter: drop-shadow(0 10px 20px rgba(255, 69, 0, 0.3));"></i>
                 </div>
 
-                <h1>A sua <span class="highlight" style="background: linear-gradient(to right, var(--sensual-primary), #8e44ad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Curadoria VIP</span> de Bem-Estar Íntimo & Lingerie.</h1>
-                <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 30px;">Tecnologia avançada e design sofisticado com discrição absoluta.</p>
+                <h1>A sua <span class="highlight" style="background: #FF4500; color: white; padding: 6px 18px; border-radius: 12px; display: inline-block; box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4); text-transform: uppercase; font-weight: 900; letter-spacing: 1px;">Curadoria VIP</span> de Bem-Estar Íntimo & Lingerie.</h1>
+                <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 30px;">Tecnologia avançada e design sofisticado com curadoria especializada Shopee.</p>
 
                 <div class="search-container">
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
                         <input type="text" id="search-input" placeholder="O que você busca? Lingerie, Massageadores..." autocomplete="off">
-                        <button class="btn-search sensual">Buscar</button>
+                        <button class="btn-search sensual">Buscar Agora</button>
                     </div>
                 </div>
             </div>
@@ -325,12 +407,12 @@
         </div>
     </footer>
 
-    <!-- Assistant -->
+    <!-- Assistant (Robô Titanium Padrão Shopee) -->
     <div class="titanium-assistant" id="titanium-assistant">
         <div class="assistant-bubble">
             <div class="bubble-text">Preparando sua curadoria de bem-estar...</div>
         </div>
-        <div class="assistant-icon" style="background: var(--sensual-primary);"><i class="fas fa-sparkles"></i></div>
+        <div class="assistant-icon" style="background: #2563eb; border: 2px solid white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5);"><i class="fas fa-robot"></i></div>
     </div>
 
     <!-- Security Overlay -->

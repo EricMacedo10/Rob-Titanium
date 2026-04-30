@@ -106,4 +106,24 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
    - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
    - O Gatekeeper `infra/shield.py` validará e corrigirá qualquer link gerado pela IA antes do upload final.
 
-*Última Auditoria Técnica: 23/04/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Bot v2.4.0*
+---
+## 🌹 Segmentação por Nicho & Luxo Sensorial (v3.9 - 30/04/2026)
+
+O Titanium agora suporta verticais de nicho (ex: Boutique Sensual) com protocolos de linguagem e automação isolados:
+
+1.  **Exclusividade DeepSeek (Cost-Efficiency Strategy)**:
+    *   Para nichos de curadoria massiva (Radar de Tendências), o sistema deve operar **100% via DeepSeek API**.
+    *   **Isolamento de Chaves**: Cada vertical deve possuir sua própria Secret no GitHub (`DEEPSEEK_API_KEY_SENSUAL`) para monitoramento granular de consumo.
+
+2.  **Dicionário de Sofisticação (Boutique Sensual)**:
+    *   O motor de IA **NUNCA** deve utilizar terminologia vulgar ou explícita.
+    *   **Mapeamento de Luxo Obrigatório**:
+        *   `Vibrador/Toy` ➔ **Estimulador de Precisão / Gadget de Bem-Estar**.
+        *   `Sugador` ➔ **Tecnologia de Pulsação Air-Touch**.
+        *   `Borracha/Plástico` ➔ **Silicone de Toque Aveludado / Design Ergonômico**.
+        *   `Sexo/Tesão` ➔ **Ritual Sensorial / Intimidade / Autoconhecimento**.
+
+3.  **Protocolo de Staging Silencioso**:
+    *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
+
+*Última Auditoria Técnica: 30/04/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9*

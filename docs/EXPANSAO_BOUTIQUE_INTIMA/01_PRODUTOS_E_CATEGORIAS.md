@@ -20,33 +20,20 @@ Este documento define a hierarquia de produtos e a estratégia de nomenclatura p
 | **6** | Óleos e Velas | `Elixires Corporais Sensoriais` | Presentes e Mimos |
 | **7** | Kits Completos | `Rituais de Bem-Estar (Combo)` | Maximizar Lucro por Venda |
 
-### 2. 📊 Arquitetura de Vitrines (Conversão Titanium)
-
+### 2. 📊 Arquitetura de Vitrines (Conversão Titanium) [CONCLUÍDO ✅]
 A Boutique Sensual opera com 3 camadas de exposição para maximizar o ticket médio e a recorrência:
+* [x] **Vitrine 01**: Radar Desejo (Sextech) - 18 Itens
+* [x] **Vitrine 02**: Seleção Especialista (Moda) - 24 Itens
+* [x] **Vitrine 03**: Ofertas do Momento (Cosmética) - 24 Itens
 
-| Vitrine | Seção no Site | Quantidade | Foco do Copy |
-| :--- | :--- | :--- | :--- |
-| **01** | Radar Desejo (Sextech) | 18 Itens | Hype, Inovação e Curiosidade |
-| **02** | Seleção Especialista (Moda) | 24 Itens | Estética, Luxo e Autoconfiança |
-| **03** | Ofertas do Momento (Cosmética) | 24 Itens | Recorrência e Cuidado Diário |
+### 3. 📁 Categorias da Vertical [CONCLUÍDO ✅]
+1. [x] **Tecnologia Íntima**
+2. [x] **Moda & Luxo**
+3. [x] **Cosmética Sensorial**
 
-### 3. 📁 Categorias da Vertical
-O menu e filtros da Boutique Sensual serão divididos em:
-1.  **Tecnologia Íntima**: Toys, Sugadores e Tech.
-2.  **Moda & Luxo**: Lingerie, Camisolas e Bodies.
-3.  **Cosmética Sensorial**: Óleos, Velas e Hidratação.
-4.  **Acessórios Premium**: Mimos em cetim e detalhes.
-
-### 4. 📝 Regras de Copywriting (IA Titanium)
+### 4. 📝 Regras de Copywriting (IA Titanium) [IMPLEMENTADO NO RADAR ✅]
 Para garantir a sofisticação, a IA deve seguir este dicionário:
-
-| ❌ Evitar (Vulgar) | ✅ Usar (Sofisticado) |
-| :--- | :--- |
-| Tesão / Gozar | Prazer, Clímax, Sensação |
-| Brinquedo Erótico | Gadget de Bem-Estar, Estimulador |
-| Sexo / Foda | Momento Íntimo, Ritual de Casal |
-| Masturbação | Autoconhecimento, Bem-Estar |
-| Borracha / Plástico | Silicone de Toque Aveludado, Ergonômico |
+* [x] **Dicionário de Sofisticação Injetado no Prompt da DeepSeek**.
 
 ---
-**Protocolo de Curadoria**: Apenas produtos com nota 4.5+ na Shopee e lojas com histórico de entrega discreta comprovado nos comentários.
+**Protocolo de Curadoria**: [x] Apenas produtos com nota 4.5+ na Shopee e lojas com histórico de entrega discreta.

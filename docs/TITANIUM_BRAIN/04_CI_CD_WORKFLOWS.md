@@ -15,6 +15,7 @@ O Titanium utiliza três fluxos de trabalho principais (Workflows) localizados e
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o artigo editorial da semana (SEO). |
 | `titanium_social_post.yml` | Cron (4x ao dia) | Gera artes e publica automaticamente no Instagram. |
 | `shopee_specialist_roleta.yml`| Cron (2x ao dia) | Atualiza a Seleção da Especialista (Fundo Platinum). |
+| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da Boutique Sensual (Staging). |
 
 ---
 
@@ -28,7 +29,8 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 ### APIs de IA e Dados:
 - `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados Shopee.
 - `SHOPEE_DATAFEED_URLS`: URLs do Datafeed oficial para extração em massa (Formato: `url1 | url2`).
-- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA total.
+- `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA principal (Moda).
+- `DEEPSEEK_API_KEY_SENSUAL`: Chave dedicada para a vertical de Bem-Estar Íntimo (Controle de Custos).
 
 ---
 

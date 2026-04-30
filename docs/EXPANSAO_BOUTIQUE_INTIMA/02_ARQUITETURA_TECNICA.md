@@ -8,25 +8,23 @@ Este documento detalha como a nova vertical se integra ao sistema **Titanium v3.
 
 ---
 
-### 1. 📂 Estrutura de Arquivos
+### 1. 📂 Estrutura de Arquivos [CONCLUÍDO ✅]
 A expansão utiliza a infraestrutura "Stateless" atual:
-*   `site/sensual.html`: Template exclusivo com paleta de cores e scripts específicos.
-*   `site/data_sensual.json`: Pool de produtos minerados do Datafeed de 100K exclusivo para este nicho.
-*   `site/js/app_sensual.js`: Motor de renderização adaptado para os filtros de bem-estar íntimo.
+*   [x] `site/sensual.html`: Template exclusivo com paleta de cores e scripts específicos.
+*   [x] `site/data_sensual.json`: Pool de produtos minerados.
+*   [x] `site/ai_reviews_sensual.json`: Reviews sensoriais gerados por IA.
+*   [x] `site/js/app_sensual.js`: Motor de renderização adaptado.
 
-### 2. 🛰️ Motor de Mineração (Datafeed Elite)
-O script `scraper/datafeed_shopee.py` será instruído a rodar um ciclo específico:
-1.  **Keywords**: `vibrador`, `sugador`, `lingerie`, `camisola cetim`, `lubrificante intimo`.
-2.  **Filtros de Qualidade**: 
-    *   `Min_Rating`: 4.5
-    *   `Shop_Type`: Preferred / Shopee Mall.
-3.  **Saída**: Destino automático para `site/data_sensual.json`.
+### 2. 🛰️ Motor de Mineração & IA [CONCLUÍDO ✅]
+1. [x] **Minerador**: `scraper/production_sensual_miner.py` operacional.
+2. [x] **Radar IA**: `core/production_sensual_radar.py` integrado com DeepSeek.
+3. [x] **Automação**: `.github/workflows/sensual_auto_update.yml` configurado (Staging Mode).
 
-### 3. 🛡️ Integração com o Nuclear Shield (v3.8)
+### 3. 🛡️ Integração com o Nuclear Shield (v3.8) [CONCLUÍDO ✅]
 A nova vertical herda automaticamente todas as proteções:
-*   **Global Click Interceptor**: Todos os cliques em lingerie ou toys são capturados e auditados para injetar a tag `an_18318830863`.
-*   **MutationObserver**: Links dinâmicos injetados pela IA são corrigidos em milissegundos.
-*   **Atomic FTP Sync**: O deploy da Boutique Sensual não afeta a estabilidade da Boutique Titanium principal.
+*   [x] **Global Click Interceptor**: Auditoria de links injetando tag `an_18318830863`.
+*   [x] **MutationObserver**: Correção de links dinâmicos em tempo real.
+*   [x] **Atomic Sync**: Deploy isolado via Actions.
 
 ### 4. 📈 Tracking e Analytics
 Novas metas de eventos no GA4:

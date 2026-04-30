@@ -33,7 +33,17 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
 - **Bordas**: Soft Gold (`#D4AF37`) reativo ao hover.
 - **Micro-Animações**: Efeito de flutuação e brilho metálico nos itens de elite.
 
-#### **B. Selos de Autoridade (Dynamic Badges)**
+#### **C. Boutique Sensual v3.9 (High-Presence Visuals)**
+1.  **Hero Background**: 
+    *   Utiliza pseudo-elemento `::before` com imagem de silhueta artística.
+    *   **Opacidade Mandatória**: 85% para garantir que a marca seja "viva" e não apenas um fundo claro.
+2.  **Robô Titanium (Assistant)**:
+    *   **Ícone**: `fas fa-robot`.
+    *   **Estilo**: Fundo Azul Shopee (`#2563eb`), Borda Branca (`2px solid white`) e Sombra de Destaque.
+3.  **Badges de Seção**:
+    *   **Curadoria VIP**: Cor sólida `#FF4500` (Laranja Shopee) com sombra, garantindo leitura instantânea.
+
+#### **D. Selos de Autoridade (Dynamic Badges)**
 1.  **TITANIUM CHOICE (Gold)**: Selo injetado via JS para ofertas com desconto > 30% em itens de alto valor agregado.
 2.  **Oferta Relâmpago (Laranja)**: Para descontos acima de 20%.
 3.  **Link Seguro Verificado**: Selo de confiança injetado após auditoria em tempo real.
