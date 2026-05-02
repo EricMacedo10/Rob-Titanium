@@ -10,6 +10,10 @@ on:
     - cron: '15 21 * * *'
   workflow_dispatch: # Permite rodar manualmente para testes
 
+# Permissões necessárias para salvar os resultados de volta no GitHub
+permissions:
+  contents: write
+
 # Trava de Segurança Nuclear: Impede que dois updates do mesmo nicho rodem ao mesmo tempo
 concurrency:
   group: niche-sensual
@@ -44,10 +48,8 @@ jobs:
           PYTHONPATH: .
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_SENSUAL }}
 
-      - name: '🚀 Step 3: Sync & Commit (Staging Environment)'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Titanium Bot"
-          git add site/data_sensual.json site/ai_reviews_sensual.json
-          git commit -m "🦾 [Bot] Sensual Niche: Automação Periódica (Staging Update)" || echo "Sem mudanças para commitar"
-          git push
+      - name: '🚀 Step 3: Auto-Commit Results'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🦾 [Bot] Sensual Niche: Automação Periódica (Staging Update)"
+          file_pattern: 'site/data_sensual.json site/ai_reviews_sensual.json'
