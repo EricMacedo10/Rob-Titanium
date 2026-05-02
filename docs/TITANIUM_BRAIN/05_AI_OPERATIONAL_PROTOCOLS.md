@@ -83,8 +83,10 @@ Esta sessão comprovou um bug crítico: ao mudar a vitrine para um novo nicho (e
 - **`sync_staging_v12.py`**: Script legado de sincronização para staging. Usa lista fixa de arquivos.
 - **`social/automate_fashion_carousel.py`** *(2026-03-21)*: Lê imagens de modelos IA (geradas pelo assistente) e cria as artes finais do carrossel (1080x1080 JPEG com badge de preço/loja) salvando em `social/fila/`.
 - **`social/core/bot.py`** *(v2.1.0 - 18/04/2026)*: Bot principal. Posta **1 item por ciclo** da fila como Reel. Executar com `python -m social.core.bot` a partir da raiz do projeto.
-- **`social/bot_instagram.php`** *(Servidor Hostinger, raiz `/`)*: Bot PHP do robô de DM. Monitora comentários dos últimos 6 posts, detecta gatilhos e envia DM com link correto baseado no `ofertas.json`.
-- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python -m social.upload_ofertas`.
+- **`social/bot_instagram.php`** *(v2.0.0 - 02/05/2026, Servidor Hostinger, raiz `/`)*: Bot PHP do robô de DM com **Smart Link Priority**. Monitora comentários dos últimos 6 posts, detecta gatilhos e envia DM com link correto. A lógica v2.0 prioriza links de PRODUTO Shopee sobre links genéricos do site, usando a hashtag mais específica (mais longa) como critério de desempate. Gera log de debug em `bot_debug.log`.
+- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python -m social.upload_ofertas` ou `python -m social.deploy_bot`.
+- **`social/validar_ofertas.py`** *(v1.0 - 02/05/2026)*: Ferramenta de validação pré-publicação. Simula a lógica do `bot_instagram.php` localmente para garantir que o link correto será enviado. Uso: `python -m social.validar_ofertas --caption "#sua_hashtag"` ou `--audit` para auditoria completa.
+- **`social/deploy_bot.py`** *(v1.0 - 02/05/2026)*: Script de deploy que envia `bot_instagram.php` + `ofertas.json` ao servidor Hostinger via FTP em uma única execução. Uso: `python -m social.deploy_bot`.
 - **`social/titanium_token_manager.py`** *(2026-03-21)*: Gerenciador automático de tokens Meta/Instagram. Troca o User Token por um **Page Access Token permanente (♾️ nunca expira)** e atualiza o `.env`, `bot_instagram.php` e faz upload para o servidor em uma única execução. Executar com `python -m social.titanium_token_manager`.
 
 ## 🚀 Hotfixes e Deploy Emergencial (Senior Only) [30/03]
@@ -126,4 +128,4 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Sensual) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-*Última Auditoria Técnica: 30/04/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9*
+*Última Auditoria Técnica: 02/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Smart Link Priority v2.0*

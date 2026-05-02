@@ -46,6 +46,13 @@ O sistema utiliza um script inteligente de sincronização que:
 3.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
 4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
+### Deploy do Social Bot (`social/deploy_bot.py`) *(Novo - 02/05/2026)*:
+Script dedicado para enviar o bot de comentários e o dicionário de ofertas ao servidor Hostinger:
+-   Envia `bot_instagram.php` (lógica de DM com Smart Link Priority v2.0).
+-   Envia `ofertas.json` (dicionário de hashtags→links de produto).
+-   Verifica os arquivos no servidor após o upload.
+-   **Uso**: `python -m social.deploy_bot`
+
 ---
 
 ## 🛡️ 4. Protocolo de Blindagem Antigravity
@@ -58,4 +65,5 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 ---
 ---
 **IA Titanium**
-*Atualizado em: 23/04/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.8*
+*Atualizado em: 02/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.8 + Smart Link Priority v2.0*
+

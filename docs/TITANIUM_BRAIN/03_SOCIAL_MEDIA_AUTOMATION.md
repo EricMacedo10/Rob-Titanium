@@ -21,7 +21,33 @@ O bot opera em três frentes de atuação:
 
 ---
 
+## 🧠 Smart Link Priority v2.0 (Correção Crítica - 02/05/2026)
+
+### Problema Resolvido
+O bot enviava o link do **site** em vez do link do **produto** porque a lógica antiga fazia `break` na primeira hashtag encontrada. Hashtags genéricas como `#modafeminina` (que apontam para o site) "ganhavam" de hashtags específicas como `#blazer_premium` (que apontam para o produto real).
+
+### Nova Lógica de Prioridade
+1. **PRODUTO Shopee** (prioridade máxima): Links contendo `shopee.com.br` ou `s.shopee.com.br`. Se múltiplas hashtags de produto forem encontradas, a mais **específica** (nome mais longo) vence.
+2. **Site** (fallback): Links do `guiadodesconto.com.br` — usados apenas quando nenhum link de produto é encontrado.
+3. **#default** (último recurso): Quando nenhuma hashtag da legenda é encontrada no `ofertas.json`.
+
+### Protocolo Obrigatório Pré-Publicação
+Antes de publicar qualquer post com CTA "Comente QUERO", **SEMPRE** rodar:
+```bash
+python -m social.validar_ofertas --caption "#sua_hashtag_do_post"
+```
+Este comando simula exatamente o que o bot fará e alerta se o link está incorreto.
+
+### Protocolo Pós-Atualização do ofertas.json
+Após qualquer alteração no `ofertas.json`, **DEVE** sincronizar com o servidor:
+```bash
+python -m social.upload_ofertas
+```
+
+---
+
 ## 🎞️ Media Processing & Resilience
+
 
 Titanium prioriza **Reels** devido ao alcance orgânico superior.
 - **Resilient Upload Strategy (v2.4.2)**:

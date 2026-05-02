@@ -70,4 +70,4 @@ graph TD
 - **Sanitização de Dados**: Auditoria recorrente para garantir que logs de execução e arquivos de debug não contenham metadados sensíveis do servidor ou da conta de afiliado.
 
 ---
-*Atualizado em: 23/04/2026 - Versão: 3.8.1-Nuclear (Boutique Sensual Integrated)*
+*Atualizado em: 02/05/2026 - Versão: 3.9.1-Nuclear (Smart Link Priority v2.0 + Boutique Sensual Integrated)*
