@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v3.8.0 - Nuclear)
+# 🚀 Titanium Brain: CI/CD & Deployment (v3.9.0 - Nuclear)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -46,12 +46,14 @@ O sistema utiliza um script inteligente de sincronização que:
 3.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
 4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
-### Deploy do Social Bot (`social/deploy_bot.py`) *(Novo - 02/05/2026)*:
-Script dedicado para enviar o bot de comentários e o dicionário de ofertas ao servidor Hostinger:
--   Envia `bot_instagram.php` (lógica de DM com Smart Link Priority v2.0).
--   Envia `ofertas.json` (dicionário de hashtags→links de produto).
--   Verifica os arquivos no servidor após o upload.
--   **Uso**: `python -m social.deploy_bot`
+### Deploy do Social Bot & Hybrid Intelligence *(v2.2.1 - 02/05/2026)*:
+O fluxo de postagem social (`titanium_social_auto.yml`) agora é totalmente autossuficiente:
+1.  **Auto-Hashtagging**: O bot gera `#titanium_ID` automaticamente em cada post.
+2.  **Auto-Sync**: Atualiza o `social/ofertas.json` local e faz o upload imediato via FTP para o servidor.
+3.  **Auto-Commit**: Salva o novo dicionário no GitHub para persistência histórica.
+4.  **Deep Database Search**: O robô de resposta (`bot_instagram.php`) agora utiliza o `data.json` da raiz como backup inteligente para garantir 100% de match, mesmo em posts manuais.
+
+**Uso Manual**: `python -m social.deploy_bot` ou `python -m social.upload_database` para sincronia total.
 
 ---
 
@@ -65,5 +67,5 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 ---
 ---
 **IA Titanium**
-*Atualizado em: 02/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.8 + Smart Link Priority v2.0*
+*Atualizado em: 02/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.9 + Hybrid Intelligence v2.2*
 

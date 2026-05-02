@@ -59,3 +59,50 @@ def get_shopee_image_api(keyword):
     except Exception as e:
         print(f"[ShopeeAPI] Erro na requisição: {e}")
         return None
+
+def generate_affiliate_link(product_url):
+    """
+    Usa a API Oficial da Shopee para converter uma URL de produto em um 
+    Universal Link (s.shopee.com.br) blindado com o ID de afiliado.
+    """
+    if not SHOPEE_APP_ID or not SHOPEE_SECRET:
+        return product_url
+        
+    url = "https://open-api.affiliate.shopee.com.br/graphql"
+    timestamp = int(time.time())
+    
+    # Mutação oficial para gerar links curtos (Universal Links)
+    query = """
+    mutation generateShortLink($originUrls: [String]!) {
+      generateShortLink(originUrls: $originUrls) {
+        shortLink
+      }
+    }
+    """
+    
+    variables = {"originUrls": [product_url]}
+    payload = {"query": query, "variables": variables}
+    payload_str = json.dumps(payload, separators=(',', ':'))
+    
+    # Assinatura de Segurança
+    base_string = f"{SHOPEE_APP_ID}{timestamp}{payload_str}{SHOPEE_SECRET}"
+    signature = hashlib.sha256(base_string.encode('utf-8')).hexdigest()
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"SHA256 Credential={SHOPEE_APP_ID}, Signature={signature}, Timestamp={timestamp}"
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, data=payload_str, timeout=10)
+        data = response.json()
+        
+        # Extrai o link curto oficial
+        results = data.get("data", {}).get("generateShortLink", [])
+        if results and results[0].get("shortLink"):
+            return results[0]["shortLink"]
+            
+        return product_url
+    except Exception as e:
+        print(f"[ShopeeAPI] Erro ao converter link: {e}")
+        return product_url

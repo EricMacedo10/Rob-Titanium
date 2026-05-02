@@ -1,4 +1,4 @@
-# 📸 Titanium Brain: Social Media Automation (v2.4.1)
+# 📸 Titanium Brain: Social Media Automation (v3.9.0)
 
 This document details how Titanium maintains a social presence on Instagram and Pinterest without manual intervention.
 
@@ -21,15 +21,23 @@ O bot opera em três frentes de atuação:
 
 ---
 
-## 🧠 Smart Link Priority v2.0 (Correção Crítica - 02/05/2026)
+## 🧠 Smart Link Intelligence v2.2.1 (Hybrid Response - 02/05/2026)
 
-### Problema Resolvido
-O bot enviava o link do **site** em vez do link do **produto** porque a lógica antiga fazia `break` na primeira hashtag encontrada. Hashtags genéricas como `#modafeminina` (que apontam para o site) "ganhavam" de hashtags específicas como `#blazer_premium` (que apontam para o produto real).
+### Problema de Transição Resolvido
+Posts realizados sem hashtags específicas (posts antigos ou manuais) causavam falha no bot de resposta, que caía no link genérico. A v2.2 introduz a **Redundância Híbrida**.
 
-### Nova Lógica de Prioridade
-1. **PRODUTO Shopee** (prioridade máxima): Links contendo `shopee.com.br` ou `s.shopee.com.br`. Se múltiplas hashtags de produto forem encontradas, a mais **específica** (nome mais longo) vence.
-2. **Site** (fallback): Links do `guiadodesconto.com.br` — usados apenas quando nenhum link de produto é encontrado.
-3. **#default** (último recurso): Quando nenhuma hashtag da legenda é encontrada no `ofertas.json`.
+### Camadas de Inteligência de Resposta (Prioridade)
+1.  **Camada 1: Hashtag Match (OFERTAS.JSON):** Busca exata por hashtags como `#titanium_123` ou `#blazer_premium`.
+2.  **Camada 2: Keyword Match (OFERTAS.JSON):** Busca por palavras isoladas no dicionário de hashtags (ex: a palavra "Short" ativa o link de `#kit_short`).
+3.  **Camada 3: Deep Database Search (DATA.JSON) - 🎯 SOLUÇÃO DEFINITIVA:** 
+    *   Se as camadas acima falharem, o robô abre o banco de dados mestre `data.json` na raiz do servidor.
+    *   **Algoritmo de Interseção:** Compara as palavras da legenda com os títulos dos produtos. Se houver 2 ou mais palavras significativas (ex: "Calcinha" + "Modeladora"), o robô identifica o produto e envia o link direto da Shopee.
+    *   **Independência de Hashtag:** Garante que 100% dos comentários em qualquer post (antigo ou novo) recebam o link correto.
+
+### Protocolo de Entrega Dupla (Double Delivery)
+Para maximizar a conversão, o robô agora envia na mesma DM:
+1.  **Link Direto do Produto** (Shopee)
+2.  **Link da Vitrine Oficial** (Site) como navegação secundária.
 
 ### Protocolo Obrigatório Pré-Publicação
 Antes de publicar qualquer post com CTA "Comente QUERO", **SEMPRE** rodar:
@@ -77,4 +85,4 @@ Ativado por palavras como: `"link"`, `"quero"`, `"valor"`, `"preco"`.
 - **Sensual Boutique**: Deep Mauve, Soft Gold e Transparências.
 
 ---
-*Atualizado em: 28/04/2026 - Versão: v3.8.2 (Multivitrines e Bypass Cloud Social)*
+*Atualizado em: 02/05/2026 - Versão: v3.9.0 (Hybrid Intelligence & Deep Database Search)*

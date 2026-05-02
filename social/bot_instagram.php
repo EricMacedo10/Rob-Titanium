@@ -45,34 +45,67 @@ function bot_log($msg) {
 }
 
 /**
- * 🧠 INTELIGÊNCIA DE SELEÇÃO DE LINK v2.0
+ * 🧠 INTELIGÊNCIA DE SELEÇÃO DE LINK v2.1
  * 
  * Regras de prioridade (da maior para a menor):
- *   1. Link de PRODUTO Shopee (shopee.com.br/product ou s.shopee.com.br) 
- *      com a hashtag MAIS ESPECÍFICA (mais longa) encontrada na legenda.
- *   2. Link genérico do site (guiadodesconto.com.br) — usado apenas como fallback.
- *   3. #default — último recurso absoluto.
+ *   1. Hashtag Match: Encontrou hashtag específica na legenda.
+ *   2. Keyword Match (NOVA): Se não tem hashtag, procura palavras da legenda no dicionário.
+ *   3. Default: Fallback para o site.
  */
 function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
-    $links_produto = [];  // hashtag => link (apenas links da Shopee)
-    $links_site = [];     // hashtag => link (links do nosso site)
+    $caption_lower = strtolower($caption);
+    $links_produto = [];
     
+    // CAMADA 1: Hashtags exatas (OFERTAS.JSON)
     foreach ($dicionario_ofertas as $hashtag => $link_oferta) {
         if ($hashtag === "#default") continue;
-        
-        // Verifica se a hashtag existe na legenda do post
-        if (strpos($caption, strtolower($hashtag)) === false) continue;
-        
-        // Classifica: é link de produto Shopee ou link genérico do site?
-        if (strpos($link_oferta, $site_url) !== false) {
-            $links_site[$hashtag] = $link_oferta;
-        } else {
-            // É um link da Shopee (produto real) — PRIORIDADE MÁXIMA
+        if (strpos($caption_lower, strtolower($hashtag)) !== false) {
             $links_produto[$hashtag] = $link_oferta;
         }
     }
     
-    // PRIORIDADE 1: Se encontrou links de produto, pega o da hashtag mais específica
+    // CAMADA 2: Keyword Match (OFERTAS.JSON)
+    if (empty($links_produto)) {
+        foreach ($dicionario_ofertas as $hashtag => $link_oferta) {
+            if ($hashtag === "#default") continue;
+            $keyword = str_replace('#', '', strtolower($hashtag));
+            $keyword_clean = str_replace('_', ' ', $keyword);
+            if (strpos($caption_lower, $keyword) !== false || strpos($caption_lower, $keyword_clean) !== false) {
+                $links_produto[$hashtag] = $link_oferta;
+            }
+        }
+    }
+    
+    // CAMADA 3: BUSCA DINÂMICA NO BANCO DE DADOS (DATA.JSON) - 🎯 SOLUÇÃO DEFINITIVA
+    $db_path = dirname(__DIR__) . "/data.json"; // Busca na raiz do site
+    if (empty($links_produto) && file_exists($db_path)) {
+        $data_json = json_decode(file_get_contents($db_path), true);
+        if (is_array($data_json)) {
+            foreach ($data_json as $item) {
+                $item_title = strtolower($item['title']);
+                
+                // Limpeza básica para match mais preciso
+                $caption_words = explode(' ', preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $caption_lower));
+                $title_words = explode(' ', preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $item_title));
+                $intersection = array_intersect($title_words, $caption_words);
+                
+                // Filtra palavras curtas (de, com, o, a) para evitar falsos positivos
+                $intersection = array_filter($intersection, function($word) {
+                    return strlen($word) > 2;
+                });
+                
+                // Se 2 ou mais palavras SIGNIFICATIVAS batem, é o produto! (Mais agressivo)
+                if (count($intersection) >= 2) {
+                    bot_log("💎 BANCO DE DADOS MATCH: '{$item['title']}' encontrado na legenda!");
+                    return $item['link'];
+                }
+            }
+        }
+    } else if (empty($links_produto)) {
+        bot_log("⚠️ Alerta: Banco de dados data.json nao encontrado em: {$db_path}");
+    }
+    
+    // Seleção do melhor link entre os encontrados (Camada 1 e 2)
     if (!empty($links_produto)) {
         $melhor_hashtag = "";
         $melhor_link = "";
@@ -82,19 +115,10 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
                 $melhor_link = $l;
             }
         }
-        bot_log("🎯 LINK PRODUTO selecionado via hashtag '{$melhor_hashtag}'");
         return $melhor_link;
     }
     
-    // PRIORIDADE 2: Links genéricos do site (não ideal, mas funciona)
-    if (!empty($links_site)) {
-        $primeira_hashtag = array_key_first($links_site);
-        bot_log("⚠️  FALLBACK SITE via hashtag '{$primeira_hashtag}' — considere adicionar link de produto no ofertas.json");
-        return $links_site[$primeira_hashtag];
-    }
-    
-    // PRIORIDADE 3: Default absoluto
-    bot_log("⚠️  FALLBACK #default — nenhuma hashtag da legenda encontrada no ofertas.json");
+    bot_log("⚠️  FALLBACK TOTAL — Nenhuma hashtag ou palavra-chave serviu.");
     return isset($dicionario_ofertas["#default"]) ? $dicionario_ofertas["#default"] : "https://{$site_url}";
 }
 
@@ -143,11 +167,11 @@ foreach ($media_req['data'] as $post) {
             
             $public_msg = "Olá, {$user}! 🎁 Te enviei o link com todos os detalhes lá no seu Direct (Inbox)! Corre lá pra conferir. 🏃💨";
             
-            // DM personalizada: se é link de produto, destaca o produto; se é site, direciona para o site
+            // DM personalizada: Sempre envia o link direto E o link do site para conveniência
             if ($is_product_link) {
-                $private_msg = "Olá, {$user}! 🎁 Aqui está o link certinho da oferta que você pediu no nosso post:\n\n🔗 Acessar Produto: {$link_escolhido}\n\nEspero que aproveite as condições especiais! Visite nossa página oficial: https://guiadodesconto.com.br \n\nEquipe Robô Titanium 🛡️💎";
+                $private_msg = "Olá, {$user}! 🎁 Aqui está o link direto para o produto que você amou:\n\n🔗 ACESSAR PRODUTO: {$link_escolhido}\n\nE se quiser ver mais achadinhos incríveis da Shopee, visite nossa vitrine completa:\n🌐 SITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robô Titanium 🛡️💎";
             } else {
-                $private_msg = "Olá, {$user}! 🎁 Confira as melhores ofertas na nossa página:\n\n🔗 Acessar Ofertas: {$link_escolhido}\n\nEquipe Robô Titanium 🛡️💎";
+                $private_msg = "Olá, {$user}! 🎁 Como o post é novo, o link direto está sendo processado, mas você já pode conferir esta e outras ofertas na nossa vitrine oficial:\n\n🔗 VITRINE TITANIUM: {$link_escolhido}\n\nEquipe Robô Titanium 🛡️💎";
             }
 
             // Envia COMENTÁRIO PÚBLICO

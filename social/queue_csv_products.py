@@ -157,6 +157,7 @@ def run():
                 
                 with open(json_path, 'w', encoding='utf-8') as mj:
                     json.dump({
+                        "id": item['id'],
                         "title": item['name'], 
                         "price": item['price'], 
                         "link": final_link,

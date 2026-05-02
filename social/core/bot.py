@@ -124,12 +124,27 @@ class SocialBot:
             
             # Lendo Metadata JSON se existir
             json_path = local_path.replace(os.path.splitext(local_path)[1], '.json')
+            product_hashtags = []
             if os.path.exists(json_path):
                 try:
                     with open(json_path, 'r', encoding='utf-8') as mj:
                         meta = json.load(mj)
-                    combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {meta['price']}")
-                except: pass
+                    
+                    # 💡 Lógica de Hashtag Única Automática
+                    # Gera uma hashtag baseada no ID ou Título
+                    raw_id = str(meta.get('id', int(time.time())))
+                    safe_id = re.sub(r'[^a-zA-Z0-9]', '', raw_id)[:10]
+                    unique_tag = f"#titanium_{safe_id}"
+                    
+                    combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {meta['price']} {unique_tag}")
+                    
+                    # Armazena para atualizar o dicionário depois
+                    product_hashtags.append({
+                        "tag": unique_tag,
+                        "link": meta['link']
+                    })
+                except Exception as e:
+                    print(f"⚠️ Erro ao processar meta JSON: {e}")
 
             # O usuário prefere a postagem original de FOTOS.
             # O bypass do Hostinger WAF é feito via fallback para o ImgBB no uploader.py
@@ -195,6 +210,30 @@ class SocialBot:
                 jp = path.replace(os.path.splitext(path)[1], '.json')
                 if os.path.exists(jp):
                     shutil.move(jp, os.path.join(postados_dir, os.path.basename(jp)))
+            # --- SINCRONIZAÇÃO DE OFERTAS AUTOMÁTICA ---
+            if product_hashtags:
+                print("🔄 Sincronizando novas hashtags com ofertas.json...")
+                ofertas_local = "social/ofertas.json"
+                try:
+                    with open(ofertas_local, 'r', encoding='utf-8') as f:
+                        dicionario = json.load(f)
+                    
+                    for item in product_hashtags:
+                        dicionario[item['tag']] = item['link']
+                        print(f"   ➕ Adicionado: {item['tag']} -> {item['link'][:30]}...")
+                    
+                    with open(ofertas_local, 'w', encoding='utf-8') as f:
+                        json.dump(dicionario, f, indent=4, ensure_ascii=False)
+                    
+                    # Upload imediato para o servidor
+                    from social.upload_ofertas import sync_ofertas
+                    if sync_ofertas():
+                        print("✅ ofertas.json sincronizado com o servidor com sucesso!")
+                    else:
+                        print("⚠️ Falha ao sincronizar ofertas.json com o servidor.")
+                except Exception as e:
+                    print(f"❌ Erro ao atualizar ofertas.json: {e}")
+
             # Limpeza de vídeos temporários
             for tmp in temp_video_paths:
                 if os.path.exists(tmp): os.remove(tmp)

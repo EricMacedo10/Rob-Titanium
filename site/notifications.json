@@ -2,31 +2,31 @@
     "notifications": [
         {
             "id": 1,
-            "text": "✨ ACHADO: Short Transpassado – Teci... está com 54% OFF!",
+            "text": "🔥 ALERTA: Detectei novas quedas de preço na Shopee AGORA!",
             "time": "Agora",
-            "icon": "fa-robot"
+            "icon": "fa-fire"
         },
         {
             "id": 2,
-            "text": "🤖 MONITOR: Robô Titanium sincronizado com a Shopee API v2.",
+            "text": "🛡️ SEGURANÇA: Todas as ofertas de hoje são de Vendedores Oficiais.",
             "time": "Agora",
             "icon": "fa-robot"
         },
         {
             "id": 3,
-            "text": "📱 APP FIRST: Links otimizados para abrir direto no seu App Shopee.",
+            "text": "🤖 MONITOR: Robô Titanium sincronizado com a Shopee API v2.",
             "time": "Agora",
             "icon": "fa-robot"
         },
         {
             "id": 4,
-            "text": "🛍️ Temos 79 peças auditadas na vitrine de hoje!",
+            "text": "🛍️ Temos 83 peças auditadas na vitrine de hoje!",
             "time": "Agora",
             "icon": "fa-robot"
         },
         {
             "id": 5,
-            "text": "🛡️ SEGURANÇA: Todas as ofertas de hoje são de Vendedores Oficiais.",
+            "text": "✨ ACHADO: Conjunto de Lingerie Suti... está com 83% OFF!",
             "time": "Agora",
             "icon": "fa-robot"
         }

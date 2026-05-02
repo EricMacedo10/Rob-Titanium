@@ -113,28 +113,18 @@ function titaniumLinkAuditor(rawUrl, storeHint = "") {
     try {
         // --- AUDITORIA SHOPEE (Deep Linking Dinâmico & Anti-Perda) ---
         if (url.includes('shopee.com.br')) {
-            // 1. Se for link curto oficial, confiamos no backend (mas garantimos que não seja link quebrado)
-            if (url.includes('s.shopee.com.br') || url.includes('shope.ee')) {
-                return url;
-            }
-
-            // 2. Se já tem a nossa tag, perfeito.
-            if (url.includes(`utm_source=${shopeeID}`)) {
-                return url;
-            }
-
-            // 3. Se tem utm_source de terceiros ou está sem tag, nós corrigimos/injetamos
-            if (url.includes('utm_source=')) {
-                // Substitui qualquer utm_source pelo nosso
-                url = url.replace(/utm_source=[^&]*/, `utm_source=${shopeeID}`);
-                console.log('[Titanium Auditor] Tag Shopee corrigida via Auditoria.');
-            } else {
-                // Injeta nova tag
+            // Se já for um link curto oficial vindo do backend, mantemos.
+            // Se não, garantimos a tag.
+            if (!url.includes(`utm_source=${shopeeID}`) && !url.includes('s.shopee.com.br')) {
                 const separator = url.includes('?') ? '&' : '?';
                 url = `${url}${separator}utm_source=${shopeeID}`;
-                console.log('[Titanium Auditor] Tag Shopee injetada via Auditoria.');
             }
         }
+        
+        // --- ITEM 4: REDIRECIONAMENTO VIA PONTE (BRIDGE PAGE) ---
+        // Encapsula a URL final para passar pelo go.php
+        // Isso protege contra filtros de redes sociais e garante o log no analytics.json
+        return `go.php?url=${encodeURIComponent(url)}`;
 
     } catch (e) {
         console.error('[Titanium Auditor] Erro na auditoria:', e);

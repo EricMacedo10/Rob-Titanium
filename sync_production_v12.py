@@ -54,7 +54,8 @@ def sync_titanium_production():
         ("site/css/style.css", "css/style.css"),
         ("site/favicon.ico", "favicon.ico"),
         ("site/specialist.json", "specialist.json"),  # NOVO: Seleção da Especialista
-        ("site/data.json", "data.json")               # Garantir sincronia do feed
+        ("site/data.json", "data.json"),               # Garantir sincronia do feed
+        ("site/go.php", "go.php")                      # ITEM 4: Bridge Page (Segurança de Link)
     ]
 
     # Adicionar dinamicamente todos os artigos da pasta blog

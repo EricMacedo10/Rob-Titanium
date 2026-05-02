@@ -34,34 +34,50 @@ def is_product_link(link: str) -> bool:
 
 def escolher_link_inteligente(caption: str, ofertas: dict) -> tuple:
     """
-    Replica EXATAMENTE a lógica v2.0 do bot_instagram.php em Python.
+    Replica EXATAMENTE a lógica v2.2 do bot_instagram.php em Python.
     Retorna (link_escolhido, tipo, hashtag_usada).
     """
     caption_lower = caption.lower()
     links_produto = {}
-    links_site = {}
-
+    
+    # CAMADA 1: Hashtags exatas
     for hashtag, link in ofertas.items():
         if hashtag == "#default":
             continue
-        if hashtag.lower() not in caption_lower:
-            continue
-        if is_product_link(link):
+        if hashtag.lower() in caption_lower:
             links_produto[hashtag] = link
-        else:
-            links_site[hashtag] = link
 
-    # Prioridade 1: Links de produto (hashtag mais longa = mais específica)
+    # CAMADA 2: Keyword Match
+    if not links_produto:
+        for hashtag, link in ofertas.items():
+            if hashtag == "#default":
+                continue
+            keyword = hashtag.replace('#', '').lower()
+            keyword_clean = keyword.replace('_', ' ')
+            if keyword in caption_lower or keyword_clean in caption_lower:
+                links_produto[hashtag] = link
+
+    # Prioridade: hashtag mais longa
     if links_produto:
         melhor = max(links_produto.keys(), key=len)
-        return links_produto[melhor], "PRODUTO SHOPEE ✅", melhor
+        tipo = "PRODUTO (Keyword/Hashtag) ✅" if is_product_link(links_produto[melhor]) else "SITE (Match) ⚠️"
+        return links_produto[melhor], tipo, melhor
 
-    # Prioridade 2: Links do site
-    if links_site:
-        primeira = list(links_site.keys())[0]
-        return links_site[primeira], "SITE (fallback) ⚠️", primeira
+    # CAMADA 3: Deep Search (data.json)
+    data_path = os.path.join(os.path.dirname(__file__), "..", "site", "data.json")
+    if os.path.exists(data_path):
+        with open(data_path, "r", encoding="utf-8") as f:
+            data_json = json.load(f)
+            for item in data_json:
+                item_title = item['title'].lower()
+                caption_words = set(caption_lower.split())
+                title_words = set(item_title.split())
+                intersection = caption_words.intersection(title_words)
+                
+                if len(intersection) >= 3:
+                    return item['link'], "DEEP DATABASE MATCH 💎", item['title']
 
-    # Prioridade 3: Default
+    # Prioridade 4: Default
     default = ofertas.get("#default", f"https://{SITE_URL}")
     return default, "DEFAULT (sem match) ⚠️", "#default"
 

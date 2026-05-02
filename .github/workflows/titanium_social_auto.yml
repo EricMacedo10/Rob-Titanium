@@ -66,4 +66,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🤖 Bot: Atualizando estado do carrossel (social/state_csv.json)"
-          file_pattern: 'social/state_csv.json social/fila/ social/postados/'
+          file_pattern: 'social/state_csv.json social/fila/ social/postados/ social/ofertas.json'
