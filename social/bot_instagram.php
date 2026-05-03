@@ -8,9 +8,23 @@ $IG_BUSINESS_ID = "YOUR_IG_BUSINESS_ID";
 // URL do site (usada para detectar links genéricos vs. links de produto)
 $SITE_URL = "guiadodesconto.com.br";
 
+// Função auxiliar para cURL (Obrigatório em Hostinger/CPANEL)
+function curl_get_contents($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    $data = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
+    if ($error) bot_log("❌ ERRO cURL: " . $error);
+    return $data;
+}
+
 // 1. Converter automaticamente o User Token em Page Token para a DM funcionar
 $auth_url = "https://graph.facebook.com/v21.0/me/accounts?access_token={$USER_TOKEN}";
-$auth_req = json_decode(file_get_contents($auth_url), true);
+$auth_req = json_decode(curl_get_contents($auth_url), true);
 $PAGE_TOKEN = $USER_TOKEN; 
 
 if (isset($auth_req['data'])) {
@@ -77,7 +91,9 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     }
     
     // CAMADA 3: BUSCA DINÂMICA NO BANCO DE DADOS (DATA.JSON) - 🎯 SOLUÇÃO DEFINITIVA
-    $db_path = dirname(__DIR__) . "/data.json"; // Busca na raiz do site
+    $db_path = __DIR__ . "/data.json"; 
+    if (!file_exists($db_path)) $db_path = $_SERVER['DOCUMENT_ROOT'] . "/data.json"; 
+    
     if (empty($links_produto) && file_exists($db_path)) {
         $data_json = json_decode(file_get_contents($db_path), true);
         if (is_array($data_json)) {
@@ -124,11 +140,14 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
 
 bot_log("🤖 TITANIUM CRON INICIADO...");
 
-// 3. Buscar os 6 ultimos posts do Instagram
-$media_url = "https://graph.facebook.com/v21.0/{$IG_BUSINESS_ID}/media?fields=id,caption&limit=6&access_token={$USER_TOKEN}";
-$media_req = json_decode(file_get_contents($media_url), true);
+// 3. Buscar os 20 ultimos posts do Instagram (Varredura Ampla)
+$media_url = "https://graph.facebook.com/v21.0/{$IG_BUSINESS_ID}/media?fields=id,caption&limit=20&access_token={$USER_TOKEN}";
+$media_req = json_decode(curl_get_contents($media_url), true);
 
-if (!isset($media_req['data'])) die("Fim da lista de posts sem novidades.");
+if (!isset($media_req['data'])) {
+    bot_log("⚠️ Erro na API ou sem posts: " . json_encode($media_req));
+    die("Fim da lista de posts sem novidades.");
+}
 
 foreach ($media_req['data'] as $post) {
     if (!isset($post['id'])) continue;
@@ -140,7 +159,7 @@ foreach ($media_req['data'] as $post) {
 
     // Buscar comentários daquele post
     $comments_url = "https://graph.facebook.com/v21.0/{$media_id}/comments?fields=id,text,username&access_token={$USER_TOKEN}";
-    $comments_req = json_decode(file_get_contents($comments_url), true);
+    $comments_req = json_decode(curl_get_contents($comments_url), true);
     if (!isset($comments_req['data'])) continue;
 
     foreach ($comments_req['data'] as $comment) {

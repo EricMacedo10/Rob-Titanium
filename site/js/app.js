@@ -111,19 +111,21 @@ function titaniumLinkAuditor(rawUrl, storeHint = "") {
     const shopeeID = TITANIUM_CONFIG.TAGS.shopee || "an_18318830863";
 
     try {
-        // --- AUDITORIA SHOPEE (Deep Linking Dinâmico & Anti-Perda) ---
+        // --- EVITAR RECURSIVIDADE (BUG FIX v3.9.6) ---
+        // Se a URL já contiver 'go.php?url=', retornamos ela como está para não empilhar.
+        if (url.includes('go.php?url=')) {
+            return url;
+        }
+
+        // --- AUDITORIA SHOPEE ---
         if (url.includes('shopee.com.br')) {
-            // Se já for um link curto oficial vindo do backend, mantemos.
-            // Se não, garantimos a tag.
             if (!url.includes(`utm_source=${shopeeID}`) && !url.includes('s.shopee.com.br')) {
                 const separator = url.includes('?') ? '&' : '?';
                 url = `${url}${separator}utm_source=${shopeeID}`;
             }
         }
         
-        // --- ITEM 4: REDIRECIONAMENTO VIA PONTE (BRIDGE PAGE) ---
-        // Encapsula a URL final para passar pelo go.php
-        // Isso protege contra filtros de redes sociais e garante o log no analytics.json
+        // --- ITEM 4: REDIRECIONAMENTO VIA PONTE ---
         return `go.php?url=${encodeURIComponent(url)}`;
 
     } catch (e) {
