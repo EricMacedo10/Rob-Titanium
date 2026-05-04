@@ -20,6 +20,7 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
   1. `core/orchestrator.py` (Vitrines Diárias)
   2. `core/review_engine.py` (Radar de Tendências IA com 18 itens de grade simétrica)
   3. `core/curator_csv_to_json.py` (Coleção Platinum/Seleção da Especialista)
+  4. `core/auto_blog_generator.py` (Triple-Core Editorial: 3 categorias renovadas semanalmente)
 - **Filtragem**: O sistema filtra por categorias de interesse (Moda e Beleza) e palavras-chave de "luxo".
 - **Busca de Imagem**: Como o CSV não contém imagens, o sistema usa o `TitaniumArbitrator._fetch_image_for_product()` para buscar a miniatura oficial via GraphQL usando as 5 primeiras palavras do título.
 - **Vantagem**: Escala massiva sem risco de banimento de IP por excesso de requisições e 100% rastreabilidade via API.
@@ -61,4 +62,4 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 ---
 ---
 **IA Titanium**
-*Atualizado em: 23/04/2026 - Versão: 3.8.0-Nuclear (Nuclear Shield Gate Integrated)*
+*Atualizado em: 04/05/2026 - Versão: 4.0.0-Nuclear (Triple-Core Editorial Integrated)*

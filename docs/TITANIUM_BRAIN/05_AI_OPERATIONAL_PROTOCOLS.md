@@ -59,6 +59,18 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
     - Em modo **PRODUCTION**, o sistema opera sob **Blindagem**, atualizando exclusivamente o `data.json` e `notifications.json`. Nunca tente "corrigir" o layout de produção via scripts automáticos agendados.
   - Gate obrigatório de preço mínimo por categoria antes de exibir qualquer produto.
 
+### ✍️ Triple-Core Editorial Rotation (v4.0 - 04/05/2026)
+- **Protocolo de Renovação Total**: O sistema de editorial não rotaciona apenas um card, mas sim os **3 slots simultâneos** no `index.html` a cada ciclo semanal (Domingos).
+- **Simetria de Vertical**: Cada ciclo deve gerar obrigatoriamente um novo artigo para cada pilar:
+    1.  **Moda & Estilo** (Alfaiataria, Looks de Trabalho, Fitness, Praia, Vestidos).
+    2.  **Beleza & Skincare** (Maquiagem, Rotinas de Pele, K-Beauty).
+    3.  **Tendências & Lifestyle** (Calçados, Acessórios, Gadgets).
+- **Lógica de Automação (`core/auto_blog_generator.py`)**:
+    - Gera 3 slugs amigáveis.
+    - Extrai resumos via `BeautifulSoup` para os cards do index.
+    - Atualiza os marcadores `EDITORIAL_LATEST`, `EDITORIAL_MID` e `EDITORIAL_OLD` no `index.html`.
+    - Realiza o salvamento atômico dos 3 arquivos HTML em `site/blog/`.
+
 ### 🎨 Conservadorismo de Visual (The Minimalist Look)
 - **Protocolo de Não-Interferência (2026-03-10):** Muitos elementos (ex: barra de busca no Hero, Assets 3D) podem estar ocultos intencionalmente via CSS (`display: none !important`) para manter uma estética minimalista em produção. 
 - **Regra de Ouro:** Nunca "corrija" a visibilidade de elementos estruturais sem confirmação explícita do usuário, mesmo que pareçam "quebrados" no ambiente de staging. Foque exclusivamente no escopo do hotfix solicitado.
@@ -128,4 +140,4 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Sensual) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-*Última Auditoria Técnica: 02/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Smart Link Priority v2.0*
+*Última Auditoria Técnica: 04/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Triple-Core Editorial v4.0*
