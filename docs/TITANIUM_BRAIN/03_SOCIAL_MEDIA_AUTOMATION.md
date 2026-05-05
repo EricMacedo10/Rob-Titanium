@@ -16,12 +16,13 @@ O bot opera em três frentes de atuação com foco em **Zero-Intervention**:
 
 ---
 
-## 🧠 Smart Link Intelligence v2.2.1 (Hybrid Response & Armor)
+## 🧠 Smart Link Intelligence v2.5 (Hybrid Response & Armor)
 
 ### 🛡️ Blindagem de Comissão (Commission Armor)
-O robô aplica uma **camada dupla de rastreio**:
+O robô aplica uma **camada tripla de rastreio**:
 - **Link Curto Oficial**: Uso de links `s.shopee.com.br`.
 - **Redundância UTM**: Injeção automática de `?utm_source=an_18318830863`.
+- **PHP Real-Time Shield**: O `bot_instagram.php` executa uma auditoria final antes de enviar a DM, corrigindo qualquer link mal formatado no dicionário.
 
 ### 🔂 Imunidade de Link (Link Loop Immunity v3.9.6)
 Para evitar o erro de "Verify Traffic" da Shopee (causador de zero vendas histórico), o sistema agora possui uma trava de recursividade:

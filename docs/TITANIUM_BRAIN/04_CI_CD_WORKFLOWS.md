@@ -6,16 +6,16 @@ Este documento mapeia a espinha dorsal de automação que mantém a Boutique Tit
 
 ## 🤖 1. GitHub Actions: O Pulso do Sistema
 
-O Titanium utiliza três fluxos de trabalho principais (Workflows) localizados em `.github/workflows/`:
+O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/workflows/`. Todos operam sob o regime de **Concorrência Controlada** (impedindo colisões) e possuem o **Shield Gate** mandatório.
 
 | Workflow | Gatilho (Trigger) | Ação Principal |
 | :--- | :--- | :--- |
-| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine de ofertas principal (Maestro). |
-| `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA DeepSeek para atualizar o Radar de Tendências. |
-| `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o artigo editorial da semana (SEO). |
-| `titanium_social_post.yml` | Cron (4x ao dia) | Gera artes e publica automaticamente no Instagram. |
-| `shopee_specialist_roleta.yml`| Cron (2x ao dia) | Atualiza a Seleção da Especialista (Fundo Platinum). |
-| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da Boutique Sensual (Staging). |
+| `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine principal. **Shield Gate Active.** |
+| `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA para o Radar de Tendências. **Shield Gate Active.** |
+| `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o editorial semanal. **Shield Gate Active.** |
+| `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes e posta no IG. **Shield Gate Active (ofertas.json).** |
+| `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
+| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Sensual. **Shield Gate Active.** |
 
 ---
 

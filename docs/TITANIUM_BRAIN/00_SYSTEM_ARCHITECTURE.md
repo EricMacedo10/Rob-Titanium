@@ -66,8 +66,11 @@ graph TD
 
 - **Secrets Only**: Credenciais (`FTP`, `API_KEYS`) residem exclusivamente no GitHub Secrets. **NUNCA** commitar arquivos `.env` ou scripts com chaves expostas.
 - **Structural Shield**: Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) em modo PRODUCTION. 
-- **Nuclear Shield (v3.8.1)**: 100% dos links (API, CSV e Social) passam pelo `infra/shield.py` e são auditados obrigatoriamente. Injeção mandatória da tag `an_18318830863`.
+- **Nuclear Shield (v3.9.6)**: 100% dos links (API, CSV, Site e Social) passam obrigatoriamente pela blindagem.
+    - **Python Gate**: `infra/shield.py` atua como um "Gatekeeper" mandatório em todos os GitHub Workflows.
+    - **PHP Gate**: `bot_instagram.php` integra a função `titanium_shield` para auditar links em tempo real nas DMs.
+    - **Injeção Atômica**: Garantia de 100% de cobertura da tag `an_18318830863`.
 - **Sanitização de Dados**: Auditoria recorrente para garantir que logs de execução e arquivos de debug não contenham metadados sensíveis do servidor ou da conta de afiliado.
 
 ---
-*Atualizado em: 02/05/2026 - Versão: 3.9.1-Nuclear (Smart Link Priority v2.0 + Boutique Sensual Integrated)*
+*Atualizado em: 05/05/2026 - Versão: 3.9.6-Nuclear (Global Shield Gate & Social Armor)*
