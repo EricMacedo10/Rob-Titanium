@@ -43,6 +43,29 @@
             padding: 100px;
             font-style: italic;
         }
+        /* Archive Styles */
+        .archive-list {
+            list-style: none;
+            padding: 0;
+        }
+        .archive-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        .archive-item:hover {
+            background: #f1f5f9;
+            transform: translateX(5px);
+        }
+        .archive-item a {
+            text-decoration: none;
+            color: #0f172a;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9241818899468539" crossorigin="anonymous"></script>
@@ -60,8 +83,26 @@
     <script>
         async function loadArticle() {
             const params = new URLSearchParams(window.location.search);
-            const slug = params.get('slug') || 'guia-alfaiataria-luxo';
+            const slug = params.get('slug');
             const root = document.getElementById('article-root');
+
+            if (!slug) {
+                // Modo Arquivo (AdSense Friendly)
+                try {
+                    const response = await fetch('blog/list.json');
+                    const articles = await response.json();
+                    let html = '<h1>Arquivo Editorial</h1><p style="margin-bottom:30px">Explore nossos guias e tendências curadas pela IA Titanium.</p><ul class="archive-list">';
+                    articles.forEach(art => {
+                        html += `<li class="archive-item"><a href="blog.html?slug=${art.slug}"><span>${art.title}</span> <i class="fas fa-chevron-right"></i></a></li>`;
+                    });
+                    html += '</ul>';
+                    root.innerHTML = html;
+                    root.classList.remove('loading');
+                } catch (err) {
+                    root.innerHTML = '<h1>Editorial Titanium</h1><p>Curadoria em andamento...</p>';
+                }
+                return;
+            }
 
             try {
                 const response = await fetch(`blog/${slug}.html`);
