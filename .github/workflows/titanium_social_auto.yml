@@ -11,6 +11,10 @@ on:
     # 23:30 BRT
     - cron: '30 02 * * *'
   workflow_dispatch:
+
+concurrency:
+  group: titanium-social
+  cancel-in-progress: true
   
 permissions:
   contents: write
@@ -61,6 +65,11 @@ jobs:
           SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
           ENV_MODE: PRODUCTION
         run: python -m social.core.bot
+
+      - name: 🛡️ Nuclear Shield Gate (Audit social/ofertas.json)
+        run: python infra/shield.py
+        env:
+          PYTHONPATH: .
 
       - name: 📦 Arquivar Estado do CSV
         uses: stefanzweifel/git-auto-commit-action@v4

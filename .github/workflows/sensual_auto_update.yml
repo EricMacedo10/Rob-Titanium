@@ -48,6 +48,11 @@ jobs:
           PYTHONPATH: .
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_SENSUAL }}
 
+      - name: '🛡️ Step 2.5: Nuclear Shield Gate (Audit Sensual Links)'
+        run: python infra/shield.py
+        env:
+          PYTHONPATH: .
+
       - name: '🚀 Step 3: Auto-Commit Results'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:

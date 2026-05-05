@@ -6,6 +6,10 @@ on:
     - cron: '0 6 * * 0'
   workflow_dispatch:
 
+concurrency:
+  group: titanium-blog
+  cancel-in-progress: true
+
 jobs:
   generate-article:
     runs-on: ubuntu-latest
@@ -29,6 +33,17 @@ jobs:
           SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
           PYTHONPATH: .
         run: python -m core.auto_blog_generator
+
+      - name: 🛡️ Nuclear Shield Gate (Audit Links)
+        run: python infra/shield.py
+        env:
+          PYTHONPATH: .
+
+      - name: 📦 Auto-Commit Blog Update
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 [Bot] Titanium: Atualização do Editorial/Blog"
+          file_pattern: 'site/blog/ index.html'
 
       - name: 🚀 Subir para Produção (Hostinger)
         env:

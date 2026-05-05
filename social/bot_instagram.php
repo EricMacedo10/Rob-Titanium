@@ -66,6 +66,38 @@ function bot_log($msg) {
  *   2. Keyword Match (NOVA): Se não tem hashtag, procura palavras da legenda no dicionário.
  *   3. Default: Fallback para o site.
  */
+/**
+ * 🛡️ TITANIUM SHIELD v1.0 (PHP Version)
+ * Garante que a URL Shopee possua a tag de afiliado correta.
+ */
+function titanium_shield($url) {
+    if (empty($url) || strpos($url, 'shopee.com.br') === false) {
+        return $url;
+    }
+    
+    $tag = "an_18318830863";
+    
+    // Parse da URL
+    $query = parse_url($url, PHP_URL_QUERY);
+    $params = [];
+    if ($query) {
+        parse_str($query, $params);
+    }
+    
+    // Força a tag correta
+    $params['utm_source'] = $tag;
+    
+    // Reconstrói a query
+    $new_query = http_build_query($params);
+    
+    // Monta a URL final
+    $path = parse_url($url, PHP_URL_PATH);
+    $scheme = parse_url($url, PHP_URL_SCHEME);
+    $host = parse_url($url, PHP_URL_HOST);
+    
+    return "{$scheme}://{$host}{$path}?{$new_query}";
+}
+
 function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     $caption_lower = strtolower($caption);
     $links_produto = [];
@@ -94,6 +126,8 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     $db_path = __DIR__ . "/data.json"; 
     if (!file_exists($db_path)) $db_path = $_SERVER['DOCUMENT_ROOT'] . "/data.json"; 
     
+    $final_link = "";
+
     if (empty($links_produto) && file_exists($db_path)) {
         $data_json = json_decode(file_get_contents($db_path), true);
         if (is_array($data_json)) {
@@ -113,7 +147,8 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
                 // Se 2 ou mais palavras SIGNIFICATIVAS batem, é o produto! (Mais agressivo)
                 if (count($intersection) >= 2) {
                     bot_log("💎 BANCO DE DADOS MATCH: '{$item['title']}' encontrado na legenda!");
-                    return $item['link'];
+                    $final_link = $item['link'];
+                    break;
                 }
             }
         }
@@ -122,7 +157,7 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     }
     
     // Seleção do melhor link entre os encontrados (Camada 1 e 2)
-    if (!empty($links_produto)) {
+    if (empty($final_link) && !empty($links_produto)) {
         $melhor_hashtag = "";
         $melhor_link = "";
         foreach ($links_produto as $h => $l) {
@@ -131,11 +166,16 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
                 $melhor_link = $l;
             }
         }
-        return $melhor_link;
+        $final_link = $melhor_link;
     }
     
-    bot_log("⚠️  FALLBACK TOTAL — Nenhuma hashtag ou palavra-chave serviu.");
-    return isset($dicionario_ofertas["#default"]) ? $dicionario_ofertas["#default"] : "https://{$site_url}";
+    if (empty($final_link)) {
+        bot_log("⚠️  FALLBACK TOTAL — Nenhuma hashtag ou palavra-chave serviu.");
+        $final_link = isset($dicionario_ofertas["#default"]) ? $dicionario_ofertas["#default"] : "https://{$site_url}";
+    }
+
+    // APLICA BLINDAGEM ANTES DE RETORNAR
+    return titanium_shield($final_link);
 }
 
 bot_log("🤖 TITANIUM CRON INICIADO...");

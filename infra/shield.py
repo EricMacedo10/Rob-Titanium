@@ -8,7 +8,10 @@ TARGET_TAG = "an_18318830863"
 FILES_TO_SHIELD = [
     'site/data.json',
     'site/specialist.json',
-    'site/ai_reviews.json'
+    'site/ai_reviews.json',
+    'social/ofertas.json',
+    'site/data_sensual.json',
+    'site/ai_reviews_sensual.json'
 ]
 
 def shield_url(url):
@@ -58,18 +61,30 @@ def apply_nuclear_shield():
                 data = json.load(f)
             
             modified = False
-            for item in data:
-                original_link = item.get('link', '')
-                if not original_link and 'product_url' in item:
-                    original_link = item['product_url']
-                
-                shielded_link = shield_url(original_link)
-                
-                if original_link != shielded_link:
-                    if 'link' in item: item['link'] = shielded_link
-                    if 'product_url' in item: item['product_url'] = shielded_link
-                    modified = True
-                    total_fixed += 1
+            
+            # Handle list of objects (like data.json)
+            if isinstance(data, list):
+                for item in data:
+                    original_link = item.get('link', '')
+                    if not original_link and 'product_url' in item:
+                        original_link = item['product_url']
+                    
+                    shielded_link = shield_url(original_link)
+                    
+                    if original_link != shielded_link:
+                        if 'link' in item: item['link'] = shielded_link
+                        if 'product_url' in item: item['product_url'] = shielded_link
+                        modified = True
+                        total_fixed += 1
+            
+            # Handle simple dictionary (like ofertas.json)
+            elif isinstance(data, dict):
+                for key, original_link in data.items():
+                    shielded_link = shield_url(original_link)
+                    if original_link != shielded_link:
+                        data[key] = shielded_link
+                        modified = True
+                        total_fixed += 1
 
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:

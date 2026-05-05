@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: titanium-specialist
+  cancel-in-progress: true
+
 jobs:
   run-curator:
     runs-on: ubuntu-latest
@@ -37,6 +41,11 @@ jobs:
         PYTHONPATH: .
       run: |
         python -m core.curator_csv_to_json
+
+    - name: 🛡️ Nuclear Shield Gate (Audit specialist.json)
+      run: python infra/shield.py
+      env:
+        PYTHONPATH: .
 
     - name: Commit and Push changes
       run: |
