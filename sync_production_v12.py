@@ -62,7 +62,7 @@ def sync_titanium_production():
     blog_dir = 'site/blog'
     if os.path.exists(blog_dir):
         for article in os.listdir(blog_dir):
-            if article.endswith('.html'):
+            if article.endswith('.html') or article.endswith('.json'):
                 files_to_sync.append((f"site/blog/{article}", f"blog/{article}"))
 
     print(f"[Info] Iniciando Sincronizacao de {len(files_to_sync)} arquivos...")
