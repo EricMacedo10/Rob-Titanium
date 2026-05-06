@@ -132,18 +132,6 @@
         "reason": "Datafeed Titanium: Dylwp Roupas Femininas"
     },
     {
-        "id": "prod_1776801238_31_866",
-        "title": "Camiseta Regata Top Cropped Brasil Canelada Premium Cores Vivas Verão",
-        "price": 38.61,
-        "old_price": 48.2625,
-        "discount": 27,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjuljwqut4w25b",
-        "link": "https://s.shopee.com.br/50V7vJnuXH?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Boutique Thais Matos"
-    },
-    {
         "id": "prod_1776801240_32_110",
         "title": "Vestido Longo Feminino Com Botão Solto Estampado Vestido Camisa",
         "price": 40.42,
@@ -178,18 +166,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mcqsoi3tdon57e",
         "link": "https://s.shopee.com.br/1qY69NGStP?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: bordamalhas"
-    },
-    {
-        "id": "prod_1776801244_35_801",
-        "title": "Kit 2 Blusa Feminina Mula Manca Suplex com Forro – Moda Blogueira Conforto e Estilo",
-        "price": 35.96,
-        "old_price": 44.95,
-        "discount": 24,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-7rdve-mcx1bzpuset57a",
-        "link": "https://s.shopee.com.br/2g7D8uDICe?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: LOJA KP MODAS"
     },
     {
         "id": "prod_1776801249_38_353",
@@ -660,18 +636,6 @@
         "reason": "Datafeed Titanium: Doce tricot"
     },
     {
-        "id": "prod_1776801311_80_625",
-        "title": "Blusa Feminina Drapeada Ribana Algodão Elegante Mula Manca Um Ombro só Blusinha Verão novidade",
-        "price": 23.75,
-        "old_price": 29.6875,
-        "discount": 20,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztw-ml2zdi8b3ncx12",
-        "link": "https://s.shopee.com.br/30k3XdvWax?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: REBELDIA CONFECCOES"
-    },
-    {
         "id": "prod_1776801312_81_165",
         "title": "CONJUNTO GABI. MODA FEMENINA COLETE E CALÇA ALFAIATARIA",
         "price": 78.96,
@@ -790,30 +754,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lwwugwo3xdq767",
         "link": "https://s.shopee.com.br/4qBhit52oH?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: CHARME TSHIRTERIA SP"
-    },
-    {
-        "id": "prod_1776801328_92_893",
-        "title": "KIT Short Saia Academia Fitness Cintura Alta tapa Bumbum Bailarina Rodado Suplex Premium",
-        "price": 52.89,
-        "old_price": 66.1125,
-        "discount": 19,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lvj6zrmijwi920",
-        "link": "https://s.shopee.com.br/4fsHWmREJe?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: KGB CLOSET"
-    },
-    {
-        "id": "prod_1776801330_93_564",
-        "title": "Saia Longa Feminina Alfaiataria com Bolso Cintura Alta  Moda Evangélica",
-        "price": 59.4,
-        "old_price": 74.25,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mhl0gfjn68lf19",
-        "link": "https://s.shopee.com.br/gM8kbNWxJ?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: CHIPANA-FASHION"
     },
     {
         "id": "prod_1776801331_94_770",
@@ -994,5 +934,65 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mgno069tx79j2e",
         "link": "https://s.shopee.com.br/6L0VVlippu?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: VM Jalecos e Acessórios"
+    },
+    {
+        "id": "prod_1778089672_40_652",
+        "title": "Casaco Xadrez Cardigan Tricot Lã Max Kimono de Frio Manga Longa Tendência Moda Inverno Elegante",
+        "price": 62.99,
+        "old_price": 78.7375,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-mn4fhakvruv5d9",
+        "link": "https://s.shopee.com.br/LjILzOndD?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: bellalatricot"
+    },
+    {
+        "id": "prod_1778089682_57_966",
+        "title": "Vestido Indiano longo ESTAMPADO LONGO FRENTE Única e costa Nua, ELEGANTE",
+        "price": 73.13,
+        "old_price": 91.4125,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820m9-mnlvpzku42kk05",
+        "link": "https://s.shopee.com.br/W2iYvLXb1?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Bellas Confecções"
+    },
+    {
+        "id": "prod_1778089685_64_105",
+        "title": "Saia Festa Junina São João Arraiá Quadrilha Caipira Curta Juvenil Adulta Rodada Xadrez Florida",
+        "price": 89.9,
+        "old_price": 112.375,
+        "discount": 21,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-7rdvy-mbvj2lcjonjtac",
+        "link": "https://s.shopee.com.br/7ppJIbFArw?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: LGCS SHOP"
+    },
+    {
+        "id": "prod_1778089703_96_588",
+        "title": "CONJUNTO ABIGAIL TENDENCIA DO MOMENTO EM  COLETE +SHORTS  PRIMAVERA VERÃO 2026",
+        "price": 54.4,
+        "old_price": 68.0,
+        "discount": 18,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf8pxresdcec30",
+        "link": "https://s.shopee.com.br/50V7uZ728y?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: MODAS ALFRE"
+    },
+    {
+        "id": "prod_1778089705_99_616",
+        "title": "Calça Pantalona Feminina Alfaiataria com Bolso Fechamento Ziper na Frente",
+        "price": 58.99,
+        "old_price": 73.7375,
+        "discount": 18,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lt-mn235ge0rt362f",
+        "link": "https://s.shopee.com.br/AKWeGMmjKZ?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Smile Label"
     }
 ]
