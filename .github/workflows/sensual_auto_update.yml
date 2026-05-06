@@ -58,3 +58,12 @@ jobs:
         with:
           commit_message: "🦾 [Bot] Sensual Niche: Automação Periódica (Staging Update)"
           file_pattern: 'site/data_sensual.json site/ai_reviews_sensual.json'
+
+      - name: 🚀 Subir para Produção (Hostinger)
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          ENV_MODE: PRODUCTION
+          PYTHONPATH: .
+        run: python sync_production_v12.py

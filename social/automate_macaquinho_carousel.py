@@ -13,7 +13,7 @@ def create_macaquinho_carousel():
         {"path": os.path.join(brain_dir, "model_shaper_01_diversity_1775854774008.png"), "title": "CONCURSO DE CURVAS: MODELADOR PREMIUM 💎", "price": None, "type": "cover"},
         {"path": os.path.join(brain_dir, "model_shaper_01_diversity_1775854774008.png"), "title": "", "price": price},
         {"path": os.path.join(brain_dir, "model_shaper_02_diversity_black_1775854798591.png"), "title": "", "price": price},
-        {"path": os.path.join(brain_dir, "model_shaper_03_diversity_asian_1775854827323.png"), "title": "", "price": price},
+        {"path": os.path.join(brain_dir, "model_shaper_03_diversity_asian_18318830863.png"), "title": "", "price": price},
         {"path": os.path.join(brain_dir, "model_shaper_04_diversity_brunette_1775854850441.png"), "title": "", "price": price},
         {"path": os.path.join(brain_dir, "model_shaper_04_diversity_brunette_1775854850441.png"), "title": "COMENTE 'QUERO'\nPARA O LINK! 🔗", "price": None, "type": "cta"},
     ]
