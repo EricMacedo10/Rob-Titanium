@@ -15,7 +15,8 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o editorial semanal. **Shield Gate Active.** |
 | `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes e posta no IG. **Shield Gate Active (ofertas.json).** |
 | `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
-| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate Active.** |
+| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
+| `sensual_specialist_auto.yml` | Cron (2x ao dia) | Curadoria da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
 
 ---
 
@@ -43,7 +44,7 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 ### Sincronização Atômica (`sync_production_v12.py`):
 O sistema utiliza um script inteligente de sincronização que:
 2.  **Nuclear Shield Audit Gate**: Executa `infra/shield.py` para validar e corrigir 100% das tags de afiliado antes do upload.
-3.  Realiza o upload via FTP apenas dos dados (`data.json`) no dia a dia.
+3.  Realiza o upload via FTP apenas dos dados (`data.json`, `data_sensual.json`, etc) no dia a dia (Auto-FTP nas Github Actions).
 4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
 ### Deploy do Social Bot & Hybrid Intelligence *(v2.2.1 - 02/05/2026)*:
@@ -67,5 +68,5 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 ---
 ---
 **IA Titanium**
-*Atualizado em: 02/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.9 + Hybrid Intelligence v2.2*
+*Atualizado em: 06/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.9.8 + Sensual Auto-FTP*
 

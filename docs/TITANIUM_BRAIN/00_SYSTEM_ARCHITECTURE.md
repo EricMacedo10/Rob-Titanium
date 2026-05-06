@@ -66,11 +66,12 @@ graph TD
 
 - **Secrets Only**: Credenciais (`FTP`, `API_KEYS`) residem exclusivamente no GitHub Secrets. **NUNCA** commitar arquivos `.env` ou scripts com chaves expostas.
 - **Structural Shield**: Scripts automáticos são proibidos de sobrescrever arquivos estruturais (`.php`, `.htaccess`, `.css`) em modo PRODUCTION. 
-- **Nuclear Shield (v3.9.6)**: 100% dos links (API, CSV, Site e Social) passam obrigatoriamente pela blindagem.
-    - **Python Gate**: `infra/shield.py` atua como um "Gatekeeper" mandatório em todos os GitHub Workflows.
+- **Nuclear Shield (v3.9.8)**: 100% dos links (API, CSV, Site e Social) passam obrigatoriamente pela blindagem.
+    - **Python Gate**: `infra/shield.py` atua como um "Gatekeeper" mandatório em todos os GitHub Workflows. Auditado para garantir que não há tags incorretas (como `an_1775854827323` que foi removida). Todas as tags agora apontam obrigatoriamente para `an_18318830863`.
     - **PHP Gate**: `bot_instagram.php` integra a função `titanium_shield` para auditar links em tempo real nas DMs.
     - **Injeção Atômica**: Garantia de 100% de cobertura da tag `an_18318830863`.
+    - **Search Integration**: A lógica de busca do `app_sensual.js` e `app.js` garante o redirecionamento com a Tag Universal embutida via Deep Link Shopee App Fallback.
 - **Sanitização de Dados**: Auditoria recorrente para garantir que logs de execução e arquivos de debug não contenham metadados sensíveis do servidor ou da conta de afiliado.
 
 ---
-*Atualizado em: 06/05/2026 - Versão: 3.9.7-Nuclear (Global Shield Gate & Action Fix)*
+*Atualizado em: 06/05/2026 - Versão: 3.9.8-SeniorAudit (Global Shield Gate & Sensual Automated FTP Deploys)*
