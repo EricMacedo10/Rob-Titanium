@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let allProducts = [];
+    const searchInput = document.getElementById('search-input');
+    const searchButton = document.querySelector('.btn-search');
 
     // 1. Auditor de Links Universal (Herdado da Titanium)
     function titaniumLinkAuditor(originalUrl) {
@@ -114,31 +116,39 @@ document.addEventListener('DOMContentLoaded', () => {
     async function initSensualBoutique() {
         try {
             // Vitrine 1: Radar (SexTech)
-            loadRadar();
+            const resRadar = await fetch(CONFIG.RADAR_SOURCE + CONFIG.CACHE_BUST);
+            const dataRadar = await resRadar.json();
+            allProducts = [...allProducts, ...dataRadar];
+            loadRadar(dataRadar);
 
             // Vitrine 2: Especialista (Lingerie)
             const resPlatinum = await fetch(CONFIG.PLATINUM_SOURCE + CONFIG.CACHE_BUST);
             const dataPlatinum = await resPlatinum.json();
+            allProducts = [...allProducts, ...dataPlatinum];
             renderProducts(dataPlatinum.slice(0, 24), 'platinum-grid');
 
             // Vitrine 3: Ofertas (Cosmética)
             const resOffers = await fetch(CONFIG.DATA_SOURCE + CONFIG.CACHE_BUST);
             const dataOffers = await resOffers.json();
+            allProducts = [...allProducts, ...dataOffers];
             renderProducts(dataOffers.slice(0, 24), 'deals-grid');
 
             initAssistant();
+            setupSearch();
         } catch (err) {
             console.error('[Íntima] Erro na inicialização:', err);
         }
     }
 
-    async function loadRadar() {
+    async function loadRadar(radarData) {
         const radarGrid = document.getElementById('radar-grid');
         if (!radarGrid) return;
 
         try {
-            const res = await fetch(CONFIG.RADAR_SOURCE + CONFIG.CACHE_BUST);
-            const radarData = await res.json();
+            if (!radarData) {
+                const res = await fetch(CONFIG.RADAR_SOURCE + CONFIG.CACHE_BUST);
+                radarData = await res.json();
+            }
             
             // Limitado a 18 itens conforme estratégia
             radarGrid.innerHTML = radarData.slice(0, 18).map(p => `
@@ -173,6 +183,97 @@ document.addEventListener('DOMContentLoaded', () => {
             i++;
         }, 4000);
     }
+
+    function setupSearch() {
+        if (searchButton && searchInput) {
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+        }
+    }
+
+    function performSearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const dealsGrid = document.getElementById('deals-grid');
+        const radarSection = document.getElementById('radar');
+        const platinumSection = document.getElementById('platinum');
+        const sectionTitle = document.querySelector('.voted-deals .section-title');
+
+        if (!dealsGrid) return;
+
+        // Esconder outras seções durante a busca para focar nos resultados
+        if (radarSection) radarSection.style.display = query ? 'none' : 'block';
+        if (platinumSection) platinumSection.style.display = query ? 'none' : 'block';
+
+        if (!query) {
+            window.location.reload();
+            return;
+        }
+
+        dealsGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: #4a0e4e;"></i>
+                <p style="margin-top: 15px; color: #64748b;">Buscando por "${query}" na Boutique Íntima...</p>
+            </div>
+        `;
+
+        setTimeout(() => {
+            const matches = allProducts.filter(p => {
+                const title = (p.title || '').toLowerCase();
+                const review = (p.ai_review || '').toLowerCase();
+                return title.includes(query) || review.includes(query);
+            });
+
+            if (matches.length === 0) {
+                if (sectionTitle) sectionTitle.innerHTML = `Busca por: "<strong>${query}</strong>"`;
+                dealsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; border: 2px dashed #4a0e4e; border-radius: 20px; padding: 50px 20px; background: #fff5f2; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🤖</div>
+                        <h3 style="color: #4a0e4e; font-size: 1.8rem; margin-bottom: 15px;">O Robô Titanium está pronto!</h3>
+                        <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 30px;">
+                            Não encontramos "<strong>${query}</strong>" na nossa vitrine curada de Lingerie & Bem-Estar, mas o <strong>Robô Titanium</strong> pode abrir a busca oficial agora!
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                            <button onclick="titaniumDeepLink('${query}')" 
+                               style="background: linear-gradient(90deg, #4a0e4e, #7b2d8e); color: white; padding: 18px 40px; border: none; border-radius: 50px; font-weight: 800; font-size: 1.2rem; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(74, 14, 78, 0.3); display: flex; align-items: center; gap: 10px; transition: transform 0.2s;">
+                                <i class="fas fa-search"></i> Buscar tudo na Shopee agora
+                            </button>
+                            
+                            <button onclick="window.location.reload()" style="background: white; color: #4a0e4e; border: 2px solid #4a0e4e; padding: 12px 30px; border-radius: 50px; font-weight: 700; cursor: pointer; margin-top: 20px;">
+                                <i class="fas fa-home"></i> Voltar para a Boutique
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                if (sectionTitle) {
+                    sectionTitle.innerHTML = `Resultados para "<strong>${query}</strong>"`;
+                }
+                renderProducts(matches, 'deals-grid');
+            }
+
+            // Scroll suave para os resultados
+            window.scrollTo({ top: dealsGrid.offsetTop - 100, behavior: 'smooth' });
+        }, 400);
+    }
+
+    window.titaniumDeepLink = function(query) {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const webUrl = `https://shopee.com.br/search?keyword=${encodeURIComponent(query)}&utm_source=${CONFIG.AFFILIATE_TAG}`;
+        
+        if (isMobile) {
+            const appUrl = `shopeebrazil://search?keyword=${encodeURIComponent(query)}`;
+            const now = Date.now();
+            setTimeout(() => {
+                if (Date.now() - now < 1000) window.location.href = webUrl;
+            }, 500);
+            window.location.href = appUrl;
+        } else {
+            window.open(webUrl, '_blank');
+        }
+    };
 
     initSensualBoutique();
     initAssistant();
