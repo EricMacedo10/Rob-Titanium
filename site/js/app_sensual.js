@@ -168,20 +168,66 @@ document.addEventListener('DOMContentLoaded', () => {
     // Assistente Titanium (Sensual Persona)
     function initAssistant() {
         const assistant = document.getElementById('titanium-assistant');
-        const bubble = assistant.querySelector('.bubble-text');
+        if (!assistant) return;
         
-        const messages = [
-            "Descobrindo rituais de bem-estar...",
-            "Auditando discrição das embalagens...",
-            "Selecionando seda e renda de elite...",
-            "Verificando tecnologia air-touch..."
+        const bubble = assistant.querySelector('.bubble-text');
+        if (!bubble) return;
+        
+        let messages = [
+            "O seu bem-estar é a sua maior luxúria.",
+            "Autocuidado não é um luxo, é a sua prioridade.",
+            "Você merece momentos dedicados apenas a você.",
+            "Invista em você. É o melhor retorno garantido.",
+            "Descubra o prazer de cuidar de si mesma.",
+            "Rotinas de beleza são rituais de amor-próprio.",
+            "O luxo é ter tempo para se amar.",
+            "Transforme o seu dia com pequenos gestos de carinho.",
+            "Cuidar de você é o primeiro passo para conquistar o mundo.",
+            "Abrace cada curva da sua jornada.",
+            "A sua confiança é o seu acessório mais caro.",
+            "Seja a protagonista absoluta da sua história.",
+            "Uma mulher segura é uma força da natureza.",
+            "O poder está nas suas mãos. E nas suas escolhas.",
+            "Você é a musa da sua própria vida.",
+            "Reconheça a sua força. Ela é imensurável.",
+            "Vista-se de autoestima e conquiste o universo.",
+            "Ninguém pode ditar os limites do seu prazer.",
+            "Mulheres empoderadas empoderam outras mulheres.",
+            "Respire fundo e sinta a deusa que habita em você.",
+            "A verdadeira elegância começa de dentro para fora.",
+            "Permita-se sentir o poder da sua própria pele.",
+            "Não há nada mais sensual do que a autoconfiança.",
+            "Conforto e beleza andam de mãos dadas.",
+            "Sinta-se deusa em cada detalhe do seu dia.",
+            "A vida é curta para não usar a sua melhor lingerie.",
+            "Seja livre para explorar os seus desejos.",
+            "O seu corpo é um templo. Honre-o sempre.",
+            "A sua luz e energia iluminam tudo ao redor.",
+            "O seu magnetismo vem da sua autenticidade.",
+            "Celebre a beleza de ser exatamente quem você é.",
+            "Desperte a sua melhor versão todos os dias.",
+            "Sua essência é única. Deixe-a brilhar.",
+            "Você é suficiente, incrível e extraordinária.",
+            "A beleza começa quando você decide ser você mesma.",
+            "Seu sorriso é a assinatura do seu estilo.",
+            "Permita-se ser vulnerável, intensa e real.",
+            "Você é uma obra de arte em constante evolução.",
+            "Não siga padrões, seja a sua própria referência.",
+            "O mundo é a sua passarela. Desfile."
         ];
 
+        // Embaralha as mensagens para garantir aleatoriedade em cada visita
+        messages = messages.sort(() => Math.random() - 0.5);
+
         let i = 0;
+        // Exibe a primeira mensagem imediatamente
+        bubble.innerText = messages[0];
+        
+        // Rotaciona a cada 6 segundos para dar tempo de ler
         setInterval(() => {
-            bubble.innerText = messages[i % messages.length];
             i++;
-        }, 4000);
+            bubble.innerText = messages[i % messages.length];
+        }, 6000);
     }
 
     function setupSearch() {
