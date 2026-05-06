@@ -1,6 +1,6 @@
 # 🧠 Titanium Brain: System Architecture Map (v2026.1)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.8.1-Nuclear).
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** (v3.9.7-Nuclear).
 
 ---
 
@@ -73,4 +73,4 @@ graph TD
 - **Sanitização de Dados**: Auditoria recorrente para garantir que logs de execução e arquivos de debug não contenham metadados sensíveis do servidor ou da conta de afiliado.
 
 ---
-*Atualizado em: 05/05/2026 - Versão: 3.9.6-Nuclear (Global Shield Gate & Social Armor)*
+*Atualizado em: 06/05/2026 - Versão: 3.9.7-Nuclear (Global Shield Gate & Action Fix)*

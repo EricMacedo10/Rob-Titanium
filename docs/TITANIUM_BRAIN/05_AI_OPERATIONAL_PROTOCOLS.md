@@ -27,6 +27,7 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **Editorial Sem nexo** | Falha de dados no Blog. | Se o blog falar de "Maquiagem" mas injetar "Calças", o robô não conseguiu acessar o pool de 100k e usou o fallback local. Verifique os segredos do Datafeed. |
 | **Robô de DM falhando** | Token expirado (190/463). | Renovar token via `python -m social.titanium_token_manager`. |
 | **Imagens genéricas** | Fallback ativado. | O sistema agora usa a API Oficial via `core/shopee_api.py`. Se falhar, use os assets manuais em `site/images`. |
+| **Erro 403 Actions** | Permissão de Escrita GITHUB_TOKEN. | O workflow exige `permissions: contents: write` explicitamente para realizar o Auto-Commit de arquivos JSON. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -143,4 +144,4 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Sensual) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-*Última Auditoria Técnica: 04/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Triple-Core Editorial v4.0*
+*Última Auditoria Técnica: 06/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Action Fix v3.9.7*
