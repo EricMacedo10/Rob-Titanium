@@ -10,7 +10,7 @@ O sistema segue uma arquitetura onde o **Frontend é agnóstico**:
 - O site em produção (Hostinger) não depende de um banco de dados SQL pesado.
 - Toda a "inteligência" e "estado" do site (ofertas, preços, textos de IA) são injetados via arquivos JSON estáticos.
 - **Deduplicação Master**: Implementado um sistema de exclusividade hierárquica para garantir que nenhum produto se repita entre as seções.
-- **Multivirtines Estratégicas**: O sistema agora suporta verticais independentes (Titanium Moda e Sensual Boutique) com motores de renderização e pools de dados específicos.
+- **Multivirtines Estratégicas**: O sistema agora suporta verticais independentes (Titanium Moda e Boutique Íntima) com motores de renderização e pools de dados específicos.
 
 ---
 
@@ -53,7 +53,7 @@ graph TD
 2.  **Mineração & Curação**:
     - O motor Python acessa a API Oficial da Shopee.
     - O **Arbitro** valida se os produtos ainda existem e se os preços são competitivos.
-    - A **IA DeepSeek** gera textos persuasivos e técnicos para o Editorial e o Radar (Moda e Sensual).
+    - A **IA DeepSeek** gera textos persuasivos e técnicos para o Editorial e o Radar (Moda e Íntima).
 3.  **Sincronização Atômica**:
     - Os arquivos de estado são enviados via FTP.
     - O `index.html` e `sensual.html` mestres são usados como templates seguros.

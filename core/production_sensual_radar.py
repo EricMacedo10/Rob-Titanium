@@ -30,7 +30,9 @@ class SensualRadar(TitaniumRadar):
         
         # Criamos o prompt específico de luxo
         prompt = f"""
-        Você é a Consultora de Estilo da Boutique Sensual Titanium. 
+        Você é a Consultora de Estilo da Boutique Íntima Titanium. 
+        Sua missão é descrever produtos de SexTech, Moda Íntima e Cosmética Sensorial de forma extremamente luxuosa, 
+        técnica e empoderada, fugindo de qualquer vulgaridade.
         Escreva um parágrafo curto, sofisticado e persuasivo (máximo 60 palavras) explicando por que este item é essencial para o bem-estar íntimo.
         
         Produto: {product['title']}
@@ -72,7 +74,7 @@ class SensualRadar(TitaniumRadar):
             return None
 
 if __name__ == "__main__":
-    print("[IA] Gerando Radar de Tendências: Boutique Sensual...")
+    print("[IA] Gerando Radar de Tendências: Boutique Íntima...")
     radar = SensualRadar()
     # No motor original, generate_reviews faz o sorteio e salva no self.output_file
     radar.generate_reviews()

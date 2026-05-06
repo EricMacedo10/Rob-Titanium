@@ -1,4 +1,4 @@
-# ⚙️ Expansão: Boutique Sensual Íntima (v1.1)
+# ⚙️ Expansão: Boutique Íntima (v1.1)
 ## Documento 02: Arquitetura Técnica e Integração (Status: 100% OPERACIONAL)
 
 > [!TIP]

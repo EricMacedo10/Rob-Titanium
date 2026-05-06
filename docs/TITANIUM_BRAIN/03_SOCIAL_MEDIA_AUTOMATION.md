@@ -10,7 +10,7 @@ O bot opera em três frentes de atuação com foco em **Zero-Intervention**:
 - **Datafeed Scale-up**: O robô se abastece do pool de 100K produtos via `social/queue_csv_products.py`.
 - **Media**: Gera Reels automáticos com efeito Ken Burns a partir de imagens oficiais Shopee.
 
-### 2. Vertical Sensual Boutique (Isolated)
+### 2. Vertical Boutique Íntima (Isolated)
 - **Estratégia Pinterest**: Foco em estética "Aesthetic" e rituais de autocuidado para evitar shadowbans.
 - **Instagram Dark-Mode**: Uso de templates com a paleta Mauve/Gold para diferenciar a vertical no feed.
 

@@ -127,13 +127,13 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
 ---
 ## 🌹 Segmentação por Nicho & Luxo Sensorial (v3.9 - 30/04/2026)
 
-O Titanium agora suporta verticais de nicho (ex: Boutique Sensual) com protocolos de linguagem e automação isolados:
+O Titanium agora suporta verticais de nicho (ex: Boutique Íntima) com protocolos de linguagem e automação isolados:
 
 1.  **Exclusividade DeepSeek (Cost-Efficiency Strategy)**:
     *   Para nichos de curadoria massiva (Radar de Tendências), o sistema deve operar **100% via DeepSeek API**.
     *   **Isolamento de Chaves**: Cada vertical deve possuir sua própria Secret no GitHub (`DEEPSEEK_API_KEY_SENSUAL`) para monitoramento granular de consumo.
 
-2.  **Dicionário de Sofisticação (Boutique Sensual)**:
+2.  **Dicionário de Sofisticação (Boutique Íntima)**:
     *   O motor de IA **NUNCA** deve utilizar terminologia vulgar ou explícita.
     *   **Mapeamento de Luxo Obrigatório**:
         *   `Vibrador/Toy` ➔ **Estimulador de Precisão / Gadget de Bem-Estar**.

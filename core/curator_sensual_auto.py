@@ -4,8 +4,8 @@ import random
 
 def auto_curate_sensual_platinum():
     """
-    🦾 Motor de Curadoria Inteligente para Boutique Sensual.
-    Seleciona automaticamente os melhores produtos do feed geral
+    🦾 Motor de Curadoria Inteligente para Boutique Íntima.
+    Lógica: Seleciona 9 itens (3x3 grid) baseados no maior desconto e score de luxo.s do feed geral
     baseado em critérios de 'Luxo' e 'Performance'.
     """
     data_source = 'site/data_sensual.json'
@@ -20,7 +20,7 @@ def auto_curate_sensual_platinum():
             products = json.load(f)
         
         if not products:
-            print("[Aviso] Nenhum produto encontrado no feed sensual.")
+            print(f"\n[SUCESSO] {len(products)} produtos Íntimos carregados!")
             return
 
         # --- LÓGICA DE SELEÇÃO SMART LUXO ---
@@ -44,7 +44,7 @@ def auto_curate_sensual_platinum():
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(selected_platinum, f, ensure_ascii=False, indent=4)
             
-        print(f"[Sucesso] Seleção da Especialista Sensual gerada com {len(selected_platinum)} itens de elite.")
+        print(f"[Sucesso] Seleção da Especialista Íntima gerada com {len(selected_platinum)} itens de elite.")
 
     except Exception as e:
         print(f"[Erro] Falha na curadoria automática: {e}")

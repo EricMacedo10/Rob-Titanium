@@ -9,12 +9,12 @@ A evolução do design do Guia do Desconto prioriza a **autoridade técnica** em
 ### 1. Header: Autoridade & Confiança
 O projeto estabilizou em um **Header Estático e Premium** com variações por vertical:
 - **Boutique Titanium**: Estética Clean, Shopee Orange & Deep Purple.
-- **Boutique Sensual**: Estética Luxo, Deep Mauve & Soft Gold com Glassmorphism avançado.
+- **Boutique Íntima**: Estética Luxo, Deep Mauve & Soft Gold com Glassmorphism avançado.
 
 ### 2. A Vitrine Aberta & Especializada
 O sistema agora gerencia múltiplas vitrines simultâneas:
 - **index.html**: Foco em Moda e Beleza (Titanium).
-- **sensual.html**: Foco em Bem-Estar e SexTech (Sensual Boutique).
+- **sensual.html**: Foco em Bem-Estar e SexTech (Boutique Íntima).
 Ambos compartilham o motor de auditoria de links, mas possuem lógica de renderização (`app.js` vs `app_sensual.js`) e pools de dados independentes.
 
 ## 🚀 The Redirection Engine ("Links Inteligentes")
@@ -28,12 +28,12 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
 
 ### 3. Boutique Shopee Design (v2.1)
 
-#### **A. Estrutura dos Cards (Sensual Edition)**
+#### **A. Estrutura dos Cards (Edição Íntima)**
 - **Background**: Glassmorphism (`rgba(255, 255, 255, 0.03)` + `blur(15px)`).
 - **Bordas**: Soft Gold (`#D4AF37`) reativo ao hover.
 - **Micro-Animações**: Efeito de flutuação e brilho metálico nos itens de elite.
 
-#### **C. Boutique Sensual v3.9 (High-Presence Visuals)**
+#### **C. Boutique Íntima v3.9 (High-Presence Visuals)**
 1.  **Hero Background**: 
     *   Utiliza pseudo-elemento `::before` com imagem de silhueta artística.
     *   **Opacidade Mandatória**: 85% para garantir que a marca seja "viva" e não apenas um fundo claro.
@@ -69,7 +69,7 @@ The frontend is "re-hydrated" every time the browser loads:
 
 ## 🎨 Design System & Styling Rules
 
-- **Glassmorphism**: Aplicado intensamente na vertical Sensual para transmitir luxo e discrição.
+- **Glassmorphism**: Aplicado intensamente na vertical Íntima para transmitir luxo e discrição.
 - **Symmetry Compliance**: Grades fixas de 18 e 24 itens para garantir harmonia visual no desktop e mobile.
 
 ### 🛡️ Styling Protection Protocols (Senior Rules)

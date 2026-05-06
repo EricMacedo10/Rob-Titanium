@@ -45,10 +45,25 @@ BELEZA_KEYWORDS = [
 
 ALL_KEYWORDS = MODA_KEYWORDS + BELEZA_KEYWORDS
 
+# Bloqueio Temporário: Estimuladores e SexTech Explícito
+# Conforme solicitado pelo USER (Bloqueio nos links de 100K)
+BLOCKLIST_KEYWORDS = [
+    "vibrador", "sugador", "clitoris", "clitóris", "estimulador", 
+    "masturbador", "plug anal", "sex toy", "brinquedo erótico",
+    "massageador íntimo", "bullet", "wand", "ovo masturbador",
+    "lingerie aberta", "fio dental aberto"
+]
+
 
 def _is_moda_beleza(product_name: str) -> bool:
-    """Verifica se o produto pertence ao nicho Moda & Beleza."""
+    """Verifica se o produto pertence ao nicho Moda & Beleza e NÃO está na blocklist."""
     name_lower = product_name.lower()
+    
+    # 1. Bloqueio Mandatório
+    if any(bw in name_lower for bw in BLOCKLIST_KEYWORDS):
+        return False
+        
+    # 2. Pertencimento ao Nicho
     return any(kw in name_lower for kw in ALL_KEYWORDS)
 
 

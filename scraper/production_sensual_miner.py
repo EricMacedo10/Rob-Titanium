@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Produção: Boutique Sensual Íntima - Minerador de Elite
+Produção: Boutique Íntima - Minerador de Elite
 Focado em SexTech, Moda Íntima e Cosmética Sensorial.
 """
 
@@ -47,16 +47,16 @@ def refine_sensual_title(title):
 
 def run_sensual_miner():
     print("="*60)
-    print("[Titanium] MINERADOR BOUTIQUE SENSUAL - FASE 1 (TESTE)")
+    print("[Titanium] MINERADOR BOUTIQUE ÍNTIMA - FASE 1 (TESTE)")
     print("="*60)
     
     # Matriz de Busca baseada no Documento 01
     targets = [
-        # SexTech (Prioridade 1 & 2)
-        {"q": "sugador de clitoris air touch", "tag": "#sextech", "cat": "Tecnologia Íntima"},
-        {"q": "vibrador bullet silencioso", "tag": "#precisao", "cat": "Tecnologia Íntima"},
-        {"q": "vibrador com app bluetooth", "tag": "#connected", "cat": "Tecnologia Íntima"},
-        {"q": "massageador varinha wand potente", "tag": "#power", "cat": "Tecnologia Íntima"},
+        # SexTech (Prioridade 1 & 2) - BLOQUEADO TEMPORARIAMENTE CONFORME SOLICITAÇÃO USER
+        # {"q": "sugador de clitoris air touch", "tag": "#sextech", "cat": "Tecnologia Íntima"},
+        # {"q": "vibrador bullet silencioso", "tag": "#precisao", "cat": "Tecnologia Íntima"},
+        # {"q": "vibrador com app bluetooth", "tag": "#connected", "cat": "Tecnologia Íntima"},
+        # {"q": "massageador varinha wand potente", "tag": "#power", "cat": "Tecnologia Íntima"},
         
         # Moda & Luxo (Prioridade 3)
         {"q": "lingerie de renda luxo preta", "tag": "#lingerie", "cat": "Moda & Luxo"},
@@ -108,11 +108,11 @@ def run_sensual_miner():
                 
             time.sleep(2) # Protecao de taxa API
 
-        # Salva o banco de dados da Boutique Sensual
+        # Salva o banco de dados da Boutique Íntima
         if database:
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(database, f, indent=4, ensure_ascii=False)
-            print(f"\n[SUCESSO] {len(database)} produtos Sensuais carregados!")
+            print(f"\n[SUCESSO] {len(database)} produtos Íntimos carregados!")
             print(f"Arquivo data_sensual.json gerado em: {output_path}")
         else:
             print("\n[AVISO] Nenhum produto encontrado. Verifique as APIs.")

@@ -15,7 +15,7 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o editorial semanal. **Shield Gate Active.** |
 | `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes e posta no IG. **Shield Gate Active (ofertas.json).** |
 | `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
-| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Sensual. **Shield Gate Active.** |
+| `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate Active.** |
 
 ---
 

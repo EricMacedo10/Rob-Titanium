@@ -1,5 +1,5 @@
-# 📢 Expansão: Boutique Sensual Íntima (v1.1)
-## Documento 03: Estratégia de Marketing e Tráfego (Status: EM ANDAMENTO - SEMANA 1 OK)
+# 📢 Expansão: Boutique Íntima (v1.1)
+## Documento 03: Canais de Tráfego e Captação (Status: FASE 1 ATIVA)
 
 Este documento define o plano de aquisição de usuários e crescimento orgânico/pago.
 

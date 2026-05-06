@@ -1,17 +1,18 @@
 /**
- * 🦾 Robô Titanium: Boutique Sensual Íntima (v3.8.0)
+ * 🦾 Robô Titanium: Boutique Íntima (v3.8.0)
  * Motor de Renderização e Auditoria de Links
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🦾 Motor Sensual Titanium Ativo...');
+    console.log('🦾 Motor Íntima Titanium Ativo...');
 
     const CONFIG = {
         DATA_SOURCE: 'data_sensual.json',
         RADAR_SOURCE: 'ai_reviews_sensual.json',
         PLATINUM_SOURCE: 'specialist_sensual.json',
         AFFILIATE_TAG: 'an_18318830863',
-        UTM_SOURCE: 'boutique_sensual'
+        UTM_SOURCE: 'boutique_sensual',
+        CACHE_BUST: `?v=${Date.now()}`
     };
 
     let allProducts = [];
@@ -116,18 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
             loadRadar();
 
             // Vitrine 2: Especialista (Lingerie)
-            const resPlatinum = await fetch(CONFIG.PLATINUM_SOURCE);
+            const resPlatinum = await fetch(CONFIG.PLATINUM_SOURCE + CONFIG.CACHE_BUST);
             const dataPlatinum = await resPlatinum.json();
             renderProducts(dataPlatinum.slice(0, 24), 'platinum-grid');
 
             // Vitrine 3: Ofertas (Cosmética)
-            const resOffers = await fetch(CONFIG.DATA_SOURCE);
+            const resOffers = await fetch(CONFIG.DATA_SOURCE + CONFIG.CACHE_BUST);
             const dataOffers = await resOffers.json();
             renderProducts(dataOffers.slice(0, 24), 'deals-grid');
 
             initAssistant();
         } catch (err) {
-            console.error('[Sensual] Erro na inicialização:', err);
+            console.error('[Íntima] Erro na inicialização:', err);
         }
     }
 
@@ -136,14 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!radarGrid) return;
 
         try {
-            const res = await fetch(CONFIG.RADAR_SOURCE);
+            const res = await fetch(CONFIG.RADAR_SOURCE + CONFIG.CACHE_BUST);
             const radarData = await res.json();
             
             // Limitado a 18 itens conforme estratégia
             radarGrid.innerHTML = radarData.slice(0, 18).map(p => `
                 <a href="${titaniumLinkAuditor(p.link)}" target="_blank" class="radar-card">
                     <div style="display: flex; gap: 15px; align-items: center;">
-                        <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='https://placehold.co/400x400/4a0e4e/white?text=Sensual+Elite'">
+                        <img src="${p.image}" alt="${p.title}" class="radar-img" onerror="this.src='https://placehold.co/400x400/4a0e4e/white?text=Íntima+Elite'">
                         <h4 style="font-size: 1.05rem; margin: 0; color: #f8fafc; line-height: 1.3;">${p.title.substring(0, 45)}...</h4>
                     </div>
                     <div class="radar-review" style="margin-top: 15px;">${p.ai_review}</div>
