@@ -185,28 +185,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupSearch() {
+        console.log('[Search] Configurando listeners...');
         if (searchButton && searchInput) {
-            searchButton.addEventListener('click', performSearch);
-            searchInput.addEventListener('keyup', (e) => {
-                if (e.key === 'Enter') performSearch();
+            searchButton.addEventListener('click', () => {
+                console.log('[Search] Botão clicado');
+                performSearch();
             });
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    console.log('[Search] Enter pressionado');
+                    performSearch();
+                }
+            });
+        } else {
+            console.warn('[Search] Elementos não encontrados:', { searchButton, searchInput });
         }
     }
 
     function performSearch() {
         const query = searchInput.value.toLowerCase().trim();
+        console.log('[Search] Iniciando busca por:', query);
+        
         const dealsGrid = document.getElementById('deals-grid');
         const radarSection = document.getElementById('radar');
         const platinumSection = document.getElementById('platinum');
         const sectionTitle = document.querySelector('.voted-deals .section-title');
 
-        if (!dealsGrid) return;
+        if (!dealsGrid) {
+            console.error('[Search] deals-grid não encontrado');
+            return;
+        }
 
         // Esconder outras seções durante a busca para focar nos resultados
         if (radarSection) radarSection.style.display = query ? 'none' : 'block';
         if (platinumSection) platinumSection.style.display = query ? 'none' : 'block';
 
         if (!query) {
+            console.log('[Search] Query vazia, recarregando...');
             window.location.reload();
             return;
         }
@@ -218,12 +233,20 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        // Garantir que temos produtos
+        if (allProducts.length === 0) {
+            console.warn('[Search] allProducts está vazio, tentando recuperar dados...');
+        }
+
         setTimeout(() => {
             const matches = allProducts.filter(p => {
                 const title = (p.title || '').toLowerCase();
                 const review = (p.ai_review || '').toLowerCase();
-                return title.includes(query) || review.includes(query);
+                const category = (p.category || '').toLowerCase();
+                return title.includes(query) || review.includes(query) || category.includes(query);
             });
+
+            console.log(`[Search] ${matches.length} resultados encontrados`);
 
             if (matches.length === 0) {
                 if (sectionTitle) sectionTitle.innerHTML = `Busca por: "<strong>${query}</strong>"`;
@@ -255,7 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Scroll suave para os resultados
-            window.scrollTo({ top: dealsGrid.offsetTop - 100, behavior: 'smooth' });
+            const gridPos = dealsGrid.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({ top: gridPos, behavior: 'smooth' });
         }, 400);
     }
 
