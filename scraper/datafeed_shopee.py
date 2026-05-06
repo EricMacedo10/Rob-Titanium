@@ -51,7 +51,9 @@ BLOCKLIST_KEYWORDS = [
     "vibrador", "sugador", "clitoris", "clitóris", "estimulador", 
     "masturbador", "plug anal", "sex toy", "brinquedo erótico",
     "massageador íntimo", "bullet", "wand", "ovo masturbador",
-    "lingerie aberta", "fio dental aberto"
+    "lingerie aberta", "fio dental aberto", "cápsula discreto",
+    "pompoarismo", "ponto g", "consolador", "algema", "chicote",
+    "vibratório", "vibratoria", "prazer íntimo", "prazer intimo"
 ]
 
 
