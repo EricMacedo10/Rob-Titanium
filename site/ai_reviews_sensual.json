@@ -270,5 +270,25 @@
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
         "ai_review": "O toque do cetim bordado não é apenas um tecido, é um ritual sensorial para o seu bem-estar íntimo. Esta peça de luxo, com design ergonômico e tecnologia aveludada, transforma o autoconhecimento em uma experiência premium. Eleve sua rotina de prazer. - IA Titanium"
+    },
+    {
+        "id": "radar_manual_004",
+        "title": "Kit Skincare Facial Noturno - Sérum Vitamina C + Hidratante Hialurônico",
+        "price": 59.9,
+        "old_price": 99.9,
+        "discount": 40,
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lxj3kq7ywkj9d3",
+        "link": "https://s.shopee.com.br/6V5sHqVnmF?utm_source=an_18318830863",
+        "ai_review": "A combinação perfeita para renovação celular noturna. O sérum de Vitamina C ilumina enquanto o ácido hialurônico hidrata profundamente, criando uma rotina de autocuidado premium que transforma sua pele durante o sono. - IA Titanium"
+    },
+    {
+        "id": "radar_manual_005",
+        "title": "Conjunto Pijama Seda Acetinado Premium - Elegância para Dormir",
+        "price": 79.9,
+        "old_price": 129.9,
+        "discount": 38,
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lzb4j3q5ywkje3",
+        "link": "https://s.shopee.com.br/9zxGwq2qDu?utm_source=an_18318830863",
+        "ai_review": "Luxo e conforto se encontram neste pijama de seda acetinada. O toque suave na pele eleva sua rotina noturna a uma experiência premium de bem-estar e sofisticação. Perfeito para quem não abre mão da elegância nem ao dormir. - IA Titanium"
     }
 ]
