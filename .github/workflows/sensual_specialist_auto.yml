@@ -1,0 +1,49 @@
+name: '🦾 Titanium: Sensual Specialist Auto-Curator'
+
+on:
+  schedule:
+    # Rodando 2 vezes ao dia para manter a vitrine de elite atualizada
+    - cron: '45 5 * * *'
+    - cron: '45 17 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: niche-sensual-specialist
+  cancel-in-progress: true
+
+jobs:
+  update-sensual-specialist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: 'Install Dependencies'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: '🦾 Step 1: Sensual Specialist Curator (Auto-Pick Elite Items)'
+        run: python core/curator_sensual_auto.py
+        env:
+          PYTHONPATH: .
+
+      - name: '🛡️ Step 2: Nuclear Shield Gate (Audit Specialist Links)'
+        run: python infra/shield.py
+        env:
+          PYTHONPATH: .
+
+      - name: '🚀 Step 3: Auto-Commit Results'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🦾 [Bot] Sensual Specialist: Curadoria Automática de Elite"
+          file_pattern: 'site/specialist_sensual.json'

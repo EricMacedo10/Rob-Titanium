@@ -11,7 +11,8 @@ FILES_TO_SHIELD = [
     'site/ai_reviews.json',
     'social/ofertas.json',
     'site/data_sensual.json',
-    'site/ai_reviews_sensual.json'
+    'site/ai_reviews_sensual.json',
+    'site/specialist_sensual.json'
 ]
 
 def shield_url(url):

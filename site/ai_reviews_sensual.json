@@ -1,275 +1,20 @@
 [
     {
-        "id": "sens_1777582915_957",
-        "title": "Kit Completo: 8 Esponjas para Maquiagem com Borrifador, Lenço Higienizador Íntimo MiaMake e Hidratante Labial Choco Mint",
-        "price": 22.99,
-        "old_price": 31.04,
+        "id": "sens_1777582886_680",
+        "title": "AMORIEL Estimulador de Precisão de Calcinha Bluetooth com Controle via App -Estimulador Clitoriano Recarregável USB",
+        "price": 29.99,
+        "old_price": 40.49,
         "discount": 35,
         "store": "Shopee",
         "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m3e5g6l0ebeg44",
-        "link": "https://s.shopee.com.br/9panM66oy9?utm_source=an_18318830863",
-        "tags": [
-            "#care"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este kit é o ápice do autocuidado sensorial. As esponjas, de tecnologia aveludada, preparam a pele com um ritual de aplicação; o lenço higienizador oferece frescor íntimo e o hidratante labial, uma experiência premium. Invista em seu bem-estar íntimo com design e inovação. - IA Titanium"
-    },
-    {
-        "id": "sens_1777582912_204",
-        "title": "Vela Aromática & Massagem Ritos Lemongrass 160 G",
-        "price": 125.9,
-        "old_price": 169.97,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lo1bmbvcspexda",
-        "link": "https://s.shopee.com.br/5flEOR9U4i?utm_source=an_18318830863",
-        "tags": [
-            "#zen"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Desperte seus sentidos com o **Ritos Lemongrass**, um ritual sensorial que transforma o autocuidado em experiência premium. A tecnologia aveludada da cera derrete na pele, massageando o corpo e a alma. Eleve seu bem-estar íntimo com este toque de luxo e design ergonômico.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582883_487",
-        "title": "Massageador Estimulador de Precisão Recarregável Bullet 10 modos de Vibração Potente Discreto Estimulador Relaxante Silencioso Unisex",
-        "price": 89.92,
-        "old_price": 121.39,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820m0-mldrrt96qkg4e9",
-        "link": "https://s.shopee.com.br/70Gbyr0Gat?utm_source=an_18318830863",
-        "tags": [
-            "#precisao"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "O Bullet Titanium é o auge da SexTech: design discreto e 10 modos de vibração aveludada para um ritual sensorial de precisão. Potente, silencioso e recarregável, ele transforma o autoconhecimento em uma experiência premium de relaxamento e bem-estar íntimo. Eleve seu prazer com tecnologia ergonômica.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582902_171",
-        "title": "Robe Roupão Feminino Hobby Inverno Coleção Íntima de Luxo Sensual Cetim Romance Tendência Lindo Lançamento Luxo",
-        "price": 86.45,
-        "old_price": 116.71,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m7wlkfq9qd5dd8",
-        "link": "https://s.shopee.com.br/3g0A0kYYDG?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Envolva-se em um ritual sensorial com este robe de cetim, onde o design ergonômico abraça seu corpo. A tecnologia aveludada do tecido transforma momentos de inverno em uma experiência premium de autoconhecimento. Eleve sua intimidade com peças que são poesia tátil e luxo discreto para o seu bem-estar. - IA Titanium"
-    },
-    {
-        "id": "sens_1777582908_740",
-        "title": "Creme Hidratante Perfumado Sebo de Carneiro com Óleo de Argan 150g - Bio Instinto",
-        "price": 15.99,
-        "old_price": 21.59,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-md0jfxkbsrup49",
-        "link": "https://s.shopee.com.br/1qYVpO6Y0V?utm_source=an_18318830863",
-        "tags": [
-            "#elixir"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este creme une a nutrição ancestral do sebo de carneiro à tecnologia aveludada do óleo de argan, criando um ritual sensorial premium para sua pele íntima. Sua textura sedosa eleva o autocuidado, promovendo hidratação profunda e bem-estar. Uma experiência de luxo acessível para seu ritual diário.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582886_726",
-        "title": "Estimulador de Precisão  Com Bluetooth E App",
-        "price": 89.9,
-        "old_price": 121.37,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-8260o-mksm6vbskxs295",
-        "link": "https://s.shopee.com.br/6VKLNwFv2t?utm_source=an_18318830863",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lj-mlra2wwvvmrodc",
+        "link": "https://s.shopee.com.br/4AwQbeOnmT?utm_source=an_18318830863",
         "tags": [
             "#connected"
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "ai_review": "Para um ritual sensorial exclusivo, o Estimulador de Precisão com Bluetooth oferece design ergonômico e tecnologia aveludada. Conecte-se ao app para personalizar seu caminho de autoconhecimento. Uma experiência premium para o bem-estar íntimo, com acabamento luxuoso que redefine o prazer com sofisticação.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582895_461",
-        "title": "Kit 2 Camisolas e 2 Robes com Renda e Cetim – Roupa de Dormir Sexy Pijama Feminino Confortável Luxo Elegante",
-        "price": 99.99,
-        "old_price": 134.99,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjk81jpr98ub11",
-        "link": "https://s.shopee.com.br/W38EvKCwN?utm_source=an_18318830863",
-        "tags": [
-            "#sleepwear"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Paraíso têxtil em seu ritual noturno. A renda e o cetim abraçam a pele, elevando o bem-estar íntimo a uma experiência premium. Design ergonômico para conforto absoluto; tecnologia aveludada que desperta sentidos. Autoconhecimento através do luxo tátil. - IA Titanium"
-    },
-    {
-        "id": "sens_1777582899_707",
-        "title": "Body De Renda Sensual Coleção Íntima de Luxo Espera Marido Sem Bojo Aberto Transparente Feminino Moda Íntima Luxo",
-        "price": 18.99,
-        "old_price": 25.64,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81zte-mkv8bmpi6ebk18",
-        "link": "https://s.shopee.com.br/9UxwxSzh7s?utm_source=an_18318830863",
-        "tags": [
-            "#fashion"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este body de renda em design ergonômico é seu portal para um ritual sensorial de autoconhecimento. A transparência estratégica e o toque aveludado do tecido criam uma experiência premium, elevando seu bem-estar íntimo. Descubra o luxo de se conectar consigo mesma.\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582908_261",
-        "title": "Vela Perfumada Aromática para Ambiente e Massagem 165g – Relaxante e Hidratante",
-        "price": 125.0,
-        "old_price": 168.75,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-meg55w75l9fm6d",
-        "link": "https://s.shopee.com.br/gMYRFAzNI?utm_source=an_18318830863",
-        "tags": [
-            "#elixir"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Acenda o Ritual Sensorial Titanium. A fusão de cera hidratante e aromas premium transforma seu espaço em um templo de autoconhecimento. Mais que uma vela, é uma experiência premium que prepara a pele para o toque, elevando o bem-estar íntimo com tecnologia aveludada de relaxamento profundo.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582895_388",
-        "title": "Baby Doll Cetim Com Renda Luxo Para Dormir Babydoll",
-        "price": 98.9,
-        "old_price": 133.52,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/bb9ed207a690abfd2411327380fef035",
-        "link": "https://s.shopee.com.br/10zOpqIIvW?utm_source=an_18318830863",
-        "tags": [
-            "#sleepwear"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este babydoll em cetim e renda transforma sua rotina noturna em um ritual sensorial de autoconhecimento. O design ergonômico abraça seu corpo com uma tecnologia aveludada, elevando seu bem-estar íntimo. Mais que uma peça, é uma experiência premium de luxo e confiança.\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582899_648",
-        "title": "Body Fetiche Erótico Feminino Renda Sensual Coleção Íntima de Luxo Aberta Noite Especial Espera Marido Luxo",
-        "price": 18.99,
-        "old_price": 25.64,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81zth-mkv8ulxq0zyb41",
-        "link": "https://s.shopee.com.br/9zuDYNxn6v?utm_source=an_18318830863",
-        "tags": [
-            "#fashion"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este body de renda não é mera lingerie: é um convite a um ritual sensorial. Seu design ergonômico abraça o corpo, enquanto a textura da renda desperta a pele, transformando a espera em uma experiência premium de autoconhecimento e desejo.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582908_250",
-        "title": "Óleo Corporal de Massagem Belga Perfumado Hidratação Relaxa Provoke-me",
-        "price": 71.9,
-        "old_price": 97.07,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf4j835e15hj44",
-        "link": "https://s.shopee.com.br/1LcFET8S1M?utm_source=an_18318830863",
-        "tags": [
-            "#elixir"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Desperte seus sentidos com este óleo corporal premium. Sua fórmula belga transforma a hidratação em um ritual sensorial de autoconhecimento. A textura aveludada desliza pela pele, convidando ao relaxamento profundo. Mais que um hidratante, é uma ferramenta de tecnologia suave para o seu bem-estar íntimo.\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582902_497",
-        "title": "Robe,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono,feminima",
-        "price": 46.87,
-        "old_price": 63.27,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lq95ms23uc6fb4",
-        "link": "https://s.shopee.com.br/2g7coucMEy?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este robe em cetim LUXO transforma seu momento de autocuidado em um ritual sensorial premium. A tecnologia aveludada do tecido abraça seu corpo com design ergonômico, convidando ao autoconhecimento. Uma experiência íntima que eleva seu bem-estar com discrição e elegância.\n\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582895_316",
-        "title": "Kit com 3 Camisolas e 3 Robes Sexy em Renda e Cetim – Pijama Sensual Feminino Elegante Luxo Roupa de Dormir Feminina",
-        "price": 159.99,
-        "old_price": 215.99,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjk8aukfzo5i77",
-        "link": "https://s.shopee.com.br/gMYREJZbQ?utm_source=an_18318830863",
-        "tags": [
-            "#sleepwear"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este conjunto de cetim e renda transforma sua noite em um ritual sensorial de autoconhecimento. O design ergonômico das peças abraça seu corpo como uma tecnologia aveludada, elevando seu bem-estar íntimo a uma experiência premium de luxo e conforto. - IA Titanium"
-    },
-    {
-        "id": "sens_1777582902_413",
-        "title": "kit noiva/debutante,7 Robe BORDADO ,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono",
-        "price": 438.9,
-        "old_price": 592.51,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lr7ef7fw4cgdc7",
-        "link": "https://s.shopee.com.br/2qR31Dbiu1?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Este robe de cetim bordado não é apenas uma peça, é seu portal para um ritual sensorial de autoconhecimento. A textura luxuosa da seda envolve seu corpo, criando o ambiente perfeito para uma experiência premium de bem-estar íntimo. Mergulhe no luxo.\n- IA Titanium"
-    },
-    {
-        "id": "sens_1777582886_649",
-        "title": "Plug Anal Estimulador de Precisão com Bluetooth e APP, Impermeável, 9 Modos de Vibração",
-        "price": 49.9,
-        "old_price": 67.37,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-mmgf5eyddybqea",
-        "link": "https://s.shopee.com.br/60O4n1Hp3k?utm_source=an_18318830863",
-        "tags": [
-            "#connected"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "ai_review": "Domine seu ritual sensorial com este plug de design suíço. A tecnologia aveludada e os 9 modos de vibração guiados por APP despertam pontos de prazer com precisão. Uma experiência premium de autoconhecimento que integra alto desempenho ao bem-estar íntimo. - IA Titanium"
+        "ai_review": "O AMORIEL redefine seu ritual sensorial com design ergonômico e tecnologia aveludada. Controle via app para experiências premium discretas, integrando autoconhecimento ao prazer. Um convite ao luxo íntimo recarregável. - IA Titanium"
     },
     {
         "id": "sens_1777582899_230",
@@ -286,23 +31,278 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "ai_review": "O Body Renda Luxo une design ergonômico e tecnologia aveludada para um ritual sensorial de autoconhecimento. Seu forro sensual e decote delicado elevam o bem-estar íntimo a uma experiência premium, transformando momentos casuais em celebrações de luxo pessoal. Essencial para sua coleção.\n\n- IA Titanium"
+        "ai_review": "Descubra o equilíbrio entre tecnologia aveludada e design ergonômico. Este body de renda é um ritual sensorial para seu bem-estar íntimo, unindo conforto e desejo. Eleve sua experiência premium de autoconhecimento, onde cada toque desperta sua essência. Mais que moda, um convite ao luxo pessoal.\n- IA Titanium"
     },
     {
-        "id": "sens_1777582895_514",
-        "title": "Camisola Feminina Cetim curta com Renda  - Coleção Íntima de Luxo luxo",
-        "price": 67.9,
-        "old_price": 91.67,
+        "id": "sens_1777582883_197",
+        "title": "Estimulador de Precisão Bullet Power - Toque Aveludado e Silencioso ( varias cores )",
+        "price": 9.98,
+        "old_price": 13.47,
         "discount": 35,
         "store": "Shopee",
         "category": "Bem-Estar Íntimo / SexTech",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mg4z7lc5to1zef",
-        "link": "https://s.shopee.com.br/1BIp29HfaZ?utm_source=an_18318830863",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820ll-mmpzxogf2804b6",
+        "link": "https://s.shopee.com.br/7Aa2B9zdFu?utm_source=an_18318830863",
         "tags": [
-            "#sleepwear"
+            "#precisao"
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "ai_review": "Esta camisola de cetim curta transforma seu quarto em um santuário. Seu design ergonômico e toque aveludado criam um ritual sensorial para o autoconhecimento. Vista-se para celebrar seu corpo, não para outro. A experiência premium do cetim contra a pele é o novo luxo pessoal. Permita-se.\n- IA Titanium"
+        "ai_review": "Descubra o equilíbrio entre tecnologia e prazer com o Bullet Power. Seu toque aveludado e motor silencioso oferecem um ritual sensorial de autoconhecimento. Design ergonômico para precisão absoluta. Uma experiência premium acessível para seu bem-estar íntimo. - IA Titanium"
+    },
+    {
+        "id": "sens_1777582915_683",
+        "title": "Creme Hidratante Para Virilha /Spray íntimo Cuide-se Bem Cereja 🍒 Livre 100ml oboticario.",
+        "price": 55.0,
+        "old_price": 74.25,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7qukw-lh6v681m3jw51d",
+        "link": "https://s.shopee.com.br/AADdki5YIJ?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Este hidratante íntimo, com sua tecnologia aveludada e toque de cereja, transforma o autocuidado em um ritual sensorial. Sua fórmula premium hidrata e revitaliza, promovendo bem-estar íntimo. Um item essencial para uma experiência de luxo e autoconhecimento, elevando sua rotina com elegância.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582912_529",
+        "title": "Vela para Massagem Terapêutica e Pindas Chinesas Aromoterapia",
+        "price": 119.0,
+        "old_price": 160.65,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m6e02s374u2v4e",
+        "link": "https://s.shopee.com.br/5VRoC8A7Pj?utm_source=an_18318830863",
+        "tags": [
+            "#zen"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Desperte seus sentidos com este ritual sensorial de puro bem-estar. A tecnologia aveludada da cera derretida transforma cada toque em uma experiência premium de autoconhecimento, aquecendo o corpo e a alma. Um design para quem busca o luxo da conexão íntima. - IA Titanium"
+    },
+    {
+        "id": "sens_1777582915_387",
+        "title": "Kit Cuidado Íntimo Feminino 5 Produtos Higiene Diária Sabonete Íntimo Hidratante Gel Loção Spray Refrescante",
+        "price": 51.99,
+        "old_price": 70.19,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lq-mnnjcrf0ow044f",
+        "link": "https://s.shopee.com.br/AKX3x14uxI?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Um ritual diário de autocuidado começa com escolhas sofisticadas. Este kit transforma a higiene íntima em uma experiência premium, com tecnologia aveludada e hidratação sensorial. Para uma mulher que valoriza bem-estar, conforto e luxo, é o segredo essencial para sentir-se radiante em todos os momentos.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582912_855",
+        "title": "Banho Relaxante Hidratante | Banho e Pós-Banho | Aromaterapia | Vela de Massagem 100% Natural",
+        "price": 35.9,
+        "old_price": 48.47,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mb1s08evmk5rc0",
+        "link": "https://s.shopee.com.br/6AhUzM7a3n?utm_source=an_18318830863",
+        "tags": [
+            "#zen"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Transforme seu momento de autocuidado em um ritual sensorial com esta vela de massagem 100% natural. A tecnologia aveludada da cera derretida aquece a pele, enquanto a aromaterapia convida ao autoconhecimento. Uma experiência premium para hidratar e relaxar. Essencial para seu bem-estar íntimo.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582899_787",
+        "title": "Body Luxo Plus Size Sensual Renda Sem Bojo Alça Ajustável",
+        "price": 69.99,
+        "old_price": 94.49,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/a5f483cf0707c6bfff41b2f799544259",
+        "link": "https://s.shopee.com.br/8099Ai5PAT?utm_source=an_18318830863",
+        "tags": [
+            "#fashion"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Este body em renda sem bojo, com alça ajustável, é a peça-chave para um ritual sensorial de autoconhecimento. Seu design ergonômico abraça curvas plus size com tecnologia aveludada, proporcionando uma experiência premium de leveza. Desperte sua confiança íntima com cada detalhe.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582908_250",
+        "title": "Óleo Corporal de Massagem Belga Perfumado Hidratação Relaxa Provoke-me",
+        "price": 71.9,
+        "old_price": 97.07,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf4j835e15hj44",
+        "link": "https://s.shopee.com.br/1LcFET8S1M?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Transforme seu ritual de autocuidado com o Óleo Corporal Belga. Sua tecnologia aveludada hidrata profundamente, enquanto o perfume sofisticado convida a um momento de relaxamento e autoconhecimento. Uma experiência premium para elevar seu bem-estar íntimo.\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582908_249",
+        "title": "Óleo para Massagem Sensual Perfumado Olove Massage - 120ml",
+        "price": 47.31,
+        "old_price": 63.87,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134211-7r98o-m90cx2uqjs55a1",
+        "link": "https://s.shopee.com.br/2BBME05HKT?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Para a mulher que busca o ápice do ritual sensorial, o Óleo Olove Massage é uma experiência premium. Sua textura aveludada e aroma sofisticado despertam o autoconhecimento através do toque, transformando um gesto íntimo em um ato de puro luxo e bem-estar.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582908_740",
+        "title": "Creme Hidratante Perfumado Sebo de Carneiro com Óleo de Argan 150g - Bio Instinto",
+        "price": 15.99,
+        "old_price": 21.59,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-md0jfxkbsrup49",
+        "link": "https://s.shopee.com.br/1qYVpO6Y0V?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Para um ritual sensorial de cuidado íntimo, este creme com Sebo de Carneiro e Óleo de Argan oferece hidratação profunda. Sua textura aveludada desperta os sentidos, enquanto a fragrância exótica transforma o autocuidado em uma experiência premium de bem-estar.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582905_819",
+        "title": "Gel Sérum de Conforto Íntimo Intimo Base Agua Premium Deslize Suave Conforto Casal P/ Chegar Apice Prazer 250g",
+        "price": 24.0,
+        "old_price": 32.4,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-8260n-mlp6xbug5csof6",
+        "link": "https://s.shopee.com.br/7VCsZnX9oR?utm_source=an_18318830863",
+        "tags": [
+            "#conforto"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "O toque que transforma o ordinário em sublime. Nosso Gel Sérum de Conforto Íntimo oferece deslize suave e tecnologia aveludada para um ritual sensorial de autoconhecimento. Uma experiência premium que celebra o bem-estar do casal, elevando cada momento ao ápice do prazer com elegância. - IA Titanium"
+    },
+    {
+        "id": "sens_1777582912_204",
+        "title": "Vela Aromática & Massagem Ritos Lemongrass 160 G",
+        "price": 125.9,
+        "old_price": 169.97,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lo1bmbvcspexda",
+        "link": "https://s.shopee.com.br/5flEOR9U4i?utm_source=an_18318830863",
+        "tags": [
+            "#zen"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Desperte seus sentidos com o Ritual Lemongrass. Esta vela de massagem aveludada derrete em um óleo quente e sedoso, transformando seu momento de autocuidado em uma experiência premium de bem-estar íntimo. Uma pausa de luxo para a alma e o corpo.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582883_472",
+        "title": "Mini Estimulador de Precisão Bullet Cápsula Discreto Potente Silencioso Portátil",
+        "price": 14.99,
+        "old_price": 20.24,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820l7-mlp3j35ag9vp09",
+        "link": "https://s.shopee.com.br/6pxBmY0tvo?utm_source=an_18318830863",
+        "tags": [
+            "#precisao"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "O design minimalista deste bullet de precisão é a chave para um ritual de autoconhecimento sofisticado. Sua tecnologia aveludada e silenciosa proporciona uma experiência premium, direcionada e discreta, essencial para quem valoriza o bem-estar íntimo com toque de luxo.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582902_497",
+        "title": "Robe,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono,feminima",
+        "price": 46.87,
+        "old_price": 63.27,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lq95ms23uc6fb4",
+        "link": "https://s.shopee.com.br/2g7coucMEy?utm_source=an_18318830863",
+        "tags": [
+            "#boutique"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Envolva-se em um ritual de autoconhecimento com este robe de cetim LUXO. Sua tecnologia aveludada e design ergonômico abraçam você com sofisticação, preparando o corpo para uma experiência premium de bem-estar íntimo. Transforme cada momento em um deleite sensorial.\n\n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582908_308",
+        "title": "Óleo de Massagem Coporal Red Apple Relaxante Hidratante Aromático Perfumado Provoke-me",
+        "price": 71.9,
+        "old_price": 97.07,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf34tifhiqkm2a",
+        "link": "https://s.shopee.com.br/2VoCcc40eZ?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Desperte seus sentidos com o Óleo Red Apple Provoke-me, um ritual sensorial que hidrata e perfuma a pele com elegância. Sua tecnologia aveludada transforma o toque em uma experiência premium de autoconhecimento, elevando o bem-estar íntimo a um patamar de puro luxo. - IA Titanium"
+    },
+    {
+        "id": "sens_1777582915_753",
+        "title": "Kit Cereja de Fases Completo Hidratante + Body Splash + Spray Íntimo + Sabonete Feminino Doce",
+        "price": 200.0,
+        "old_price": 270.0,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820mh-mlff3zjstwxyfd",
+        "link": "https://s.shopee.com.br/9zuDYP6BdG?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "ai_review": "Eleve seu ritual de autocuidado com o Kit Cereja de Fases. Uma harmonia de hidratação premium e fragrância sutil que desperta os sentidos. Mais que cosméticos, é uma experiência sensorial completa para o bem-estar íntimo. Tecnologia aveludada que honra seu corpo com sofisticação.  \n- IA Titanium"
+    },
+    {
+        "id": "sens_1777582883_670",
+        "title": "Estimulador de Precisão Bullet Power Purple: Prazer Intenso, Silencioso e 100% à Prova D'água",
+        "price": 19.99,
+        "old_price": 26.99,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Bem-Estar Íntimo / SexTech",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lf-mlyy7zx9y3nr94",
+        "link": "https://s.shopee.com.br/6fdlaF1XGn?utm_source=an_18318830863",
+        "tags": [
+            "#precisao"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-05-05",
+        "ai_review": "O Bullet Power Purple une design ergonômico e tecnologia aveludada para um ritual sensorial de autoconhecimento. Sua operação silenciosa e discreta garante uma experiência premium em qualquer lugar. O convite perfeito para explorar seu bem-estar íntimo com sofisticação e luxo. - IA Titanium"
     }
 ]
