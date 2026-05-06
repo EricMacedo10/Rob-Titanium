@@ -220,14 +220,31 @@ document.addEventListener('DOMContentLoaded', () => {
         messages = messages.sort(() => Math.random() - 0.5);
 
         let i = 0;
-        // Exibe a primeira mensagem imediatamente
-        bubble.innerText = messages[0];
         
-        // Rotaciona a cada 6 segundos para dar tempo de ler
+        // Exibe a primeira mensagem após 3 segundos
+        setTimeout(() => {
+            bubble.innerText = messages[0];
+            const bubbleWrapper = assistant.querySelector('.assistant-bubble');
+            if(bubbleWrapper) bubbleWrapper.classList.add('active');
+            
+            setTimeout(() => {
+                if(bubbleWrapper) bubbleWrapper.classList.remove('active');
+            }, 8000);
+        }, 3000);
+        
+        // Rotaciona as mensagens a cada 25 segundos (visível por 8s)
         setInterval(() => {
             i++;
             bubble.innerText = messages[i % messages.length];
-        }, 6000);
+            const bubbleWrapper = assistant.querySelector('.assistant-bubble');
+            
+            if(bubbleWrapper) {
+                bubbleWrapper.classList.add('active');
+                setTimeout(() => {
+                    bubbleWrapper.classList.remove('active');
+                }, 8000);
+            }
+        }, 25000);
     }
 
     function setupSearch() {
