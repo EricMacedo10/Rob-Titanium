@@ -55,7 +55,13 @@ def sync_titanium_production():
         ("site/favicon.ico", "favicon.ico"),
         ("site/specialist.json", "specialist.json"),  # NOVO: Seleção da Especialista
         ("site/data.json", "data.json"),               # Garantir sincronia do feed
-        ("site/go.php", "go.php")                      # ITEM 4: Bridge Page (Segurança de Link)
+        ("site/go.php", "go.php"),                     # ITEM 4: Bridge Page (Segurança de Link)
+        # === BOUTIQUE ÍNTIMA (Vertical Sensual) ===
+        ("site/sensual.html", "sensual.html"),
+        ("site/js/app_sensual.js", "js/app_sensual.js"),
+        ("site/data_sensual.json", "data_sensual.json"),
+        ("site/specialist_sensual.json", "specialist_sensual.json"),
+        ("site/ai_reviews_sensual.json", "ai_reviews_sensual.json"),
     ]
 
     # Adicionar dinamicamente todos os artigos da pasta blog
