@@ -105,7 +105,12 @@ Bot PHP com **Real-Time Shield**. Agora possui a função `titanium_shield` que 
 - **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python -m social.upload_ofertas` ou `python -m social.deploy_bot`.
 - **`social/validar_ofertas.py`** *(v1.0 - 02/05/2026)*: Ferramenta de validação pré-publicação. Simula a lógica do `bot_instagram.php` localmente para garantir que o link correto será enviado. Uso: `python -m social.validar_ofertas --caption "#sua_hashtag"` ou `--audit` para auditoria completa.
 - **`social/deploy_bot.py`** *(v1.0 - 02/05/2026)*: Script de deploy que envia `bot_instagram.php` + `ofertas.json` ao servidor Hostinger via FTP em uma única execução. Uso: `python -m social.deploy_bot`.
-- **`social/titanium_token_manager.py`** *(2026-03-21)*: Gerenciador automático de tokens Meta/Instagram. Troca o User Token por um **Page Access Token permanente (♾️ nunca expira)** e atualiza o `.env`, `bot_instagram.php` e faz upload para o servidor em uma única execução. Executar com `python -m social.titanium_token_manager`.
+- **`social/titanium_token_manager.py`** *(2026-05-07)*: Gerenciador automático de tokens Meta/Instagram. Realiza o upgrade para um **Page Access Token permanente (♾️ nunca expira)**, atualiza o `.env` e sincroniza o `bot_instagram.php` diretamente no servidor via FTP.
+
+### ❄️ Inverno 2026: Hardening do Motor Social (v4.1 - 07/05/2026)
+1. **Transição de Campanha**: Alinhamento total para Moda Inverno (Jaquetas, Tricots, Casacos) no pool de dados.
+2. **Correção de Orquestração CI/CD**: Workflow `titanium_social_auto.yml` corrigido para injetar `SHOPEE_DATAFEED_URLS`, garantindo acesso ao pool de 100k produtos em produção.
+3. **Resiliência de Token**: Implementado bypass de expiração via Page Access Token, eliminando a necessidade de renovação manual mensal.
 
 ## 🚀 Hotfixes e Deploy Emergencial (Senior Only) [30/03]
 
@@ -146,4 +151,4 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Íntima) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-*Última Auditoria Técnica: 07/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Winter Campaign (Instagram) | Boilerplate Filter Active v4.0*
+*Última Auditoria Técnica: 07/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Winter Campaign (Instagram) | Boilerplate Filter Active v4.1 | Permanent Token Active*
