@@ -49,6 +49,7 @@ jobs:
           PYTHONPATH: .
           SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
           SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}
+          SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
         run: python -m social.queue_csv_products
 
       - name: 🚀 Publicar no Instagram (Fila -> Meta API)
