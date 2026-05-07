@@ -4,6 +4,7 @@ import sys
 import shutil
 import os
 import json
+import re
 from datetime import datetime
 from social.core.image_generator import ImageGenerator
 from social.core.instagram_client import InstagramClient
@@ -164,9 +165,15 @@ class SocialBot:
             else:
                 media_to_upload.append({"local": local_path, "type": "VIDEO", "fallback_local": None})
 
+        if not combined_captions:
+            print("❌ ERRO CRÍTICO: Não foi possível gerar as legendas/hashtags para o post. Abortando para evitar post 'órfão'.")
+            for tmp in temp_video_paths:
+                if os.path.exists(tmp): os.remove(tmp)
+            sys.exit(1)
+
         # Construir Legenda Premium
         header = f"✨ SELEÇÃO EXCLUSIVA: {store.upper()} ✨\n\n"
-        body = "\n".join(combined_captions) if combined_captions else f"Novidades incríveis em {category.upper()} para você! 🚀"
+        body = "\n".join(combined_captions)
         footer = f"\n\n💬 Comente **'QUERO'** que o nosso robô Titanium manda todos os links no seu direct! 🦾🤖\n\n#TitaniumBot #ShopeeBrasil #Achadinhos #Moda #Curadoria"
         final_caption = header + body + footer
 
