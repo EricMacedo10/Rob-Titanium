@@ -73,9 +73,6 @@ Para garantir que o robô não entre em "estado vegetativo", siga esta rotina:
     - Atualiza os marcadores `EDITORIAL_LATEST`, `EDITORIAL_MID` e `EDITORIAL_OLD` no `index.html`.
     - Realiza o salvamento atômico dos 3 arquivos HTML em `site/blog/`.
 
-### 📰 Trilha dos Juros - Reality Check Editorial (v5.0 - 07/05/2026)
-- **Viés de Narrativa Macro (Reality Check Mandatório)**: O motor editorial (Coffee Break/Morning Call) é estritamente ancorado ao comportamento numérico do Ibovespa. É terminantemente proibido que a IA infira "forte otimismo" para o mercado local baseando-se em fechamentos externos (S&P500/Nasdaq) ou pautas geopolíticas de paz se o índice brasileiro estiver negativo. O preço local manda na narrativa.
-- **Estilo Faria Lima (Anti-Clichê)**: Trava de compliance no prompt para banir jargões robóticos de IA ("em resumo", "cenário dinâmico de hoje") e forçar termos institucionais ("flight to quality", "realização de lucros", "repique"), garantindo autoridade máxima na escrita.
 
 ### 🎨 Conservadorismo de Visual (The Minimalist Look)
 - **Protocolo de Não-Interferência (2026-03-10):** Muitos elementos (ex: barra de busca no Hero, Assets 3D) podem estar ocultos intencionalmente via CSS (`display: none !important`) para manter uma estética minimalista em produção. 
