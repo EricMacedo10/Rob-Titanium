@@ -40,6 +40,8 @@ Implemented in [app.js](file:///c:/Users/ericm/OneDrive/Área de Trabalho/PESSOA
 2.  **Robô Titanium (Assistant)**:
     *   **Ícone**: `fas fa-robot`.
     *   **Estilo**: Fundo Azul Shopee (`#2563eb`), Borda Branca (`2px solid white`) e Sombra de Destaque.
+    *   **Comportamento Íntima (v3.8.3)**: Atua como um "Mestre de Cerimônias" exibindo 40 frases curtas de empoderamento, autoestima e autocuidado. A lista é embaralhada randomicamente (`Math.random() - 0.5`) a cada load.
+    *   **CSS Fade-in/out Logic**: Utiliza a classe `.active` combinada com `opacity` e `transform` no `style.css`/`titanium-security.css`. O JS controla os gatilhos: espera 3s para aparecer, fica visível por 8s, e rotaciona para uma nova frase a cada 25s.
 3.  **Badges de Seção**:
     *   **Curadoria VIP**: Cor sólida `#FF4500` (Laranja Shopee) com sombra, garantindo leitura instantânea.
 
@@ -79,7 +81,7 @@ The frontend is "re-hydrated" every time the browser loads:
 3.  **Nuclear Shield Gate**: Nenhum link Shopee pode ser renderizado sem passar pelo interceptor global de auditoria.
 
 ---
-*Atualizado em: 23/04/2026 - Versão: 3.8.1-Nuclear (Frontend Modular Active)*
+*Atualizado em: 06/05/2026 - Versão: 3.8.3-Nuclear (Frontend Modular Active - Assistant Empowered)*
 
 > [!TIP]
 > To update the affiliate tags globally, modify the `TITANIUM_CONFIG.TAGS` object at the top of `app.js`.
