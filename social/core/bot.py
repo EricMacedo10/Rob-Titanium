@@ -98,8 +98,19 @@ class SocialBot:
         # --- NOVA LÓGICA DE AGRUPAMENTO (CARROSSEL) ---
         # Pegamos o primeiro item para definir o contexto (loja/categoria)
         # e então tentamos agrupar itens similares que estejam na fila.
-        target_files = arquivos_fila[:1]  # Modo Post Único: processa 1 por ciclo
-        print(f"📂 Encontrado(s) {len(arquivos_fila)} arquivo(s). Selecionando 1 para postagem...")
+        # Filtramos apenas arquivos que possuem o respectivo .json (Evita postagens sem link)
+        arquivos_validos = []
+        for f in arquivos_fila:
+            base = os.path.splitext(f)[0]
+            if os.path.exists(os.path.join(fila_dir, f"{base}.json")):
+                arquivos_validos.append(f)
+        
+        if not arquivos_validos:
+            print("⚠️ Fila contém arquivos, mas nenhum possui metadata (.json). Abortando para evitar erro de link.")
+            return
+
+        target_files = arquivos_validos[:1]  # Modo Post Único: processa 1 por ciclo
+        print(f"📂 Encontrado(s) {len(arquivos_validos)} arquivo(s) válidos. Selecionando 1 para postagem...")
         
         media_to_upload = []
         combined_captions = []
@@ -112,6 +123,7 @@ class SocialBot:
         # Garantir diretório temporário para vídeos convertidos
         os.makedirs(temp_dir, exist_ok=True)
 
+        product_hashtags = []
         for i, filename in enumerate(target_files):
             local_path = os.path.join(fila_dir, filename)
             full_paths.append(local_path)
@@ -124,7 +136,6 @@ class SocialBot:
             
             # Lendo Metadata JSON se existir
             json_path = local_path.replace(os.path.splitext(local_path)[1], '.json')
-            product_hashtags = []
             if os.path.exists(json_path):
                 try:
                     with open(json_path, 'r', encoding='utf-8') as mj:
