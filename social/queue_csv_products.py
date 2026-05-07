@@ -59,11 +59,18 @@ def run():
 
     # 1. TENTAR DATAFEED 100K
     try:
-        print("[Datafeed] Buscando melhores achados no pool de 100K...")
-        raw_products = get_datafeed_products(max_items=100)
+        print("[Datafeed] Buscando melhores achados de INVERNO no pool de 100K...")
+        raw_products = get_datafeed_products(max_items=2000)
+        
+        winter_keywords = ["jaqueta", "casaco", "moletom", "cardigan", "sobretudo", "parka", "tricot", "poncho", "cachecol", "bota", "inverno", "frio", "manga longa", "gola alta", "peluciada", "peluciado"]
         
         for p in raw_products:
             title_lower = p['titulo'].lower().strip()
+            
+            # FILTRO DE INVERNO EXCLUSIVO PARA O INSTAGRAM
+            if not any(wk in title_lower for wk in winter_keywords):
+                continue
+                
             if title_lower not in posted_titles:
                 products.append({
                     "id": p['id_interno'],

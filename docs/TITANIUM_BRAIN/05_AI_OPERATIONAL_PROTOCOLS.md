@@ -28,6 +28,7 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **Robô de DM falhando** | Token expirado (190/463). | Renovar token via `python -m social.titanium_token_manager`. |
 | **Imagens genéricas** | Fallback ativado. | O sistema agora usa a API Oficial via `core/shopee_api.py`. Se falhar, use os assets manuais em `site/images`. |
 | **Erro 403 Actions** | Permissão de Escrita GITHUB_TOKEN. | O workflow exige `permissions: contents: write` explicitamente para realizar o Auto-Commit de arquivos JSON. |
+| **Bot envia link errado** | Falso Positivo na CAMADA 3. | O bot cruzou palavras genéricas da legenda (ex: "Moda") com o `data.json`. Mantido o **Boilerplate Filter** no `bot_instagram.php` para ignorar palavras-chave estruturais. |
 
 
 ## 🚀 Protocolos de Resiliência de Fluxo (v1156)
@@ -144,4 +145,4 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Íntima) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-*Última Auditoria Técnica: 06/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Niche Automation v3.9 | Action Fix v3.9.7*
+*Última Auditoria Técnica: 07/05/2026 - Status: 100% Shopee Massive Datafeed | Nuclear Shield Active | Winter Campaign (Instagram) | Boilerplate Filter Active v4.0*

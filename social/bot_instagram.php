@@ -139,9 +139,10 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
                 $title_words = explode(' ', preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $item_title));
                 $intersection = array_intersect($title_words, $caption_words);
                 
-                // Filtra palavras curtas (de, com, o, a) para evitar falsos positivos
-                $intersection = array_filter($intersection, function($word) {
-                    return strlen($word) > 2;
+                // Filtra palavras curtas (de, com, o, a) e palavras genéricas (boilerplate) para evitar falsos positivos
+                $boilerplate = ['shopee', 'selecao', 'exclusiva', 'novidades', 'incriveis', 'comente', 'quero', 'nosso', 'robo', 'titanium', 'manda', 'todos', 'links', 'direct', 'titaniumbot', 'shopeebrasil', 'achadinhos', 'moda', 'curadoria', 'para', 'voce', 'aqui', 'seu', 'que'];
+                $intersection = array_filter($intersection, function($word) use ($boilerplate) {
+                    return strlen($word) > 2 && !in_array($word, $boilerplate);
                 });
                 
                 // Se 2 ou mais palavras SIGNIFICATIVAS batem, é o produto! (Mais agressivo)

@@ -42,11 +42,15 @@ O bot utiliza **cURL** com bypass de SSL e timeout de 30s para garantir estabili
 
 ---
 
+## 🎯 Campanhas Sazonais Isoladas (ex: Modo Inverno)
+Para focar o Instagram em estações específicas (como o Inverno) sem interferir no site principal, o `social/queue_csv_products.py` implementa um **Filtro de Extração**. Ele consome do Datafeed global (100K+) e adiciona uma barreira semântica, aceitando apenas produtos com palavras-chave específicas da estação (ex: "jaqueta", "casaco", "moletom") para enviar à fila de postagem.
+
+---
+
 ## 🎞️ Media Processing & Resilience
 
 Titanium prioriza **Reels** devido ao alcance orgânico superior.
 - **Cloud Bypass (Tmpfiles.org)**: Dribla bloqueios de IP da Meta na hospedagem primária.
 
 ---
-*Atualizado em: 02/05/2026 - Versão: v3.9.6 (Link Loop Immunity & Zero-Error Protocol)*
-
+*Atualizado em: 07/05/2026 - Versão: v4.0.0 (Winter Campaign & Boilerplate Filter)*
