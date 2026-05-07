@@ -1,9 +1,9 @@
 <?php
 // TITANIUM COMMENT RESPONDER - A MENTE CENTRAL 🛡️💎
 // v2.0.0 - Smart Link Priority: Shopee Product Links > Site Links
-$USER_TOKEN = "YOUR_IG_ACCESS_TOKEN";
-$PAGE_ID = "YOUR_PAGE_ID";
-$IG_BUSINESS_ID = "YOUR_IG_BUSINESS_ID";
+$USER_TOKEN = "EAAaEM60tZA1cBRdsRAyvi6ZBsuiNZAYZCb8oD834L4jJhr0AN9Ve39BZAsBTOzirx6BOZCxOO8w1wBuHjZB082MyJNpqZBUclig5KHsDIJKCEe6Pn2bJoS4p7yVNwJ7AoHyg5lRCd8ofHMnlhcbwQTBP19ByHzhUP34BLrFseWqBvZCWrbNefsoUi99ZCtZA9DZCwOhskA7ZAbXLn06BW728ftQZDZD";
+$PAGE_ID = "1032000233318987";
+$IG_BUSINESS_ID = "17841480460125461";
 
 // URL do site (usada para detectar links genéricos vs. links de produto)
 $SITE_URL = "guiadodesconto.com.br";

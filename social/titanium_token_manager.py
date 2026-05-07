@@ -102,6 +102,16 @@ bot_content = re.sub(
     f'$USER_TOKEN = "{page_token}";',
     bot_content
 )
+bot_content = re.sub(
+    r'\$PAGE_ID = ".*?";',
+    f'$PAGE_ID = "{PAGE_ID}";',
+    bot_content
+)
+bot_content = re.sub(
+    r'\$IG_BUSINESS_ID = ".*?";',
+    f'$IG_BUSINESS_ID = "{os.getenv("IG_BUSINESS_ID")}";',
+    bot_content
+)
 
 with open(BOT_PATH, "w", encoding="utf-8") as f:
     f.write(bot_content)
