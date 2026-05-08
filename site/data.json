@@ -156,30 +156,6 @@
         "reason": "Datafeed Titanium: CHIPANA-FASHION"
     },
     {
-        "id": "prod_1776801250_39_852",
-        "title": "Kit Camisola Amamentação Pós Parto Com Robe de Romantic e Renda Vestido Maternidade Gestante",
-        "price": 49.9,
-        "old_price": 62.375,
-        "discount": 23,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m2uvgvnxnbo518",
-        "link": "https://s.shopee.com.br/9fGxTlme0h?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Avezo Modas"
-    },
-    {
-        "id": "prod_1776801251_40_52",
-        "title": "SHORT CINTA MODELADOR ORIGINAL 4 Barbatanas -Alta Compressão -Não Enrola - Zero Transparência  - Empina Bumbum plus size",
-        "price": 36.8,
-        "old_price": 46.0,
-        "discount": 23,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m3qtb1of4rw532",
-        "link": "https://s.shopee.com.br/60Nf7EM9al?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: AKAPE CLOTHING"
-    },
-    {
         "id": "prod_1776801253_41_566",
         "title": "Leggings canelada de cintura larga e cor sólida para atividades esportivas.",
         "price": 29.99,
@@ -660,18 +636,6 @@
         "reason": "Datafeed Titanium: ZOE.MODAS"
     },
     {
-        "id": "prod_1776801336_97_208",
-        "title": "Conjunto Linhão Feminino Com Cinto Verão 2025",
-        "price": 62.4,
-        "old_price": 78.0,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mgqykt7y4oow85",
-        "link": "https://s.shopee.com.br/4qBhj0oXsC?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: miguelmodas710"
-    },
-    {
         "id": "prod_1776801338_99_560",
         "title": "CONJUNTO FEMININO SHORTS + COLETE NOVA TENDENCIA 2026  PRIMAVERA VERÃO",
         "price": 49.99,
@@ -682,18 +646,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mhtwakufq58idd",
         "link": "https://s.shopee.com.br/2LUMjfHBYi?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: MODAS ALFRE"
-    },
-    {
-        "id": "prod_1776801985_97_912",
-        "title": "Kit 5 Sutiãs Básico + Kit 5 Calcinhas Sem Costura Corte a Laser",
-        "price": 59.9,
-        "old_price": 74.875,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lpf53ggzz4p114",
-        "link": "https://s.shopee.com.br/808jUuEXWx?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Kivende Modas (lingerie em geral)"
     },
     {
         "id": "prod_1776801988_99_968",
@@ -840,18 +792,6 @@
         "reason": "Datafeed Titanium: Boutique Thais Matos"
     },
     {
-        "id": "prod_1778154203_97_93",
-        "title": "Cardigan  Kimono Tricot Feminino Quadriculado Casaco Teddy Manga Longa Aberto Elegante WM Malhas",
-        "price": 49.8,
-        "old_price": 62.25,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m9lme2l0xn3t67",
-        "link": "https://s.shopee.com.br/LjIMcMAvy?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: WM Malhas"
-    },
-    {
         "id": "prod_1778176486_34_877",
         "title": "Kit 2 Blusa Feminina Mula Manca Suplex com Forro – Moda Blogueira Conforto e Estilo",
         "price": 35.96,
@@ -994,5 +934,125 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-820m2-mlyd4a6bexhg80",
         "link": "https://s.shopee.com.br/7ppJIWd7o0?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: RENER FASHION"
+    },
+    {
+        "id": "prod_1778261160_28_75",
+        "title": "Macaquinho Macacão Fitness Feminino Zero Transparência Academia Treino Crossfit",
+        "price": 50.9,
+        "old_price": 63.625,
+        "discount": 28,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-82629-mj8hodplgt1c6b",
+        "link": "https://s.shopee.com.br/1BIPMH2VKR?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: AB FIT MODA"
+    },
+    {
+        "id": "prod_1778261168_43_704",
+        "title": "Vestido Longo Com FORO e BOJO, Feminino Com manga Variados super confortáveis e leves qualidade e durabilidade",
+        "price": 73.99,
+        "old_price": 92.4875,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mbaadmixtnrj1b",
+        "link": "https://s.shopee.com.br/W2iYIOAIE?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: villcamodaoficial"
+    },
+    {
+        "id": "prod_1778261168_45_19",
+        "title": "Casaco Cardigan Aberto Manga Longa Tranças Tricô Inverno Lançamento",
+        "price": 54.89,
+        "old_price": 68.6125,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mbn2k3tkc7080b",
+        "link": "https://s.shopee.com.br/9fGxTtW94c?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Moda Ecomm"
+    },
+    {
+        "id": "prod_1778261171_51_251",
+        "title": "Conjunto Cropped Tomara que Caia + Saia Midi Fenda",
+        "price": 35.69,
+        "old_price": 44.6125,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-7rceg-m6fsksshapop83",
+        "link": "https://s.shopee.com.br/8phqTbsRN6?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: boutique_cinderela"
+    },
+    {
+        "id": "prod_1778261172_54_284",
+        "title": "#SUPER PROMOÇÃO DE NOSSO CONJUNTO FEMININO EM ALFAITARIA EM SHORT E COLETE  TENDENCIA 2026😎💕",
+        "price": 51.99,
+        "old_price": 64.9875,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf4hejlumhhh6e",
+        "link": "https://s.shopee.com.br/qfYxXKGv7?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: MODAS BARBARA"
+    },
+    {
+        "id": "prod_1778261175_58_946",
+        "title": "Vestido Indiano longo ESTAMPADO LONGO FRENTE Única e costa Nua, ELEGANTE",
+        "price": 73.13,
+        "old_price": 91.4125,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820m9-mnlvpzku42kk05",
+        "link": "https://s.shopee.com.br/W2iYvLXb1?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Bellas Confecções"
+    },
+    {
+        "id": "prod_1778261188_85_859",
+        "title": "Short Feminino Macio Versatil Dia Dia Praia Piscina Confortável Estampa Variada Envio Imediato P-GG",
+        "price": 21.98,
+        "old_price": 27.475,
+        "discount": 19,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820me-mm2eb7s05gqs21",
+        "link": "https://s.shopee.com.br/2VnmwbDvXb?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: DELLA BELLA"
+    },
+    {
+        "id": "prod_1778261188_86_571",
+        "title": "Macacão Social Longo Elegante Frente Única Fenda Frontal Lastex nas Costas",
+        "price": 59.27,
+        "old_price": 74.0875,
+        "discount": 19,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mcxhcd2om8zl30",
+        "link": "https://s.shopee.com.br/5fkoiQ1s8W?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Erik_fashion"
+    },
+    {
+        "id": "prod_1778261192_95_641",
+        "title": "Blusa Manga Princesa Curta Elegante Tendência Moda Maior Plus Size Botão Moda Casual Tecido Dunas",
+        "price": 29.99,
+        "old_price": 37.4875,
+        "discount": 18,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-8227h-mhi11hqd6tj8c7",
+        "link": "https://s.shopee.com.br/AKWeH7Tbjl?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Maria Gabi Moda"
+    },
+    {
+        "id": "prod_1778261193_97_814",
+        "title": "Short Alfaiataria Com Cinto Feminino Com Bolso Com Zíper Na Lateral",
+        "price": 31.89,
+        "old_price": 39.8625,
+        "discount": 18,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820me-ml7xdqree3npf9",
+        "link": "https://s.shopee.com.br/1gEfxC0bJK?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: GFR Moda Shop"
     }
 ]
