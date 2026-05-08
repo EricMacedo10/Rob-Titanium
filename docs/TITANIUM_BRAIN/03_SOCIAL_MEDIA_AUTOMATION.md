@@ -1,14 +1,16 @@
-# 📸 Titanium Brain: Social Media Automation (v3.9.6)
+# 📸 Titanium Brain: Social Media Automation (v4.1.0)
 
-This document details how Titanium maintains a social presence on Instagram and Pinterest without manual intervention.
+This document details how Titanium maintains a social presence on Instagram and Pinterest without manual intervention, focusing on high-end aesthetic authority.
 
-## 🤖 The Social Bot Orchestrator (v2.4.6)
+## 🤖 The Social Bot Orchestrator (v2.5.0 - Elite Standard)
 
-O bot opera em três frentes de atuação com foco em **Zero-Intervention**:
+O bot opera em três frentes de atuação com foco em **Zero-Intervention** e **Premium Visuals**:
 
-### 1. Curadoria Moda & Beleza (Titanium)
+### 1. Curadoria Moda & Beleza (Titanium Premium)
 - **Datafeed Scale-up**: O robô se abastece do pool de 100K produtos via `social/queue_csv_products.py`.
-- **Media**: Gera Reels automáticos com efeito Ken Burns a partir de imagens oficiais Shopee.
+- **Media (Premium Static Reel)**: Substituição do efeito Ken Burns (instável) por **Vídeos Estáticos de Alta Fidelidade**. 
+    - **Visual**: Design de revista de luxo ("Seleção Titanium") com tipografia minimalista e badges harmonizados.
+    - **Técnica**: Conversão de frames 1080x1920 em MP4 com bitrate de **5000k** e **CRF 18** para garantir nitidez cristalina e dibrar o algoritmo do Instagram como Reels.
 
 ### 2. Vertical Boutique Íntima (Isolated)
 - **Estratégia Pinterest**: Foco em estética "Aesthetic" e rituais de autocuidado para evitar shadowbans.
@@ -49,8 +51,9 @@ Para focar o Instagram em estações específicas (como o Inverno) sem interferi
 
 ## 🎞️ Media Processing & Resilience
 
-Titanium prioriza **Reels** devido ao alcance orgânico superior.
-- **Cloud Bypass (Tmpfiles.org)**: Dribla bloqueios de IP da Meta na hospedagem primária.
+Titanium prioriza **Reels** devido ao alcance orgânico superior para não-seguidores.
+- **High-Fidelity Rendering**: Uso de `moviepy` para garantir que frames estáticos de luxo se tornem vídeos MP4 de 6 segundos sem artefatos de compressão.
+- **Cloud Bypass (Tmpfiles.org)**: Dribla bloqueios de IP da Meta na hospedagem primária durante o upload de mídia para a API Graph.
 
 ---
-*Atualizado em: 07/05/2026 - Versão: v4.0.0 (Winter Campaign & Boilerplate Filter)*
+*Atualizado em: 08/05/2026 - Versão: v4.1.0 (Premium Elite & Static-to-Video Hack)*

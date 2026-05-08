@@ -172,15 +172,122 @@ class ImageGenerator:
         canvas.convert("RGB").save(output_path, "JPEG", quality=95)
         return output_path
 
+    def generate_premium_reel_frame(self, product_title, price, image_url, store_type, output_path):
+        """
+        Cria o 'Frame Mestre' de alta fidelidade para o Reel Premium.
+        Focado em Harmonização, Credibilidade e Design de Revista.
+        """
+        self.width = 1080
+        self.height = 1920 # Proporção Reel
+        
+        # 1. Fundo Minimalista Profissional (Degradê Suave / Neutral)
+        bg_color = (245, 245, 245) # Off-white premium
+        canvas = Image.new('RGB', (self.width, self.height), bg_color)
+        draw = ImageDraw.Draw(canvas)
+        
+        # Adicionar uma textura sutil ou degradê de profundidade
+        for i in range(self.height):
+            # Degradê quase imperceptível de cima para baixo
+            r = int(245 - (i / self.height) * 10)
+            g = int(245 - (i / self.height) * 10)
+            b = int(245 - (i / self.height) * 10)
+            draw.line([(0, i), (self.width, i)], fill=(r, g, b))
+
+        # 2. Carregar e Processar Imagem do Produto
+        headers = {"User-Agent": "Mozilla/5.0"}
+        try:
+            response = requests.get(image_url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                img_data = BytesIO(response.content)
+                product_img = Image.open(img_data).convert("RGBA")
+                
+                # Redimensionamento Inteligente (Ocupando o centro com "respiro")
+                max_size = 900
+                img_w, img_h = product_img.size
+                ratio = min(max_size / img_w, max_size / img_h)
+                new_w, new_h = int(img_w * ratio), int(img_h * ratio)
+                product_img = product_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                
+                # Centralização
+                img_x = (self.width - new_w) // 2
+                img_y = (self.height - new_h) // 2
+                
+                # Sombra Projetada Suave (Efeito Flutuante)
+                shadow_offset = 25
+                shadow = Image.new("RGBA", product_img.size, (0, 0, 0, 15)) # Ultra-suave
+                canvas.paste(shadow, (img_x + shadow_offset, img_y + shadow_offset), shadow)
+                canvas.paste(product_img, (img_x, img_y), product_img)
+            else:
+                raise Exception(f"HTTP {response.status_code}")
+        except Exception as e:
+            print(f"Erro ao carregar imagem para Premium: {e}")
+            # Fallback seguro: Fundo colorido se falhar imagem
+            draw.rectangle([100, 400, 980, 1400], fill=(220, 220, 220))
+
+        # 3. Cabeçalho Minimalista "SELEÇÃO TITANIUM"
+        try:
+            font_path = "C:\\Windows\\Fonts\\arial.ttf" # Simples e elegante
+            if not os.path.exists(font_path):
+                font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+            
+            font_header = ImageFont.truetype(font_path, 45) if os.path.exists(font_path) else ImageFont.load_default()
+            header_text = "SELEÇÃO TITANIUM"
+            
+            # Espaçamento entre letras (Manual para efeito premium)
+            header_x = 100
+            header_y = 150
+            for char in header_text:
+                draw.text((header_x, header_y), char, font=font_header, fill=(100, 100, 100))
+                header_x += 40 # Letter spacing
+                
+            # Linha de detalhe sutil
+            draw.line([(100, 210), (250, 210)], fill=(238, 77, 45), width=3) # Accent color Shopee
+        except: pass
+
+        # 4. Badge de Preço Elite (Otimizado)
+        try:
+            font_price_path = "C:\\Windows\\Fonts\\arialbd.ttf"
+            if not os.path.exists(font_price_path):
+                font_price_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+            
+            font_price = ImageFont.truetype(font_price_path, 110) if os.path.exists(font_price_path) else ImageFont.load_default()
+            
+            # Formatação
+            price_str = f"R$ {float(str(price).replace('R$', '').replace('.', '').replace(',', '.')):,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+            
+            # Caixa do Badge
+            tw = font_price.getlength(price_str) if hasattr(font_price, 'getlength') else 300
+            bw, bh = int(tw + 100), 160
+            bx, by = (self.width - bw) // 2, self.height - 350
+            
+            # Glassmorphism/Flat-Premium Shadow
+            draw.rounded_rectangle([bx + 10, by + 10, bx + bw + 10, by + bh + 10], radius=80, fill=(0,0,0,20))
+            draw.rounded_rectangle([bx, by, bx + bw, by + bh], radius=80, fill=(255, 255, 255))
+            
+            # Texto do Preço
+            draw.text((bx + (bw - tw)//2, by + 15), price_str, font=font_price, fill=(238, 77, 45))
+        except: pass
+
+        # 5. Logo Shopee (Pequeno e Discreto no Canto)
+        logo_path = os.path.join(self.assets_path, "logo-shopee.png")
+        if os.path.exists(logo_path):
+            logo = Image.open(logo_path).convert("RGBA")
+            logo.thumbnail((150, 150))
+            canvas.paste(logo, (self.width - 200, 100), logo)
+
+        # 6. Salvar Resultado (Qualidade Máxima)
+        canvas.save(output_path, "JPEG", quality=98)
+        return output_path
+
 if __name__ == "__main__":
     # Teste rápido se executado diretamente
     gen = ImageGenerator(assets_path="../site/images")
-    test_img = "https://m.media-amazon.com/images/I/71ovN4v2YFL._AC_SL1500_.jpg" # Exemplo de monitor
-    gen.generate_post(
-        "Monitor Gamer LG UltraGear 27' Full HD 144Hz", 
-        "1.299", 
+    test_img = "https://m.media-amazon.com/images/I/71ovN4v2YFL._AC_SL1500_.jpg"
+    gen.generate_premium_reel_frame(
+        "Monitor Gamer Premium", 
+        "1.299,00", 
         test_img, 
-        "amazon", 
-        "test_post.jpg"
+        "shopee", 
+        "test_premium.jpg"
     )
-    print("Post de teste gerado em test_post.jpg")
+    print("Post Premium gerado em test_premium.jpg")

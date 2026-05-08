@@ -160,7 +160,7 @@ def run():
                     from core.link_builder import build_affiliate_link
                     final_link = build_affiliate_link(item['offer'], "shopee")
                 
-                gen.generate_post(item['name'], item['price'], img_url, "shopee", path)
+                gen.generate_premium_reel_frame(item['name'], item['price'], img_url, "shopee", path)
                 
                 with open(json_path, 'w', encoding='utf-8') as mj:
                     json.dump({

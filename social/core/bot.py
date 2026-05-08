@@ -10,6 +10,7 @@ from social.core.image_generator import ImageGenerator
 from social.core.instagram_client import InstagramClient
 from social.core.copywriter import Copywriter
 from social.core.uploader import ResilientUploader
+from moviepy import ImageClip
 from infra.upload_logic import upload_to_hostinger
 from dotenv import load_dotenv
 
@@ -158,10 +159,33 @@ class SocialBot:
                 except Exception as e:
                     print(f"⚠️ Erro ao processar meta JSON: {e}")
 
-            # O usuário prefere a postagem original de FOTOS.
-            # O bypass do Hostinger WAF é feito via fallback para o ImgBB no uploader.py
+            # BLINDAGEM V3: Transformação de Imagem em Reel Premium de Alta Fidelidade
             if is_image:
-                media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
+                print(f"🎬 Convertendo frame premium em vídeo de alta fidelidade: {filename}")
+                video_filename = f"reel_{base}.mp4"
+                video_path = os.path.join(temp_dir, video_filename)
+                
+                try:
+                    # Motor de Vídeo Elite (Simplicidade = Credibilidade)
+                    clip = ImageClip(local_path).with_duration(6) # 6 segundos padrão Reels
+                    clip.fps = 24
+                    clip.write_videofile(
+                        video_path, 
+                        codec='libx264', 
+                        audio=False, 
+                        bitrate="5000k",
+                        ffmpeg_params=['-crf', '18', '-pix_fmt', 'yuv420p'],
+                        logger=None # Silencioso para não poluir logs do GitHub Actions
+                    )
+                    
+                    if os.path.exists(video_path):
+                        media_to_upload.append({"local": video_path, "type": "VIDEO", "fallback_local": local_path})
+                        temp_video_paths.append(video_path)
+                    else:
+                        media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
+                except Exception as e:
+                    print(f"⚠️ Erro na conversão para vídeo premium: {e}. Usando imagem estática.")
+                    media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
             else:
                 media_to_upload.append({"local": local_path, "type": "VIDEO", "fallback_local": None})
 
