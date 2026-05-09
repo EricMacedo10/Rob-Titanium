@@ -166,16 +166,27 @@ class SocialBot:
                 video_path = os.path.join(temp_dir, video_filename)
                 
                 try:
-                    # Motor de Vídeo Elite (Simplicidade = Credibilidade)
-                    clip = ImageClip(local_path).with_duration(6) # 6 segundos padrão Reels
+                    # Motor de Vídeo Elite - Garantindo 1080x1920 e Áudio Silencioso (Requisito Meta)
+                    clip = ImageClip(local_path).with_duration(6)
+                    clip = clip.resized(height=1920) # Garante proporção vertical
+                    if clip.w != 1080:
+                        clip = clip.cropped(x_center=clip.w/2, width=1080)
+                    
                     clip.fps = 24
+                    
+                    # Gera áudio silencioso para evitar rejeição da API
+                    from moviepy import AudioArrayClip
+                    import numpy as np
+                    silence = AudioArrayClip(np.zeros((44100 * 6, 2)), fps=44100)
+                    clip = clip.with_audio(silence)
+
                     clip.write_videofile(
                         video_path, 
                         codec='libx264', 
-                        audio=False, 
+                        audio_codec='aac',
                         bitrate="5000k",
-                        ffmpeg_params=['-crf', '18', '-pix_fmt', 'yuv420p'],
-                        logger=None # Silencioso para não poluir logs do GitHub Actions
+                        ffmpeg_params=['-crf', '18', '-pix_fmt', 'yuv420p', '-profile:v', 'main'],
+                        logger=None
                     )
                     
                     if os.path.exists(video_path):
@@ -205,10 +216,19 @@ class SocialBot:
         public_urls = []
         for item in media_to_upload:
             remote_name = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['local'])}"
-            # Tenta via FTP (Hostinger) primeiro, usa Cloud apenas como fallback de emergência
+            
+            # Tenta via FTP (Hostinger) primeiro
             url = self.uploader.upload(item["local"], remote_name, force_cloud=False)
+            
             if url:
-                public_urls.append({"url": url, "type": item["type"]})
+                cover_url = None
+                # Se for vídeo e tiver imagem original, sobe ela como CAPA para agilizar a Meta
+                if item["type"] == "VIDEO" and item.get("fallback_local"):
+                    print(f"📸 Subindo capa oficial para o Reel...")
+                    cover_name = f"cover_{remote_name.replace('.mp4', '.jpg')}"
+                    cover_url = self.uploader.upload(item["fallback_local"], cover_name)
+                
+                public_urls.append({"url": url, "type": item["type"], "cover_url": cover_url})
             else:
                 fallback_path = item.get("fallback_local")
                 if fallback_path and os.path.exists(fallback_path):
@@ -216,7 +236,7 @@ class SocialBot:
                     remote_name_img = f"titanium_cluster_{int(time.time())}_{os.path.basename(fallback_path)}"
                     url_img = self.uploader.upload(fallback_path, remote_name_img)
                     if url_img:
-                        public_urls.append({"url": url_img, "type": "IMAGE"})
+                        public_urls.append({"url": url_img, "type": "IMAGE", "cover_url": None})
                         continue
 
                 print(f"❌ Falha crítica no upload de {item['local']}. Abortando ciclo.")
@@ -232,7 +252,7 @@ class SocialBot:
             item = public_urls[0]
             if item["type"] == "VIDEO":
                 print(f"🎬 Postando REELS dinâmico (Ken Burns) no Instagram...")
-                success = self.instagram.post_reels(item["url"], final_caption)
+                success = self.instagram.post_reels(item["url"], final_caption, cover_url=item.get("cover_url"))
             else:
                 # Fallback raro: imagem que falhou na conversão
                 print(f"📸 Postando IMAGEM estática no feed (fallback)...")
