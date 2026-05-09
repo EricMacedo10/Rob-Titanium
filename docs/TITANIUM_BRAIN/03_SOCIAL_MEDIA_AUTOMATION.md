@@ -1,61 +1,72 @@
-# 📸 Titanium Brain: Social Media Automation (v5.2.0-Stabilization)
+# 📸 Titanium Brain: Social Media Automation (v5.3.0-Validated)
 
-Este documento detalha como o Titanium mantém autoridade estética no Instagram e Pinterest com intervenção zero e foco em luxo visual.
+Este documento detalha como o Titanium mantém autoridade estética no Instagram com intervenção zero, preço consistente e DM bot funcional.
 
 ---
 
-## 🤖 The Social Bot Orchestrator (v5.0.0 - Elite Frame Standard)
+## 🤖 The Social Bot Orchestrator (v5.3.0 - Production Validated)
 
-O bot opera sob o conceito de **Resiliência Estética**:
+O bot opera sob o conceito de **Resiliência Estética com Precisão de Dados**:
 
 ### 1. Curadoria & Media Generation
-- **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16), otimizadas para o consumo vertical mobile.
-- **Estratégia Híbrida (Reels vs Feed)**: 
-    - **Primário (Reels)**: Conversão via `moviepy` com áudio silencioso injetado para compatibilidade máxima.
-    - **Fallback (Image Post)**: Em caso de latência na API de vídeo ou bloqueio de infraestrutura (FTP/CORS), o bot reverte automaticamente para postagem de imagem estática de alta definição, garantindo que o ciclo nunca falhe.
-- **Auto-Cover Injection**: Para agilizar o processamento da Meta, o robô envia a imagem original como capa (thumbnail) oficial do Reel.
+- **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16) via `image_generator.py`.
+- **Price Parser Robusto (`_parse_price`)**: Método centralizado que diferencia separadores decimais de milhares, eliminando erros como `44.9 → R$ 449,00`. Validado em produção.
+- **Estratégia de Postagem (Image First)**: 
+    - **Ativo**: Postagem de **Imagem Premium** no Feed via Cloud Upload (tmpfiles.org → Meta Graph API).
+    - **Roadmap**: Reels via API Hostinger (quando migrado de FTP para HTTPS).
+- **Design Magazine Elite**: Cabeçalho "SELEÇÃO TITANIUM" com tipografia espaçada, badge de preço glassmorphism e logo Shopee.
 
-### 2. Vertical Boutique Íntima
-- **Isolated Aesthetics**: Uso de filtros sensoriais e copy provocativo/técnico gerado por agentes especializados de IA.
-- **Pinterest Engine**: Sincronização de catálogos para captura de tráfego de inspiração (Top of Funnel).
+### 2. Formatação de Preço (Padrão BR — Unified)
+O preço é formatado de forma idêntica em **dois pontos**:
+- **Na Arte (imagem)**: `image_generator.py → _parse_price()` → Renderiza `R$ 38,98`.
+- **Na Legenda (texto)**: `bot.py → price_display` → Exibe `R$ 38,98`.
+- **Garantia**: Ambos usam a mesma lógica de parsing, eliminando discrepâncias permanentemente.
+
+### 3. Vertical Boutique Íntima
+- **Isolated Aesthetics**: Copy provocativo gerado por agentes de IA especializados.
+- **Pinterest Engine**: Captura de tráfego via inspiração visual (Top of Funnel).
 
 ---
 
 ## 🧠 Smart Link Intelligence v5.0 (Nuclear Shield)
 
 ### 🛡️ Commission Armor
-- **Tag Universal**: Injeção mandatória de `an_18318830863`.
-- **Deep Link Enforcement**: Redirecionamento configurado para abrir diretamente no App da Shopee, aumentando a taxa de conversão em 40%.
+- **Tag Universal**: Injeção mandatória de `an_18318830863` em 100% dos links.
+- **Deep Link Enforcement**: Redirecionamento direto para o App da Shopee.
+- **DM Bot**: Resposta automática via `bot_instagram.php` com link rastreado + preview rich-card do produto.
 
 ### 🔂 Link Loop Immunity
-- Travas de segurança para impedir redirecionamentos infinitos entre `go.php` e links de afiliados, garantindo uma jornada de usuário fluida.
+- Travas de segurança contra redirecionamentos infinitos (`go.php → go.php`).
 
 ---
 
 ## 🔗 Infraestrutura & Conectividade
 
 ### 🛰️ Cloud Sync (Resilient Uploads)
-- **Hostinger FTP**: Utilizado para armazenamento permanente de mídias no domínio oficial.
-- **Cloud Bypass (tmpfiles.org)**: Rota de fuga automática para imagens quando o firewall da hospedagem bloqueia conexões originadas do GitHub Actions.
+- **tmpfiles.org (Primário)**: Upload de imagens via HTTPS — funciona perfeitamente nos runners do GitHub Actions.
+- **Hostinger FTP (Secundário)**: Utilizado para `ofertas.json` e assets do site. Bloqueado para mídias do Instagram por firewall.
 
 ### 🔐 Token Lifecycle
-- Renovação automática de permissões via GitHub Secrets para garantir postagem ininterrupta 24/7.
+- Renovação de permissões via GitHub Secrets para postagem ininterrupta 24/7.
 
 ---
 
 ## 🎯 Campanhas Sazonais (Modo Inverno 2026)
-O motor de curação agora aplica filtros de "Estilo de Vida" ao Datafeed de 100K, focando em nichos sazonais (ex: Moda Inverno, Outono Chic) para manter o feed relevante com o clima local.
+O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
+- **Keywords ativas**: jaqueta, casaco, moletom, cardigan, sobretudo, tricot, manga longa, gola alta, peluciada.
+- **Deduplicação**: Títulos já postados são excluídos automaticamente via `get_posted_titles()`.
 
 ---
-*Atualizado em: 08/05/2026 - Versão: v5.2.0-Stabilization (Elite Hybrid Strategy)*
+
+## 📋 Horários de Postagem (BRT)
+
+| Horário | Cron (UTC) | Objetivo |
+|---|---|---|
+| 08:30 | `30 11 * * *` | Feed matinal |
+| 14:30 | `30 17 * * *` | Pós-almoço |
+| 19:30 | `30 22 * * *` | Prime-time |
+| 23:30 | `30 02 * * *` | Night owls |
 
 ---
+*Atualizado em: 09/05/2026 - Versão: v5.3.0-Validated (Price Parser + DM Bot + Feed Post Confirmado)*
 
-## 🎞️ Media Processing & Resilience
-
-Titanium prioriza **Reels** devido ao alcance orgânico superior para não-seguidores.
-- **High-Fidelity Rendering**: Uso de `moviepy` para garantir que frames estáticos de luxo se tornem vídeos MP4 de 6 segundos sem artefatos de compressão.
-- **Cloud Bypass (Tmpfiles.org)**: Dribla bloqueios de IP da Meta na hospedagem primária durante o upload de mídia para a API Graph.
-
----
-*Atualizado em: 08/05/2026 - Versão: v4.1.0 (Premium Elite & Static-to-Video Hack)*

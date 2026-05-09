@@ -26,6 +26,7 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **Itens Repetidos** | Falha na Deduplicação. | Verifique se `specialist.json` ou `ai_reviews.json` estão corrompidos ou com IDs inválidos. O sistema requer estes arquivos para o cross-check. |
 | **Editorial Sem nexo** | Falha de dados no Blog. | Se o blog falar de "Maquiagem" mas injetar "Calças", o robô não conseguiu acessar o pool de 100k e usou o fallback local. Verifique os segredos do Datafeed. |
 | **Robô de DM falhando** | Token expirado (190/463). | Renovar token via `python -m social.titanium_token_manager`. |
+| **Preço errado na arte** | Parser antigo multiplicava decimais. | Corrigido em v5.1 com `_parse_price()`. Se persistir, limpar `social/fila/` e regenerar via `python -m social.queue_csv_products`. |
 | **Imagens genéricas** | Fallback ativado. | O sistema agora usa a API Oficial via `core/shopee_api.py`. Se falhar, use os assets manuais em `site/images`. |
 | **Erro 403 Actions** | Permissão de Escrita GITHUB_TOKEN. | O workflow exige `permissions: contents: write` explicitamente para realizar o Auto-Commit de arquivos JSON. |
 | **Bot envia link errado** | Falso Positivo na CAMADA 3. | O bot cruzou palavras genéricas da legenda (ex: "Moda") com o `data.json`. Mantido o **Boilerplate Filter** no `bot_instagram.php` para ignorar palavras-chave estruturais. |

@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v3.9.0 - Nuclear)
+# 🚀 Titanium Brain: CI/CD & Deployment (v5.1.0 - Validated)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -47,14 +47,16 @@ O sistema utiliza um script inteligente de sincronização que:
 3.  Realiza o upload via FTP apenas dos dados (`data.json`, `data_sensual.json`, etc) no dia a dia (Auto-FTP nas Github Actions).
 4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
-### Deploy do Social Bot & Hybrid Intelligence *(v2.2.1 - 02/05/2026)*:
+### Deploy do Social Bot & Price Integrity *(v5.1.0 - 09/05/2026)*:
 O fluxo de postagem social (`titanium_social_auto.yml`) agora é totalmente autossuficiente:
-1.  **Auto-Hashtagging**: O bot gera `#titanium_ID` automaticamente em cada post.
-2.  **Auto-Sync**: Atualiza o `social/ofertas.json` local e faz o upload imediato via FTP para o servidor.
-3.  **Auto-Commit**: Salva o novo dicionário no GitHub para persistência histórica.
-4.  **Deep Database Search**: O robô de resposta (`bot_instagram.php`) agora utiliza o `data.json` da raiz como backup inteligente para garantir 100% de match, mesmo em posts manuais.
+1.  **Price Parser Centralizado**: `_parse_price()` no `image_generator.py` e lógica espelhada no `bot.py` garantem que preço na imagem e na legenda sejam sempre idênticos (padrão BR: R$ 38,98).
+2.  **Auto-Hashtagging**: O bot gera `#titanium_ID` automaticamente em cada post.
+3.  **Auto-Sync**: Atualiza o `social/ofertas.json` local e faz upload imediato via FTP.
+4.  **Auto-Commit**: Salva o novo dicionário no GitHub para persistência histórica.
+5.  **DM Bot**: `bot_instagram.php` responde automaticamente com link rastreado + preview do produto.
+6.  **Deep Database Search**: O robô utiliza `data.json` como backup inteligente para garantir 100% de match.
 
-**Uso Manual**: `python -m social.deploy_bot` ou `python -m social.upload_database` para sincronia total.
+**Uso Manual**: `python -m social.deploy_bot` ou `python -m social.upload_database`.
 
 ---
 
@@ -66,7 +68,5 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 - **Fail-Safe Monitoring**: Se o GitHub Actions falhar, o site em produção permanece intacto e funcional com os últimos dados válidos.
 
 ---
----
 **IA Titanium**
-*Atualizado em: 06/05/2026 - Tecnologia Shopee Datafeed 100K + Nuclear Shield v3.9.8 + Sensual Auto-FTP*
-
+*Atualizado em: 09/05/2026 - Versão: v5.1.0-Validated (Price Parser + DM Bot + Nuclear Shield)*

@@ -1,6 +1,6 @@
-# 🧠 Titanium Brain: System Architecture Map (v5.0.0-PremiumElite)
+# 🧠 Titanium Brain: System Architecture Map (v5.1.0-Validated)
 
-Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** em sua fase de estabilização Premium Elite.
+Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** — validado em produção com postagem automática, preço BR e DM bot funcional.
 
 ---
 
@@ -58,10 +58,13 @@ graph TD
 
 ## 📊 4. Ciclo de Vida do Dado & Postagem
 
-1.  **Gatilho (Trigger)**: GitHub Actions atua nos 4 horários nobres (Inverno 2026).
-2.  **Curação Elite**: Mineração via Datafeed filtrada por semântica de luxo e sazonalidade.
-3.  **Media Hardening**: Geração de vídeo (Reels) com áudio silencioso e resolução nativa 1080x1920.
-4.  **Security Gate**: Validação mandatória via `infra/shield.py` antes de qualquer link chegar ao público.
+1.  **Gatilho (Trigger)**: GitHub Actions atua nos 4 horários nobres (08:30, 14:30, 19:30, 23:30 BRT).
+2.  **Curação Elite**: Mineração via Datafeed 100K filtrada por semântica sazonal (Inverno 2026).
+3.  **Arte Premium**: Frame 1080x1920 com preço formatado em padrão BR (`_parse_price`) e design Magazine Elite.
+4.  **Upload Resiliente**: Cloud bypass via tmpfiles.org para imagens (HTTPS), com FTP Hostinger como backup.
+5.  **Postagem**: Imagem Premium no Feed do Instagram via Graph API.
+6.  **DM Bot**: Resposta automática com link rastreado (`an_18318830863`) + preview do produto.
+7.  **Security Gate**: `infra/shield.py` valida 100% dos links antes do deploy.
 
 ---
 
@@ -72,4 +75,4 @@ graph TD
 - **Bypass Estratégico**: Implementação de rotas HTTPS para download de mídias pela Meta API, evitando bloqueios de firewall da Hostinger.
 
 ---
-*Atualizado em: 08/05/2026 - Versão: v5.0.0-PremiumElite (Stabilization & Control Tower)*
+*Atualizado em: 09/05/2026 - Versão: v5.1.0-Validated (Preço BR + Feed Post + DM Bot Confirmado)*
