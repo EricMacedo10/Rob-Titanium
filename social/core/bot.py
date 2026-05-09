@@ -205,8 +205,8 @@ class SocialBot:
         public_urls = []
         for item in media_to_upload:
             remote_name = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['local'])}"
-            # Forçando Cloud (ImgBB) porque o Hostinger WAF está bloqueando o crawler do Facebook ativamente
-            url = self.uploader.upload(item["local"], remote_name, force_cloud=True)
+            # Tenta via FTP (Hostinger) primeiro, usa Cloud apenas como fallback de emergência
+            url = self.uploader.upload(item["local"], remote_name, force_cloud=False)
             if url:
                 public_urls.append({"url": url, "type": item["type"]})
             else:

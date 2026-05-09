@@ -50,6 +50,9 @@ class ResilientUploader:
                     else:
                         url = f"{base_url}/social/{remote_name}"
                     
+                    # Aguarda breve propagação no servidor
+                    time.sleep(3)
+                    
                     if self._verify_link(url):
                         # BLINDAGEM: Verificação extra simulando o crawler do Meta
                         print("--- Verificacao Meta-realista (simulando crawler do Facebook)...")
