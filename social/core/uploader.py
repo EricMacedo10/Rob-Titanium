@@ -89,8 +89,11 @@ class ResilientUploader:
                 data = response.json()
                 if data.get("status") == "success":
                     raw_url = data["data"]["url"]
-                    # Converter URL de viewer para direct link (ex: tmpfiles.org/123/img.jpg -> tmpfiles.org/dl/123/img.jpg)
-                    direct_url = raw_url.replace("tmpfiles.org/", "tmpfiles.org/dl/")
+                    # Força HTTPS e converte para link direto (dl/)
+                    if raw_url.startswith("http://"):
+                        raw_url = raw_url.replace("http://", "https://", 1)
+                    
+                    direct_url = raw_url.replace("tmpfiles.org/", "tmpfiles.org/dl/", 1)
                     print(f"--- [OK] Tmpfiles upload OK: {direct_url}")
                     return direct_url
                 else:

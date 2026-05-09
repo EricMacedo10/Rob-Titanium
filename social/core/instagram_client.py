@@ -463,7 +463,7 @@ class InstagramClient:
         none_count = 0
         # Número de tentativas null antes de assumir que está OK
         # Carrossel: tolera mais nulos (API menos confiável para status de vídeo em carrossel)
-        max_none = 20 if (is_video and is_carousel_item) else (15 if is_video else 5)
+        max_none = 20 if (is_video and is_carousel_item) else (30 if is_video else 5)
         
         for attempt in range(max_attempts):
             try:
