@@ -159,44 +159,12 @@ class SocialBot:
                 except Exception as e:
                     print(f"⚠️ Erro ao processar meta JSON: {e}")
 
-            # BLINDAGEM V3: Transformação de Imagem em Reel Premium de Alta Fidelidade
+            # MODO ELITE: Postagem direta como imagem de alta fidelidade
+            # Nota: Reels (vídeo) desativado temporariamente — FTP bloqueado pelo GitHub Actions
+            # e tmpfiles.org bloqueado pela Meta para vídeos. Imagens funcionam perfeitamente.
             if is_image:
-                print(f"🎬 Convertendo frame premium em vídeo de alta fidelidade: {filename}")
-                video_filename = f"reel_{base}.mp4"
-                video_path = os.path.join(temp_dir, video_filename)
-                
-                try:
-                    # Motor de Vídeo Elite - Garantindo 1080x1920 e Áudio Silencioso (Requisito Meta)
-                    clip = ImageClip(local_path).with_duration(6)
-                    clip = clip.resized(height=1920) # Garante proporção vertical
-                    if clip.w != 1080:
-                        clip = clip.cropped(x_center=clip.w/2, width=1080)
-                    
-                    clip.fps = 24
-                    
-                    # Gera áudio silencioso para evitar rejeição da API
-                    from moviepy import AudioArrayClip
-                    import numpy as np
-                    silence = AudioArrayClip(np.zeros((44100 * 6, 2)), fps=44100)
-                    clip = clip.with_audio(silence)
-
-                    clip.write_videofile(
-                        video_path, 
-                        codec='libx264', 
-                        audio_codec='aac',
-                        bitrate="5000k",
-                        ffmpeg_params=['-crf', '18', '-pix_fmt', 'yuv420p', '-profile:v', 'main'],
-                        logger=None
-                    )
-                    
-                    if os.path.exists(video_path):
-                        media_to_upload.append({"local": video_path, "type": "VIDEO", "fallback_local": local_path})
-                        temp_video_paths.append(video_path)
-                    else:
-                        media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
-                except Exception as e:
-                    print(f"⚠️ Erro na conversão para vídeo premium: {e}. Usando imagem estática.")
-                    media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
+                print(f"📸 Preparando imagem premium para postagem direta: {filename}")
+                media_to_upload.append({"local": local_path, "type": "IMAGE", "fallback_local": None})
             else:
                 media_to_upload.append({"local": local_path, "type": "VIDEO", "fallback_local": None})
 
@@ -215,32 +183,15 @@ class SocialBot:
         # --- EXECUÇÃO DO UPLOAD ---
         public_urls = []
         for item in media_to_upload:
-            remote_name = f"titanium_cluster_{int(time.time())}_{os.path.basename(item['local'])}"
+            remote_name = f"titanium_elite_{int(time.time())}_{os.path.basename(item['local'])}"
             
-            # Tenta via FTP (Hostinger) primeiro
-            url = self.uploader.upload(item["local"], remote_name, force_cloud=False)
+            # Cloud direto para imagens (tmpfiles funciona perfeitamente para imagens)
+            url = self.uploader.upload(item["local"], remote_name, force_cloud=True)
             
             if url:
-                cover_url = None
-                # Se for vídeo e tiver imagem original, sobe ela como CAPA para agilizar a Meta
-                if item["type"] == "VIDEO" and item.get("fallback_local"):
-                    print(f"📸 Subindo capa oficial para o Reel...")
-                    cover_name = f"cover_{remote_name.replace('.mp4', '.jpg')}"
-                    cover_url = self.uploader.upload(item["fallback_local"], cover_name)
-                
-                public_urls.append({"url": url, "type": item["type"], "cover_url": cover_url})
+                public_urls.append({"url": url, "type": item["type"]})
             else:
-                fallback_path = item.get("fallback_local")
-                if fallback_path and os.path.exists(fallback_path):
-                    print(f"⚠️ Falha no upload do vídeo. Tentando fallback seguro para IMAGEM original...")
-                    remote_name_img = f"titanium_cluster_{int(time.time())}_{os.path.basename(fallback_path)}"
-                    url_img = self.uploader.upload(fallback_path, remote_name_img)
-                    if url_img:
-                        public_urls.append({"url": url_img, "type": "IMAGE", "cover_url": None})
-                        continue
-
                 print(f"❌ Falha crítica no upload de {item['local']}. Abortando ciclo.")
-                # Limpeza de temporários antes de sair
                 for tmp in temp_video_paths:
                     if os.path.exists(tmp): os.remove(tmp)
                 sys.exit(1)
@@ -248,15 +199,9 @@ class SocialBot:
         # --- POSTAGEM ---
         success = False
         if self.instagram and public_urls:
-            # Com a blindagem, TODOS os itens são vídeos agora → postar como Reels
             item = public_urls[0]
-            if item["type"] == "VIDEO":
-                print(f"🎬 Postando REELS dinâmico (Ken Burns) no Instagram...")
-                success = self.instagram.post_reels(item["url"], final_caption, cover_url=item.get("cover_url"))
-            else:
-                # Fallback raro: imagem que falhou na conversão
-                print(f"📸 Postando IMAGEM estática no feed (fallback)...")
-                success = self.instagram.post_image(item["url"], final_caption)
+            print(f"📸 Postando IMAGEM Premium Elite no feed do Instagram...")
+            success = self.instagram.post_image(item["url"], final_caption)
         else:
             print("🧪 [SIMULAÇÃO] Postagem Simulada com Sucesso.")
             success = True
