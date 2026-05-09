@@ -27,6 +27,28 @@ class ImageGenerator:
         }
         self.color_accent = (0, 230, 118)  # Fallback accent
         
+    def _parse_price(self, price_val):
+        """Converte strings de preço (R$ 1.299,00 ou 49.0) em float de forma segura."""
+        try:
+            p = str(price_val).replace('R$', '').replace(' ', '').strip()
+            # Se tem vírgula e ponto, a vírgula é o decimal (padrão BR)
+            if ',' in p and '.' in p:
+                p = p.replace('.', '').replace(',', '.')
+            # Se tem apenas vírgula, trocamos por ponto
+            elif ',' in p:
+                p = p.replace(',', '.')
+            # Se tem apenas um ponto e ele está nas últimas 2 ou 3 casas, é decimal
+            # Caso contrário, se for algo como 1.299 (sem decimais), tratamos como milhar
+            elif '.' in p:
+                parts = p.split('.')
+                if len(parts[-1]) > 2: # Ex: 1.299 -> 1299
+                    p = p.replace('.', '')
+            
+            return float(p)
+        except Exception as e:
+            print(f"⚠️ Erro ao parsear preço '{price_val}': {e}")
+            return 0.0
+
     def _create_brand_background(self, store_type):
         """Cria um fundo vibrante baseado na marca e campanha."""
         brand = self.brand_colors.get(store_type.lower(), self.brand_colors["default"])
@@ -137,11 +159,7 @@ class ImageGenerator:
 
         # 5. Adicionar Preço (Badge Premium Clean)
         try:
-            raw_val = str(price).replace('R$', '').replace(' ', '').replace(',', '.')
-            if raw_val.count('.') > 1:
-                parts = raw_val.split('.')
-                raw_val = "".join(parts[:-1]) + "." + parts[-1]
-            val = float(raw_val)
+            val = self._parse_price(price)
             price_formatted = f"R$ {val:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
         except Exception as e:
             print(f"Erro na formatação de preço ({price}): {e}")
@@ -253,7 +271,8 @@ class ImageGenerator:
             font_price = ImageFont.truetype(font_price_path, 110) if os.path.exists(font_price_path) else ImageFont.load_default()
             
             # Formatação
-            price_str = f"R$ {float(str(price).replace('R$', '').replace('.', '').replace(',', '.')):,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+            val = self._parse_price(price)
+            price_str = f"R$ {val:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
             
             # Caixa do Badge
             tw = font_price.getlength(price_str) if hasattr(font_price, 'getlength') else 300
