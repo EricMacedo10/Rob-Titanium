@@ -149,7 +149,23 @@ class SocialBot:
                     safe_id = re.sub(r'[^a-zA-Z0-9]', '', raw_id)[:10]
                     unique_tag = f"#titanium_{safe_id}"
                     
-                    combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {meta['price']} {unique_tag}")
+                    # 💡 Formatação de Preço (Padrão Brasileiro)
+                    raw_price = str(meta.get('price', '0'))
+                    try:
+                        p = raw_price.replace('R$', '').replace(' ', '').strip()
+                        if ',' in p and '.' in p:
+                            p = p.replace('.', '').replace(',', '.')
+                        elif ',' in p:
+                            p = p.replace(',', '.')
+                        elif '.' in p:
+                            parts_p = p.split('.')
+                            if len(parts_p[-1]) > 2:
+                                p = p.replace('.', '')
+                        price_display = f"{float(p):,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+                    except:
+                        price_display = raw_price
+                    
+                    combined_captions.append(f"{i+1}️⃣ {meta['title']} ➔ R$ {price_display} {unique_tag}")
                     
                     # Armazena para atualizar o dicionário depois
                     product_hashtags.append({
