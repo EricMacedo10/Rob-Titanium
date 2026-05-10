@@ -195,11 +195,14 @@ def main():
             if not p.get('image') or not p_title:
                 continue
 
-            if p_title not in seen_titles and p_title not in forbidden_titles:
-                unique_new.append(p)
-                seen_titles.add(p_title) 
-                
-        final_list = [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:80] + unique_new # Mantém 80 antigos + novos
+        # 🛡️ FRESHNESS POLICY: Newest products go to the TOP
+        final_list = unique_new + [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:100]
+        
+        # Subtle shuffle of the top 20 items to avoid a 'frozen' hero section
+        if len(final_list) > 20:
+            top_part = final_list[:20]
+            random.shuffle(top_part)
+            final_list = top_part + final_list[20:]
         
         # Final Filtering & Sanitation
         sanitized_list = []

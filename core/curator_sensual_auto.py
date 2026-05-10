@@ -32,7 +32,9 @@ def auto_curate_sensual_platinum():
         for p in valid_items:
             price = float(p.get('price', 0))
             discount = float(p.get('discount', 0))
-            p['quality_score'] = (price * 0.7) + (discount * 2.0) # Desconto tem multiplicador para ser atrativo
+            # Peso: Preço (70%) + Desconto (30%) + Random Jitter (Freshness)
+            jitter = random.uniform(0.9, 1.1)
+            p['quality_score'] = ((price * 0.7) + (discount * 2.0)) * jitter
 
         # 3. Ordena pelo Score e pega os Top 60 para sorteio
         top_candidates = sorted(valid_items, key=lambda x: x['quality_score'], reverse=True)[:60]
