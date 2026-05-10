@@ -62,4 +62,4 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 ---
 ---
 **IA Titanium**
-*Atualizado em: 04/05/2026 - Versão: 4.0.0-Nuclear (Triple-Core Editorial Integrated)*
+*Atualizado em: 10/05/2026 - Versão: v5.2.0-Stable (Freshness Policy + Header Aliasing)*

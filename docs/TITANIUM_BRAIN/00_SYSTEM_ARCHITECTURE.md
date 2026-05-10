@@ -1,4 +1,4 @@
-# 🧠 Titanium Brain: System Architecture Map (v5.1.0-Validated)
+# 🧠 Titanium Brain: System Architecture Map (v5.2.0-Elite)
 
 Este documento descreve a topologia de alto nível e o fluxo de dados do ecossistema **Titanium Shopee Exclusive** — validado em produção com postagem automática, preço BR e DM bot funcional.
 
@@ -75,4 +75,4 @@ graph TD
 - **Bypass Estratégico**: Implementação de rotas HTTPS para download de mídias pela Meta API, evitando bloqueios de firewall da Hostinger.
 
 ---
-*Atualizado em: 09/05/2026 - Versão: v5.1.0-Validated (Preço BR + Feed Post + DM Bot Confirmado)*
+*Atualizado em: 10/05/2026 - Versão: v5.2.0-Elite (Freshness Policy + Visual Rotation)*

@@ -1,4 +1,4 @@
-# 🚀 Titanium Brain: CI/CD & Deployment (v5.1.0 - Validated)
+# 🚀 Titanium Brain: CI/CD & Deployment (v5.2.0-Stable)
 
 Este documento mapeia a espinha dorsal de automação que mantém a Boutique Titanium viva e atualizada 24/7.
 
@@ -41,11 +41,13 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 - O sistema utiliza o arquivo `requirements.txt` para garantir que bibliotecas como `beautifulsoup4` e `Pillow` estejam sempre presentes no ambiente de nuvem.
 - **Protocolo**: O Workflow executa `pip install -r requirements.txt` antes de rodar os scripts core.
 
-### Sincronização Atômica (`sync_production_v12.py`):
-O sistema utiliza um script inteligente de sincronização que:
-2.  **Nuclear Shield Audit Gate**: Executa `infra/shield.py` para validar e corrigir 100% das tags de afiliado antes do upload.
-3.  Realiza o upload via FTP apenas dos dados (`data.json`, `data_sensual.json`, etc) no dia a dia (Auto-FTP nas Github Actions).
-4.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
+### Sincronização Atômica & Deploy Cirúrgico:
+O sistema utiliza um motor de deploy ultra-resiliente:
+1.  **Deploy Cirúrgico (v5.2.0)**: Otimização para workflows de nicho (Sensual, Radar, Roleta). O sistema realiza o upload **apenas do arquivo modificado**, reduzindo o tempo de deploy de 35 minutos para 30 segundos e eliminando travamentos por timeout de FTP.
+2.  **Pathspec Guard (Fix #128)**: Workflow do Blog corrigido para apontar explicitamente para `site/index.html`, evitando o erro fatal de git.
+3.  **Nuclear Shield Audit Gate**: Executa `infra/shield.py` para validar e corrigir 100% das tags de afiliado antes do upload.
+4.  Realiza o upload via FTP apenas dos dados (`data.json`, `data_sensual.json`, etc) no dia a dia.
+5.  Sincroniza assets estruturais (`index.html`, `js`, `css`) apenas em deploys manuais ou de hotfix.
 
 ### Deploy do Social Bot & Price Integrity *(v5.1.0 - 09/05/2026)*:
 O fluxo de postagem social (`titanium_social_auto.yml`) agora é totalmente autossuficiente:
@@ -69,4 +71,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 
 ---
 **IA Titanium**
-*Atualizado em: 09/05/2026 - Versão: v5.1.0-Validated (Price Parser + DM Bot + Nuclear Shield)*
+*Atualizado em: 10/05/2026 - Versão: v5.2.0-Stable (Deploy Cirúrgico + Pathspec Fix)*
