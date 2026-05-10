@@ -117,26 +117,29 @@ def _download_and_parse_csv(url: str) -> list:
         
         for i, col in enumerate(header_lower):
             # Mapeamento Flexível (Aceita variações de nome de coluna PT/EN)
-            if any(k in col for k in ['item id', 'id do item', 'id_item']):
+            if any(k in col for k in ['item id', 'id do item', 'id_item', 'item_id']):
                 col_map['id'] = i
-            elif any(k in col for k in ['item name', 'nome do item', 'titulo', 'title']):
+            elif any(k in col for k in ['item name', 'nome do item', 'titulo', 'title', 'product name', 'product_name', 'item_name']):
                 col_map['name'] = i
-            elif any(k in col for k in ['price', 'preco', 'preço']):
+            elif any(k in col for k in ['price', 'preco', 'preço', 'item_price', 'unit_price']):
                 col_map['price'] = i
             elif 'sales' in col or 'vendas' in col:
                 col_map['sales'] = i
-            elif any(k in col for k in ['shop name', 'shop', 'nome da loja', 'loja']):
+            elif any(k in col for k in ['shop name', 'shop', 'nome da loja', 'loja', 'shop_name']):
                 col_map['shop'] = i
-            elif any(k in col for k in ['commission rate', 'taxa de comissão', 'taxa_comissao']):
+            elif any(k in col for k in ['commission rate', 'taxa de comissão', 'taxa_comissao', 'commission_rate']):
                 col_map['commission_rate'] = i
             elif 'commission' in col and 'rate' not in col:
                 col_map['commission'] = i
-            elif any(k in col for k in ['product link', 'link do produto', 'url']):
+            elif any(k in col for k in ['product link', 'link do produto', 'url', 'product_link']):
                 col_map['product_link'] = i
-            elif any(k in col for k in ['offer link', 'link de oferta', 'link_afiliado']):
+            elif any(k in col for k in ['offer link', 'link de oferta', 'link_afiliado', 'offer_link']):
                 col_map['offer_link'] = i
         
-        print(f"[Datafeed] Colunas detectadas: {list(col_map.keys())}")
+        if not col_map:
+            print(f"[Datafeed] ERRO: Nenhuma coluna reconhecida. Headers reais: {header_lower}")
+        else:
+            print(f"[Datafeed] Colunas detectadas: {list(col_map.keys())}")
         
         products = []
         for row in reader:
