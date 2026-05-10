@@ -48,11 +48,12 @@ jobs:
           commit_message: "🦾 [Bot] Sensual Specialist: Curadoria Automática de Elite"
           file_pattern: 'site/specialist_sensual.json'
 
-      - name: 🚀 Subir para Produção (Hostinger)
+      - name: 🚀 Subir apenas Curadoria (Otimizado)
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
           ENV_MODE: PRODUCTION
           PYTHONPATH: .
-        run: python sync_production_v12.py
+        run: |
+          python -c "from infra.upload_logic import upload_to_hostinger; import os; upload_to_hostinger('site/specialist_sensual.json', os.getenv('FTP_HOST'), os.getenv('FTP_USER'), os.getenv('FTP_PASS'), 'specialist_sensual.json')"
