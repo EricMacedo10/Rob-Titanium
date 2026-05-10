@@ -60,4 +60,5 @@ jobs:
         FTP_PASS: ${{ secrets.FTP_PASS }}
         ENV_MODE: PRODUCTION
         PYTHONPATH: .
-      run: python sync_production_v12.py
+      run: |
+        python -c "from infra.upload_logic import upload_to_hostinger; import os; upload_to_hostinger('site/specialist.json', os.getenv('FTP_HOST'), os.getenv('FTP_USER'), os.getenv('FTP_PASS'), 'specialist.json')"

@@ -47,14 +47,15 @@ jobs:
           commit_message: "🤖 [Bot] Titanium: Atualização do Radar de Tendências (ai_reviews.json)"
           file_pattern: 'site/ai_reviews.json'
 
-      - name: 🚀 Subir para Produção (Hostinger)
+      - name: 🚀 Subir apenas Radar (Otimizado)
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
           ENV_MODE: PRODUCTION
           PYTHONPATH: .
-        run: python sync_production_v12.py
+        run: |
+          python -c "from infra.upload_logic import upload_to_hostinger; import os; upload_to_hostinger('site/ai_reviews.json', os.getenv('FTP_HOST'), os.getenv('FTP_USER'), os.getenv('FTP_PASS'), 'ai_reviews.json')"
 
       - name: ✨ Radar Atualizado
         run: echo "Radar de Tendências IA atualizado com sucesso no site!"
