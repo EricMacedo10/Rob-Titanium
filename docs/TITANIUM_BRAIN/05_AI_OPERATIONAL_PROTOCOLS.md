@@ -15,7 +15,8 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 ## 🚫 The "Don't Touch" List
 
 - **`index.html` Hierarchy**: Do not restructure the main layout IDs (`deals-grid`, etc.) without updating the JS selectors in `app.js`.
-- **`state/` Directory**: Do not commit this folder. It contains volatile but critical session tokens.
+- **Image Safe Zone**: Do not lower the price badge below `y=1450` in vertical arts (1080x1920) to maintain Explore Grid compatibility.
+- **state/` Directory**: Do not commit this folder. It contains volatile but critical session tokens.
 - **Affiliate Tag Logic**: Do not hardcode tags in the middle of functions. Always use `core/settings.py` or the `app.js` config block.
 
 ## 🛠️ Troubleshooting Guide

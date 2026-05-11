@@ -22,8 +22,10 @@ from social.core.image_generator import ImageGenerator
 from scraper.datafeed_shopee import get_datafeed_products
 
 def get_posted_titles():
-    """Le titulos ja postados para evitar duplicidade no feed."""
+    """Le titulos ja postados e na fila para evitar duplicidade no feed."""
     titles = set()
+    
+    # 1. Verificar o que já foi postado
     if os.path.exists(POSTED_DIR):
         for f in os.listdir(POSTED_DIR):
             if f.endswith('.json'):
@@ -33,6 +35,18 @@ def get_posted_titles():
                         if 'title' in data:
                             titles.add(data['title'].lower().strip())
                 except: continue
+                
+    # 2. Verificar o que já está na fila esperando postagem
+    if os.path.exists(QUEUE_DIR):
+        for f in os.listdir(QUEUE_DIR):
+            if f.endswith('.json'):
+                try:
+                    with open(os.path.join(QUEUE_DIR, f), 'r', encoding='utf-8') as j:
+                        data = json.load(j)
+                        if 'title' in data:
+                            titles.add(data['title'].lower().strip())
+                except: continue
+                
     return titles
 
 def load_state():
