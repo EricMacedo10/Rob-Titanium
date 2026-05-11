@@ -27,24 +27,24 @@ jobs:
   social-post-cycle:
     runs-on: ubuntu-latest
     steps:
-      - name: 🛰️ Checkout Code
+      - name: "🛰️ Checkout Code"
         uses: actions/checkout@v4
 
-      - name: 🐍 Setup Python Stack
+      - name: "🐍 Setup Python Stack"
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: 🎥 Install FFmpeg (Required for Video Generation)
+      - name: "🎥 Install FFmpeg (Required for Video Generation)"
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
-      - name: 📦 Install Core Dependencies
+      - name: "📦 Install Core Dependencies"
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt --retries 5 --timeout 60
           pip install pandas  # Necessário para o CSV
 
-      - name: 🎨 Gerar Lote de Artes (CSV -> Fila)
+      - name: "🎨 Gerar Lote de Artes (CSV -> Fila)"
         env:
           PYTHONPATH: .
           SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
@@ -52,7 +52,7 @@ jobs:
           SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
         run: python -m social.queue_csv_products
 
-      - name: 🚀 Publicar no Instagram (Fila -> Meta API)
+      - name: "🚀 Publicar no Instagram (Fila -> Meta API)"
         env:
           PYTHONPATH: .
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
@@ -67,7 +67,7 @@ jobs:
           ENV_MODE: PRODUCTION
         run: python -m social.core.bot
 
-      - name: 🛡️ Nuclear Shield Gate (Audit social/ofertas.json)
+      - name: "🛡️ Nuclear Shield Gate (Audit social/ofertas.json)"
         run: python infra/shield.py
         env:
           PYTHONPATH: .
