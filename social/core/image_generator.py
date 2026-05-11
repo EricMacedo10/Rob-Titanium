@@ -169,7 +169,7 @@ class ImageGenerator:
         text_width = font_price.getlength(price_formatted) if hasattr(font_price, 'getlength') else 200
         badge_w, badge_h = int(text_width + 60), 100 # Reduzido proporcionalmente
         badge_x = (self.width - badge_w) // 2
-        badge_y = self.height - 190  # Posição otimizada para evitar crop de busca e botões de UI
+        badge_y = self.height - 250  # Posição ultra-segura para evitar crop e botões de UI
         
         # Cor do badge clean e contrastante (Fundo Branco, Fonte Laranja Shopee)
         badge_fill = (255, 255, 255)
@@ -277,7 +277,7 @@ class ImageGenerator:
             # Caixa do Badge
             tw = font_price.getlength(price_str) if hasattr(font_price, 'getlength') else 300
             bw, bh = int(tw + 100), 160
-            bx, by = (self.width - bw) // 2, self.height - 520 # Elevado para visibilidade em Search Grid (Safe Zone)
+            bx, by = (self.width - bw) // 2, self.height - 650 # Posição ultra-segura (Safe Zone para Explore Grid)
             
             # Glassmorphism/Flat-Premium Shadow
             draw.rounded_rectangle([bx + 10, by + 10, bx + bw + 10, by + bh + 10], radius=80, fill=(0,0,0,20))
