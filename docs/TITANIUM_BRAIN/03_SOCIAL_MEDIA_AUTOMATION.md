@@ -1,4 +1,4 @@
-# 📸 Titanium Brain: Social Media Automation (v5.4.0-Stable)
+# 📸 Titanium Brain: Social Media Automation (v5.4.1-UltraSafe)
 
 Este documento detalha como o Titanium mantém autoridade estética no Instagram com intervenção zero, preço consistente e DM bot funcional.
 
@@ -11,7 +11,7 @@ O bot opera sob o conceito de **Resiliência Estética com Precisão de Dados**:
 ### 1. Curadoria & Media Generation
 - **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16) via `image_generator.py`.
 - **Price Parser Robusto (`_parse_price`)**: Método centralizado que diferencia separadores decimais de milhares, eliminando erros como `44.9 → R$ 449,00`. Validado em produção.
-- **Safe Zone Layout (v5.4.0)**: O selo de preço foi elevado para `y=1400` (em 1080x1920), garantindo visibilidade total na grade de busca (Explore/Search) e evitando sobreposição por botões da interface do Instagram (Turbinar Post).
+- **Safe Zone Layout (v5.4.1 - UltraSafe)**: O selo de preço foi elevado para `y=1270` (em 1080x1920), garantindo visibilidade imune a qualquer corte de grade (Explore) ou sobreposição de UI. No Feed (1080x1080), a posição é `y=830`.
 - **Estratégia de Postagem (Image First)**: 
     - **Ativo**: Postagem de **Imagem Premium** no Feed via Cloud Upload (tmpfiles.org → Meta Graph API).
     - **Roadmap**: Reels via API Hostinger (quando migrado de FTP para HTTPS).
@@ -75,4 +75,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 11/05/2026 - Status: Safe Zone Positioning Active | Deduplicação Nuclear v5.4 | Winter 2026 Strategy*
+*Última Auditoria Técnica: 11/05/2026 - Status: Ultra-Safe Positioning v5.4.1 | Deduplicação Nuclear | YAML Quoting Active*
