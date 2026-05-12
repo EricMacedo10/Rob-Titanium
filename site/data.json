@@ -1,15 +1,135 @@
 [
     {
-        "id": "prod_1776801274_55_57",
-        "title": "KIT 3 ou 1 Unidade Cropped Feminino Canelado Golinha Básica Moda Verão Diversas Cores Carnaval Praia",
-        "price": 26.99,
-        "old_price": 33.7375,
+        "id": "prod_1776801275_56_179",
+        "title": "Short Curto Malha Canelada Verão Academia Praia",
+        "price": 19.75,
+        "old_price": 24.6875,
         "discount": 22,
         "store": "Shopee",
         "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-ml17qfzy5ate35",
-        "link": "https://s.shopee.com.br/4Aw0vmr5F3?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: KIWMODAS"
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lvoyff73mfom26",
+        "link": "https://s.shopee.com.br/901GgkAjW4?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: ShopExpresso"
+    },
+    {
+        "id": "prod_1776801272_54_778",
+        "title": "VESTIDO DE TULE LONGO SEM MANGA CASUAL",
+        "price": 82.99,
+        "old_price": 103.7375,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-ml6odgeiydqf61",
+        "link": "https://s.shopee.com.br/8KlZtRbDmU?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: CRISTAL MODAS OFICIAL"
+    },
+    {
+        "id": "prod_1776801280_59_579",
+        "title": "KIT 3 Blusas Feminina Cacharrel Gola Alta Manga Longa Segunda Pele Básica Para Inverno Frio",
+        "price": 57.99,
+        "old_price": 72.4875,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-maiyyagaverz79",
+        "link": "https://s.shopee.com.br/20rWLgFpYS?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: GYZER"
+    },
+    {
+        "id": "prod_1776801271_53_89",
+        "title": "Kit 3 Body Collant Feminino Blusa Manga Curta Drapeado Bory Básico Moda Blogueira",
+        "price": 59.49,
+        "old_price": 74.3625,
+        "discount": 22,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mby68tvvxil53a",
+        "link": "https://s.shopee.com.br/5q4Euqkjql?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: GYZER"
+    },
+    {
+        "id": "prod_1776801256_43_158",
+        "title": "Moda Coreana Vintage Casaco Solto Mola De Outono Pólo De Manga Longa Duplo Peito Alto Midi Windbreaker",
+        "price": 144.76,
+        "old_price": 180.95,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-7rbmr-lpntwzga7ez302",
+        "link": "https://s.shopee.com.br/5fkohn4Unj?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: COCO & LULU FASHION STORE"
+    },
+    {
+        "id": "prod_1776801283_61_206",
+        "title": "Conjunto Pantalona em Linho Calça e Regata Social Elegante Moda Casual Feminino",
+        "price": 59.99,
+        "old_price": 74.9875,
+        "discount": 21,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mespbd34wbupa8",
+        "link": "https://s.shopee.com.br/4fsHVx8Iow?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Unidunitê Fashion"
+    },
+    {
+        "id": "prod_1776801265_49_343",
+        "title": "Macaquinho Fitness Blackout Alcinha Slim Sem Transparência Academia Macacão Crossfit",
+        "price": 56.9,
+        "old_price": 71.125,
+        "discount": 23,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-maea8d5h1uof4c",
+        "link": "https://s.shopee.com.br/W2iZ352gF?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: PINK URBAN"
+    },
+    {
+        "id": "prod_1776801306_77_606",
+        "title": "Calça Pantalona de Linho Feminina com Botão e Zíper Frontal Elegancia e Conforto",
+        "price": 79.2,
+        "old_price": 99.0,
+        "discount": 20,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mhi4v2q8rbpie4",
+        "link": "https://s.shopee.com.br/8AS9hDDuBy?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Helo-Modas"
+    },
+    {
+        "id": "prod_1776801302_74_239",
+        "title": "Macaquinho Alça fina Slim Fitness Academia Feminino",
+        "price": 39.99,
+        "old_price": 49.987500000000004,
+        "discount": 20,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-me5u97wakf7mea",
+        "link": "https://s.shopee.com.br/6pwm6ggvon?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: RNK MODAS"
+    },
+    {
+        "id": "prod_1776800203_1_478",
+        "title": "Short Transpassado – Tecido Fluyt - Estilo Farm",
+        "price": 39.9,
+        "old_price": 49.875,
+        "discount": 54,
+        "store": "Shopee",
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m8r3s2zz3gg2ad",
+        "link": "https://s.shopee.com.br/7Kt2hgH4tu?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Lussa Rio Moda"
+    },
+    {
+        "id": "prod_1776801284_62_765",
+        "title": "KIT 10 ou 5 Calcinhas Empina Bumbum Fio Dental Duplo Conforto Sensual Sem Costura no Bumbum",
+        "price": 42.9,
+        "old_price": 53.625,
+        "discount": 21,
+        "store": "Shopee",
+        "category": "beleza",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lt-mmgh4t6f1atic3",
+        "link": "https://s.shopee.com.br/40cajYTleZ?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: BellaFlorOficial"
     },
     {
         "id": "prod_1776800219_11_521",
@@ -24,16 +144,16 @@
         "reason": "Datafeed Titanium: MODAS ALFRE"
     },
     {
-        "id": "prod_1776801302_74_239",
-        "title": "Macaquinho Alça fina Slim Fitness Academia Feminino",
-        "price": 39.99,
-        "old_price": 49.987500000000004,
-        "discount": 20,
+        "id": "prod_1776801287_64_533",
+        "title": "Kit 2 Blusa Feminina Mula Manca Suplex com Forro – Moda Blogueira Básica e Confortável",
+        "price": 35.96,
+        "old_price": 44.95,
+        "discount": 21,
         "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-me5u97wakf7mea",
-        "link": "https://s.shopee.com.br/6pwm6ggvon?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: RNK MODAS"
+        "category": "moda",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-7rdve-mcx1bzpuset57a",
+        "link": "https://s.shopee.com.br/4VYrKTRref?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: LOJA KAREN MODAS"
     },
     {
         "id": "prod_1776801309_79_249",
@@ -60,42 +180,6 @@
         "reason": "Datafeed Titanium: Arsenall Fitness"
     },
     {
-        "id": "prod_1776801256_43_158",
-        "title": "Moda Coreana Vintage Casaco Solto Mola De Outono Pólo De Manga Longa Duplo Peito Alto Midi Windbreaker",
-        "price": 144.76,
-        "old_price": 180.95,
-        "discount": 23,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-7rbmr-lpntwzga7ez302",
-        "link": "https://s.shopee.com.br/5fkohn4Unj?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: COCO & LULU FASHION STORE"
-    },
-    {
-        "id": "prod_1776800203_1_478",
-        "title": "Short Transpassado – Tecido Fluyt - Estilo Farm",
-        "price": 39.9,
-        "old_price": 49.875,
-        "discount": 54,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m8r3s2zz3gg2ad",
-        "link": "https://s.shopee.com.br/7Kt2hgH4tu?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Lussa Rio Moda"
-    },
-    {
-        "id": "prod_1776800210_5_38",
-        "title": "Conjunto Feminino de Moletom Calça Jogger e Cropped Com Capuz para Inverno",
-        "price": 104.99,
-        "old_price": 131.23749999999998,
-        "discount": 43,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820lo-mlu0j3mtca9w6c",
-        "link": "https://s.shopee.com.br/8fOQI3Zx6a?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Modas Emy"
-    },
-    {
         "id": "prod_1776801249_38_353",
         "title": "Vestido Longo Feminino Alcinha Fina ,Costa Nua com Bojo ,Canelado Lisa , Fenda Lateral , Verão",
         "price": 43.73,
@@ -120,42 +204,6 @@
         "reason": "Datafeed Titanium: Lily Pink"
     },
     {
-        "id": "prod_1776801275_56_179",
-        "title": "Short Curto Malha Canelada Verão Academia Praia",
-        "price": 19.75,
-        "old_price": 24.6875,
-        "discount": 22,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lvoyff73mfom26",
-        "link": "https://s.shopee.com.br/901GgkAjW4?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: ShopExpresso"
-    },
-    {
-        "id": "prod_1776801306_77_606",
-        "title": "Calça Pantalona de Linho Feminina com Botão e Zíper Frontal Elegancia e Conforto",
-        "price": 79.2,
-        "old_price": 99.0,
-        "discount": 20,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mhi4v2q8rbpie4",
-        "link": "https://s.shopee.com.br/8AS9hDDuBy?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Helo-Modas"
-    },
-    {
-        "id": "prod_1776801284_62_765",
-        "title": "KIT 10 ou 5 Calcinhas Empina Bumbum Fio Dental Duplo Conforto Sensual Sem Costura no Bumbum",
-        "price": 42.9,
-        "old_price": 53.625,
-        "discount": 21,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820lt-mmgh4t6f1atic3",
-        "link": "https://s.shopee.com.br/40cajYTleZ?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: BellaFlorOficial"
-    },
-    {
         "id": "prod_1776801293_68_484",
         "title": "Short Feminino Fitness com Bolso Atletyca Academia, Corrida e Treino",
         "price": 39.9,
@@ -168,76 +216,28 @@
         "reason": "Datafeed Titanium: Atletyca Oficial"
     },
     {
-        "id": "prod_1776801280_59_579",
-        "title": "KIT 3 Blusas Feminina Cacharrel Gola Alta Manga Longa Segunda Pele Básica Para Inverno Frio",
-        "price": 57.99,
-        "old_price": 72.4875,
+        "id": "prod_1776801274_55_57",
+        "title": "KIT 3 ou 1 Unidade Cropped Feminino Canelado Golinha Básica Moda Verão Diversas Cores Carnaval Praia",
+        "price": 26.99,
+        "old_price": 33.7375,
         "discount": 22,
         "store": "Shopee",
         "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-maiyyagaverz79",
-        "link": "https://s.shopee.com.br/20rWLgFpYS?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: GYZER"
+        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-ml17qfzy5ate35",
+        "link": "https://s.shopee.com.br/4Aw0vmr5F3?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: KIWMODAS"
     },
     {
-        "id": "prod_1776801265_49_343",
-        "title": "Macaquinho Fitness Blackout Alcinha Slim Sem Transparência Academia Macacão Crossfit",
-        "price": 56.9,
-        "old_price": 71.125,
-        "discount": 23,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-maea8d5h1uof4c",
-        "link": "https://s.shopee.com.br/W2iZ352gF?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: PINK URBAN"
-    },
-    {
-        "id": "prod_1776801283_61_206",
-        "title": "Conjunto Pantalona em Linho Calça e Regata Social Elegante Moda Casual Feminino",
-        "price": 59.99,
-        "old_price": 74.9875,
-        "discount": 21,
+        "id": "prod_1776800210_5_38",
+        "title": "Conjunto Feminino de Moletom Calça Jogger e Cropped Com Capuz para Inverno",
+        "price": 104.99,
+        "old_price": 131.23749999999998,
+        "discount": 43,
         "store": "Shopee",
         "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mespbd34wbupa8",
-        "link": "https://s.shopee.com.br/4fsHVx8Iow?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Unidunitê Fashion"
-    },
-    {
-        "id": "prod_1776801271_53_89",
-        "title": "Kit 3 Body Collant Feminino Blusa Manga Curta Drapeado Bory Básico Moda Blogueira",
-        "price": 59.49,
-        "old_price": 74.3625,
-        "discount": 22,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mby68tvvxil53a",
-        "link": "https://s.shopee.com.br/5q4Euqkjql?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: GYZER"
-    },
-    {
-        "id": "prod_1776801287_64_533",
-        "title": "Kit 2 Blusa Feminina Mula Manca Suplex com Forro – Moda Blogueira Básica e Confortável",
-        "price": 35.96,
-        "old_price": 44.95,
-        "discount": 21,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-7rdve-mcx1bzpuset57a",
-        "link": "https://s.shopee.com.br/4VYrKTRref?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: LOJA KAREN MODAS"
-    },
-    {
-        "id": "prod_1776801272_54_778",
-        "title": "VESTIDO DE TULE LONGO SEM MANGA CASUAL",
-        "price": 82.99,
-        "old_price": 103.7375,
-        "discount": 22,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-ml6odgeiydqf61",
-        "link": "https://s.shopee.com.br/8KlZtRbDmU?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: CRISTAL MODAS OFICIAL"
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lo-mlu0j3mtca9w6c",
+        "link": "https://s.shopee.com.br/8fOQI3Zx6a?utm_source=an_18318830863",
+        "reason": "Datafeed Titanium: Modas Emy"
     },
     {
         "id": "prod_1776801321_87_850",
@@ -288,18 +288,6 @@
         "reason": "Datafeed Titanium: CHARME TSHIRTERIA SP"
     },
     {
-        "id": "prod_1776801333_95_30",
-        "title": "Vestido mídi feminino evangélica com manga princesa com elastex na costas confortável tecido algodão",
-        "price": 89.99,
-        "old_price": 112.4875,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mbh0cwa12smw90",
-        "link": "https://s.shopee.com.br/16RxNQ4I6?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: ZOE.MODAS"
-    },
-    {
         "id": "prod_1776801988_99_968",
         "title": "Kit 3 Regata Blusa Decote Quadrado Gringa Reta Suplex Premium Liso Verão Moda Tendencia",
         "price": 53.9,
@@ -346,18 +334,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mgno069tx79j2e",
         "link": "https://s.shopee.com.br/6L0VVlippu?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: VM Jalecos e Acessórios"
-    },
-    {
-        "id": "prod_1778089672_40_652",
-        "title": "Casaco Xadrez Cardigan Tricot Lã Max Kimono de Frio Manga Longa Tendência Moda Inverno Elegante",
-        "price": 62.99,
-        "old_price": 78.7375,
-        "discount": 23,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-mn4fhakvruv5d9",
-        "link": "https://s.shopee.com.br/LjILzOndD?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: bellalatricot"
     },
     {
         "id": "prod_1778089685_64_105",
@@ -490,18 +466,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mi4jqf27198m99",
         "link": "https://s.shopee.com.br/6fdLuSJcFq?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: MM Str Fashion"
-    },
-    {
-        "id": "prod_1778238186_98_651",
-        "title": "tri conjunto veronica  moda feminina  conjunto de três peças saia  blusa e sobretudo moda feminina",
-        "price": 140.62,
-        "old_price": 175.775,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820m2-mlyd4a6bexhg80",
-        "link": "https://s.shopee.com.br/7ppJIWd7o0?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: RENER FASHION"
     },
     {
         "id": "prod_1778261160_28_75",
@@ -684,18 +648,6 @@
         "reason": "Datafeed Titanium: DELLA BELLA"
     },
     {
-        "id": "prod_1778323608_90_113",
-        "title": "Macacão Social Longo Elegante Frente Única Fenda Frontal Lastex nas Costas",
-        "price": 59.27,
-        "old_price": 74.0875,
-        "discount": 19,
-        "store": "Shopee",
-        "category": "beleza",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mcxhcd2om8zl30",
-        "link": "https://s.shopee.com.br/5fkoiQ1s8W?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Erik_fashion"
-    },
-    {
         "id": "prod_1778323611_96_328",
         "title": "Kit 2 Blusa Feminina Estilosa Ribana Canelado Casual Tendência Verão",
         "price": 40.68,
@@ -780,18 +732,6 @@
         "reason": "Datafeed Titanium: six fashion"
     },
     {
-        "id": "prod_1778432560_15_904",
-        "title": "Jaqueta De Couro Feminina com Zíper Inverno",
-        "price": 34.99,
-        "old_price": 43.737500000000004,
-        "discount": 33,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mbu755pgsmg7bb",
-        "link": "https://s.shopee.com.br/2qQdLPYD2V?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: NEW BEGINNING STORE"
-    },
-    {
         "id": "prod_1778432561_17_886",
         "title": "Conjunto Social Tomara que Caia e Short Alfaiataria Feminino",
         "price": 49.99,
@@ -826,18 +766,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m6eco6jdd2ljb6",
         "link": "https://s.shopee.com.br/901GgXpBMV?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: Mira Luxo Modas"
-    },
-    {
-        "id": "prod_1778432585_63_727",
-        "title": "Calça Feminina Pantalona Couro Fake Wide Leg Tendência Luxo Balada Look Casual Chick",
-        "price": 52.16,
-        "old_price": 65.19999999999999,
-        "discount": 21,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820lt-mnocg90k188x90",
-        "link": "https://s.shopee.com.br/3fzkKwV2KX?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: LOJA JS STORE"
     },
     {
         "id": "prod_1778432590_74_49",
