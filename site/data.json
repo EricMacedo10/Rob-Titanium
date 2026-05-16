@@ -1,17 +1,5 @@
 [
     {
-        "id": "prod_1778323569_8_590",
-        "title": "Short Saia Fitness Academia Bermuda Legging Suplex Roupa de Academia Envio Rápido Pronta Entrega",
-        "price": 29.22,
-        "old_price": 36.525,
-        "discount": 38,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjkbgbpbr8qu4a",
-        "link": "https://s.shopee.com.br/3VgK8dVffW?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Moda LLevo"
-    },
-    {
         "id": "prod_1778176494_49_506",
         "title": "Kit 2 Blusas Feminina Gola Alta Manga Curta",
         "price": 38.4,
@@ -70,18 +58,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mk9z3f65k54xa0",
         "link": "https://s.shopee.com.br/3VgK7oCkBb?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: Latzi"
-    },
-    {
-        "id": "prod_1776801309_79_249",
-        "title": "Blusa de frio delicada com estampa em cerejinhas",
-        "price": 49.9,
-        "old_price": 62.375,
-        "discount": 20,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-ltwtdx01ml5g8e",
-        "link": "https://s.shopee.com.br/4Aw0vf7aB6?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Doce tricot"
     },
     {
         "id": "prod_1778323565_2_624",
@@ -156,18 +132,6 @@
         "reason": "Datafeed Titanium: Bellas Confecções"
     },
     {
-        "id": "prod_1776801988_99_968",
-        "title": "Kit 3 Regata Blusa Decote Quadrado Gringa Reta Suplex Premium Liso Verão Moda Tendencia",
-        "price": 53.9,
-        "old_price": 67.375,
-        "discount": 18,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mby68tvvxil53a",
-        "link": "https://s.shopee.com.br/AUq4TIjTIt?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: Burne"
-    },
-    {
         "id": "prod_1776801280_59_579",
         "title": "KIT 3 Blusas Feminina Cacharrel Gola Alta Manga Longa Segunda Pele Básica Para Inverno Frio",
         "price": 57.99,
@@ -202,18 +166,6 @@
         "image": "https://cf.shopee.com.br/file/br-11134207-820me-mm2eb7s05gqs21",
         "link": "https://s.shopee.com.br/2VnmwbDvXb?utm_source=an_18318830863",
         "reason": "Datafeed Titanium: DELLA BELLA"
-    },
-    {
-        "id": "prod_1776801327_91_726",
-        "title": "kit blusa camiseta mãe e filha, tshirt mamãe e filho dia das mães presente ensaio BENÇÃO DE DEUS, cristã plus size",
-        "price": 30.9,
-        "old_price": 38.625,
-        "discount": 19,
-        "store": "Shopee",
-        "category": "moda",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lwwugwo3xdq767",
-        "link": "https://s.shopee.com.br/4qBhit52oH?utm_source=an_18318830863",
-        "reason": "Datafeed Titanium: CHARME TSHIRTERIA SP"
     },
     {
         "id": "prod_1776801256_43_158",
