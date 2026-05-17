@@ -34,6 +34,9 @@ O sistema foi simplificado para foco total na **Shopee API v2**, garantindo máx
 ---
 
 ## 🤖 3. Curadoria com IA & Arbitragem (v3.2.0)
+
+### 🛡️ Fallback API Resilience (v5.4.2)
+O `orchestrator.py` garante inclusão atômica de ofertas provindas da API GraphQL de Fallback, caso as URLs do Datafeed de 100K expirem, preservando a consistência da vitrine (evitando travamento por Lista Vazia).
 Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos de alta qualidade cheguem à vitrine.
 
 ### Lógica `decidir_com_fallback`:
@@ -62,4 +65,4 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 ---
 ---
 **IA Titanium**
-*Atualizado em: 10/05/2026 - Versão: v5.2.0-Stable (Freshness Policy + Header Aliasing)*
+*Atualizado em: 17/05/2026 - Versão: v5.4.2-Elite (Freshness Policy + Fallback Deduplication Fix)*

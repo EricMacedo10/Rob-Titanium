@@ -12,6 +12,9 @@ O projeto estabilizou em um **Header Estático e Premium** com variações por v
 - **Boutique Íntima**: Estética Luxo, Deep Mauve & Soft Gold com Glassmorphism avançado.
 
 ### 2. A Vitrine Aberta & Especializada
+
+#### 🛡️ Sensual Category Isolation (v3.8.4)
+Para prevenir que Lingeries ('Moda & Luxo') transbordem para a seção de Cosméticos no `sensual.html`, o `deals-grid` implementa filtro explícito via JavaScript para `Cosmética Sensorial` e `Tecnologia Íntima`.
 O sistema agora gerencia múltiplas vitrines simultâneas:
 - **index.html**: Foco em Moda e Beleza (Titanium).
 - **sensual.html**: Foco em Bem-Estar e SexTech (Boutique Íntima).
@@ -81,7 +84,7 @@ The frontend is "re-hydrated" every time the browser loads:
 3.  **Nuclear Shield Gate**: Nenhum link Shopee pode ser renderizado sem passar pelo interceptor global de auditoria.
 
 ---
-*Atualizado em: 06/05/2026 - Versão: 3.8.3-Nuclear (Frontend Modular Active - Assistant Empowered)*
+*Atualizado em: 17/05/2026 - Versão: 3.8.4-Sensual (Category Filter Active) (Frontend Modular Active - Assistant Empowered)*
 
 > [!TIP]
 > To update the affiliate tags globally, modify the `TITANIUM_CONFIG.TAGS` object at the top of `app.js`.

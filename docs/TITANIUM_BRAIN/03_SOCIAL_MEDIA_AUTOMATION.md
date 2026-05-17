@@ -75,4 +75,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 11/05/2026 - Status: Ultra-Safe Positioning v5.4.1 | Deduplicação Nuclear | YAML Quoting Active*
+*Última Auditoria Técnica: 17/05/2026 - Status: Ultra-Safe Positioning v5.4.2 | Deduplicação Nuclear | YAML Quoting Active*

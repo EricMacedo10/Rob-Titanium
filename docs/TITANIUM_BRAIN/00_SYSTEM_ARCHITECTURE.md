@@ -75,4 +75,4 @@ graph TD
 - **Bypass Estratégico**: Implementação de rotas HTTPS para download de mídias pela Meta API, evitando bloqueios de firewall da Hostinger.
 
 ---
-*Atualizado em: 10/05/2026 - Versão: v5.2.0-Elite (Freshness Policy + Visual Rotation)*
+*Atualizado em: 17/05/2026 - Versão: v5.4.2-Elite (Freshness Policy + Visual Rotation)*

@@ -115,6 +115,14 @@ Bot PHP com **Real-Time Shield**. Agora possui a função `titanium_shield` que 
 3. **Resiliência de Token**: Implementado bypass de expiração via Page Access Token, eliminando a necessidade de renovação manual mensal.
 4. **Proteção Anti-Post Órfão**: Corrigido erro silencioso de compilação no `social/core/bot.py` e adicionada trava arquitetural rígida. O robô aborta a postagem (`sys.exit(1)`) caso não consiga gerar a hashtag única, garantindo 100% de integridade com o funil de DM.
 
+
+### 🛒 Filtro de Exibição Front-End (Lessons Learned 2026-05-17)
+- **Causa:** Produtos de um mesmo banco de dados (ex: `data_sensual.json`) com categorias distintas competiam por espaço no array `.slice(0, 24)` desenhado na tela. Lingeries preenchiam os slots antes dos cosméticos serem renderizados.
+- **Solução (v3.8.4):** É obrigatório usar um `.filter()` explícito por categoria no JavaScript (`app_sensual.js`) antes do `.slice()`, garantindo que seções temáticas como "Cosmética & Bem-Estar" renderizem apenas os produtos designados.
+
+### 🛡️ Tratamento de Fallback de Datafeed (2026-05-17)
+- As URLs do **Shopee Datafeed** expiram. O orquestrador (`core/orchestrator.py`) foi corrigido para sempre mesclar as ofertas extraídas pelo motor de *fallback local* (`update_manual_targets`) na lista global `unique_new`, impedindo o bloqueio do site por lista vazia.
+
 ## 🚀 Hotfixes e Deploy Emergencial (Senior Only) [30/03]
 
 Para correções estruturais (CSS/JS) no Staging ou Produção:
@@ -154,7 +162,7 @@ O Titanium agora suporta verticais de nicho (ex: Boutique Íntima) com protocolo
 3.  **Protocolo de Staging Silencioso**:
     *   Novas boutiques entram em operação via **GitHub Actions Independentes**, minerando dados e gerando reviews em arquivos isolados (`data_sensual.json`), sem conexão física com a `index.html` até a aprovação final do usuário.
 
-### 💎 Premium Visual Standard & Aesthetic Hardening (v3.9.9 - 08/05/2026)
+### 💎 Premium Visual Standard & Aesthetic Hardening (v3.9.9 - 17/05/2026)
 Após auditoria de performance, estabeleceu-se o padrão **"Elite Magazine"** para todo o ecossistema social:
 
 1.  **Regra de Ouro: Qualidade over Pirotecnia**: 
@@ -167,4 +175,4 @@ Após auditoria de performance, estabeleceu-se o padrão **"Elite Magazine"** pa
 3.  **Case Study: Andréia (Integridade Confirmada)**:
     - O fluxo de interação (Postagem -> Comentário "QUERO" -> Resposta Pública -> DM Blindada) foi validado como 100% operacional. O uso de hashtags únicas (#titanium_UID) é a âncora de segurança que impede a perda de comissões.
 
-*Última Auditoria Técnica: 08/05/2026 - Status: Premium Reels Active | Nuclear Shield v3.9 | Winter 2026 Strategy | Anti-Hallucination Matrix Active*
+*Última Auditoria Técnica: 17/05/2026 - Status: Datafeed Fallback & Sensual Filtering Active | Nuclear Shield v3.9 | Winter 2026 Strategy | Anti-Hallucination Matrix Active*

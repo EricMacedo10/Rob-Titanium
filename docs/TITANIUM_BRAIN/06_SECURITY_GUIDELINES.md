@@ -32,4 +32,4 @@ Além do bloqueio local, o repositório conta com três camadas de proteção at
 2. **Secret Scanning**: Varredura assíncrona constante em busca de vazamentos de chaves de API não cobertas pelo Push Protection.
 3. **Dependabot Alerts & Updates**: Monitoramento contínuo do arquivo `requirements.txt`. O GitHub notifica proativamente sobre vulnerabilidades descobertas em dependências Python (ex: `requests`, `pillow`) e gera *Pull Requests* automáticos de segurança.
 
-*Versão: 1.0 (Segurança do Titanium Brain)*
+*Versão: 1.1 (Segurança do Titanium Brain - v5.4.2)*

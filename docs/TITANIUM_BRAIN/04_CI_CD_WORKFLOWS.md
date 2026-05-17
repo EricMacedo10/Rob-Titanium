@@ -71,4 +71,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 
 ---
 **IA Titanium**
-*Atualizado em: 10/05/2026 - Versão: v5.2.0-Stable (Deploy Cirúrgico + Pathspec Fix)*
+*Atualizado em: 17/05/2026 - Versão: v5.4.2-Stable (Deploy Cirúrgico + Pathspec Fix)*
