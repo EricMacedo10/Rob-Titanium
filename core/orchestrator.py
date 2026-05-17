@@ -191,9 +191,9 @@ def main():
         unique_new = []
         for p in fixed_products:
             p_title = str(p.get('title', '')).lower().strip()
-            # Validate image and title
             if not p.get('image') or not p_title:
                 continue
+            unique_new.append(p)
 
         # 🛡️ FRESHNESS POLICY: Newest products go to the TOP
         final_list = unique_new + [p for p in current_shopee if str(p.get('title','')).lower().strip() not in forbidden_titles][:100]
