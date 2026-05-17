@@ -131,7 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const resOffers = await fetch(CONFIG.DATA_SOURCE + CONFIG.CACHE_BUST);
             const dataOffers = await resOffers.json();
             allProducts = [...allProducts, ...dataOffers];
-            renderProducts(dataOffers.slice(0, 24), 'deals-grid');
+            
+            // Filtra exclusivamente produtos de Cosmética/Tecnologia (Ignora Lingeries que já estão na vitrine 2)
+            const cosmeticaOffers = dataOffers.filter(deal => deal.category === 'Cosmética Sensorial' || deal.category === 'Tecnologia Íntima');
+            const finalOffers = cosmeticaOffers.length > 0 ? cosmeticaOffers : dataOffers;
+            
+            renderProducts(finalOffers.slice(0, 24), 'deals-grid');
 
             initAssistant();
             setupSearch();
