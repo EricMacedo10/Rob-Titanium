@@ -32,4 +32,9 @@ Além do bloqueio local, o repositório conta com três camadas de proteção at
 2. **Secret Scanning**: Varredura assíncrona constante em busca de vazamentos de chaves de API não cobertas pelo Push Protection.
 3. **Dependabot Alerts & Updates**: Monitoramento contínuo do arquivo `requirements.txt`. O GitHub notifica proativamente sobre vulnerabilidades descobertas em dependências Python (ex: `requests`, `pillow`) e gera *Pull Requests* automáticos de segurança.
 
-*Versão: 1.1 (Segurança do Titanium Brain - v5.4.2)*
+## 5. Prevenção de Fraude de Afiliado (Autocompra)
+*   **Regra de Ouro**: A Shopee possui um mecanismo antifraude que invalida o rastreamento de comissões se o link de afiliado gerado for utilizado para realizar uma compra **pela mesma conta** que gerou o link (ou pelo mesmo IP / aparelho associado ao afiliado).
+*   **Consequência**: A compra não entra no relatório de comissões, gerando perda financeira.
+*   **Testes**: Se precisar testar o fluxo de vendas do site, sempre gere a conversão usando uma conta limpa de um terceiro que **não resida no mesmo domicílio (IP)**, utilizando a rede 4G. 
+
+*Versão: 1.2 (Segurança do Titanium Brain - v5.4.3)*

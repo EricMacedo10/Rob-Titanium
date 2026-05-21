@@ -61,8 +61,9 @@ Mesmo sendo exclusivo Shopee, o sistema usa IA para garantir que apenas produtos
 | `core/orchestrator.py` | Robô principal de mineração e deploy de dados. |
 | `core/arbitrator.py` | Cérebro que valida e seleciona os produtos. |
 | `infra/upload_logic.py` | Sistema de blindagem de upload FTP (Production/Staging). |
+| `scraper/datafeed_shopee.py` | Engine de download do CSV. Reconfigura stdout para utf-8 no Windows preventivamente e suporta múltiplas URLs (separadas por pipe no `.env`). |
 
 ---
 ---
 **IA Titanium**
-*Atualizado em: 17/05/2026 - Versão: v5.4.2-Elite (Freshness Policy + Fallback Deduplication Fix)*
+*Atualizado em: 21/05/2026 - Versão: v5.4.3-Elite (Multi-URL Datafeed & Unicode Fix)*

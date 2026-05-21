@@ -349,6 +349,10 @@ def _fallback_local_csv(max_items: int) -> list:
     return products[:max_items]
 
 
+import sys
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 if __name__ == "__main__":
     print("🧪 Testando Datafeed Shopee...")
     products = get_datafeed_products(max_items=10)
