@@ -2,7 +2,11 @@ import requests
 import json
 import time
 import os
+import sys
 import functools
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 def prevent_concurrent_posts(func):
     """Decorator para impedir que dois scripts publiquem na Meta API simultaneamente."""

@@ -37,4 +37,13 @@ Além do bloqueio local, o repositório conta com três camadas de proteção at
 *   **Consequência**: A compra não entra no relatório de comissões, gerando perda financeira.
 *   **Testes**: Se precisar testar o fluxo de vendas do site, sempre gere a conversão usando uma conta limpa de um terceiro que **não resida no mesmo domicílio (IP)**, utilizando a rede 4G. 
 
-*Versão: 1.2 (Segurança do Titanium Brain - v5.4.3)*
+## 6. Padronização de Execução Segura (UTF-8)
+*   **Ameaça de Crash Oculto**: A execução de scripts Python em ambientes Windows frequentemente causa falhas `UnicodeEncodeError` ao tentar logar emojis (como `❌`, `✅`, `⚠️`) quando o console padrão adota `cp1252` (charmap).
+*   **Regra de Codificação**: **TODOS** os scripts de execução agendada, monitoramento e APIs locais que utilizem `print()` com símbolos enriquecidos devem forçar a reconfiguração defensiva do `sys.stdout` no cabeçalho do arquivo:
+```python
+import sys
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+```
+
+*Versão: 1.3 (Segurança do Titanium Brain - v5.4.4)*

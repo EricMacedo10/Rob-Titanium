@@ -14,8 +14,12 @@ import json
 import time
 import requests
 import random
+import sys
 import io
 from dotenv import load_dotenv
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 load_dotenv()
 

@@ -29,12 +29,13 @@ O preço é formatado de forma idêntica em **dois pontos**:
 
 ---
 
-## 🧠 Smart Link Intelligence v5.0 (Nuclear Shield)
+## 🧠 Smart Link Intelligence v6.0 (Nuclear Shield + Anti-Colision)
 
 ### 🛡️ Commission Armor
 - **Tag Universal**: Injeção mandatória de `an_18318830863` em 100% dos links.
 - **Deep Link Enforcement**: Redirecionamento direto para o App da Shopee.
-- **DM Bot**: Resposta automática via `bot_instagram.php` com link rastreado + preview rich-card do produto.
+- **DM Bot (Anti-Collision Protocol v2.0)**: Em cenários onde um usuário comenta com múltiplas hashtags, a inteligência do bot `bot_instagram.php` (e sua contraparte python `validar_ofertas.py`) prioriza estritamente os links isolados de produtos específicos (ex: `#tshirt`) em vez da raiz do site genérico (ex: `#look_shopee1`), salvando taxa de conversão.
+- **Preview Rich-Card**: Resposta via DM com link rastreado e call to action nativo.
 
 ### 🔂 Link Loop Immunity
 - Travas de segurança contra redirecionamentos infinitos (`go.php → go.php`).

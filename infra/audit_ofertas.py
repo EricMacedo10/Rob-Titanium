@@ -1,6 +1,10 @@
 import json
 import os
+import sys
 from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 TARGET_TAG = "an_18318830863"
 OFERTAS_FILE = 'social/ofertas.json'

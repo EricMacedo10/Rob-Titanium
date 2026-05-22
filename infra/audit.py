@@ -1,7 +1,10 @@
-
 import json
 import os
+import sys
 from urllib.parse import urlparse, parse_qs
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 def audit_production_data(file_path):
     print("="*60)

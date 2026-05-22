@@ -1,8 +1,13 @@
 import os
+import sys
 import requests
 import socket
 import ftplib
 from dotenv import load_dotenv
+
+# Reconfigurar stdout para UTF-8 no Windows preventivamente
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 # Load environment variables
 load_dotenv()

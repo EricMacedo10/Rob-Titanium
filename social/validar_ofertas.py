@@ -57,11 +57,15 @@ def escolher_link_inteligente(caption: str, ofertas: dict) -> tuple:
             if keyword in caption_lower or keyword_clean in caption_lower:
                 links_produto[hashtag] = link
 
-    # Prioridade: hashtag mais longa
+    # Prioridade: hashtag mais longa (com prioridade absoluta para links reais de produto)
     if links_produto:
-        melhor = max(links_produto.keys(), key=len)
-        tipo = "PRODUTO (Keyword/Hashtag) ✅" if is_product_link(links_produto[melhor]) else "SITE (Match) ⚠️"
-        return links_produto[melhor], tipo, melhor
+        # Priorizar links reais de produto (que não contêm o SITE_URL)
+        links_reais = {h: l for h, l in links_produto.items() if SITE_URL not in l}
+        lista_selecao = links_reais if links_reais else links_produto
+        
+        melhor = max(lista_selecao.keys(), key=len)
+        tipo = "PRODUTO (Keyword/Hashtag) ✅" if is_product_link(lista_selecao[melhor]) else "SITE (Match) ⚠️"
+        return lista_selecao[melhor], tipo, melhor
 
     # CAMADA 3: Deep Search (data.json)
     data_path = os.path.join(os.path.dirname(__file__), "..", "site", "data.json")

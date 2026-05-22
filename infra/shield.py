@@ -1,7 +1,11 @@
 import json
 import os
 import re
+import sys
 from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
+
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 # Configurações de Elite
 TARGET_TAG = "an_18318830863"

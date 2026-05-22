@@ -159,9 +159,20 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     
     // Seleção do melhor link entre os encontrados (Camada 1 e 2)
     if (empty($final_link) && !empty($links_produto)) {
+        // Filtrar e priorizar links de produto reais (que não contêm o site_url)
+        $links_reais = [];
+        foreach ($links_produto as $h => $l) {
+            if (strpos($l, $site_url) === false) {
+                $links_reais[$h] = $l;
+            }
+        }
+        
+        // Se houver algum link de produto real, usamos apenas eles para a seleção
+        $lista_selecao = !empty($links_reais) ? $links_reais : $links_produto;
+        
         $melhor_hashtag = "";
         $melhor_link = "";
-        foreach ($links_produto as $h => $l) {
+        foreach ($lista_selecao as $h => $l) {
             if (strlen($h) > strlen($melhor_hashtag)) {
                 $melhor_hashtag = $h;
                 $melhor_link = $l;
