@@ -1,6 +1,6 @@
 <?php
 // TITANIUM COMMENT RESPONDER - A MENTE CENTRAL 🛡️💎
-// v2.0.0 - Smart Link Priority: Shopee Product Links > Site Links
+// v2.1.0 - Nuclear Shield PHP v4.0: Respeita Short Links Oficiais (s.shopee.com.br)
 $USER_TOKEN = "EAAaEM60tZA1cBRdsRAyvi6ZBsuiNZAYZCb8oD834L4jJhr0AN9Ve39BZAsBTOzirx6BOZCxOO8w1wBuHjZB082MyJNpqZBUclig5KHsDIJKCEe6Pn2bJoS4p7yVNwJ7AoHyg5lRCd8ofHMnlhcbwQTBP19ByHzhUP34BLrFseWqBvZCWrbNefsoUi99ZCtZA9DZCwOhskA7ZAbXLn06BW728ftQZDZD";
 $PAGE_ID = "1032000233318987";
 $IG_BUSINESS_ID = "17841480460125461";
@@ -67,34 +67,41 @@ function bot_log($msg) {
  *   3. Default: Fallback para o site.
  */
 /**
- * 🛡️ TITANIUM SHIELD v1.0 (PHP Version)
- * Garante que a URL Shopee possua a tag de afiliado correta.
+ * 🛡️ TITANIUM SHIELD v2.0 (PHP Version) — Nuclear Shield v4.0
+ * 
+ * Política de Blindagem:
+ * 1. Links já no formato s.shopee.com.br (Short Links Oficiais) são passados sem modificação.
+ *    Estes já contêm a tag de afiliado injetada pelo script Python (shield.py).
+ * 2. Links shopee.com.br brutos (que escaparam da blindagem Python) recebem utm_source como
+ *    fallback de segurança. Este cenário não deveria ocorrer em operação normal.
+ * 3. Links não-Shopee passam sem modificação.
  */
 function titanium_shield($url) {
     if (empty($url) || strpos($url, 'shopee.com.br') === false) {
+        return $url; // Não é um link Shopee — passa livre
+    }
+
+    // CAMADA 1: Short Link Oficial já blindado pelo Python — passa sem modificação
+    if (strpos($url, 's.shopee.com.br') !== false) {
         return $url;
     }
-    
+
+    // CAMADA 2 (Fallback de Segurança): Link bruto que escapou da blindagem Python
+    // Injeta utm_source como sinal de rastreamento mínimo
     $tag = "an_18318830863";
-    
-    // Parse da URL
     $query = parse_url($url, PHP_URL_QUERY);
     $params = [];
     if ($query) {
         parse_str($query, $params);
     }
-    
-    // Força a tag correta
-    $params['utm_source'] = $tag;
-    
-    // Reconstrói a query
+    // Só injeta se ainda não tiver a tag
+    if (!isset($params['utm_source']) || $params['utm_source'] !== $tag) {
+        $params['utm_source'] = $tag;
+    }
     $new_query = http_build_query($params);
-    
-    // Monta a URL final
-    $path = parse_url($url, PHP_URL_PATH);
+    $path   = parse_url($url, PHP_URL_PATH);
     $scheme = parse_url($url, PHP_URL_SCHEME);
-    $host = parse_url($url, PHP_URL_HOST);
-    
+    $host   = parse_url($url, PHP_URL_HOST);
     return "{$scheme}://{$host}{$path}?{$new_query}";
 }
 

@@ -29,12 +29,13 @@ O preço é formatado de forma idêntica em **dois pontos**:
 
 ---
 
-## 🧠 Smart Link Intelligence v6.0 (Nuclear Shield + Anti-Colision)
+## 🧠 Smart Link Intelligence v6.0 (Nuclear Shield v4.0 + Anti-Colision)
 
 ### 🛡️ Commission Armor
-- **Tag Universal**: Injeção mandatória de `an_18318830863` em 100% dos links.
-- **Deep Link Enforcement**: Redirecionamento direto para o App da Shopee.
-- **DM Bot (Anti-Collision Protocol v2.0)**: Em cenários onde um usuário comenta com múltiplas hashtags, a inteligência do bot `bot_instagram.php` (e sua contraparte python `validar_ofertas.py`) prioriza estritamente os links isolados de produtos específicos (ex: `#tshirt`) em vez da raiz do site genérico (ex: `#look_shopee1`), salvando taxa de conversão.
+- **Short Link Oficial (Método Primário)**: `infra/shield.py` e `infra/audit_ofertas.py` agora chamam a API Oficial da Shopee para gerar links `s.shopee.com.br` com o `subId=an_18318830863`. **Este é o único método que garante crédito de comissão na Shopee.**
+- **utm_source (Fallback Legado)**: O parâmetro `?utm_source=an_18318830863` é usado APENAS se a API da Shopee estiver indisponível. Ele rastreia cliques no **Google Analytics** mas **NÃO garantia comissão Shopee**. Esta era a causa da discrepância entre Analytics e o painel de afiliados.
+- **Deep Link Enforcement**: Short Links `s.shopee.com.br` já são configurados para abrir direto no App Shopee (Deep Link by default).
+- **DM Bot (Anti-Collision Protocol v2.0)**: O `bot_instagram.php` (v2.1.0) agora respeita Short Links já blindados — não sobrescreve mais links `s.shopee.com.br` com utm_source.
 - **Preview Rich-Card**: Resposta via DM com link rastreado e call to action nativo.
 
 ### 🔂 Link Loop Immunity

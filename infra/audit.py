@@ -37,10 +37,13 @@ def audit_production_data(file_path):
         if 'Amazon' in store:
             tag = params.get('tag', ['MISSING'])[0]
             amazon_tags.add(tag)
-        elif 'Shopee' in store:
-            # Check if it's already a tagged shortlink or has utm parameters
-            utm = params.get('utm_source', ['MISSING'])[0]
-            shopee_tags.add(utm)
+        if 'Shopee' in store:
+            # v4.0: Verifica Short Links oficiais (s.shopee.com.br) OU utm_source
+            if 's.shopee.com.br' in link:
+                shopee_tags.add('s.shopee.com.br [SHORT_LINK_OFICIAL]')
+            else:
+                utm = params.get('utm_source', ['MISSING'])[0]
+                shopee_tags.add(utm)
         elif 'Mercado Livre' in store:
             tool = params.get('matt_tool', ['MISSING'])[0]
             ml_tags.add(tool)
@@ -66,7 +69,13 @@ def audit_production_data(file_path):
         print("     ⚠️ Mercado Livre Tracking: ALERTA (Pode estar usando shortlinks ou redirecionamento JS)")
 
     # Shopee Check
-    print(f"   [Shopee] UTM Sources: {list(shopee_tags)}")
+    print(f"   [Shopee] Tags/Short Links encontrados: {list(shopee_tags)}")
+    if any('SHORT_LINK_OFICIAL' in t or 'an_18318830863' in t for t in shopee_tags):
+        print("      ✅ Shopee Tracking: OK (Short Link Oficial ou utm_source correto)")
+    elif 'MISSING' in shopee_tags and len(shopee_tags) == 1:
+        print("      ❌ Shopee Tracking: ALERTA — Nenhum link com tag de afiliado detectado!")
+    else:
+        print("      ⚠️  Shopee Tracking: Verificar links manualmente.")
     
     print("\n🚀 Verificação de Imagens e Títulos:")
     empty_images = [p['title'] for p in data if not p.get('image')]

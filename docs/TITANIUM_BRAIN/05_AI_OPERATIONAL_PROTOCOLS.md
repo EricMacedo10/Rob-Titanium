@@ -138,9 +138,11 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
 1. **Filtro de Desejo**: A IA DeepSeek-V3.2 (Speciale) não apenas analisa preços, mas a "curva de desejo" (Fashion Intensity) de cada item via Extreme Reasoning.
 2. **Master Deduplication Strategy**: O motor de IA é instruído a ignorar qualquer item contido no `specialist.json`, focando em novidades puras para o Radar.
 3. **Simetria Obrigatória (Compliance Visual)**: O motor `review_engine.py` **deve obrigatoriamente gerar exatos 18 itens**.
-4. **Nuclear Shield v3.8 (Anti-Loss Protection)**: 
-   - NUNCA gerar um link fora do wrapper `build_affiliate_link`.
-   - O Gatekeeper `infra/shield.py` validará e corrigirá qualquer link gerado pela IA antes do upload final.
+4.  **Nuclear Shield v4.0 (Short Link — Anti-Loss Protection)**:
+   - O `infra/shield.py` agora gera **Short Links Oficiais** via API Shopee (`s.shopee.com.br`) como método primário. Este é o único método que garante crédito de comissão no painel de afiliados.
+   - O parâmetro `utm_source` é **exclusivamente** um fallback para rastreamento GA quando a API estiver indisponível. Ele **NÃO garante comissão Shopee**.
+   - NUNCA gerar um link fora do wrapper `build_affiliate_link` ou do `infra/shield.py`.
+   - O Gatekeeper `infra/shield.py` validará e converterá qualquer link gerado pela IA para Short Link antes do upload final.
 
 ---
 ## 🌹 Segmentação por Nicho & Luxo Sensorial (v3.9 - 30/04/2026)

@@ -7,8 +7,19 @@ from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
 if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
+# Lazy import da API Shopee (evita crash se o módulo não estiver disponível)
+try:
+    from scraper.engines.shopee_affiliate import ShopeeAffiliateAPI
+    _shopee_api_available = True
+except ImportError:
+    _shopee_api_available = False
+
+# Cache local de Short Links para evitar chamadas duplicadas à API durante uma mesma execução
+_shortlink_cache: dict = {}
+
 # Configurações de Elite
 TARGET_TAG = "an_18318830863"
+SHIELD_VERSION = "v4.0-ShortLink"
 FILES_TO_SHIELD = [
     'site/data.json',
     'site/specialist.json',
@@ -19,37 +30,80 @@ FILES_TO_SHIELD = [
     'site/specialist_sensual.json'
 ]
 
-def shield_url(url):
+def _shield_url_via_api(url: str) -> str:
     """
-    Aplica a blindagem atômica em uma única URL Shopee.
-    Garante que a tag utm_source seja única e correta.
+    [MÉTODO PRIMÁRIO - v4.0]
+    Gera um Short Link oficial da Shopee via API (s.shopee.com.br).
+    Este é o único método que garante o crédito de comissão de afiliado.
+    Usa cache em memória para evitar chamadas duplicadas na mesma execução.
+    """
+    global _shortlink_cache
+
+    if url in _shortlink_cache:
+        return _shortlink_cache[url]
+
+    try:
+        api = ShopeeAffiliateAPI()
+        short_link = api.generate_short_link(url, sub_id=TARGET_TAG)
+        if short_link:
+            print(f"  [ShortLink] ✅ {url[:60]}... → {short_link}")
+            _shortlink_cache[url] = short_link
+            return short_link
+        else:
+            print(f"  [ShortLink] ⚠️  API não retornou link para {url[:60]}... Usando fallback.")
+    except Exception as e:
+        print(f"  [ShortLink] ❌ Erro na API: {e}. Usando fallback utm_source.")
+
+    return None
+
+
+def _shield_url_via_utm(url: str) -> str:
+    """
+    [MÉTODO DE FALLBACK - Legado]
+    Injeta utm_source para rastreamento do Google Analytics.
+    ATENÇÃO: Não garante comissão Shopee. Usar apenas se a API não estiver disponível.
+    """
+    parsed = urlparse(url)
+    params = parse_qs(parsed.query)
+    params['utm_source'] = [TARGET_TAG]
+    new_query = urlencode(params, doseq=True)
+    return urlunparse((
+        parsed.scheme, parsed.netloc, parsed.path,
+        parsed.params, new_query, parsed.fragment
+    ))
+
+
+def shield_url(url: str) -> str:
+    """
+    🛡️ Nuclear Shield v4.0 - Blindagem Atômica de Comissão.
+    PRIORIDADE 1: Gera Short Link oficial via API Shopee (s.shopee.com.br) — garante comissão real.
+    FALLBACK:     Injeta utm_source — garante rastreamento GA, mas NÃO garante comissão Shopee.
     """
     if not url or 'shopee.com.br' not in url:
         return url
 
-    # Parse da URL para garantir integridade
-    parsed = urlparse(url)
-    params = parse_qs(parsed.query)
+    # Se o link já é um Short Link da Shopee, não reprocessa
+    if 's.shopee.com.br' in url:
+        print(f"  [ShortLink] ✅ Link já é um Short Link. Ignorando.")
+        return url
 
-    # Injeção/Substituição atômica da Tag
-    params['utm_source'] = [TARGET_TAG]
+    # Tentativa via API oficial (Método Primário)
+    if _shopee_api_available:
+        short = _shield_url_via_api(url)
+        if short:
+            return short
 
-    # Reconstrói a URL limpa e blindada
-    new_query = urlencode(params, doseq=True)
-    new_url = urlunparse((
-        parsed.scheme,
-        parsed.netloc,
-        parsed.path,
-        parsed.params,
-        new_query,
-        parsed.fragment
-    ))
-    
-    return new_url
+    # Fallback: injeção de utm_source
+    print(f"  [Fallback] Injetando utm_source em: {url[:60]}...")
+    return _shield_url_via_utm(url)
 
 def apply_nuclear_shield():
     print("="*60)
-    print("SHIELD: INICIANDO BLINDAGEM NUCLEAR TITANIUM (v3.8)")
+    print(f"SHIELD: INICIANDO BLINDAGEM NUCLEAR TITANIUM ({SHIELD_VERSION})")
+    if _shopee_api_available:
+        print("MODO: ShortLink Oficial (API Shopee) — Comissão 100% Garantida")
+    else:
+        print("MODO: UTM Source (Fallback) — ATENÇÃO: Comissão pode não ser creditada!")
     print("="*60)
 
     total_fixed = 0

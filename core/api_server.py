@@ -16,6 +16,13 @@ Arquitetura:
 import os
 import sys
 import logging
+
+# 🛡️ Blindagem UTF-8 Mandatória (Security Guidelines §6)
+# Previne UnicodeEncodeError ao logar emojis em ambientes Windows (cp1252)
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
 from datetime import datetime
 from functools import wraps
 from typing import Dict, Any
