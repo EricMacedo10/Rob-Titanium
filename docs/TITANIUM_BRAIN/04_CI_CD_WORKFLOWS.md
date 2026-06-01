@@ -13,7 +13,8 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 | `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine principal. **Shield Gate Active.** |
 | `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA para o Radar de Tendências. **Shield Gate Active.** |
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o editorial semanal. **Shield Gate Active.** |
-| `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes e posta no IG. **Shield Gate Active (ofertas.json).** |
+| `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes estáticas e posta no IG. **Shield Gate Active (ofertas.json).** |
+| `titanium_reels_auto.yml` | Cron (1x ao dia) | **NEW:** Gera vídeos (Reels/Stories) de Moda e Beleza. **Auto-Commits postados/.** |
 | `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
 | `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
 | `sensual_specialist_auto.yml` | Cron (2x ao dia) | Curadoria da vertical Íntima. **Shield Gate & Auto-FTP Active.** |

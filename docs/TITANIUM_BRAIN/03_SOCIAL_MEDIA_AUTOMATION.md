@@ -12,9 +12,9 @@ O bot opera sob o conceito de **Resiliência Estética com Precisão de Dados**:
 - **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16) via `image_generator.py`.
 - **Price Parser Robusto (`_parse_price`)**: Método centralizado que diferencia separadores decimais de milhares, eliminando erros como `44.9 → R$ 449,00`. Validado em produção.
 - **Safe Zone Layout (v5.4.1 - UltraSafe)**: O selo de preço foi elevado para `y=1270` (em 1080x1920), garantindo visibilidade imune a qualquer corte de grade (Explore) ou sobreposição de UI. No Feed (1080x1080), a posição é `y=830`.
-- **Estratégia de Postagem (Image First)**: 
-    - **Ativo**: Postagem de **Imagem Premium** no Feed via Cloud Upload (tmpfiles.org → Meta Graph API).
-    - **Roadmap**: Reels via API Hostinger (quando migrado de FTP para HTTPS).
+- **Estratégia de Postagem (Multicanal)**: 
+    - **Ativo (Imagens)**: Postagem de **Imagem Premium** no Feed via Cloud Upload (tmpfiles.org → Meta Graph API).
+    - **Ativo (Vídeos)**: **Máquina de Reels & Stories** nativa usando `moviepy` (`social/core/video_generator.py`). Gera e publica simultaneamente Reels e Stories via Meta Graph API com fundos estéticos lofi e tipografia clean.
 - **Design Magazine Elite**: Cabeçalho "SELEÇÃO TITANIUM" com tipografia espaçada, badge de preço glassmorphism e logo Shopee.
 
 ### 2. Formatação de Preço (Padrão BR — Unified)
@@ -36,6 +36,7 @@ O preço é formatado de forma idêntica em **dois pontos**:
 - **utm_source (Fallback Legado)**: O parâmetro `?utm_source=an_18318830863` é usado APENAS se a API da Shopee estiver indisponível. Ele rastreia cliques no **Google Analytics** mas **NÃO garantia comissão Shopee**. Esta era a causa da discrepância entre Analytics e o painel de afiliados.
 - **Deep Link Enforcement**: Short Links `s.shopee.com.br` já são configurados para abrir direto no App Shopee (Deep Link by default).
 - **DM Bot (Anti-Collision Protocol v2.0)**: O `bot_instagram.php` (v2.1.0) agora respeita Short Links já blindados — não sobrescreve mais links `s.shopee.com.br` com utm_source.
+- **Story Auto-Responder (DM Inbox Polling)**: O bot PHP varre a caixa de entrada (`/conversations`) identificando clientes que responderam aos Stories. Ele vincula instantaneamente as menções de "Quero" à tag `#latest_story` em `ofertas.json`, enviando o link afiliado sem depender de hashtags na legenda (pois Stories não repassam texto).
 - **Preview Rich-Card**: Resposta via DM com link rastreado e call to action nativo.
 
 ### 🔂 Link Loop Immunity & CLI Fallback (v2.2)
@@ -67,10 +68,11 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 
 | Horário | Cron (UTC) | Objetivo |
 |---|---|---|
-| 08:30 | `30 11 * * *` | Feed matinal |
-| 14:30 | `30 17 * * *` | Pós-almoço |
-| 19:30 | `30 22 * * *` | Prime-time |
-| 23:30 | `30 02 * * *` | Night owls |
+| 08:30 | `30 11 * * *` | Feed matinal (Imagens) |
+| 12:30 | `30 15 * * *` | **Reels & Stories (Moda & Beleza)** |
+| 14:30 | `30 17 * * *` | Pós-almoço (Imagens) |
+| 19:30 | `30 22 * * *` | Prime-time (Imagens) |
+| 23:30 | `30 02 * * *` | Night owls (Imagens) |
 
 ---
 
@@ -78,4 +80,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 01/06/2026 - Status: Ultra-Safe Positioning v5.5.0 | Deduplicação Nuclear | YAML Quoting Active | PHP CLI Fallback*
+*Última Auditoria Técnica: 01/06/2026 - Status: Ultra-Safe Positioning v6.0.0 | Video Generation Engine | Story Inbox Polling | Deduplicação Nuclear*
