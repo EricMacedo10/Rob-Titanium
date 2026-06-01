@@ -26,10 +26,12 @@ This document establishes the "Rules of Engagement" for any AI agent or professi
 | **data.json vazio** | Erro de Parser no Datafeed. | O novo parser (v3.7) detecta `;` e `,` automaticamente. Se persistir, verifique se os headers do CSV da Shopee mudaram drasticamente. |
 | **Itens Repetidos** | Falha na Deduplicação. | Verifique se `specialist.json` ou `ai_reviews.json` estão corrompidos ou com IDs inválidos. O sistema requer estes arquivos para o cross-check. |
 | **Editorial Sem nexo** | Falha de dados no Blog. | Se o blog falar de "Maquiagem" mas injetar "Calças", o robô não conseguiu acessar o pool de 100k e usou o fallback local. Verifique os segredos do Datafeed. |
+| **DM Bot em "FALLBACK TOTAL"** | PHP falha ao achar `data.json` em CLI (Cron local) | Resolvido em v2.2. O bot PHP agora possui o fallback path `../site/data.json` caso `$_SERVER['DOCUMENT_ROOT']` não esteja definido. |
 | **Robô de DM falhando** | Token expirado (190/463). | Renovar token via `python -m social.titanium_token_manager`. |
 | **Preço errado na arte** | Parser antigo multiplicava decimais. | Corrigido em v5.1 com `_parse_price()`. Se persistir, limpar `social/fila/` e regenerar via `python -m social.queue_csv_products`. |
 | **Imagens genéricas** | Fallback ativado. | O sistema agora usa a API Oficial via `core/shopee_api.py`. Se falhar, use os assets manuais em `site/images`. |
 | **Erro 403 Actions** | Permissão de Escrita GITHUB_TOKEN. | O workflow exige `permissions: contents: write` explicitamente para realizar o Auto-Commit de arquivos JSON. |
+| **Erro UnicodeEncodeError (charmap)** | Execução Windows sem UTF-8 forçado | Resolvido em v5.5.0 adicionando header `sys.stdout.reconfigure(encoding='utf-8')` no `core/orchestrator.py` e scripts agendados. |
 | **Bot envia link errado** | Falso Positivo na CAMADA 3. | O bot cruzou palavras genéricas da legenda (ex: "Moda") com o `data.json`. Mantido o **Boilerplate Filter** no `bot_instagram.php` para ignorar palavras-chave estruturais. |
 
 
@@ -177,4 +179,4 @@ Após auditoria de performance, estabeleceu-se o padrão **"Elite Magazine"** pa
 3.  **Case Study: Andréia (Integridade Confirmada)**:
     - O fluxo de interação (Postagem -> Comentário "QUERO" -> Resposta Pública -> DM Blindada) foi validado como 100% operacional. O uso de hashtags únicas (#titanium_UID) é a âncora de segurança que impede a perda de comissões.
 
-*Última Auditoria Técnica: 17/05/2026 - Status: Datafeed Fallback & Sensual Filtering Active | Nuclear Shield v3.9 | Winter 2026 Strategy | Anti-Hallucination Matrix Active*
+*Última Auditoria Técnica: 01/06/2026 - Status: Datafeed Fallback & Sensual Filtering Active | Nuclear Shield v4.0 | Unicode UTF-8 Forced on Orchestrator | CLI PHP Bot Path Resolving*

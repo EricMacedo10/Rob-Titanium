@@ -1,4 +1,4 @@
-# 📸 Titanium Brain: Social Media Automation (v5.4.1-UltraSafe)
+# 📸 Titanium Brain: Social Media Automation (v5.5.0-UltraSafe)
 
 Este documento detalha como o Titanium mantém autoridade estética no Instagram com intervenção zero, preço consistente e DM bot funcional.
 
@@ -38,8 +38,9 @@ O preço é formatado de forma idêntica em **dois pontos**:
 - **DM Bot (Anti-Collision Protocol v2.0)**: O `bot_instagram.php` (v2.1.0) agora respeita Short Links já blindados — não sobrescreve mais links `s.shopee.com.br` com utm_source.
 - **Preview Rich-Card**: Resposta via DM com link rastreado e call to action nativo.
 
-### 🔂 Link Loop Immunity
+### 🔂 Link Loop Immunity & CLI Fallback (v2.2)
 - Travas de segurança contra redirecionamentos infinitos (`go.php → go.php`).
+- Resolução dinâmica de paths para execução do Bot PHP em ambiente CLI (Cron), garantindo o acesso ao `data.json` da vitrine principal mesmo sem váriaveis de sessão Apache/Nginx.
 
 ---
 
@@ -77,4 +78,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 17/05/2026 - Status: Ultra-Safe Positioning v5.4.2 | Deduplicação Nuclear | YAML Quoting Active*
+*Última Auditoria Técnica: 01/06/2026 - Status: Ultra-Safe Positioning v5.5.0 | Deduplicação Nuclear | YAML Quoting Active | PHP CLI Fallback*

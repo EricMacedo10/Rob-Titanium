@@ -131,7 +131,8 @@ function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
     
     // CAMADA 3: BUSCA DINÂMICA NO BANCO DE DADOS (DATA.JSON) - 🎯 SOLUÇÃO DEFINITIVA
     $db_path = __DIR__ . "/data.json"; 
-    if (!file_exists($db_path)) $db_path = $_SERVER['DOCUMENT_ROOT'] . "/data.json"; 
+    if (!file_exists($db_path) && isset($_SERVER['DOCUMENT_ROOT'])) $db_path = $_SERVER['DOCUMENT_ROOT'] . "/data.json"; 
+    if (!file_exists($db_path)) $db_path = __DIR__ . "/../site/data.json"; 
     
     $final_link = "";
 
