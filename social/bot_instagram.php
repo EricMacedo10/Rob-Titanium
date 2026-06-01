@@ -276,6 +276,62 @@ foreach ($media_req['data'] as $post) {
     }
 }
 
+// 4. Bônus: Buscar DMs Recentes (Respostas a Stories)
+bot_log("🔍 Verificando DMs Recentes (Stories)...");
+$conv_url = "https://graph.facebook.com/v21.0/{$PAGE_ID}/conversations?platform=instagram&fields=messages.limit(2){id,message,from,created_time}&limit=5&access_token={$PAGE_TOKEN}";
+$conv_req = json_decode(curl_get_contents($conv_url), true);
+
+if (isset($conv_req['data'])) {
+    foreach ($conv_req['data'] as $conv) {
+        if (!isset($conv['messages']['data'])) continue;
+        foreach ($conv['messages']['data'] as $msg) {
+            $msg_id = $msg['id'];
+            $text = isset($msg['message']) ? strtolower($msg['message']) : "";
+            
+            // Tratamento defensivo para $msg['from']
+            if (!isset($msg['from']) || !isset($msg['from']['id'])) continue;
+            
+            $sender_id = $msg['from']['id'];
+            
+            if ($sender_id == $PAGE_ID || $sender_id == $IG_BUSINESS_ID) continue; // Ignora as proprias respostas
+            if (in_array($msg_id, $responded_comments)) continue;
+            
+            $triggered = false;
+            foreach ($triggers as $trigger) {
+                if (strpos($text, $trigger) !== false) {
+                    $triggered = true;
+                    break;
+                }
+            }
+            
+            if ($triggered) {
+                bot_log("🎯 DM Detectada de Sender {$sender_id}: {$text}");
+                $link_story = isset($dicionario_ofertas["#latest_story"]) ? $dicionario_ofertas["#latest_story"] : "https://{$SITE_URL}";
+                $link_story = titanium_shield($link_story);
+                
+                $is_product = (strpos($link_story, $SITE_URL) === false);
+                if ($is_product) {
+                    $dm_reply = "Olá! 🎁 Aqui está o link direto para o produto do Story que você amou:\n\n🔗 ACESSAR PRODUTO: {$link_story}\n\nE se quiser ver mais achadinhos incríveis da Shopee, visite nossa vitrine completa:\n🌐 SITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robô Titanium 🛡️💎";
+                } else {
+                    $dm_reply = "Olá! 🎁 Confira esta e outras ofertas na nossa vitrine oficial:\n\n🔗 VITRINE TITANIUM: {$link_story}\n\nEquipe Robô Titanium 🛡️💎";
+                }
+                
+                // Envia a resposta no inbox
+                $ch_priv = curl_init();
+                curl_setopt($ch_priv, CURLOPT_URL, "https://graph.facebook.com/v21.0/{$PAGE_ID}/messages?access_token={$PAGE_TOKEN}");
+                curl_setopt($ch_priv, CURLOPT_POST, 1);
+                curl_setopt($ch_priv, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                $payload = json_encode([ "recipient" => ["id" => $sender_id], "message" => ["text" => $dm_reply] ]);
+                curl_setopt($ch_priv, CURLOPT_POSTFIELDS, $payload);
+                curl_setopt($ch_priv, CURLOPT_RETURNTRANSFER, true); curl_exec($ch_priv); curl_close($ch_priv);
+                
+                array_push($responded_comments, $msg_id);
+                bot_log("✅ Disparo DM Story concluído para Sender {$sender_id}");
+            }
+        }
+    }
+}
+
 file_put_contents($log_file, json_encode($responded_comments));
 bot_log("✅ Fim do ciclo Titanium.");
 ?>

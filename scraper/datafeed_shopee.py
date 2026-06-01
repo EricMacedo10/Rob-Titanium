@@ -40,10 +40,10 @@ MODA_KEYWORDS = [
 ]
 
 BELEZA_KEYWORDS = [
-    "maquiagem", "batom", "base", "sombra", "rímel", "máscara", "sérum",
+    "maquiagem", "batom", "base facial", "sombra", "rímel", "máscara", "sérum",
     "skincare", "perfume", "hidratante", "protetor", "shampoo", "condicionador",
     "secador", "chapinha", "babyliss", "pincel", "paleta", "delineador",
-    "corretivo", "pó", "blush", "gloss", "esmalte", "creme", "óleo",
+    "corretivo", "pó compacto", "blush", "gloss", "esmalte", "creme", "óleo capilar",
     "tratamento capilar", "tônico", "agua micelar",
 ]
 

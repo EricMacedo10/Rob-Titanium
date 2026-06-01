@@ -457,7 +457,7 @@ class InstagramClient:
         """
         status_url = f"https://graph.facebook.com/v21.0/{creation_id}"
         params = {
-            "fields": "status_code,failure_reason",
+            "fields": "status_code,status",
             "access_token": self.access_token
         }
         
