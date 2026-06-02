@@ -70,6 +70,11 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 - **Structural Locking**: O robô principal (`orchestrator.py`) é bloqueado para NÃO sobrescrever arquivos de layout em produção por acidente.
 - **Fail-Safe Monitoring**: Se o GitHub Actions falhar, o site em produção permanece intacto e funcional com os últimos dados válidos.
 
+### 🛡️ Prevenção de Falhas Silenciosas (Lesson Learned 2026-06-02)
+- **Causa**: A ausência de variáveis de ambiente (`SHOPEE_APP_ID`, `SHOPEE_SECRET`) no workflow fazia com que scripts como `automate_reels.py` falhassem na extração de imagens, porém, ao invés de acionar um erro crítico, o script encerrava usando `return` (Exit 0).
+- **Consequência**: O GitHub Actions interpretava a execução como bem-sucedida, não gerava alertas de falha, e o passo de auto-commit ignorava o fim da fila, resultando em uma **Falha Silenciosa** sem geração de conteúdo.
+- **Protocolo Sênior**: Todos os scripts do CI/CD devem obrigatoriamente chamar `sys.exit(1)` ao capturar exceções críticas (ex: falha de API ou erro na imagem), forçando o workflow a falhar explicitamente e acionar os alertas por e-mail (ver `05_AI_OPERATIONAL_PROTOCOLS.md`).
+
 ---
 **IA Titanium**
-*Atualizado em: 17/05/2026 - Versão: v5.4.2-Stable (Deploy Cirúrgico + Pathspec Fix)*
+*Atualizado em: 02/06/2026 - Versão: v5.5.0-Nuclear (Silent Failure Protection)*
