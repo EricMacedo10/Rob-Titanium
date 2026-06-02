@@ -85,7 +85,7 @@ def run_automation():
             
     if not chosen_product:
         print("❌ Nenhum produto de moda/beleza novo encontrado no momento.")
-        return
+        sys.exit(1)
         
     print(f"✅ Produto selecionado: {chosen_product['titulo']} (R$ {chosen_product['preco']})")
     
@@ -94,7 +94,7 @@ def run_automation():
     image_url = get_shopee_image_api(chosen_product['titulo'])
     if not image_url:
         print("❌ Não foi possível encontrar a imagem para este produto.")
-        return
+        sys.exit(1)
     
     # Gerando Vídeos
     gen = VideoGenerator()
