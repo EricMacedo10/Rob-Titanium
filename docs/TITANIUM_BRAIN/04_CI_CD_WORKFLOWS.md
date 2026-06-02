@@ -34,6 +34,9 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 - `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA principal (Moda).
 - `DEEPSEEK_API_KEY_SENSUAL`: Chave dedicada para a vertical de Bem-Estar Íntimo (Controle de Custos).
 
+### Redes Sociais (Instagram/Facebook):
+- `IG_ACCESS_TOKEN`, `IG_BUSINESS_ID`, `PAGE_ID`: Tokens necessários para automação de postagens e DMs na Graph API da Meta.
+
 ---
 
 ## 📦 3. Mecânica de Deploy & Dependências
