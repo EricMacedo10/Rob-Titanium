@@ -3,7 +3,7 @@ name: "🛰️ TITANIUM: Radar de Tendências IA (4 dias)"
 on:
   schedule:
     # Executa a cada 4 dias às 02:00 BRT (05:00 UTC)
-    - cron: '0 5 */4 * *'
+    - cron: '13 5 */4 * *'
   workflow_dispatch: # Permite rodar manualmente pelo botão no GitHub
 
 concurrency:

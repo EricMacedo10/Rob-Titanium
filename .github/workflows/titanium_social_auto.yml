@@ -3,13 +3,13 @@ name: "📱 TITANIUM: Social Auto-Post (Instagram)"
 on:
   schedule:
     # 08:30 BRT
-    - cron: '30 11 * * *'
+    - cron: '27 11 * * *'
     # 14:30 BRT
-    - cron: '30 17 * * *'
+    - cron: '29 17 * * *'
     # 19:30 BRT
-    - cron: '30 22 * * *'
+    - cron: '31 22 * * *'
     # 23:30 BRT
-    - cron: '30 02 * * *'
+    - cron: '23 02 * * *'
   workflow_dispatch:
 
 concurrency:

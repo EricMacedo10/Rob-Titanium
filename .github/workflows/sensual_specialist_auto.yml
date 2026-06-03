@@ -3,8 +3,8 @@ name: '🦾 Titanium: Sensual Specialist Auto-Curator'
 on:
   schedule:
     # Rodando 2 vezes ao dia para manter a vitrine de elite atualizada
-    - cron: '45 5 * * *'
-    - cron: '45 17 * * *'
+    - cron: '41 5 * * *'
+    - cron: '47 17 * * *'
   workflow_dispatch:
 
 permissions:

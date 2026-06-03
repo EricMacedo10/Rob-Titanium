@@ -4,10 +4,10 @@ on:
   schedule:
     # Rodando em horários alternados para não colidir com Moda/Beleza
     # 03:15, 09:15, 15:15, 21:15 UTC
-    - cron: '15 3 * * *'
-    - cron: '15 9 * * *'
-    - cron: '15 15 * * *'
-    - cron: '15 21 * * *'
+    - cron: '11 3 * * *'
+    - cron: '13 9 * * *'
+    - cron: '17 15 * * *'
+    - cron: '19 21 * * *'
   workflow_dispatch: # Permite rodar manualmente para testes
 
 # Permissões necessárias para salvar os resultados de volta no GitHub

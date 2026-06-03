@@ -3,7 +3,7 @@ name: "🎬 TITANIUM: Reels & Stories Auto-Post"
 on:
   schedule:
     # 12:30 BRT (Horário nobre de almoço - pico de engajamento)
-    - cron: '30 15 * * *'
+    - cron: '23 15 * * *'
   workflow_dispatch:
 
 concurrency:
