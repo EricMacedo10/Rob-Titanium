@@ -48,8 +48,8 @@ O preço é formatado de forma idêntica em **dois pontos**:
 ## 🔗 Infraestrutura & Conectividade
 
 ### 🛰️ Cloud Sync (Resilient Uploads)
-- **tmpfiles.org (Primário)**: Upload de imagens via HTTPS — funciona perfeitamente nos runners do GitHub Actions.
-- **Hostinger FTP (Secundário)**: Utilizado para `ofertas.json` e assets do site. Bloqueado para mídias do Instagram por firewall.
+- **tmpfiles.org (Primário)**: Upload de imagens e vídeos (Reels/Stories) via Cloud CDN — bloqueia problemas de firewall na Hostinger limitados pela porta 21 (FTP) via Actions.
+- **GitHub Raw (Primary Source)**: O `ofertas.json` agora é persistido exclusivamente no repositório (via `git-auto-commit`) e servido pelo CDN do GitHub para o `bot_instagram.php`, eliminando a dependência de FTP.
 
 ### 🔐 Token Lifecycle
 - Renovação de permissões via GitHub Secrets para postagem ininterrupta 24/7.
@@ -80,4 +80,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 01/06/2026 - Status: Ultra-Safe Positioning v6.0.0 | Video Generation Engine | Story Inbox Polling | Deduplicação Nuclear*
+*Última Auditoria Técnica: 03/06/2026 - Status: Ultra-Safe Positioning v6.1.0 | Video Generation Engine | Story Inbox Polling | Fastly CDN Sync*

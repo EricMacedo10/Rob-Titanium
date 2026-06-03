@@ -106,9 +106,9 @@ Bot principal. Posta **1 item por ciclo** da fila como Reel. Executar com `pytho
 
 ### 🛡️ social/bot_instagram.php (v2.5.0 - 05/05/2026): 
 Bot PHP com **Real-Time Shield**. Agora possui a função `titanium_shield` que audita cada link de DM antes do envio, prevenindo perda de comissão por links mal formatados no dicionário.
-- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. Atualizar a cada novo post e fazer upload via `python -m social.upload_ofertas` ou `python -m social.deploy_bot`.
+- **`social/ofertas.json`** *(Servidor Hostinger, raiz `/`)*: Dicionário de hashtags→links. O workflow commita via `git-auto-commit` e o `bot_instagram.php` lê automaticamente da CDN do GitHub Raw, eliminando o FTP.
 - **`social/validar_ofertas.py`** *(v1.0 - 02/05/2026)*: Ferramenta de validação pré-publicação. Simula a lógica do `bot_instagram.php` localmente para garantir que o link correto será enviado. Uso: `python -m social.validar_ofertas --caption "#sua_hashtag"` ou `--audit` para auditoria completa.
-- **`social/deploy_bot.py`** *(v1.0 - 02/05/2026)*: Script de deploy que envia `bot_instagram.php` + `ofertas.json` ao servidor Hostinger via FTP em uma única execução. Uso: `python -m social.deploy_bot`.
+- **`social/deploy_bot.py`** *(v1.0 - 02/05/2026)*: Script de deploy que envia o `bot_instagram.php` (e outros scripts estruturais) ao servidor Hostinger via FTP da máquina local. Uso: `python -m social.deploy_bot`.
 - **`social/titanium_token_manager.py`** *(2026-05-07)*: Gerenciador automático de tokens Meta/Instagram. Realiza o upgrade para um **Page Access Token permanente (♾️ nunca expira)**, atualiza o `.env` e sincroniza o `bot_instagram.php` diretamente no servidor via FTP.
 
 ### ❄️ Inverno 2026: Hardening do Motor Social (v4.1 - 07/05/2026)

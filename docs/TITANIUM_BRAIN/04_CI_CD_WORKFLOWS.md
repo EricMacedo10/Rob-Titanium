@@ -13,8 +13,8 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 | `shopee-gold-exclusive.yml` | Cron (3x ao dia) | Atualiza a vitrine principal. **Shield Gate Active.** |
 | `titanium_radar_auto.yml` | Cron (4 em 4 dias) | Roda a IA para o Radar de Tendências. **Shield Gate Active.** |
 | `titanium_blog_auto.yml` | Cron (Domingos) | Gera e publica o editorial semanal. **Shield Gate Active.** |
-| `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes estáticas e posta no IG. **Shield Gate Active (ofertas.json).** |
-| `titanium_reels_auto.yml` | Cron (1x ao dia) | **NEW:** Gera vídeos (Reels/Stories) de Moda e Beleza. **Auto-Commits postados/.** |
+| `titanium_social_auto.yml` | Cron (4x ao dia) | Gera artes estáticas e posta no IG. **Shield Gate Active.** |
+| `titanium_reels_auto.yml` | Cron (1x ao dia) | **NEW:** Gera vídeos (Reels/Stories) de Moda e Beleza. **Auto-Commits postados/ e ofertas.json.** |
 | `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
 | `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
 | `sensual_specialist_auto.yml` | Cron (2x ao dia) | Curadoria da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
@@ -25,8 +25,9 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 
 Para que as automações funcionem, os seguintes segredos **DEVEM** estar configurados no GitHub:
 
-### Servidor:
-- `FTP_HOST`, `FTP_USER`, `FTP_PASS`: Credenciais da Hostinger.
+### Servidor & CDN:
+- `FTP_HOST`, `FTP_USER`, `FTP_PASS`: Credenciais da Hostinger (apenas para arquivos do site estático).
+- `IMGBB_API_KEY`: Necessário para o bypass da CDN `tmpfiles.org` na postagem de mídias (Reels e Imagens) no Instagram via Actions (porta 21 de FTP é bloqueada pela Github).
 
 ### APIs de IA e Dados:
 - `SHOPEE_APP_ID`, `SHOPEE_SECRET`: Autenticação na API de Afiliados Shopee.
@@ -57,8 +58,8 @@ O sistema utiliza um motor de deploy ultra-resiliente:
 O fluxo de postagem social (`titanium_social_auto.yml`) agora é totalmente autossuficiente:
 1.  **Price Parser Centralizado**: `_parse_price()` no `image_generator.py` e lógica espelhada no `bot.py` garantem que preço na imagem e na legenda sejam sempre idênticos (padrão BR: R$ 38,98).
 2.  **Auto-Hashtagging**: O bot gera `#titanium_ID` automaticamente em cada post.
-3.  **Auto-Sync**: Atualiza o `social/ofertas.json` local e faz upload imediato via FTP.
-4.  **Auto-Commit**: Salva o novo dicionário no GitHub para persistência histórica.
+3.  **Auto-Sync via GitHub Raw**: O dicionário `ofertas.json` deixou de usar FTP. Ele é salvo localmente.
+4.  **Auto-Commit**: O `git-auto-commit` salva o novo dicionário no GitHub para persistência histórica, servindo também como CDN para o `bot_instagram.php` ler.
 5.  **DM Bot**: `bot_instagram.php` responde automaticamente com link rastreado + preview do produto.
 6.  **Deep Database Search**: O robô utiliza `data.json` como backup inteligente para garantir 100% de match.
 
@@ -80,4 +81,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 
 ---
 **IA Titanium**
-*Atualizado em: 02/06/2026 - Versão: v5.5.0-Nuclear (Silent Failure Protection)*
+*Atualizado em: 03/06/2026 - Versão: v5.6.0-Nuclear (GitHub Raw CDN Sync & Silent Failure Protection)*

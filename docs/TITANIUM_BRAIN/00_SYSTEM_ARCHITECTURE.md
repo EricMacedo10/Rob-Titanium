@@ -37,8 +37,8 @@ graph TD
     end
 
     subgraph "Infra de Mídia (Hybrid)"
-        HOST["Hostinger FTP (Primary Storage)"]
-        CLOUD["Cloud Backup (Resilient Delivery)"]
+        CLOUD["Cloud Backup (Resilient Delivery via CDN)"]
+        GITHUB["GitHub Raw (Fastly CDN)"]
     end
 
     subgraph "Produção (Instagram/Web)"
@@ -49,8 +49,8 @@ graph TD
     ACTION --> PYTHON
     PYTHON -- "Context Injection" --> AI
     AI -- "High-Conversion Copy" --> PYTHON
-    PYTHON -- "FTP Sync" --> HOST
-    PYTHON -- "Hybrid Upload" --> CLOUD
+    PYTHON -- "Git Auto-Commit" --> GITHUB
+    PYTHON -- "Force Cloud Upload" --> CLOUD
     PYTHON -- "Post Logic" --> INSTA
 ```
 
@@ -61,7 +61,7 @@ graph TD
 1.  **Gatilho (Trigger)**: GitHub Actions atua nos 4 horários nobres (08:30, 14:30, 19:30, 23:30 BRT).
 2.  **Curação Elite**: Mineração via Datafeed 100K filtrada por semântica sazonal (Inverno 2026).
 3.  **Arte Premium**: Frame 1080x1920 com preço formatado em padrão BR (`_parse_price`) e design Magazine Elite.
-4.  **Upload Resiliente**: Cloud bypass via tmpfiles.org para imagens (HTTPS), com FTP Hostinger como backup.
+4.  **Upload Resiliente**: Cloud bypass nativo via CDN (`tmpfiles.org`) para mídias (Reels e Imagens) bloqueando falhas de firewall.
 5.  **Postagem**: Imagem Premium no Feed do Instagram via Graph API.
 6.  **DM Bot**: Resposta automática com link rastreado (`an_18318830863`) + preview do produto.
 7.  **Security Gate**: `infra/shield.py` valida 100% dos links antes do deploy.
@@ -72,7 +72,7 @@ graph TD
 
 - **Secrets Only**: Blindagem total de credenciais.
 - **Nuclear Shield (v5.0)**: 100% dos links auditados. Tag Universal `an_18318830863` injetada via Deep Link para garantir comissão em dispositivos móveis.
-- **Bypass Estratégico**: Implementação de rotas HTTPS para download de mídias pela Meta API, evitando bloqueios de firewall da Hostinger.
+- **Bypass Estratégico**: Implementação de rotas HTTPS (GitHub Raw CDN) para download de JSON e CDN pública para mídias pela Meta API, evitando bloqueios de firewall e limites de porta 21 (FTP) no GitHub Actions.
 
 ---
-*Atualizado em: 01/06/2026 - Versão: v5.5.0-Elite (Freshness Policy + Visual Rotation + Senior Shield Encoding)*
+*Atualizado em: 03/06/2026 - Versão: v5.6.0-Elite (CDN First, FTP Extinction)*
