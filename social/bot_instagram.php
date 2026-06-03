@@ -42,10 +42,31 @@ if (!file_exists($log_file)) file_put_contents($log_file, json_encode([]));
 $responded_comments = json_decode(file_get_contents($log_file), true);
 
 $ofertas_file = __DIR__ . "/ofertas.json";
-if (!file_exists($ofertas_file)) {
-    die("Arquivo de ofertas.json nao encontrado!");
+
+// 🚀 TITANIUM SYNC: Busca o dicionário sempre atualizado do GitHub Raw (CDN da Fastly).
+// Isso elimina a dependência de FTP — o Python commita, o PHP lê direto da fonte.
+$GITHUB_RAW_OFERTAS = "https://raw.githubusercontent.com/EricMacedo10/Rob-Titanium/main/social/ofertas.json";
+
+$github_json = @file_get_contents($GITHUB_RAW_OFERTAS);
+if ($github_json !== false) {
+    $github_data = json_decode($github_json, true);
+    if (is_array($github_data) && count($github_data) > 0) {
+        // GitHub tem dados válidos — usa como fonte de verdade e atualiza o cache local
+        $dicionario_ofertas = $github_data;
+        @file_put_contents($ofertas_file, $github_json); // Mantém cópia local como fallback
+        bot_log("✅ ofertas.json sincronizado do GitHub (" . count($dicionario_ofertas) . " entradas).");
+    } else {
+        bot_log("⚠️ GitHub retornou JSON inválido. Usando cache local como fallback.");
+        if (!file_exists($ofertas_file)) die("Arquivo de ofertas.json nao encontrado!");
+        $dicionario_ofertas = json_decode(file_get_contents($ofertas_file), true);
+    }
+} else {
+    // GitHub inacessível — usa o arquivo local cacheado
+    bot_log("⚠️ GitHub Raw inacessível. Usando cache local.");
+    if (!file_exists($ofertas_file)) die("Arquivo de ofertas.json nao encontrado!");
+    $dicionario_ofertas = json_decode(file_get_contents($ofertas_file), true);
 }
-$dicionario_ofertas = json_decode(file_get_contents($ofertas_file), true);
+
 
 $triggers = ["eu quero", "quero", "link", "valor", "preco", "preço", "eu quero o link"];
 

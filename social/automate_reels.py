@@ -137,7 +137,8 @@ def run_automation():
     
     caption = f"{chosen_product['titulo']} ✨\n\nPor apenas R$ {price_formatted}!\n\n🔗 Link do Produto: {affiliate_link}\n\nComente QUERO para receber o link VIP no seu direct! 🛍️\n\n#ModaFeminina #ShopeeBR #LookDoDia #TitaniumBoutique {hashtag_id}"
     
-    # Atualiza o ofertas.json para o AutoResponder (ManyChat/Webhook)
+    # Atualiza o ofertas.json — o git-auto-commit ao final do workflow commita o arquivo
+    # e o bot_instagram.php busca a versão mais recente direto do GitHub Raw (sem FTP).
     ofertas_path = os.path.join(os.path.dirname(__file__), "ofertas.json")
     try:
         if os.path.exists(ofertas_path):
@@ -147,16 +148,16 @@ def run_automation():
             ofertas = {}
             
         ofertas[hashtag_id] = affiliate_link
-        # Salva também como #latest_story para o ManyChat usar nas respostas de Stories
+        # Salva também como #latest_story para o bot usar nas respostas de Stories
         ofertas["#latest_story"] = affiliate_link
         
         with open(ofertas_path, 'w', encoding='utf-8') as f:
             json.dump(ofertas, f, indent=4, ensure_ascii=False)
-            
-        from upload_ofertas import sync_ofertas
-        sync_ofertas()
+        
+        print(f"✅ ofertas.json atualizado localmente com {hashtag_id}. Será commitado pelo workflow.")
     except Exception as e:
         print(f"⚠️ Aviso: Não foi possível atualizar ofertas.json: {e}")
+
 
     print("\n🎬 Disparando REEL...")
     client.post_reels(video_url=reel_url, caption=caption)
