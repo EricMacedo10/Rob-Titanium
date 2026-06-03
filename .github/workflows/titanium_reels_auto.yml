@@ -47,6 +47,7 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
           SHOPEE_DATAFEED_URLS: ${{ secrets.SHOPEE_DATAFEED_URLS }}
           SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
           SHOPEE_SECRET: ${{ secrets.SHOPEE_SECRET }}

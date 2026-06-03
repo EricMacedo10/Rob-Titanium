@@ -23,13 +23,21 @@ class ResilientUploader:
         BLINDAGEM: Após FTP, simula o crawler do Meta para detectar bloqueios do WAF.
         Retorna a URL pública final ou None.
         """
-        # 0. Forced Cloud Check
-        if force_cloud and self.imgbb_api_key:
-            print(f"--- Forçando upload via Cloud (ImgBB) para garantir acessibilidade...")
+        # 0. Forced Cloud Check (GitHub Actions bloqueia FTP — força CDN)
+        if force_cloud:
+            if not self.imgbb_api_key:
+                print("--- ⚠️ force_cloud=True mas IMGBB_API_KEY não está definida! Verifique os Secrets.")
+                return None
+            print(f"--- Forçando upload via Cloud CDN (tmpfiles.org) para {remote_name}...")
             url = self._upload_to_imgbb(local_path)
             if url:
-                self.provider_used = "ImgBB (forçado)"
-            return url
+                print("--- Verificação Meta-realista para o vídeo na CDN...")
+                if self._verify_link_for_meta(url):
+                    self.provider_used = "Cloud CDN (forçado)"
+                    return url
+                else:
+                    print("--- ❌ CDN bloqueada para o Meta! Verifique o tmpfiles.org.")
+            return None
 
         # 1. Tentativa via FTP (Hostinger)
         if self.ftp_config and self.ftp_config.get("user"):

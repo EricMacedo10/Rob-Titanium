@@ -101,18 +101,20 @@ def run_automation():
         video_type="story"
     )
     
-    # Upload Inteligente (com Meta-Check e Fallback para videos)
-    print("\n[4] Enviando arquivos via ResilientUploader...")
+    # Upload via Cloud (GitHub Actions bloqueia FTP — força CDN diretamente)
+    print("\n[4] Enviando arquivos via Cloud CDN (GitHub Actions bloqueia FTP)...")
     from social.core.uploader import ResilientUploader
     uploader = ResilientUploader(
         ftp_config={
             "host": os.getenv("FTP_HOST"),
             "user": os.getenv("FTP_USER"),
             "pass": os.getenv("FTP_PASS")
-        }
+        },
+        imgbb_api_key=os.getenv("IMGBB_API_KEY")  # necessário para o fallback cloud
     )
-    reel_url = uploader.upload(reel_path, f"reel_{safe_id}.mp4")
-    story_url = uploader.upload(story_path, f"story_{safe_id}.mp4")
+    # force_cloud=True: pula FTP (bloqueado no Actions) e vai direto para CDN
+    reel_url = uploader.upload(reel_path, f"reel_{safe_id}.mp4", force_cloud=True)
+    story_url = uploader.upload(story_path, f"story_{safe_id}.mp4", force_cloud=True)
     
     if not reel_url or not story_url:
         print("❌ Falha crítica no upload das mídias para a CDN. Abortando.")
