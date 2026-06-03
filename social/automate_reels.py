@@ -40,24 +40,7 @@ def get_posted_titles():
                     except: continue
     return titles
 
-def upload_to_ftp(local_file_path, filename):
-    print(f"📤 Fazendo upload de {filename} para Hostinger...")
-    ftp_host = os.getenv('FTP_HOST')
-    ftp_user = os.getenv('FTP_USER')
-    ftp_pass = os.getenv('FTP_PASS')
-    
-    ftp = ftplib.FTP(ftp_host, ftp_user, ftp_pass, timeout=60)
-    for p in ["public_html", "www"]:
-        try:
-            ftp.cwd(f"/{p}")
-            break
-        except: continue
-            
-    with open(local_file_path, 'rb') as f:
-        ftp.storbinary(f'STOR {filename}', f)
-        
-    ftp.quit()
-    return f"https://{ftp_host}/{filename}"
+
 
 def run_automation():
     print("="*60)
@@ -118,10 +101,22 @@ def run_automation():
         video_type="story"
     )
     
-    # Upload FTP
-    print("\n[4] Enviando arquivos para o servidor blindado (Hostinger)...")
-    reel_url = upload_to_ftp(reel_path, f"reel_{safe_id}.mp4")
-    story_url = upload_to_ftp(story_path, f"story_{safe_id}.mp4")
+    # Upload Inteligente (com Meta-Check e Fallback para videos)
+    print("\n[4] Enviando arquivos via ResilientUploader...")
+    from social.core.uploader import ResilientUploader
+    uploader = ResilientUploader(
+        ftp_config={
+            "host": os.getenv("FTP_HOST"),
+            "user": os.getenv("FTP_USER"),
+            "pass": os.getenv("FTP_PASS")
+        }
+    )
+    reel_url = uploader.upload(reel_path, f"reel_{safe_id}.mp4")
+    story_url = uploader.upload(story_path, f"story_{safe_id}.mp4")
+    
+    if not reel_url or not story_url:
+        print("❌ Falha crítica no upload das mídias para a CDN. Abortando.")
+        sys.exit(1)
     
     print("\n⏳ Aguardando propagação CDN...")
     time.sleep(10)
