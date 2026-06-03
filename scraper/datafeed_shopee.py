@@ -104,12 +104,12 @@ def _download_and_parse_csv(url: str) -> list:
         resp = requests.get(url, timeout=120, stream=True)
         resp.raise_for_status()
         
-        # Decodifica o conteúdo
-        content = resp.content.decode('utf-8-sig')
+        # Decodifica o conteúdo, remove nulos e protege quebras de linha sujas
+        content = resp.content.decode('utf-8-sig', errors='replace').replace('\x00', '')
         # 🛡️ IDENTIFICAÇÃO DINÂMICA DE SEPARADOR & CABEÇALHO
         # Shopee às vezes muda entre , e ;
         delimiter = ';' if ';' in content[:1000] else ','
-        reader = csv.reader(io.StringIO(content), delimiter=delimiter)
+        reader = csv.reader(io.StringIO(content, newline=''), delimiter=delimiter)
         
         header = next(reader, None)
         if not header:
