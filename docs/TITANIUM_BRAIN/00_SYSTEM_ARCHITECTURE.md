@@ -13,11 +13,12 @@ O sistema evoluiu para um modelo de **Máxima Autoridade Visual**:
 
 ---
 
-## 🛰️ 2. Titanium Control Tower (Monitoramento)
+## 🛰️ 2. Titanium Control Tower (Monitoramento & Finanças)
 
-Implementada a lógica de observabilidade centralizada:
+Implementada a lógica de observabilidade e financeiro centralizados:
 - **monitor.json**: Arquivo de estado persistente que rastreia KPIs (Posts realizados, Erros de API, Status de Processamento).
 - **Dashboard em Tempo Real**: Interface visual que consome o log de saúde para fornecer uma visão executiva do bot sem necessidade de ler logs de console.
+- **Titanium Financial Alerts**: Integração com a API GraphQL de Afiliados da Shopee e Telegram Bot. Notifica vendas, conversões estimadas e líquidas em tempo real diretamente no celular do administrador (o famoso "Plim!").
 
 ---
 
@@ -29,11 +30,13 @@ graph TD
         ACTION["GitHub Actions (Cron/Manual)"]
         PYTHON["Python Engine (Core v5.0)"]
         AI["IA DeepSeek-V3.2 (Premium Copywriter)"]
+        SALES["Sales Tracker (Cron 2h)"]
     end
 
     subgraph "Fontes de Dados (Elite)"
         SHP["Shopee API v2 (Elite Media Assets)"]
         FEED["Shopee Datafeed (100K Pool Integration)"]
+        GRAPHQL["Shopee GraphQL (Affiliate Conversions)"]
     end
 
     subgraph "Infra de Mídia (Hybrid)"
@@ -41,9 +44,10 @@ graph TD
         GITHUB["GitHub Raw (Fastly CDN)"]
     end
 
-    subgraph "Produção (Instagram/Web)"
+    subgraph "Produção (Instagram/Web/Notificação)"
         INSTA["Instagram API (Postage & DMs)"]
         SITE["Elite Frontend (data.json)"]
+        TG["Telegram API (Bot Alerts)"]
     end
 
     ACTION --> PYTHON
@@ -52,6 +56,10 @@ graph TD
     PYTHON -- "Git Auto-Commit" --> GITHUB
     PYTHON -- "Force Cloud Upload" --> CLOUD
     PYTHON -- "Post Logic" --> INSTA
+    
+    ACTION --> SALES
+    SALES -- "Fetch Conversions" --> GRAPHQL
+    SALES -- "Send Plim!" --> TG
 ```
 
 ---
@@ -76,4 +84,4 @@ graph TD
 - **Bypass Estratégico**: Roteamento HTTPS (GitHub Raw CDN) para persistência e leitura de dados (`ofertas.json`), eliminando falhas de firewall e timeout de FTP.
 
 ---
-*Atualizado em: 08/06/2026 - Versão: v5.7.0-Elite (Deep Link Proxy Bridge & Shopee API v2)*
+*Atualizado em: 08/06/2026 - Versão: v5.8.0-SalesTracker (Integração Shopee GraphQL e Telegram Bot)*

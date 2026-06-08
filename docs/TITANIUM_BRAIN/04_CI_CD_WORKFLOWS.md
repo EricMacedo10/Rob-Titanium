@@ -18,6 +18,7 @@ O Titanium utiliza seis fluxos de trabalho (Workflows) localizados em `.github/w
 | `titanium_specialist_auto.yml`| Cron (2x ao dia) | Atualiza a Roleta Premium. **Shield Gate Active.** |
 | `sensual_auto_update.yml` | Cron (4x ao dia) | Automação isolada da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
 | `sensual_specialist_auto.yml` | Cron (2x ao dia) | Curadoria da vertical Íntima. **Shield Gate & Auto-FTP Active.** |
+| `titanium_sales_tracker.yml` | Cron (A cada 2h) | Monitoramento financeiro da Shopee via API GraphQL. Envia alertas de vendas (Plim!) via Telegram Bot. |
 
 ---
 
@@ -35,8 +36,9 @@ Para que as automações funcionem, os seguintes segredos **DEVEM** estar config
 - `DEEPSEEK_API_KEY`: Acesso ao cérebro de IA principal (Moda).
 - `DEEPSEEK_API_KEY_SENSUAL`: Chave dedicada para a vertical de Bem-Estar Íntimo (Controle de Custos).
 
-### Redes Sociais (Instagram/Facebook):
+### Redes Sociais (Instagram/Facebook) & Telegram:
 - `IG_ACCESS_TOKEN`, `IG_BUSINESS_ID`, `PAGE_ID`: Tokens necessários para automação de postagens e DMs na Graph API da Meta.
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`: Acesso à API do Telegram para o disparo de notificações financeiras e de vendas em tempo real.
 
 ---
 
@@ -81,4 +83,4 @@ Para garantir que o site nunca "volte atrás" no tempo ou no design:
 
 ---
 **IA Titanium**
-*Atualizado em: 03/06/2026 - Versão: v5.6.0-Nuclear (GitHub Raw CDN Sync & Silent Failure Protection)*
+*Atualizado em: 08/06/2026 - Versão: v5.8.0-SalesTracker (Integração Shopee GraphQL e Telegram Bot)*
