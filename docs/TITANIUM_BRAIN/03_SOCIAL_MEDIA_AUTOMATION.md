@@ -29,19 +29,19 @@ O preço é formatado de forma idêntica em **dois pontos**:
 
 ---
 
-## 🧠 Smart Link Intelligence v6.0 (Nuclear Shield v4.0 + Anti-Colision)
+## 🧠 Smart Link Intelligence v7.0 (Nuclear Shield v5.0 + Deep Link Proxy)
 
 ### 🛡️ Commission Armor
-- **Short Link Oficial (Método Primário)**: `infra/shield.py` e `infra/audit_ofertas.py` agora chamam a API Oficial da Shopee para gerar links `s.shopee.com.br` com o `subId=an_18318830863`. **Este é o único método que garante crédito de comissão na Shopee.**
-- **utm_source (Fallback Legado)**: O parâmetro `?utm_source=an_18318830863` é usado APENAS se a API da Shopee estiver indisponível. Ele rastreia cliques no **Google Analytics** mas **NÃO garantia comissão Shopee**. Esta era a causa da discrepância entre Analytics e o painel de afiliados.
-- **Deep Link Enforcement**: Short Links `s.shopee.com.br` já são configurados para abrir direto no App Shopee (Deep Link by default).
-- **DM Bot (Anti-Collision Protocol v2.0)**: O `bot_instagram.php` (v2.1.0) agora respeita Short Links já blindados — não sobrescreve mais links `s.shopee.com.br` com utm_source.
-- **Story Auto-Responder (DM Inbox Polling)**: O bot PHP varre a caixa de entrada (`/conversations`) identificando clientes que responderam aos Stories. Ele vincula instantaneamente as menções de "Quero" à tag `#latest_story` em `ofertas.json`, enviando o link afiliado sem depender de hashtags na legenda (pois Stories não repassam texto).
-- **Preview Rich-Card**: Resposta via DM com link rastreado e call to action nativo.
+- **Short Link Oficial (Método Primário)**: `infra/shield.py` e `core/link_builder.py` chamam o motor de API moderna `ShopeeAffiliateAPI` para gerar short links oficiais (`s.shopee.com.br` ou `shope.ee`) com a tag de afiliado embarcada. Este é o único canal que garante atribuição real de comissão no painel da Shopee.
+- **Remoção do utm_source**: O fallback legado de injetar `?utm_source=an_18318830863` foi totalmente removido em Python (`shield.py` e `link_builder.py`) e PHP (`bot_instagram.php`). Como essa tag não garante comissão, sua injeção mascarava falhas de API. Agora, se a API falhar, o link original é preservado sem modificações.
+- **Deep Link Proxy (go.php v2.0)**: Ponte que detecta o User-Agent do Instagram In-App Browser. Se acessado por um dispositivo móvel no direct do Instagram, tenta abrir o aplicativo da Shopee diretamente (via esquema `shopee://` no Android ou redirecionamento de Universal Link no iOS). Navegadores normais são redirecionados de forma silenciosa via PHP/JS.
+- **DM Bot (Anti-Instagram In-App Browser)**: O `bot_instagram.php` (v3.0.0) agora utiliza a função `titanium_bridge()` para envolver todos os links de produtos Shopee enviados via DMs de comentários ou stories na rota de proxy `https://guiadodesconto.com.br/go.php?url=...`.
+- **Story Auto-Responder (DM Inbox Polling)**: O bot PHP varre a caixa de entrada (`/conversations`) identificando clientes que responderam aos Stories. Ele vincula instantaneamente as menções de "Quero" à tag `#latest_story` em `ofertas.json`, enviando o link afiliado envelopado no Deep Link Proxy.
+- **Preview Rich-Card**: Resposta via DM com link proxy e chamada para ação nativa.
 
 ### 🔂 Link Loop Immunity & CLI Fallback (v2.2)
 - Travas de segurança contra redirecionamentos infinitos (`go.php → go.php`).
-- Resolução dinâmica de paths para execução do Bot PHP em ambiente CLI (Cron), garantindo o acesso ao `data.json` da vitrine principal mesmo sem váriaveis de sessão Apache/Nginx.
+- Resolução dinâmica de paths para execução do Bot PHP em ambiente CLI (Cron), garantindo o acesso ao `data.json` da vitrine principal mesmo sem variáveis de sessão Apache/Nginx.
 
 ---
 
@@ -80,4 +80,4 @@ O `queue_csv_products.py` aplica filtros semânticos ao Datafeed de 100K:
 - **Causa**: Falhas de infraestrutura do GitHub (Erro 500) durante o passo de `git-auto-commit-action` impediam o robô de salvar o estado de postagem.
 - **Solução**: Implementada a verificação redundante na pasta `fila/` dentro do script `queue_csv_products.py`. Se o arquivo está na fila, ele é considerado "em processamento" e nunca será duplicado.
 
-*Última Auditoria Técnica: 03/06/2026 - Status: Ultra-Safe Positioning v6.1.0 | Video Generation Engine | Story Inbox Polling | Fastly CDN Sync*
+*Última Auditoria Técnica: 08/06/2026 - Status: Commission Security v7.0.0 | Deep Link Proxy v2.0 | ShopeeAffiliateAPI | Video Generation Engine | Story Inbox Polling | Fastly CDN Sync*

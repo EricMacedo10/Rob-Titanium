@@ -79,12 +79,16 @@ def shield_url(url: str) -> str:
     PRIORIDADE 1: Gera Short Link oficial via API Shopee (s.shopee.com.br) — garante comissão real.
     FALLBACK:     Injeta utm_source — garante rastreamento GA, mas NÃO garante comissão Shopee.
     """
-    if not url or 'shopee.com.br' not in url:
+    # Verifica se é uma URL da Shopee (qualquer variante)
+    SHOPEE_DOMAINS = ['shopee.com.br', 's.shopee.com.br', 'shope.ee']
+    if not url or not any(d in url for d in SHOPEE_DOMAINS):
         return url
 
-    # Se o link já é um Short Link da Shopee, não reprocessa
-    if 's.shopee.com.br' in url:
-        print(f"  [ShortLink] ✅ Link já é um Short Link. Ignorando.")
+    # [v5.0] Se o link já é um Short Link OFICIAL ou shope.ee, não reprocessa
+    # Esses links já carregam o afiliado embutido - reprocessar causaria fallback
+    ALREADY_SHIELDED = ['s.shopee.com.br', 'shope.ee']
+    if any(d in url for d in ALREADY_SHIELDED):
+        print(f"  [ShortLink] OK Link ja e um ShortLink/Bridge. Ignorando.")
         return url
 
     # Tentativa via API oficial (Método Primário)
@@ -93,9 +97,10 @@ def shield_url(url: str) -> str:
         if short:
             return short
 
-    # Fallback: injeção de utm_source
-    print(f"  [Fallback] Injetando utm_source em: {url[:60]}...")
-    return _shield_url_via_utm(url)
+    # Fallback SEGURO: Retornar URL original sem sujar com utm_source
+    # utm_source injeta parametro que NAO garante comissao Shopee
+    print(f"  [Shield] AVISO: API indisponivel. URL mantida sem modificacao: {url[:60]}...")
+    return url
 
 def apply_nuclear_shield():
     print("="*60)

@@ -140,9 +140,10 @@ O Titanium opera agora sob o regime de **Radar de Tendências Ativo**:
 1. **Filtro de Desejo**: A IA DeepSeek-V3.2 (Speciale) não apenas analisa preços, mas a "curva de desejo" (Fashion Intensity) de cada item via Extreme Reasoning.
 2. **Master Deduplication Strategy**: O motor de IA é instruído a ignorar qualquer item contido no `specialist.json`, focando em novidades puras para o Radar.
 3. **Simetria Obrigatória (Compliance Visual)**: O motor `review_engine.py` **deve obrigatoriamente gerar exatos 18 itens**.
-4.  **Nuclear Shield v4.0 (Short Link — Anti-Loss Protection)**:
-   - O `infra/shield.py` agora gera **Short Links Oficiais** via API Shopee (`s.shopee.com.br`) como método primário. Este é o único método que garante crédito de comissão no painel de afiliados.
-   - O parâmetro `utm_source` é **exclusivamente** um fallback para rastreamento GA quando a API estiver indisponível. Ele **NÃO garante comissão Shopee**.
+4.  **Nuclear Shield v5.0 (Short Link — Anti-Loss Protection)**:
+   - O `infra/shield.py` e o `core/link_builder.py` geram **Short Links Oficiais** via API Shopee (`ShopeeAffiliateAPI` em `scraper/engines/shopee_affiliate.py`) como método primário. Este é o único canal que garante atribuição real de comissão no painel de afiliados.
+   - O parâmetro `utm_source` foi **totalmente removido** como fallback de comissão. Se a API estiver offline, os links brutos da Shopee são preservados sem modificação, evitando poluição de parâmetros inúteis.
+   - Todos os links Shopee gerados e validados pelo `infra/shield.py` e enviados via `bot_instagram.php` em DMs são empacotados na ponte `go.php` (Deep Link Proxy) para evitar o navegador interno do Instagram e forçar a abertura nativa no aplicativo da Shopee, preservando os cookies do afiliado.
    - NUNCA gerar um link fora do wrapper `build_affiliate_link` ou do `infra/shield.py`.
    - O Gatekeeper `infra/shield.py` validará e converterá qualquer link gerado pela IA para Short Link antes do upload final.
 
@@ -179,4 +180,4 @@ Após auditoria de performance, estabeleceu-se o padrão **"Elite Magazine"** pa
 3.  **Case Study: Andréia (Integridade Confirmada)**:
     - O fluxo de interação (Postagem -> Comentário "QUERO" -> Resposta Pública -> DM Blindada) foi validado como 100% operacional. O uso de hashtags únicas (#titanium_UID) é a âncora de segurança que impede a perda de comissões.
 
-*Última Auditoria Técnica: 01/06/2026 - Status: Datafeed Fallback & Sensual Filtering Active | Nuclear Shield v4.0 | Unicode UTF-8 Forced on Orchestrator | CLI PHP Bot Path Resolving*
+*Última Auditoria Técnica: 08/06/2026 - Status: Commission Security v7.0.0 | Deep Link Proxy v2.0 | ShopeeAffiliateAPI | Datafeed Fallback & Sensual Filtering Active | Unicode UTF-8 Forced on Orchestrator | CLI PHP Bot Path Resolving*

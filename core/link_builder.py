@@ -35,27 +35,23 @@ def build_affiliate_link(url, store, keyword=None):
                 return url
             
         elif store == 'shopee':
-            # Usa a API Oficial para gerar ShortLinks blindados (Universal Links)
+            # [v5.0] Usa a API Moderna (ShopeeAffiliateAPI) para gerar ShortLinks oficiais
+            # Nunca usa utm_source como afiliado - apenas como rastreamento secundário
+            
+            # Se já é um shortlink (s.shopee.com.br ou shope.ee), retornar como está
+            if 's.shopee.com.br' in url or 'shope.ee' in url:
+                return url
+            
             try:
-                from .shopee_api import generate_affiliate_link
-                return generate_affiliate_link(url)
+                from scraper.engines.shopee_affiliate import ShopeeAffiliateAPI
+                api = ShopeeAffiliateAPI()
+                short = api.generate_short_link(url)
+                if short:
+                    return short
+                print(f"[LinkBuilder] API nao retornou link. Retornando URL original.")
+                return url
             except Exception as e:
-                print(f"[LinkBuilder] Erro ao usar API Shopee: {e}")
-                tag = AFFILIATE_TAGS.get('shopee', 'an_18318830863')
-                # Fallback manual se a API falhar
-                from urllib.parse import urlparse, parse_qs, urlunparse, urlencode
-                parsed = urlparse(url)
-                params = parse_qs(parsed.query)
-                params['utm_source'] = [tag]
-                new_query = urlencode(params, doseq=True)
-                return urlunparse((
-                    parsed.scheme,
-                    parsed.netloc,
-                    parsed.path,
-                    parsed.params,
-                    new_query,
-                    parsed.fragment
-                ))
+                print(f"[LinkBuilder] Erro na API Shopee: {e}. Retornando URL original.")
             
         return url
         

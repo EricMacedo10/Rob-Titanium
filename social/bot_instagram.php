@@ -1,6 +1,6 @@
 <?php
-// TITANIUM COMMENT RESPONDER - A MENTE CENTRAL 🛡️💎
-// v2.1.0 - Nuclear Shield PHP v4.0: Respeita Short Links Oficiais (s.shopee.com.br)
+// TITANIUM COMMENT RESPONDER - A MENTE CENTRAL
+// v3.0.0 - Deep Link Proxy + Nuclear Shield v5.0: Anti-Instagram In-App Browser
 $USER_TOKEN = "EAAaEM60tZA1cBRdsRAyvi6ZBsuiNZAYZCb8oD834L4jJhr0AN9Ve39BZAsBTOzirx6BOZCxOO8w1wBuHjZB082MyJNpqZBUclig5KHsDIJKCEe6Pn2bJoS4p7yVNwJ7AoHyg5lRCd8ofHMnlhcbwQTBP19ByHzhUP34BLrFseWqBvZCWrbNefsoUi99ZCtZA9DZCwOhskA7ZAbXLn06BW728ftQZDZD";
 $PAGE_ID = "1032000233318987";
 $IG_BUSINESS_ID = "17841480460125461";
@@ -88,42 +88,59 @@ function bot_log($msg) {
  *   3. Default: Fallback para o site.
  */
 /**
- * 🛡️ TITANIUM SHIELD v2.0 (PHP Version) — Nuclear Shield v4.0
- * 
- * Política de Blindagem:
- * 1. Links já no formato s.shopee.com.br (Short Links Oficiais) são passados sem modificação.
- *    Estes já contêm a tag de afiliado injetada pelo script Python (shield.py).
- * 2. Links shopee.com.br brutos (que escaparam da blindagem Python) recebem utm_source como
- *    fallback de segurança. Este cenário não deveria ocorrer em operação normal.
- * 3. Links não-Shopee passam sem modificação.
+ * TITANIUM SHIELD v3.0 (PHP) — Nuclear Shield v5.0
+ *
+ * Politica:
+ * 1. Links s.shopee.com.br ou shope.ee ja sao ShortLinks oficiais — passam sem modificacao.
+ * 2. Links shopee.com.br brutos (escaparam do Python) — retornam sem utm_source
+ *    pois utm_source nao garante comissao na Shopee.
+ * 3. Links nao-Shopee passam livres.
  */
 function titanium_shield($url) {
-    if (empty($url) || strpos($url, 'shopee.com.br') === false) {
-        return $url; // Não é um link Shopee — passa livre
+    // Dominios considerados "ja blindados" — nao reprocessar
+    $already_shielded = ['s.shopee.com.br', 'shope.ee'];
+    foreach ($already_shielded as $domain) {
+        if (strpos($url, $domain) !== false) {
+            return $url; // Short Link oficial — nao tocar
+        }
     }
 
-    // CAMADA 1: Short Link Oficial já blindado pelo Python — passa sem modificação
-    if (strpos($url, 's.shopee.com.br') !== false) {
+    // Nao e Shopee — passa livre
+    $shopee_domains = ['shopee.com.br'];
+    $is_shopee = false;
+    foreach ($shopee_domains as $d) {
+        if (strpos($url, $d) !== false) { $is_shopee = true; break; }
+    }
+    if (empty($url) || !$is_shopee) {
         return $url;
     }
 
-    // CAMADA 2 (Fallback de Segurança): Link bruto que escapou da blindagem Python
-    // Injeta utm_source como sinal de rastreamento mínimo
-    $tag = "an_18318830863";
-    $query = parse_url($url, PHP_URL_QUERY);
-    $params = [];
-    if ($query) {
-        parse_str($query, $params);
+    // Link shopee.com.br bruto — retorna sem modificacao (Python deveria ter blindado)
+    // NUNCA injetar utm_source: nao garante comissao Shopee
+    return $url;
+}
+
+/**
+ * TITANIUM BRIDGE v2.0 — Anti-Instagram In-App Browser
+ *
+ * Envolve links Shopee na ponte go.php para escapar do navegador interno
+ * do Instagram, garantindo que o App Shopee seja aberto e o cookie de
+ * afiliado seja preservado.
+ */
+function titanium_bridge($url) {
+    // Links do proprio site nao precisam de bridge
+    if (strpos($url, 'guiadodesconto.com.br') !== false) {
+        return $url;
     }
-    // Só injeta se ainda não tiver a tag
-    if (!isset($params['utm_source']) || $params['utm_source'] !== $tag) {
-        $params['utm_source'] = $tag;
+    // Apenas links Shopee passam pela ponte
+    $shopee_hosts = ['shopee.com.br', 's.shopee.com.br', 'shope.ee'];
+    $is_shopee = false;
+    foreach ($shopee_hosts as $h) {
+        if (strpos($url, $h) !== false) { $is_shopee = true; break; }
     }
-    $new_query = http_build_query($params);
-    $path   = parse_url($url, PHP_URL_PATH);
-    $scheme = parse_url($url, PHP_URL_SCHEME);
-    $host   = parse_url($url, PHP_URL_HOST);
-    return "{$scheme}://{$host}{$path}?{$new_query}";
+    if (!$is_shopee) return $url;
+
+    return "https://guiadodesconto.com.br/go.php?url=" . urlencode($url);
 }
 
 function escolher_link_inteligente($caption, $dicionario_ofertas, $site_url) {
@@ -267,11 +284,13 @@ foreach ($media_req['data'] as $post) {
             
             $public_msg = "Olá, {$user}! 🎁 Te enviei o link com todos os detalhes lá no seu Direct (Inbox)! Corre lá pra conferir. 🏃💨";
             
-            // DM personalizada: Sempre envia o link direto E o link do site para conveniência
+            // DM: envolve o link na ponte anti-Instagram antes de enviar
+            $link_dm = titanium_bridge($link_escolhido);
+
             if ($is_product_link) {
-                $private_msg = "Olá, {$user}! 🎁 Aqui está o link direto para o produto que você amou:\n\n🔗 ACESSAR PRODUTO: {$link_escolhido}\n\nE se quiser ver mais achadinhos incríveis da Shopee, visite nossa vitrine completa:\n🌐 SITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robô Titanium 🛡️💎";
+                $private_msg = "Ola, {$user}! Aqui esta o link direto para o produto que voce adorou:\n\nACESSAR PRODUTO: {$link_dm}\n\nSe quiser ver mais achados incriveis da Shopee, visite nossa vitrine:\nSITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robo Titanium";
             } else {
-                $private_msg = "Olá, {$user}! 🎁 Como o post é novo, o link direto está sendo processado, mas você já pode conferir esta e outras ofertas na nossa vitrine oficial:\n\n🔗 VITRINE TITANIUM: {$link_escolhido}\n\nEquipe Robô Titanium 🛡️💎";
+                $private_msg = "Ola, {$user}! Confira esta e outras ofertas na nossa vitrine oficial:\n\nVITRINE TITANIUM: {$link_dm}\n\nEquipe Robo Titanium";
             }
 
             // Envia COMENTÁRIO PÚBLICO
@@ -329,12 +348,14 @@ if (isset($conv_req['data'])) {
                 bot_log("🎯 DM Detectada de Sender {$sender_id}: {$text}");
                 $link_story = isset($dicionario_ofertas["#latest_story"]) ? $dicionario_ofertas["#latest_story"] : "https://{$SITE_URL}";
                 $link_story = titanium_shield($link_story);
-                
+                // Envolve na ponte anti-Instagram
+                $link_story_dm = titanium_bridge($link_story);
+
                 $is_product = (strpos($link_story, $SITE_URL) === false);
                 if ($is_product) {
-                    $dm_reply = "Olá! 🎁 Aqui está o link direto para o produto do Story que você amou:\n\n🔗 ACESSAR PRODUTO: {$link_story}\n\nE se quiser ver mais achadinhos incríveis da Shopee, visite nossa vitrine completa:\n🌐 SITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robô Titanium 🛡️💎";
+                    $dm_reply = "Ola! Aqui esta o link do produto do Story que voce adorou:\n\nACESSAR PRODUTO: {$link_story_dm}\n\nSe quiser mais achados incriveis da Shopee, visite nossa vitrine:\nSITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Robo Titanium";
                 } else {
-                    $dm_reply = "Olá! 🎁 Confira esta e outras ofertas na nossa vitrine oficial:\n\n🔗 VITRINE TITANIUM: {$link_story}\n\nEquipe Robô Titanium 🛡️💎";
+                    $dm_reply = "Ola! Confira esta e outras ofertas na nossa vitrine oficial:\n\nVITRINE TITANIUM: {$link_story_dm}\n\nEquipe Robo Titanium";
                 }
                 
                 // Envia a resposta no inbox

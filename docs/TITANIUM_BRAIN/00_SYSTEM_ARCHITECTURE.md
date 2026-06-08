@@ -68,11 +68,12 @@ graph TD
 
 ---
 
-## 🔐 5. Protocolo de Segurança (Nuclear Shield)
+## 🔐 5. Protocolo de Segurança (Nuclear Shield v5.0)
 
 - **Secrets Only**: Blindagem total de credenciais.
-- **Nuclear Shield (v5.0)**: 100% dos links auditados. Tag Universal `an_18318830863` injetada via Deep Link para garantir comissão em dispositivos móveis.
-- **Bypass Estratégico**: Implementação de rotas HTTPS (GitHub Raw CDN) para download de JSON e CDN pública para mídias pela Meta API, evitando bloqueios de firewall e limites de porta 21 (FTP) no GitHub Actions.
+- **Nuclear Shield (v5.0)**: 100% dos links de produtos Shopee são auditados e convertidos usando a API moderna `ShopeeAffiliateAPI` em `scraper/engines/shopee_affiliate.py`. O fallback antigo que injetava `utm_source` manualmente foi removido, pois essa tag não garante comissão no painel da Shopee.
+- **Deep Link Proxy (go.php v2.0)**: Nova ponte de redirecionamento anti-Instagram In-App Browser. O robô de DMs envolve os links Shopee na rota `https://guiadodesconto.com.br/go.php?url=...`. O proxy detecta o dispositivo do usuário (Android/iOS) e força a abertura direta dentro do aplicativo nativo da Shopee, contornando o navegador interno do Instagram e preservando os cookies de atribuição de comissão.
+- **Bypass Estratégico**: Roteamento HTTPS (GitHub Raw CDN) para persistência e leitura de dados (`ofertas.json`), eliminando falhas de firewall e timeout de FTP.
 
 ---
-*Atualizado em: 03/06/2026 - Versão: v5.6.0-Elite (CDN First, FTP Extinction)*
+*Atualizado em: 08/06/2026 - Versão: v5.7.0-Elite (Deep Link Proxy Bridge & Shopee API v2)*
