@@ -198,11 +198,13 @@ class ShopeeAffiliateAPI:
             }
         }
         """
+        # ⚠️ Cast para string: Int64 no GraphQL via JSON costuma exigir string
+        # para evitar perda de precisão e erros de 'wrong type'.
         payload = {
             "query": query,
             "variables": {
-                "purchaseTimeStart": start_ts,
-                "purchaseTimeEnd":   end_ts,
+                "purchaseTimeStart": str(start_ts),
+                "purchaseTimeEnd":   str(end_ts),
                 "limit":             limit
             }
         }
