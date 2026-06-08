@@ -65,33 +65,41 @@ class TitaniumTelegramBot:
         Dispara o alerta de NOVA VENDA (💰 o famoso 'Plim'!).
         Recebe um dicionário de conversão do get_conversion_report().
         """
-        produto    = conversion.get("product_name", "Produto Shopee")
-        preco      = conversion.get("item_price", 0.0)
-        comissao   = conversion.get("estimated_commission", 0.0)
-        taxa       = conversion.get("commission_rate", 0.0) * 100  # em %
-        order_id   = conversion.get("order_id", "N/A")
-        sub_id     = conversion.get("sub_id", "")
-        status     = conversion.get("status", "pending")
-        hora       = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
+        conv_id      = conversion.get("conversion_id", "N/A")
+        comissao_est = conversion.get("estimated_commission", "0")
+        comissao_net = conversion.get("net_commission", "0")
+        status       = conversion.get("conversion_status", "pending")
+        purchase     = conversion.get("purchase_time", "N/A")
+        utm          = conversion.get("utm_content", "")
+        prod_type    = conversion.get("product_type", "")
+        hora         = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
 
-        # Emoji de status
-        status_icon = "⏳" if status == "pending" else "✅"
+        # Converte string de comissão para float (API retorna como string)
+        try:
+            comissao_est_f = float(comissao_est)
+            comissao_net_f = float(comissao_net)
+        except (ValueError, TypeError):
+            comissao_est_f = 0.0
+            comissao_net_f = 0.0
+
+        status_icon = "⏳" if "pending" in status.lower() else "✅"
 
         mensagem = (
             f"🎉 <b>NOVA VENDA DETECTADA!</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🛍️ <b>Produto:</b> {produto}\n"
-            f"💵 <b>Valor da Venda:</b> R$ {preco:.2f}\n"
-            f"💰 <b>Sua Comissão:</b> R$ {comissao:.2f} ({taxa:.1f}%)\n"
-            f"📦 <b>Pedido #:</b> <code>{order_id}</code>\n"
-            f"🏷️ <b>Sub-ID:</b> <code>{sub_id or 'N/A'}</code>\n"
-            f"{status_icon} <b>Status:</b> {status.upper()}\n"
+            f"📦 <b>Tipo de Produto:</b> {prod_type or 'N/A'}\n"
+            f"💰 <b>Comissão Estimada:</b> R$ {comissao_est_f:.2f}\n"
+            f"🏆 <b>Comissão Líquida:</b> R$ {comissao_net_f:.2f}\n"
+            f"🖳️ <b>Conversão #:</b> <code>{conv_id}</code>\n"
+            f"🏷️ <b>Origem (Sub-ID):</b> <code>{utm or 'N/A'}</code>\n"
+            f"🗓️ <b>Compra em:</b> {purchase}\n"
+            f"{status_icon} <b>Status:</b> {status}\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"⏱️ Detectado em: {hora}\n"
             f"🤖 <i>Titanium Financial Alerts v1.0</i>"
         )
 
-        print(f"[Telegram] Notificando venda: {produto} | R$ {comissao:.2f}")
+        print(f"[Telegram] Notificando venda #{conv_id} | R$ {comissao_est_f:.2f} estimado")
         return self.send_message(mensagem)
 
     def notify_confirmed_commission(self, validated: dict) -> bool:

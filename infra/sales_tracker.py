@@ -133,10 +133,13 @@ def run_tracker(dry_run: bool = False) -> dict:
         if not conv_id:
             continue
 
-        # Acumula métricas do período (independente de ser novo ou não)
+        # Acumula métricas do período
         vendas_periodo   += 1
-        valor_periodo    += conv.get("item_price", 0.0)
-        comissao_periodo += conv.get("estimated_commission", 0.0)
+        # comissão vem como string da API
+        try:
+            comissao_periodo += float(conv.get("estimated_commission", 0) or 0)
+        except (ValueError, TypeError):
+            pass
 
         # Filtra apenas os NOVOS para notificação
         if conv_id not in notified_conv_ids:
@@ -155,35 +158,10 @@ def run_tracker(dry_run: bool = False) -> dict:
             if not success:
                 print(f"      ⚠️ Falha ao enviar Telegram para conversão {conv.get('conversion_id')}")
 
-    # ── 5. Buscar relatório validado (7 dias) ─────────────────────────────────
-    print(f"\n✅ Buscando comissões validadas (últimos 7 dias)...")
-    start_val  = now - timedelta(days=7)
-    validated  = api.get_validated_report(start_time=start_val, end_time=now)
-    print(f"   → {len(validated)} item(s) validado(s) encontrado(s)")
-
+    # ── 5. Relatório validado DESABILITADO ───────────────────────────────────
+    # API requer validationId (Int64!) obrigatório — aguardando descoberta do endpoint
     new_validated = []
-    for v in validated:
-        vid = v.get("conversion_id", "")
-        if vid and vid not in notified_validated_ids:
-            # Só notifica se a comissão líquida for positiva
-            liquido = v.get("confirmed_commission", 0.0) - v.get("refund_amount", 0.0)
-            if liquido > 0:
-                new_validated.append(v)
-                notified_validated_ids.add(vid)
-                # Acumula no total histórico
-                state["total_earned_brl"]  = round(
-                    state.get("total_earned_brl", 0.0) + liquido, 2
-                )
-                state["total_sales_count"] = state.get("total_sales_count", 0) + 1
-
-    print(f"   → {len(new_validated)} comissão(ões) confirmada(s) nova(s)")
-
-    for v in new_validated:
-        produto  = v.get("product_name", "?")
-        comissao = v.get("confirmed_commission", 0.0) - v.get("refund_amount", 0.0)
-        print(f"   ✅ Confirmada: {produto[:50]} | R$ {comissao:.2f}")
-        if not dry_run:
-            bot.notify_confirmed_commission(v)
+    print("\n⚠️ ValidatedReport desabilitado (requer validationId da Shopee).")
 
     # ── 6. Resumo Diário (somente quando rodado em horas "cheias" configuradas) ─
     hora_atual = now.hour

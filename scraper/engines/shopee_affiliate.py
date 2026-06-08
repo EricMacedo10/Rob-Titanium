@@ -156,7 +156,8 @@ class ShopeeAffiliateAPI:
     ) -> List[Dict]:
         """
         Relatório de Conversões em Tempo Real (Real-Time Report).
-        Retorna vendas pendentes ainda não finalizadas (sujeitas a cancelamento).
+        Usa os argumentos e campos REAIS confirmados via GraphQL introspection.
+        Args corretos: purchaseTimeStart / purchaseTimeEnd (Unix Int64)
         Se start_time não for informado, busca as últimas 24 horas.
         """
         if end_time is None:
@@ -164,23 +165,35 @@ class ShopeeAffiliateAPI:
         if start_time is None:
             start_time = end_time - timedelta(hours=24)
 
-        # A API aceita timestamps Unix em segundos
         start_ts = int(start_time.timestamp())
-        end_ts = int(end_time.timestamp())
+        end_ts   = int(end_time.timestamp())
 
         query = """
-        query conversionReport($startTime: Int!, $endTime: Int!, $limit: Int) {
-            conversionReport(startTime: $startTime, endTime: $endTime, limit: $limit) {
+        query(
+            $purchaseTimeStart: Int64,
+            $purchaseTimeEnd: Int64,
+            $limit: Int
+        ) {
+            conversionReport(
+                purchaseTimeStart: $purchaseTimeStart,
+                purchaseTimeEnd: $purchaseTimeEnd,
+                limit: $limit
+            ) {
                 nodes {
                     conversionId
-                    orderId
-                    productName
-                    itemPrice
-                    commissionRate
-                    estimatedCommission
-                    conversionTime
-                    status
-                    subId
+                    conversionStatus
+                    purchaseTime
+                    clickTime
+                    estimatedTotalCommission
+                    netCommission
+                    totalCommission
+                    cappedCommission
+                    utmContent
+                    productType
+                }
+                pageInfo {
+                    hasNextPage
+                    scrollId
                 }
             }
         }
@@ -188,9 +201,9 @@ class ShopeeAffiliateAPI:
         payload = {
             "query": query,
             "variables": {
-                "startTime": start_ts,
-                "endTime": end_ts,
-                "limit": limit
+                "purchaseTimeStart": start_ts,
+                "purchaseTimeEnd":   end_ts,
+                "limit":             limit
             }
         }
 
@@ -206,16 +219,22 @@ class ShopeeAffiliateAPI:
         conversions = []
         for node in nodes:
             try:
+                # purchaseTime vem como Unix timestamp (Int64)
+                purchase_ts = node.get("purchaseTime", 0)
+                purchase_dt = (
+                    datetime.fromtimestamp(purchase_ts, tz=timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
+                    if purchase_ts else "N/A"
+                )
                 conversions.append({
-                    "conversion_id": node.get("conversionId", ""),
-                    "order_id":      node.get("orderId", ""),
-                    "product_name":  node.get("productName", "Produto Shopee"),
-                    "item_price":    float(node.get("itemPrice") or 0),
-                    "commission_rate": float(node.get("commissionRate") or 0),
-                    "estimated_commission": float(node.get("estimatedCommission") or 0),
-                    "conversion_time": node.get("conversionTime", ""),
-                    "status":        node.get("status", "pending"),
-                    "sub_id":        node.get("subId", ""),
+                    "conversion_id":           str(node.get("conversionId", "")),
+                    "conversion_status":       node.get("conversionStatus", "pending"),
+                    "purchase_time":           purchase_dt,
+                    "estimated_commission":    node.get("estimatedTotalCommission", "0"),
+                    "net_commission":          node.get("netCommission", "0"),
+                    "total_commission":        node.get("totalCommission", "0"),
+                    "capped_commission":       node.get("cappedCommission", "0"),
+                    "utm_content":             node.get("utmContent", ""),
+                    "product_type":            node.get("productType", ""),
                 })
             except Exception as e:
                 print(f"⚠️ Error parsing conversion node: {e}")
@@ -230,70 +249,14 @@ class ShopeeAffiliateAPI:
         limit: int = 100
     ) -> List[Dict]:
         """
-        Relatório Validado (Validated Report).
-        Retorna vendas CONFIRMADAS e pagas, já descontando devoluções.
-        Use este para balanço financeiro real.
+        Relatório Validado — ATENÇÃO: a API exige `validationId: Int64!` obrigatório.
+        Este ID representa um período de validação específico gerado pela Shopee.
+        Por enquanto retorna lista vazia com aviso. Implementação futura:
+        descobrir endpoint de listagem de validationIds disponíveis.
         """
-        if end_time is None:
-            end_time = datetime.now(timezone.utc)
-        if start_time is None:
-            start_time = end_time - timedelta(days=7)
-
-        start_ts = int(start_time.timestamp())
-        end_ts = int(end_time.timestamp())
-
-        query = """
-        query validatedReport($startTime: Int!, $endTime: Int!, $limit: Int) {
-            validatedReport(startTime: $startTime, endTime: $endTime, limit: $limit) {
-                nodes {
-                    conversionId
-                    orderId
-                    productName
-                    itemPrice
-                    confirmedCommission
-                    refundAmount
-                    validatedTime
-                    status
-                }
-            }
-        }
-        """
-        payload = {
-            "query": query,
-            "variables": {
-                "startTime": start_ts,
-                "endTime": end_ts,
-                "limit": limit
-            }
-        }
-
-        data = self._send_request(payload)
-        if not data:
-            return []
-
-        nodes = (
-            data.get("data", {})
-                .get("validatedReport", {})
-                .get("nodes", [])
-        )
-        validated = []
-        for node in nodes:
-            try:
-                validated.append({
-                    "conversion_id":        node.get("conversionId", ""),
-                    "order_id":             node.get("orderId", ""),
-                    "product_name":         node.get("productName", "Produto Shopee"),
-                    "item_price":           float(node.get("itemPrice") or 0),
-                    "confirmed_commission": float(node.get("confirmedCommission") or 0),
-                    "refund_amount":        float(node.get("refundAmount") or 0),
-                    "validated_time":       node.get("validatedTime", ""),
-                    "status":               node.get("status", "validated"),
-                })
-            except Exception as e:
-                print(f"⚠️ Error parsing validated node: {e}")
-                continue
-
-        return validated
+        print("⚠️ [ValidatedReport] Requer validationId (Int64!) — desabilitado temporariamente.")
+        print("   → Use o conversionReport para monitoramento em tempo real.")
+        return []
 
 
 # --- Funções Públicas ---
