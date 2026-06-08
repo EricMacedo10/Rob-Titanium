@@ -1,6 +1,7 @@
 """
 Shopee Affiliate API Integration
-Implementa autenticação SHA256, geração de links e BUSCA de produtos via API Oficial
+Implementa autenticação SHA256, geração de links, BUSCA de produtos
+e RELATÓRIO DE CONVERSÕES (vendas) via API Oficial.
 """
 
 import hashlib
@@ -8,6 +9,7 @@ import time
 import requests
 import json
 import re
+from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict
 from core.settings import SHOPEE_APP_ID, SHOPEE_SECRET, SHOPEE_API_URL
 
@@ -145,6 +147,153 @@ class ShopeeAffiliateAPI:
         search_url = f"{base_url}?keyword={search_term.replace(' ', '+')}&sortBy=price"
         short_link = self.generate_short_link(search_url)
         return short_link if short_link else search_url
+
+    def get_conversion_report(
+        self,
+        start_time: Optional[datetime] = None,
+        end_time: Optional[datetime] = None,
+        limit: int = 100
+    ) -> List[Dict]:
+        """
+        Relatório de Conversões em Tempo Real (Real-Time Report).
+        Retorna vendas pendentes ainda não finalizadas (sujeitas a cancelamento).
+        Se start_time não for informado, busca as últimas 24 horas.
+        """
+        if end_time is None:
+            end_time = datetime.now(timezone.utc)
+        if start_time is None:
+            start_time = end_time - timedelta(hours=24)
+
+        # A API aceita timestamps Unix em segundos
+        start_ts = int(start_time.timestamp())
+        end_ts = int(end_time.timestamp())
+
+        query = """
+        query conversionReport($startTime: Int!, $endTime: Int!, $limit: Int) {
+            conversionReport(startTime: $startTime, endTime: $endTime, limit: $limit) {
+                nodes {
+                    conversionId
+                    orderId
+                    productName
+                    itemPrice
+                    commissionRate
+                    estimatedCommission
+                    conversionTime
+                    status
+                    subId
+                }
+            }
+        }
+        """
+        payload = {
+            "query": query,
+            "variables": {
+                "startTime": start_ts,
+                "endTime": end_ts,
+                "limit": limit
+            }
+        }
+
+        data = self._send_request(payload)
+        if not data:
+            return []
+
+        nodes = (
+            data.get("data", {})
+                .get("conversionReport", {})
+                .get("nodes", [])
+        )
+        conversions = []
+        for node in nodes:
+            try:
+                conversions.append({
+                    "conversion_id": node.get("conversionId", ""),
+                    "order_id":      node.get("orderId", ""),
+                    "product_name":  node.get("productName", "Produto Shopee"),
+                    "item_price":    float(node.get("itemPrice") or 0),
+                    "commission_rate": float(node.get("commissionRate") or 0),
+                    "estimated_commission": float(node.get("estimatedCommission") or 0),
+                    "conversion_time": node.get("conversionTime", ""),
+                    "status":        node.get("status", "pending"),
+                    "sub_id":        node.get("subId", ""),
+                })
+            except Exception as e:
+                print(f"⚠️ Error parsing conversion node: {e}")
+                continue
+
+        return conversions
+
+    def get_validated_report(
+        self,
+        start_time: Optional[datetime] = None,
+        end_time: Optional[datetime] = None,
+        limit: int = 100
+    ) -> List[Dict]:
+        """
+        Relatório Validado (Validated Report).
+        Retorna vendas CONFIRMADAS e pagas, já descontando devoluções.
+        Use este para balanço financeiro real.
+        """
+        if end_time is None:
+            end_time = datetime.now(timezone.utc)
+        if start_time is None:
+            start_time = end_time - timedelta(days=7)
+
+        start_ts = int(start_time.timestamp())
+        end_ts = int(end_time.timestamp())
+
+        query = """
+        query validatedReport($startTime: Int!, $endTime: Int!, $limit: Int) {
+            validatedReport(startTime: $startTime, endTime: $endTime, limit: $limit) {
+                nodes {
+                    conversionId
+                    orderId
+                    productName
+                    itemPrice
+                    confirmedCommission
+                    refundAmount
+                    validatedTime
+                    status
+                }
+            }
+        }
+        """
+        payload = {
+            "query": query,
+            "variables": {
+                "startTime": start_ts,
+                "endTime": end_ts,
+                "limit": limit
+            }
+        }
+
+        data = self._send_request(payload)
+        if not data:
+            return []
+
+        nodes = (
+            data.get("data", {})
+                .get("validatedReport", {})
+                .get("nodes", [])
+        )
+        validated = []
+        for node in nodes:
+            try:
+                validated.append({
+                    "conversion_id":        node.get("conversionId", ""),
+                    "order_id":             node.get("orderId", ""),
+                    "product_name":         node.get("productName", "Produto Shopee"),
+                    "item_price":           float(node.get("itemPrice") or 0),
+                    "confirmed_commission": float(node.get("confirmedCommission") or 0),
+                    "refund_amount":        float(node.get("refundAmount") or 0),
+                    "validated_time":       node.get("validatedTime", ""),
+                    "status":               node.get("status", "validated"),
+                })
+            except Exception as e:
+                print(f"⚠️ Error parsing validated node: {e}")
+                continue
+
+        return validated
 
 
 # --- Funções Públicas ---

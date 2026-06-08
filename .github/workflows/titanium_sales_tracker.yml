@@ -1,0 +1,99 @@
+name: "💰 TITANIUM: Sales Tracker & Telegram Alerts"
+
+on:
+  schedule:
+    # Roda a cada 2 horas (UTC) — cobre dia e noite no Brasil
+    # 00h, 02h, 04h, 06h, 08h, 10h, 12h, 14h, 16h, 18h, 20h, 22h UTC
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Executar em modo DRY-RUN (sem notificações Telegram)?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      test_telegram:
+        description: 'Apenas testar conexão com o Telegram?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+concurrency:
+  group: titanium-sales-tracker
+  cancel-in-progress: false  # Nunca cancela — não queremos perder registros de venda
+
+permissions:
+  contents: write  # Necessário para salvar o arquivo de estado (last_seen_conversions.json)
+
+env:
+  PYTHONUNBUFFERED: 1
+  TRACKER_HOURS_BACK: "3"  # Janela de busca: últimas 3 horas (cobre 2h de cron + margem)
+
+jobs:
+  sales-tracker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: "🛰️ Checkout Code"
+        uses: actions/checkout@v4
+        with:
+          # Fetch do histórico para o commit do estado funcionar
+          fetch-depth: 1
+
+      - name: "🐍 Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: "📦 Instalar Dependências"
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dotenv --quiet
+
+      # ── Modo: Apenas testar Telegram ─────────────────────────────────────────
+      - name: "🔔 Teste de Conexão Telegram (modo test_telegram)"
+        if: ${{ github.event.inputs.test_telegram == 'true' }}
+        env:
+          PYTHONPATH: .
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python infra/sales_tracker.py --test-telegram
+
+      # ── Modo: Execução Normal ─────────────────────────────────────────────────
+      - name: "💰 Executar Sales Tracker (Produção)"
+        if: ${{ github.event.inputs.test_telegram != 'true' }}
+        env:
+          PYTHONPATH: .
+          SHOPEE_APP_ID:       ${{ secrets.SHOPEE_APP_ID }}
+          SHOPEE_SECRET:       ${{ secrets.SHOPEE_SECRET }}
+          TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:    ${{ secrets.TELEGRAM_CHAT_ID }}
+          # DRY_RUN via input manual ou padrão false (produção)
+          TRACKER_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          TRACKER_HOURS_BACK: "3"
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            echo "🔇 Modo DRY-RUN ativado"
+            python infra/sales_tracker.py --dry-run
+          else
+            python infra/sales_tracker.py
+          fi
+
+      # ── Persistir Estado (anti-duplicata) ────────────────────────────────────
+      - name: "💾 Salvar Estado de Conversões (anti-duplicata)"
+        if: ${{ github.event.inputs.test_telegram != 'true' && github.event.inputs.dry_run != 'true' }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 SalesTracker: Atualizando estado de conversões [skip ci]"
+          file_pattern: 'infra/last_seen_conversions.json'
+          commit_user_name:  "Titanium Bot"
+          commit_user_email: "bot@titanium.ai"
+          skip_dirty_check: false
