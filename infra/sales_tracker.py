@@ -165,8 +165,8 @@ def run_tracker(dry_run: bool = False) -> dict:
 
     # ── 6. Resumo Diário (somente quando rodado em horas "cheias" configuradas) ─
     hora_atual = now.hour
-    # Envia resumo às 09h, 13h, 18h e 22h UTC (aprox 06h, 10h, 15h, 19h BRT)
-    horas_resumo = {9, 13, 18, 22}
+    # Envia resumo às 10h, 14h, 18h e 22h UTC (aprox 07h, 11h, 15h, 19h BRT)
+    horas_resumo = {10, 14, 18, 22}
     if hora_atual in horas_resumo:
         print(f"\n📊 Enviando Resumo Diário ({hora_atual}h UTC)...")
         if not dry_run:
