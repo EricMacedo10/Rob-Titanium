@@ -18,7 +18,14 @@ Para prevenir que Lingeries ('Moda & Luxo') transbordem para a seção de Cosmé
 O sistema agora gerencia múltiplas vitrines simultâneas:
 - **index.html**: Foco em Moda e Beleza (Titanium).
 - **sensual.html**: Foco em Bem-Estar e SexTech (Boutique Íntima).
+- **instagram.html (NOVO)**: Página focada para o "Link na Bio" do Instagram, carregando produtos do `instagram_posts.json` de forma autônoma.
 Ambos compartilham o motor de auditoria de links, mas possuem lógica de renderização (`app.js` vs `app_sensual.js`) e pools de dados independentes.
+
+#### 🔗 Instagram Link-in-Bio Engine (v4.0)
+A página `instagram.html` é projetada especificamente para conversão no celular a partir do Instagram:
+1. **Automação Zero Touch**: Lê os últimos 40 posts do arquivo `instagram_posts.json`, que é alimentado automaticamente pelo Python Bot (via `bot.py` e FTP Sync). Nenhuma intervenção manual é necessária para atualizar os links do Instagram.
+2. **Dark Premium Design**: Estética noturna altamente responsiva que simula a interface nativa do Instagram/Linktree para menor fricção.
+3. **Bridge Page Integration**: Todos os botões "Ver na Shopee" passam pela função `auditLink(rawUrl)` em JS, forçando a passagem por `go.php` para escapar do in-app browser do Instagram e manter a segurança de comissão.
 
 ## 🚀 The Redirection Engine ("Links Inteligentes")
 

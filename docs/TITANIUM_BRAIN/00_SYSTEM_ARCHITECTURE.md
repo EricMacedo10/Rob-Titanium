@@ -47,6 +47,7 @@ graph TD
     subgraph "Produção (Instagram/Web/Notificação)"
         INSTA["Instagram API (Postage & DMs)"]
         SITE["Elite Frontend (data.json)"]
+        IG_PAGE["Link in Bio Page (instagram.html + instagram_posts.json)"]
         TG["Telegram API (Bot Alerts)"]
     end
 
@@ -56,6 +57,8 @@ graph TD
     PYTHON -- "Git Auto-Commit" --> GITHUB
     PYTHON -- "Force Cloud Upload" --> CLOUD
     PYTHON -- "Post Logic" --> INSTA
+    PYTHON -- "Log Posts" --> IG_PAGE
+
     
     ACTION --> SALES
     SALES -- "Fetch Conversions" --> GRAPHQL

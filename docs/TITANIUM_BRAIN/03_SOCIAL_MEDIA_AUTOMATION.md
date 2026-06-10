@@ -9,13 +9,14 @@ Este documento detalha como o Titanium mantém autoridade estética no Instagram
 O bot opera sob o conceito de **Resiliência Estética com Precisão de Dados**:
 
 ### 1. Curadoria & Media Generation
-- **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16) via `image_generator.py`.
+- **Frame Elite Standard**: Todas as artes são geradas em resolução nativa **1080x1920** (9:16) via `image_generator.py` e `video_generator.py`.
 - **Price Parser Robusto (`_parse_price`)**: Método centralizado que diferencia separadores decimais de milhares, eliminando erros como `44.9 → R$ 449,00`. Validado em produção.
 - **Safe Zone Layout (v5.4.1 - UltraSafe)**: O selo de preço foi elevado para `y=1270` (em 1080x1920), garantindo visibilidade imune a qualquer corte de grade (Explore) ou sobreposição de UI. No Feed (1080x1080), a posição é `y=830`.
 - **Estratégia de Postagem (Multicanal)**: 
     - **Ativo (Imagens)**: Postagem de **Imagem Premium** no Feed via Cloud Upload (tmpfiles.org → Meta Graph API).
     - **Ativo (Vídeos)**: **Máquina de Reels & Stories** nativa usando `moviepy` (`social/core/video_generator.py`). Gera e publica simultaneamente Reels e Stories via Meta Graph API com fundos estéticos lofi e tipografia clean.
-- **Design Magazine Elite**: Cabeçalho "SELEÇÃO TITANIUM" com tipografia espaçada, badge de preço glassmorphism e logo Shopee.
+- **Visual Call-to-Action (v5.6.0)**: O `video_generator.py` aplica uma faixa dark/orange chamativa no meio do card ("💬 COMENTE 'QUERO'") para forçar a interação do usuário e disparar o Bot de DMs, solucionando gargalos de conversão no tráfego frio.
+- **Post Logger Automático**: Ao postar com sucesso, o `bot.py` registra o item no `site/instagram_posts.json`. Em seguida, o `upload_ofertas.py` sincroniza simultaneamente o `ofertas.json` (para o Bot de DM em PHP) e o `instagram_posts.json` (para a Link-in-Bio em HTML), fechando o funil de forma 100% autônoma.
 
 ### 2. Formatação de Preço (Padrão BR — Unified)
 O preço é formatado de forma idêntica em **dois pontos**:
