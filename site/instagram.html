@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Boutique Titanium — Achados exclusivos da Shopee que postamos hoje. Clique no produto que você viu no nosso Instagram para comprar!">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Boutique Titanium | Achados do Instagram 📸</title>
+
+    <!-- Open Graph (Pré-visualização ao compartilhar) -->
+    <meta property="og:title" content="Achados do Dia | Boutique Titanium">
+    <meta property="og:description" content="Os produtos que você viu no nosso Instagram. Toque para comprar com segurança.">
+    <meta property="og:image" content="https://guiadodesconto.com.br/images/fashion-hero.png">
+    <meta property="og:url" content="https://guiadodesconto.com.br/instagram.html">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Analytics (mesmo ID da home para rastrear conversões) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJTW5MY84L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-BJTW5MY84L');
+    </script>
+
+    <style>
+        /* ============================================
+           TITANIUM INSTAGRAM LINK PAGE - Premium Dark
+           ============================================ */
+        :root {
+            --shopee-orange: #EE4D2D;
+            --shopee-orange-light: #FF6B47;
+            --bg-dark: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222;
+            --text-white: #FFFFFF;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,0.07);
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ---- HEADER PROFILE ---- */
+        .profile-header {
+            background: linear-gradient(180deg, #1a0a00 0%, var(--bg-dark) 100%);
+            padding: 32px 20px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--shopee-orange), #FF9900);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 12px;
+            box-shadow: 0 0 0 3px rgba(238,77,45,0.3), 0 0 0 6px rgba(238,77,45,0.1);
+            animation: avatarPulse 3s ease infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(238,77,45,0.3), 0 0 0 6px rgba(238,77,45,0.1); }
+            50%       { box-shadow: 0 0 0 3px rgba(238,77,45,0.5), 0 0 0 10px rgba(238,77,45,0.05); }
+        }
+
+        .profile-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-white);
+        }
+
+        .profile-name span { color: var(--shopee-orange); }
+
+        .profile-handle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 4px 0 12px;
+        }
+
+        .profile-bio {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            max-width: 320px;
+            margin: 0 auto 16px;
+            line-height: 1.5;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(238,77,45,0.15);
+            border: 1px solid rgba(238,77,45,0.4);
+            color: var(--shopee-orange);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .live-dot {
+            width: 6px; height: 6px;
+            background: var(--shopee-orange);
+            border-radius: 50%;
+            animation: blink 1.2s ease infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        /* ---- QUICK LINKS ---- */
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-white);
+            padding: 10px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .quick-link:hover, .quick-link:active {
+            background: var(--shopee-orange);
+            border-color: var(--shopee-orange);
+            transform: translateY(-2px);
+        }
+
+        .quick-link i { font-size: 0.9rem; }
+
+        /* ---- POSTS TITLE ---- */
+        .section-label {
+            padding: 20px 16px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ---- POSTS GRID ---- */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3px;
+            padding: 0 3px 3px;
+        }
+
+        @media (min-width: 480px) {
+            .posts-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ---- POST CARD ---- */
+        .post-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: var(--bg-card);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .post-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .post-card:hover img, .post-card:active img {
+            transform: scale(1.06);
+        }
+
+        /* Overlay ao hover / tap */
+        .post-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+        }
+
+        .post-card:hover .post-overlay,
+        .post-card:active .post-overlay,
+        .post-card.touched .post-overlay {
+            opacity: 1;
+        }
+
+        .post-price {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .post-price small {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 400;
+        }
+
+        .post-buy-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--shopee-orange);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .post-buy-btn:hover { background: var(--shopee-orange-light); }
+
+        /* Badge de NOVO */
+        .new-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--shopee-orange);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 5;
+        }
+
+        /* Fallback para imagem quebrada */
+        .post-img-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a, #2a1a0a);
+            gap: 8px;
+        }
+
+        .post-img-fallback i { font-size: 2.5rem; color: var(--shopee-orange); }
+        .post-img-fallback span { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* ---- EMPTY STATE ---- */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state .icon { font-size: 4rem; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+        /* ---- LOADING ---- */
+        .loading-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3px;
+            padding: 0 3px;
+        }
+
+        @media (min-width: 480px) {
+            .loading-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .skeleton {
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ---- FOOTER ---- */
+        .ig-footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        .ig-footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .ig-footer a {
+            color: var(--shopee-orange);
+            text-decoration: none;
+        }
+
+        .ig-footer .disclaimer {
+            margin-top: 12px;
+            font-size: 0.68rem;
+            opacity: 0.6;
+        }
+
+        /* ---- CTA BOTTOM STRIP ---- */
+        .cta-strip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--shopee-orange);
+            color: white;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            z-index: 100;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 -4px 20px rgba(238,77,45,0.4);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-strip:hover { background: var(--shopee-orange-light); }
+
+        /* Espaço para a strip fixa não sobrepor conteúdo */
+        body { padding-bottom: 60px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER PERFIL -->
+    <header class="profile-header">
+        <div class="profile-avatar">🛍️</div>
+        <div class="profile-name"><span>Boutique</span> Titanium</div>
+        <div class="profile-handle">@oferta.certa10 • guiadodesconto.com.br</div>
+        <p class="profile-bio">Curadoria de elite em Moda & Beleza Shopee. Parceiro afiliado oficial 🤖✨</p>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            Achados de Hoje
+        </div>
+    </header>
+
+    <!-- LINKS RÁPIDOS -->
+    <div class="quick-links">
+        <a href="https://guiadodesconto.com.br" class="quick-link" id="link-vitrine">
+            <i class="fas fa-store"></i> Vitrine Completa
+        </a>
+        <a href="https://s.shopee.com.br/16RtbfSuP" target="_blank" rel="noopener" class="quick-link" id="link-cupons">
+            <i class="fas fa-ticket"></i> Cupons Shopee
+        </a>
+        <a href="https://www.instagram.com/oferta.certa10/" target="_blank" rel="noopener" class="quick-link" id="link-instagram">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+    </div>
+
+    <!-- GRADE DE POSTS -->
+    <div class="section-label">
+        <i class="fas fa-fire" style="color: var(--shopee-orange);"></i>
+        Postados Recentemente
+    </div>
+
+    <!-- Loading Skeleton -->
+    <div class="loading-grid" id="loading-grid">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+    </div>
+
+    <!-- Grade de posts (preenchida via JS) -->
+    <div class="posts-grid" id="posts-grid" style="display:none;"></div>
+
+    <!-- FOOTER -->
+    <footer class="ig-footer">
+        <p>
+            <strong style="color: white;">Boutique Titanium</strong> — Curadoria Shopee com Inteligência Artificial<br>
+            Todos os links levam à <a href="https://shopee.com.br" target="_blank" rel="noopener">Shopee Oficial</a> de forma segura.
+        </p>
+        <p class="disclaimer">
+            Esta página contém links de afiliado. Comprando por aqui você apoia nosso trabalho sem nenhum custo extra. 🙏
+        </p>
+    </footer>
+
+    <!-- CTA FIXO INFERIOR -->
+    <a href="https://guiadodesconto.com.br" class="cta-strip" id="main-cta">
+        <i class="fas fa-bag-shopping"></i>
+        Ver Toda a Vitrine de Achados
+        <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>
+    </a>
+
+    <script>
+    (function() {
+        // ==============================================
+        // TITANIUM INSTAGRAM LINK PAGE — Core Logic
+        // Tag de afiliado preservada em TODOS os links
+        // ==============================================
+        const AFFILIATE_TAG = "an_18318830863";
+        const BRIDGE_URL    = "go.php?url=";
+        const DATA_URL      = "instagram_posts.json?v=" + Date.now();
+
+        // ---- Formatador de preço BR ----
+        const fmtBRL = (v) => {
+            const n = parseFloat(String(v).replace(',', '.'));
+            if (isNaN(n)) return 'Ver preço';
+            return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        };
+
+        // ---- Auditoria de link (garante tag de afiliado + bridge anti-Instagram) ----
+        function auditLink(rawUrl) {
+            if (!rawUrl) return 'https://guiadodesconto.com.br';
+            let url = rawUrl;
+
+            // Já é um link auditado/blindado? Não mexer.
+            if (url.includes(BRIDGE_URL)) return url;
+
+            // Garantir tag de afiliado em links Shopee diretos
+            if (url.includes('shopee.com.br') && !url.includes('s.shopee.com.br')) {
+                if (!url.includes('utm_source=' + AFFILIATE_TAG)) {
+                    url += (url.includes('?') ? '&' : '?') + 'utm_source=' + AFFILIATE_TAG;
+                }
+            }
+
+            // Encapsular na bridge page (escapa do navegador interno do Instagram)
+            return BRIDGE_URL + encodeURIComponent(url);
+        }
+
+        // ---- Rastrear click como evento GA4 ----
+        function trackClick(title, price) {
+            if (typeof gtag === 'function') {
+                gtag('event', 'instagram_link_click', {
+                    event_category: 'Conversion',
+                    event_label: title,
+                    value: parseFloat(price) || 0
+                });
+            }
+        }
+
+        // ---- Calcular se é "novo" (postado nas últimas 6 horas) ----
+        function isNew(dateStr) {
+            if (!dateStr) return false;
+            try {
+                const diff = Date.now() - new Date(dateStr).getTime();
+                return diff < (6 * 60 * 60 * 1000);
+            } catch(e) { return false; }
+        }
+
+        // ---- Criar card de post ----
+        function createPostCard(post) {
+            const card = document.createElement('div');
+            card.className = 'post-card';
+
+            const safeLink  = auditLink(post.link);
+            const safeTitle = (post.title || 'Produto Shopee').replace(/"/g, '&quot;');
+            const fmtPrice  = fmtBRL(post.price);
+
+            // Imagem ou fallback
+            let imgHtml = '';
+            if (post.image && post.image.startsWith('http')) {
+                imgHtml = `<img
+                    src="${post.image}"
+                    alt="${safeTitle}"
+                    loading="lazy"
+                    onerror="this.parentNode.innerHTML='<div class=\\'post-img-fallback\\'><i class=\\'fa-solid fa-bag-shopping\\'></i><span>Ver produto</span></div>'"
+                >`;
+            } else {
+                imgHtml = `<div class="post-img-fallback">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Ver produto</span>
+                </div>`;
+            }
+
+            // Badge NOVO
+            const newBadge = isNew(post.date) ? '<div class="new-badge">🔥 Novo</div>' : '';
+
+            card.innerHTML = `
+                ${newBadge}
+                ${imgHtml}
+                <div class="post-overlay">
+                    <div class="post-price">${fmtPrice} <small>na Shopee</small></div>
+                    <a href="${safeLink}"
+                       class="post-buy-btn"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       onclick="trackClick('${safeTitle.substring(0,40)}', '${post.price || 0}')">
+                        <i class="fa-solid fa-bag-shopping"></i> Ver na Shopee
+                    </a>
+                </div>
+            `;
+
+            // Tap no mobile: ativa overlay primeiro, clique segundo
+            let touched = false;
+            card.addEventListener('click', function(e) {
+                if (!touched) {
+                    e.preventDefault();
+                    card.classList.add('touched');
+                    touched = true;
+                    // Remove touch state após 3s (UX mobile)
+                    setTimeout(() => { card.classList.remove('touched'); touched = false; }, 3000);
+                }
+                // Se já estava "touched", deixa o link da overlay funcionar normalmente
+            });
+
+            return card;
+        }
+
+        // ---- Carregar e renderizar posts ----
+        async function loadPosts() {
+            const grid    = document.getElementById('posts-grid');
+            const loading = document.getElementById('loading-grid');
+
+            try {
+                const resp = await fetch(DATA_URL);
+                if (!resp.ok) throw new Error('JSON não encontrado');
+                const posts = await resp.json();
+
+                loading.style.display = 'none';
+                grid.style.display = 'grid';
+
+                if (!Array.isArray(posts) || posts.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">🤖</div>
+                            <h3>O Robô Titanium está preparando as ofertas!</h3>
+                            <p>Volte em instantes — novos achados da Shopee chegando.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                posts.forEach(post => {
+                    try {
+                        grid.appendChild(createPostCard(post));
+                    } catch(err) {
+                        console.warn('[Titanium] Erro ao renderizar card:', err);
+                    }
+                });
+
+            } catch (err) {
+                loading.style.display = 'none';
+                grid.style.display = 'grid';
+                console.warn('[Titanium] Fallback: instagram_posts.json não encontrado.', err);
+
+                // Fallback gracioso: redireciona para vitrine principal
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🛍️</div>
+                        <h3>Achados Carregando...</h3>
+                        <p>Acesse nossa vitrine completa enquanto sincronizamos os posts mais recentes.</p>
+                        <a href="https://guiadodesconto.com.br"
+                           style="display:inline-block;margin-top:20px;background:#EE4D2D;color:white;padding:12px 28px;border-radius:50px;font-weight:700;text-decoration:none;">
+                            Ver Vitrine Completa
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // Aguarda DOM antes de carregar
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPosts);
+        } else {
+            loadPosts();
+        }
+
+    })();
+    </script>
+
+</body>
+</html>

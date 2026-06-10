@@ -5,7 +5,7 @@ import shutil
 import os
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from social.core.image_generator import ImageGenerator
 from social.core.instagram_client import InstagramClient
 from social.core.copywriter import Copywriter
@@ -225,6 +225,14 @@ class SocialBot:
         # --- FINALIZAÇÃO ---
         if success:
             print("🎉 CICLO CONCLUÍDO COM SUCESSO!")
+
+            # --- REGISTRAR POST NO INSTAGRAM_POSTS.JSON (Alimenta instagram.html) ---
+            try:
+                self._log_instagram_post(product_hashtags, media_to_upload)
+            except Exception as log_err:
+                # Falha no log NÃO pode parar o ciclo. Silencioso.
+                print(f"⚠️ Aviso: Não foi possível registrar post no instagram_posts.json: {log_err}")
+
             os.makedirs(postados_dir, exist_ok=True)
             for path in full_paths:
                 # Move imagem/vídeo original
@@ -267,6 +275,82 @@ class SocialBot:
             for tmp in temp_video_paths:
                 if os.path.exists(tmp): os.remove(tmp)
             sys.exit(1)
+
+    def _log_instagram_post(self, product_hashtags, media_to_upload):
+        """
+        Registra o post publicado em site/instagram_posts.json.
+        Mantém os 40 posts mais recentes para alimentar a página instagram.html.
+        NÃO falha o ciclo principal em caso de erro — wrapper try/except no chamador.
+        """
+        log_file = "site/instagram_posts.json"
+        MAX_POSTS = 40
+
+        # Carregar lista existente (ou iniciar do zero)
+        existing = []
+        if os.path.exists(log_file):
+            try:
+                with open(log_file, 'r', encoding='utf-8') as f:
+                    existing = json.load(f)
+                if not isinstance(existing, list):
+                    existing = []
+            except Exception:
+                existing = []
+
+        # Construir novo registro com os dados do post publicado
+        now_iso = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S')
+
+        for meta_item in product_hashtags:
+            # Buscar imagem correspondente — primeiro item da mídia
+            img_url = ""
+            if media_to_upload:
+                local_path = media_to_upload[0].get("local", "")
+                # Tentar recuperar a URL da imagem original do JSON de metadata
+                json_path = local_path.replace(os.path.splitext(local_path)[1], '.json') if local_path else ""
+                if os.path.exists(json_path):
+                    try:
+                        with open(json_path, 'r', encoding='utf-8') as mf:
+                            meta_data = json.load(mf)
+                            img_url = meta_data.get('id', '')  # 'id' contém a URL da imagem cf.shopee
+                            # Normalizar: se não começa com http, usar título como fallback visual
+                            if not str(img_url).startswith('http'):
+                                img_url = ""
+                    except Exception:
+                        pass
+
+            new_record = {
+                "id": meta_item.get("tag", f"#titanium_{int(time.time())}"),
+                "title": "",   # Será preenchido abaixo
+                "price": "",
+                "image": img_url,
+                "link":  meta_item.get("link", ""),
+                "date":  now_iso
+            }
+
+            # Recuperar título e preço do primeiro JSON de metadados da fila
+            if media_to_upload:
+                local_path = media_to_upload[0].get("local", "")
+                json_path = local_path.replace(os.path.splitext(local_path)[1], '.json') if local_path else ""
+                if os.path.exists(json_path):
+                    try:
+                        with open(json_path, 'r', encoding='utf-8') as mf2:
+                            meta_data2 = json.load(mf2)
+                            new_record["title"] = meta_data2.get('title', 'Produto Shopee')[:60]
+                            new_record["price"] = str(meta_data2.get('price', ''))
+                    except Exception:
+                        pass
+
+            # Inserir no topo da lista (mais recente primeiro)
+            existing.insert(0, new_record)
+
+        # Limitar ao máximo de posts
+        existing = existing[:MAX_POSTS]
+
+        # Salvar
+        os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        with open(log_file, 'w', encoding='utf-8') as f:
+            json.dump(existing, f, ensure_ascii=False, indent=2)
+
+        print(f"📝 instagram_posts.json atualizado: {len(existing)} posts registrados.")
 
     def _run_fallback_cycle(self, force_store):
         """Lógica de banners de categoria se a fila estiver vazia (simplificada para manter histórico)"""

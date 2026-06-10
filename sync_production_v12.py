@@ -48,14 +48,17 @@ def sync_titanium_production():
         ("site/sobre.html", "sobre.html"),
         ("site/privacidade.html", "privacidade.html"),
         ("site/termos.html", "termos.html"),
-        ("site/ai_reviews.json", "ai_reviews.json"),  # NOVO: Radar de Tendencias
+        ("site/ai_reviews.json", "ai_reviews.json"),  # Radar de Tendencias
         ("site/track_clicks.php", "track_clicks.php"),
         ("site/js/app.js", "js/app.js"),
         ("site/css/style.css", "css/style.css"),
         ("site/favicon.ico", "favicon.ico"),
-        ("site/specialist.json", "specialist.json"),  # NOVO: Seleção da Especialista
-        ("site/data.json", "data.json"),               # Garantir sincronia do feed
-        ("site/go.php", "go.php"),                     # ITEM 4: Bridge Page (Segurança de Link)
+        ("site/specialist.json", "specialist.json"),  # Seleção da Especialista
+        ("site/data.json", "data.json"),               # Feed de ofertas
+        ("site/go.php", "go.php"),                     # Bridge Page (Segurança de Link)
+        # === INSTAGRAM LINK PAGE (Vitrine para Bio do Instagram) ===
+        ("site/instagram.html", "instagram.html"),         # NOVO: Página de links do Instagram
+        ("site/instagram_posts.json", "instagram_posts.json"),  # NOVO: Feed de posts publicados
         # === BOUTIQUE ÍNTIMA (Vertical Sensual) ===
         ("site/sensual.html", "sensual.html"),
         ("site/js/app_sensual.js", "js/app_sensual.js"),
@@ -63,6 +66,7 @@ def sync_titanium_production():
         ("site/specialist_sensual.json", "specialist_sensual.json"),
         ("site/ai_reviews_sensual.json", "ai_reviews_sensual.json"),
     ]
+
 
     # Adicionar dinamicamente todos os artigos da pasta blog
     blog_dir = 'site/blog'

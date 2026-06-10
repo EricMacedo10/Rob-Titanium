@@ -82,51 +82,96 @@ class VideoGenerator:
         return None
 
     def _create_glassmorphism_card(self, price, video_type="reel"):
-        """Cria apenas o card de preço com fundo transparente."""
-        canvas = Image.new('RGBA', (self.width, 500), (0, 0, 0, 0))
+        """Cria o card de informações com preço e CTA 'Comente QUERO' altamente visível."""
+        # Canvas com espaço extra para a faixa de CTA
+        canvas = Image.new('RGBA', (self.width, 600), (0, 0, 0, 0))
         draw = ImageDraw.Draw(canvas)
-        
+
         try:
             font_path = "C:\\Windows\\Fonts\\arialbd.ttf"
-            if not os.path.exists(font_path): font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-            font_price = ImageFont.truetype(font_path, 110)
-            font_title = ImageFont.truetype(font_path, 45)
-            font_cta = ImageFont.truetype(font_path, 35)
+            if not os.path.exists(font_path):
+                font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+            font_price  = ImageFont.truetype(font_path, 100)
+            font_title  = ImageFont.truetype(font_path, 40)
+            font_cta    = ImageFont.truetype(font_path, 38)
+            font_cta_lg = ImageFont.truetype(font_path, 44)
         except Exception:
-            font_price = font_title = font_cta = ImageFont.load_default()
+            font_price = font_title = font_cta = font_cta_lg = ImageFont.load_default()
 
         val = self._parse_price(price)
         price_str = f"R$ {val:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-        
-        tw = font_price.getlength(price_str) if hasattr(font_price, 'getlength') else 300
-        
-        # Dinâmico baseado no tipo de vídeo
-        if video_type.lower() == "story":
-            cta_str = "Responda EU QUERO para o link"
-        else:
-            cta_str = "Comente QUERO para o link"
-            
-        cta_w = font_cta.getlength(cta_str) if hasattr(font_cta, 'getlength') else 200
-        title_str = "SELEÇÃO TITANIUM"
-        title_w = font_title.getlength(title_str) if hasattr(font_title, 'getlength') else 200
 
-        # Ajuste dinâmico da largura do card para não cortar a frase
-        bw = max(int(tw + 120), int(cta_w + 120), int(title_w + 120))
-        bh = 300
-        bx, by = (self.width - bw) // 2, 50
-        
-        # Fundo branco sólido com borda preta fina
-        draw.rounded_rectangle([bx, by, bx + bw, by + bh], radius=50, fill=(255, 255, 255, 255), outline=(50, 50, 50, 255), width=3)
-        
-        draw.text((bx + (bw - title_w)//2, by + 30), title_str, font=font_title, fill=(100, 100, 100, 255))
-        
-        draw.text((bx + (bw - tw)//2, by + 90), price_str, font=font_price, fill=(238, 77, 45, 255))
-        
-        draw.text((bx + (bw - cta_w)//2, by + 220), cta_str, font=font_cta, fill=(50, 50, 50, 255))
+        tw = font_price.getlength(price_str) if hasattr(font_price, 'getlength') else 300
+
+        title_str  = "SELEÇÃO TITANIUM"
+        title_w    = font_title.getlength(title_str) if hasattr(font_title, 'getlength') else 200
+
+        # Largura do card de preço
+        bw = max(int(tw + 120), int(title_w + 120), 800)
+        bh = 240
+        bx, by = (self.width - bw) // 2, 20
+
+        # --- Card de preço (fundo branco, borda fina) ---
+        draw.rounded_rectangle(
+            [bx, by, bx + bw, by + bh],
+            radius=40,
+            fill=(255, 255, 255, 255),
+            outline=(50, 50, 50, 255),
+            width=3
+        )
+        draw.text(((self.width - title_w) // 2, by + 22), title_str, font=font_title, fill=(100, 100, 100, 255))
+        draw.text(((self.width - tw) // 2, by + 75), price_str, font=font_price, fill=(238, 77, 45, 255))
+
+        # --- FAIXA CTA: "Comente QUERO" — alta visibilidade ---
+        # Posicionada logo abaixo do card de preço com espaço de 18px
+        cta_y = by + bh + 18
+
+        # Texto e sub-texto do CTA dependendo do tipo de vídeo
+        if video_type.lower() == "story":
+            cta_main = "💬 RESPONDA 'QUERO'"
+            cta_sub  = "Receba o link no Direct!"
+        else:
+            cta_main = "💬 COMENTE 'QUERO'"
+            cta_sub  = "Recebo o link no seu Direct! 🔗"
+
+        cta_main_w = font_cta_lg.getlength(cta_main) if hasattr(font_cta_lg, 'getlength') else 400
+        cta_sub_str = cta_sub
+        cta_sub_w   = font_cta.getlength(cta_sub_str) if hasattr(font_cta, 'getlength') else 300
+
+        # Largura da faixa: a maior entre main e sub + margens generosas
+        fw = max(int(cta_main_w + 80), int(cta_sub_w + 80), bw)
+        fh = 145
+        fx = (self.width - fw) // 2
+
+        # Fundo preto sólido com borda laranja Shopee — máxima legibilidade
+        draw.rounded_rectangle(
+            [fx, cta_y, fx + fw, cta_y + fh],
+            radius=30,
+            fill=(15, 15, 15, 255),
+            outline=(238, 77, 45, 255),
+            width=5
+        )
+
+        # Texto principal em branco
+        draw.text(
+            ((self.width - cta_main_w) // 2, cta_y + 14),
+            cta_main,
+            font=font_cta_lg,
+            fill=(255, 255, 255, 255)
+        )
+
+        # Subtexto em laranja Shopee
+        draw.text(
+            ((self.width - cta_sub_w) // 2, cta_y + 68),
+            cta_sub_str,
+            font=font_cta,
+            fill=(238, 77, 45, 255)
+        )
 
         card_path = os.path.join(self.temp_dir, "temp_card.png")
         canvas.save(card_path, "PNG")
         return card_path
+
 
     def generate_video(self, product_url, price, store_type="shopee", output_filename="reel.mp4", video_type="reel"):
         print(f"--- Preparando assets para formato {video_type.upper()}...")
