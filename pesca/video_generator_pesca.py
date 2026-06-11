@@ -131,6 +131,23 @@ class PescaVideoGenerator:
         draw.text((text_x + 3, text_y + 3), price_str, font=font_price, fill=(0, 0, 0, 150))
         draw.text((text_x, text_y), price_str, font=font_price, fill=(255, 255, 255, 255))
 
+        # --- ADICIONANDO A "ESCRITA" (CTA) APENAS NO STORY ---
+        if video_type == "story":
+            cta_str = "Responda EU QUERO para receber o link 🎣"
+            font_cta = self._get_font(42, bold=True)
+            cw = txt_w(font_cta, cta_str)
+            cta_x = (self.width - cw) // 2
+            # Posiciona abaixo do card do preço (na área borrada inferior)
+            cta_y = text_y + 180 
+            
+            # Fundo escuro arredondado com borda neon para a escrita
+            pad_x, pad_y = 40, 20
+            draw.rounded_rectangle(
+                [cta_x - pad_x, cta_y - pad_y, cta_x + cw + pad_x, cta_y + 42 + pad_y],
+                radius=35, fill=(15, 15, 15, 230), outline=self.COR_CTA, width=3
+            )
+            draw.text((cta_x, cta_y), cta_str, font=font_cta, fill=(255, 255, 255, 255))
+
         tmp_path = os.path.join(self.temp_dir, f"pesca_temp_bg_{video_type}.png")
         canvas.save(tmp_path, "PNG")
         return tmp_path
