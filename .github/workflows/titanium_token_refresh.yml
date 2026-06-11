@@ -1,0 +1,54 @@
+name: "🔑 TITANIUM: Auto-Refresh Token Meta (60 dias)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Roda automaticamente a cada 55 dias para renovar o token ANTES de vencer.
+# Atualiza o GitHub Secret IG_ACCESS_TOKEN e faz deploy nos dois robôs (FTP).
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  schedule:
+    # A cada 55 dias às 06:00 UTC — bem antes do vencimento de 60 dias
+    - cron: '0 6 1 */2 *'
+  workflow_dispatch:  # Permite rodar manualmente quando precisar
+
+permissions:
+  contents: write
+  secrets: write    # Necessário para atualizar o GitHub Secret
+
+env:
+  PYTHONUNBUFFERED: 1
+
+jobs:
+  refresh-token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🛰️ Checkout"
+        uses: actions/checkout@v4
+
+      - name: "🐍 Setup Python 3.10"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: "📦 Instalar dependências"
+        run: pip install requests python-dotenv
+
+      - name: "🔑 Renovar Token e Fazer Deploy"
+        id: refresh
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python infra/auto_refresh_token.py
+
+      - name: "🔒 Atualizar GitHub Secret com novo token"
+        if: steps.refresh.outputs.new_token != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ steps.refresh.outputs.new_token }}" | gh secret set IG_ACCESS_TOKEN --repo ${{ github.repository }}
+          echo "✅ GitHub Secret IG_ACCESS_TOKEN atualizado!"

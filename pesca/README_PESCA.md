@@ -66,13 +66,16 @@ Configure em: **Repositório → Settings → Secrets and variables → Actions 
 
 ---
 
-## ♻️ Renovação do Token
+## ♻️ Renovação Automática de Token
 
-O token de acesso **expira em 10/08/2026**. Para renovar:
-1. Acesse [developers.facebook.com](https://developers.facebook.com)
-2. Ferramentas → Explorador da Graph API
-3. Gere novo token com escopos: `instagram_basic`, `instagram_content_publish`, `pages_read_engagement`
-4. Troque o valor do secret `PESCA_IG_ACCESS_TOKEN` no GitHub
+A infraestrutura agora conta com o robô de manutenção autônoma `titanium_token_refresh.yml` que roda no GitHub Actions a cada 55 dias.
+
+Este processo garante a conversão e manutenção do **Long-Lived Token (60 dias)** para as contas de Moda e Pesca simultaneamente, sem necessidade de qualquer intervenção humana (a geração manual pelo Graph Explorer foi descontinuada).
+
+O robô atualiza via FTP os arquivos `bot_instagram.php` e `bot_instagram_pesca.php` no Hostinger, e também atualiza os secrets (`IG_ACCESS_TOKEN` e `PESCA_IG_ACCESS_TOKEN`) no GitHub para os automadores de Feed, Reels e Stories.
+
+**Requisitos:**
+- Os GitHub Secrets `APP_ID` e `APP_SECRET` devem estar preenchidos nas configurações do repositório para que a renovação funcione automaticamente.
 
 ---
 
