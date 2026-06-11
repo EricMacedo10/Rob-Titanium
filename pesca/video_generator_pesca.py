@@ -56,18 +56,23 @@ class PescaVideoGenerator:
             if resp.status_code == 200:
                 img = Image.open(BytesIO(resp.content)).convert("RGBA")
                 
-                # Remove white background
-                data = img.getdata()
-                new_data = []
-                for item in data:
-                    if item[0] > 230 and item[1] > 230 and item[2] > 230:
-                        new_data.append((255, 255, 255, 0))
-                    else:
-                        new_data.append(item)
-                img.putdata(new_data)
+                # Inteligência Artificial para remover QUALQUER fundo (bege, cinza, branco, etc)
+                try:
+                    from rembg import remove
+                    img = remove(img)
+                except ImportError:
+                    print("⚠️ rembg não instalado, caindo para remoção básica (quadrados beges podem aparecer).")
+                    data = img.getdata()
+                    new_data = []
+                    for item in data:
+                        if item[0] > 230 and item[1] > 230 and item[2] > 230:
+                            new_data.append((255, 255, 255, 0))
+                        else:
+                            new_data.append(item)
+                    img.putdata(new_data)
 
-                # Resize to fit inside the neon frame
-                max_size = 700
+                # Resize to fit perfectly inside the neon frame without touching logo/price
+                max_size = 500
                 w, h = img.size
                 ratio = min(max_size / w, max_size / h)
                 img = img.resize((int(w * ratio), int(h * ratio)), Image.Resampling.LANCZOS)
