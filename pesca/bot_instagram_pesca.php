@@ -207,7 +207,7 @@ foreach ($media_req['data'] as $post) {
             
             $public_msg = "Olá, pescador(a)! 🎣 Te enviei o link com todos os detalhes lá no seu Direct (Inbox)! Boa pescaria! 🏃💨";
             
-            $link_dm = titanium_bridge($link_escolhido);
+            $link_dm = $link_escolhido;
 
             if ($is_product_link) {
                 $private_msg = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_dm}\n\nEquipe Pesca Titanium";
@@ -269,7 +269,7 @@ if (isset($conv_req['data'])) {
                 $link_story = isset($dicionario_ofertas["#latest_story"]) ? $dicionario_ofertas["#latest_story"] : "https://{$SITE_URL}";
                 $link_story = titanium_shield($link_story);
                 
-                $link_story_dm = titanium_bridge($link_story);
+                $link_story_dm = $link_story;
 
                 $is_product = (strpos($link_story, $SITE_URL) === false);
                 if ($is_product) {
