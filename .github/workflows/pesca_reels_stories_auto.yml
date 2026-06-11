@@ -1,0 +1,82 @@
+name: "🎣 PESCA TITANIUM: Reels & Stories (2x ao dia)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROBÔ PESCA TITANIUM — Completamente independente do bot de Moda Titanium
+# Conta: @pescatitanium | IG Business ID: 17841416991677908
+# Secrets necessários: PESCA_IG_ACCESS_TOKEN, PESCA_IG_BUSINESS_ID,
+#                      PESCA_PAGE_ID, PESCA_IMGBB_API_KEY,
+#                      PESCA_SHOPEE_DATAFEED_URLS
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  schedule:
+    # 10:00 BRT = 13:00 UTC (horário de pico matutino de pescadores)
+    - cron: '0 13 * * *'
+    # 16:00 BRT = 19:00 UTC (horário de ouro pré-entardecer)
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+    inputs:
+      post_reel:
+        description: 'Postar Reel? (true/false)'
+        required: false
+        default: 'true'
+      post_story:
+        description: 'Postar Story? (true/false)'
+        required: false
+        default: 'true'
+
+# Grupo SEPARADO do titanium-reels-stories → jamais cancela o bot de moda
+concurrency:
+  group: pesca-reels-stories
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  PYTHONUNBUFFERED: 1
+
+jobs:
+  pesca-reels-stories:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "🛰️ Checkout do Código"
+        uses: actions/checkout@v4
+
+      - name: "🐍 Setup Python 3.10"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: "🎥 Instalar FFmpeg + Fontes (Obrigatório para geração de vídeo)"
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+
+      - name: "📦 Instalar dependências"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --retries 5 --timeout 60
+          pip install pandas moviepy Pillow requests python-dotenv
+
+      - name: "🎣 Disparar Máquina de Reels + Stories (PESCA TITANIUM)"
+        env:
+          PYTHONPATH: .
+          POST_REEL: ${{ github.event.inputs.post_reel || 'true' }}
+          POST_STORY: ${{ github.event.inputs.post_story || 'true' }}
+          # ── Secrets EXCLUSIVOS da conta Pesca Titanium ───────────────────────
+          PESCA_IG_ACCESS_TOKEN: ${{ secrets.PESCA_IG_ACCESS_TOKEN }}
+          PESCA_IG_BUSINESS_ID: ${{ secrets.PESCA_IG_BUSINESS_ID }}
+          PESCA_PAGE_ID: ${{ secrets.PESCA_PAGE_ID }}
+          PESCA_IMGBB_API_KEY: ${{ secrets.PESCA_IMGBB_API_KEY }}
+          PESCA_SHOPEE_DATAFEED_URLS: ${{ secrets.PESCA_SHOPEE_DATAFEED_URLS }}
+          # ── Fallback (usa IMGBB_API_KEY geral se PESCA_IMGBB_API_KEY não existir)
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+          ENV_MODE: PRODUCTION
+        run: python pesca/automate_pesca.py
+
+      - name: "📦 Arquivar Estado do Bot Pesca (commit automático)"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🎣 Pesca Bot: Estado Atualizado (postados / ofertas_pesca.json)"
+          file_pattern: 'pesca/postados/ pesca/ofertas_pesca.json'
