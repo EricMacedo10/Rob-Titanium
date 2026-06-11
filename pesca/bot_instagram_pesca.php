@@ -6,7 +6,7 @@
 // -----------------------------------------------------------------------------------
 // ⚠️ ATENÇÃO: PREENCHA OS SEUS DADOS AQUI ANTES DE SUBIR PARA O SERVIDOR!
 // -----------------------------------------------------------------------------------
-$USER_TOKEN = "COLOQUE_SEU_PESCA_IG_ACCESS_TOKEN_AQUI"; // Aquele token longo de 60 dias da Meta
+$USER_TOKEN = "EAAaEM60tZA1cBRopTTA9h5Y84uLXZAZCVdWIUnV6UR6gS2BfPfSdQkZB0RwXbC2RRcLaThpVCL9dGYT3hpyBuAAXinpZC0umxoxa3tQZB6FgiAFrvoh0YgMFMkXKZAmgnZCfm8QuDRvqF2y4RqtfQkmPuCHIMgpPpDWGFwE3vEa6ZBhyehLZCD4wv47ZCvAZAIHpIQZDZD"; // Aquele token longo de 60 dias da Meta
 $PAGE_ID = "COLOQUE_SEU_PESCA_PAGE_ID_AQUI"; // ID da página do Facebook atrelada
 $IG_BUSINESS_ID = "17841416991677908"; // ID do IG da Pesca Titanium (Já preenchido para você)
 $SITE_URL = "guiadodesconto.com.br"; // Mantendo a estrutura principal
