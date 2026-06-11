@@ -210,9 +210,9 @@ foreach ($media_req['data'] as $post) {
             $link_dm = titanium_bridge($link_escolhido);
 
             if ($is_product_link) {
-                $private_msg = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_dm}\n\nSe quiser ver mais ofertas exclusivas, acesse nosso site!\nSITE OFICIAL: https://guiadodesconto.com.br\n\nEquipe Pesca Titanium";
+                $private_msg = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_dm}\n\nEquipe Pesca Titanium";
             } else {
-                $private_msg = "Ola! Confira esta e outras ofertas na nossa vitrine oficial:\n\nVITRINE TITANIUM: {$link_dm}\n\nEquipe Pesca Titanium";
+                $private_msg = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_dm}\n\nEquipe Pesca Titanium";
             }
 
             // Envia COMENTÁRIO PÚBLICO
@@ -273,9 +273,9 @@ if (isset($conv_req['data'])) {
 
                 $is_product = (strpos($link_story, $SITE_URL) === false);
                 if ($is_product) {
-                    $dm_reply = "Ola pescador(a)! 🎣 Aqui esta o link do produto do Story que voce pediu:\n\nACESSAR PRODUTO: {$link_story_dm}\n\nBoas pescas!\nEquipe Pesca Titanium";
+                    $dm_reply = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_story_dm}\n\nEquipe Pesca Titanium";
                 } else {
-                    $dm_reply = "Ola! Confira esta e outras ofertas na nossa vitrine oficial:\n\nVITRINE TITANIUM: {$link_story_dm}\n\nEquipe Pesca Titanium";
+                    $dm_reply = "Ola! Aqui esta o link direto para a isca/tralha que voce pediu:\n\nACESSAR PRODUTO: {$link_story_dm}\n\nEquipe Pesca Titanium";
                 }
                 
                 $ch_priv = curl_init();
