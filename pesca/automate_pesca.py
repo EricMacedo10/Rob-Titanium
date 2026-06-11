@@ -280,11 +280,31 @@ def run_pesca_automation():
         # ── 9. Publica no Instagram ──────────────────────────────────────────
         if post_reel and reel_url:
             print("\n🎬 Publicando REEL na @pescatitanium...")
-            client.post_reels(video_url=reel_url, caption=caption)
+            reel_ok = client.post_reels(video_url=reel_url, caption=caption)
+            if reel_ok:
+                print("✅ REEL publicado com sucesso!")
+            else:
+                print("⚠️  REEL falhou — prosseguindo para o STORY...")
 
         if post_story and story_url:
+            # Aguarda a API da Meta liberar antes de publicar o Story
+            # (evita conflito de lock entre Reel e Story)
+            print("\n⏳ Aguardando 20s para a Meta API liberar antes do Story...")
+            time.sleep(20)
+
             print("\n📱 Publicando STORY na @pescatitanium...")
-            client.post_story(media_url=story_url, is_video=True)
+            story_ok = False
+            for story_attempt in range(3):
+                story_ok = client.post_story(media_url=story_url, is_video=True)
+                if story_ok:
+                    print("✅ STORY publicado com sucesso!")
+                    break
+                else:
+                    print(f"⚠️  Tentativa {story_attempt + 1}/3 do STORY falhou. Aguardando 15s...")
+                    time.sleep(15)
+
+            if not story_ok:
+                print("❌ STORY não foi publicado após 3 tentativas. Verifique os logs da Meta API.")
 
         # ── 10. Marca produto como postado ───────────────────────────────────
         _mark_as_posted(safe_id, chosen_product, "pesca_reel_story")
