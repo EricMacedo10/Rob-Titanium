@@ -8,6 +8,15 @@ $IG_BUSINESS_ID = "17841480460125461";
 // URL do site (usada para detectar links genéricos vs. links de produto)
 $SITE_URL = "guiadodesconto.com.br";
 
+// Log com timestamp para debug
+$debug_log = __DIR__ . "/bot_debug.log";
+function bot_log($msg) {
+    global $debug_log;
+    $ts = date("Y-m-d H:i:s");
+    file_put_contents($debug_log, "[{$ts}] {$msg}\n", FILE_APPEND);
+    echo $msg . "<br>";
+}
+
 // Função auxiliar para cURL (Obrigatório em Hostinger/CPANEL)
 function curl_get_contents($url) {
     $ch = curl_init();
@@ -70,14 +79,7 @@ if ($github_json !== false) {
 
 $triggers = ["eu quero", "quero", "link", "valor", "preco", "preço", "eu quero o link"];
 
-// Log com timestamp para debug
-$debug_log = __DIR__ . "/bot_debug.log";
-function bot_log($msg) {
-    global $debug_log;
-    $ts = date("Y-m-d H:i:s");
-    file_put_contents($debug_log, "[{$ts}] {$msg}\n", FILE_APPEND);
-    echo $msg . "<br>";
-}
+
 
 /**
  * 🧠 INTELIGÊNCIA DE SELEÇÃO DE LINK v2.1

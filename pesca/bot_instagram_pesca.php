@@ -12,6 +12,15 @@ $IG_BUSINESS_ID = "17841416991677908"; // ID do IG da Pesca Titanium (Já preenc
 $SITE_URL = "guiadodesconto.com.br"; // Mantendo a estrutura principal
 // -----------------------------------------------------------------------------------
 
+// Log com timestamp para debug
+$debug_log = __DIR__ . "/bot_debug_pesca.log";
+function bot_log($msg) {
+    global $debug_log;
+    $ts = date("Y-m-d H:i:s");
+    file_put_contents($debug_log, "[{$ts}] {$msg}\n", FILE_APPEND);
+    echo $msg . "<br>";
+}
+
 // Função auxiliar para cURL (Obrigatório em Hostinger/CPANEL)
 function curl_get_contents($url) {
     $ch = curl_init();
@@ -70,14 +79,7 @@ if ($github_json !== false) {
 
 $triggers = ["eu quero", "quero", "link", "valor", "preco", "preço", "eu quero o link"];
 
-// Log com timestamp para debug
-$debug_log = __DIR__ . "/bot_debug_pesca.log";
-function bot_log($msg) {
-    global $debug_log;
-    $ts = date("Y-m-d H:i:s");
-    file_put_contents($debug_log, "[{$ts}] {$msg}\n", FILE_APPEND);
-    echo $msg . "<br>";
-}
+
 
 /**
  * TITANIUM SHIELD v3.0 (PHP) — Nuclear Shield v5.0
