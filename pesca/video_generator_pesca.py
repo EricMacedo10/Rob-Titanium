@@ -25,15 +25,15 @@ class PescaVideoGenerator:
     Identidade visual completamente separada do bot de moda Titanium.
     """
 
-    # Paleta de cores da Pesca Titanium
-    COR_FUNDO_TOPO = (8, 28, 60)         # Azul marinho profundo
-    COR_FUNDO_BASE = (4, 60, 80)         # Azul petróleo (gradiente)
-    COR_CARD_FUNDO = (255, 255, 255, 245) # Branco quase opaco
-    COR_CARD_BORDA = (184, 142, 40, 255)  # Dourado escuro
-    COR_PRECO      = (0, 100, 180, 255)   # Azul royal (preço)
-    COR_TITULO     = (8, 28, 60, 255)     # Azul marinho (label)
-    COR_CTA        = (50, 50, 50, 255)    # Cinza escuro (CTA)
-    COR_ACENTO     = (184, 142, 40, 255)  # Dourado (detalhes)
+    # Paleta de cores da Pesca Titanium (Estilo Cyber/Neon Green)
+    COR_FUNDO_TOPO = (15, 15, 15)         # Cinza muito escuro (quase preto)
+    COR_FUNDO_BASE = (5, 5, 5)            # Preto
+    COR_CARD_FUNDO = (20, 20, 20, 245)    # Fundo do card metálico/escuro
+    COR_CARD_BORDA = (57, 255, 20, 255)   # Verde Neon (glowing green)
+    COR_PRECO      = (255, 255, 255, 255) # Branco (preço)
+    COR_TITULO     = (200, 200, 200, 255) # Cinza claro (nome do produto)
+    COR_CTA        = (57, 255, 20, 255)   # Verde Neon (CTA)
+    COR_ACENTO     = (57, 255, 20, 255)   # Verde Neon (detalhes)
 
     def __init__(self):
         self.width  = 1080
