@@ -144,7 +144,7 @@ class PescaVideoGenerator:
             pad_x, pad_y = 40, 20
             draw.rounded_rectangle(
                 [cta_x - pad_x, cta_y - pad_y, cta_x + cw + pad_x, cta_y + 42 + pad_y],
-                radius=35, fill=(15, 15, 15, 230), outline=self.COR_CTA, width=3
+                radius=35, fill=(15, 15, 15, 230), outline=(57, 255, 20), width=3
             )
             draw.text((cta_x, cta_y), cta_str, font=font_cta, fill=(255, 255, 255, 255))
 
