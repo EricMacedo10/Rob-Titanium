@@ -15,6 +15,19 @@ def main():
     APP_ID     = os.environ.get('APP_ID', '')
     APP_SECRET = os.environ.get('APP_SECRET', '')
     OLD_TOKEN  = os.environ.get('IG_ACCESS_TOKEN', '')
+    
+    # Se nao tiver nos Secrets, pega direto do arquivo PHP
+    if not OLD_TOKEN:
+        try:
+            with open('social/bot_instagram.php', 'r', encoding='utf-8') as f:
+                content = f.read()
+                import re
+                match = re.search(r'\$USER_TOKEN\s*=\s*"([^"]+)"', content)
+                if match:
+                    OLD_TOKEN = match.group(1)
+        except Exception as e:
+            print("Aviso: Falha ao tentar ler o token do PHP:", e)
+
     FTP_HOST   = os.environ.get('FTP_HOST', '')
     FTP_USER   = os.environ.get('FTP_USER', '')
     FTP_PASS   = os.environ.get('FTP_PASS', '')
@@ -98,16 +111,18 @@ def main():
     else:
         print("   AVISO: Secrets FTP ausentes. Deploy FTP ignorado.")
 
-    # PASSO 6: Escrever novo token no GITHUB_OUTPUT
-    # (O workflow vai pegar isso e salvar de volta no GitHub Secret)
-    print(f"\n[6] Salvando novo token no GitHub Output...")
-    gh_output = os.environ.get('GITHUB_OUTPUT', '')
-    if gh_output:
-        with open(gh_output, 'a') as f:
-            f.write(f"new_token={NEW_TOKEN}\n")
-        print("   GITHUB_OUTPUT atualizado!")
-    else:
-        print("   (GITHUB_OUTPUT nao disponivel - rodando localmente)")
+    # PASSO 6: Commitar de volta no repositorio
+    print(f"\n[6] Commitando arquivos PHP com o novo token...")
+    import subprocess
+    try:
+        subprocess.run(["git", "config", "--global", "user.name", "Titanium Bot"], check=True)
+        subprocess.run(["git", "config", "--global", "user.email", "bot@guiadodesconto.com.br"], check=True)
+        subprocess.run(["git", "add", "social/bot_instagram.php", "pesca/bot_instagram_pesca.php"], check=True)
+        subprocess.run(["git", "commit", "-m", "chore(token): auto-refresh IG token [skip ci]"], check=True)
+        subprocess.run(["git", "push"], check=True)
+        print("   Commit realizado com sucesso!")
+    except Exception as e:
+        print("   Erro ao commitar (Pode ser rodado local):", e)
 
     print()
     print("=" * 60)

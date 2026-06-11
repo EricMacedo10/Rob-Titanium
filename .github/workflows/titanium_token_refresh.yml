@@ -13,7 +13,6 @@ on:
 
 permissions:
   contents: write
-  secrets: write    # Necessário para atualizar o GitHub Secret
 
 env:
   PYTHONUNBUFFERED: 1
