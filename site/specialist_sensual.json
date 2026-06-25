@@ -1,73 +1,5 @@
 [
     {
-        "id": "sens_1777582902_135",
-        "title": "kit noiva/debutante,4 Robe BORDADO ,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono",
-        "price": 237.6,
-        "old_price": 320.76,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lqxbritn04ys14",
-        "link": "https://s.shopee.com.br/3LNJc8ZotA?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 219.0705315729476
-    },
-    {
-        "id": "sens_1777582915_683",
-        "title": "Creme Hidratante Para Virilha /Spray íntimo Cuide-se Bem Cereja 🍒 Livre 100ml oboticario.",
-        "price": 55.0,
-        "old_price": 74.25,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7qukw-lh6v681m3jw51d",
-        "link": "https://s.shopee.com.br/AADdki5YIJ?utm_source=an_18318830863",
-        "tags": [
-            "#care"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 101.03270358165828
-    },
-    {
-        "id": "sens_1777582899_632",
-        "title": "Body De Renda Transparente Coleção Íntima de Luxo Erótica Sensual Noite Especial Sem Bojo Calesson Luxo Promoção",
-        "price": 21.9,
-        "old_price": 29.57,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81zu2-mky57jpt3yte50",
-        "link": "https://s.shopee.com.br/AKX3wzwWR1?utm_source=an_18318830863",
-        "tags": [
-            "#fashion"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 77.71549452264371
-    },
-    {
-        "id": "sens_1777582892_567",
-        "title": "Camisola Sexy Preta Renda Luxo Curta Coleção Íntima de Luxo Transparente Sensual Luvas + Calcinha Fio Dental",
-        "price": 103.7,
-        "old_price": 140.0,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134201-7r98o-mdun35gqbquxa0",
-        "link": "https://s.shopee.com.br/AADdkgRBrV?utm_source=an_18318830863",
-        "tags": [
-            "#lingerie"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 134.18608972007533
-    },
-    {
         "id": "sens_1777582895_388",
         "title": "Baby Doll Cetim Com Renda Luxo Para Dormir Babydoll",
         "price": 98.9,
@@ -82,92 +14,41 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 131.47766521332346
+        "quality_score": 129.49757547797824
     },
     {
-        "id": "sens_1777582902_171",
-        "title": "Robe Roupão Feminino Hobby Inverno Coleção Íntima de Luxo Sensual Cetim Romance Tendência Lindo Lançamento Luxo",
-        "price": 86.45,
-        "old_price": 116.71,
+        "id": "sens_1777582899_481",
+        "title": "Body Feminino Cavado Renda Sensual Decotado Regata Luxo",
+        "price": 39.9,
+        "old_price": 53.87,
         "discount": 35,
         "store": "Shopee",
         "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m7wlkfq9qd5dd8",
-        "link": "https://s.shopee.com.br/3g0A0kYYDG?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 137.22062882232672
-    },
-    {
-        "id": "sens_1777582915_387",
-        "title": "Kit Cuidado Íntimo Feminino 5 Produtos Higiene Diária Sabonete Íntimo Hidratante Gel Loção Spray Refrescante",
-        "price": 51.99,
-        "old_price": 70.19,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820lq-mnnjcrf0ow044f",
-        "link": "https://s.shopee.com.br/AKX3x14uxI?utm_source=an_18318830863",
-        "tags": [
-            "#care"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 111.00474725784356
-    },
-    {
-        "id": "sens_1777582912_204",
-        "title": "Vela Aromática & Massagem Ritos Lemongrass 160 G",
-        "price": 125.9,
-        "old_price": 169.97,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lo1bmbvcspexda",
-        "link": "https://s.shopee.com.br/5flEOR9U4i?utm_source=an_18318830863",
-        "tags": [
-            "#zen"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 162.38159589962987
-    },
-    {
-        "id": "sens_1777582895_316",
-        "title": "Kit com 3 Camisolas e 3 Robes Sexy em Renda e Cetim – Pijama Sensual Feminino Elegante Luxo Roupa de Dormir Feminina",
-        "price": 159.99,
-        "old_price": 215.99,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjk8aukfzo5i77",
-        "link": "https://s.shopee.com.br/gMYREJZbQ?utm_source=an_18318830863",
-        "tags": [
-            "#sleepwear"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 181.38451280570447
-    },
-    {
-        "id": "sens_1777582899_648",
-        "title": "Body Fetiche Erótico Feminino Renda Sensual Coleção Íntima de Luxo Aberta Noite Especial Espera Marido Luxo",
-        "price": 18.99,
-        "old_price": 25.64,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81zth-mkv8ulxq0zyb41",
-        "link": "https://s.shopee.com.br/9zuDYNxn6v?utm_source=an_18318830863",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-7rd6p-lwnai3geftzu8a",
+        "link": "https://s.shopee.com.br/8KlzZK48UZ?utm_source=an_18318830863",
         "tags": [
             "#fashion"
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 75.49880905907072
+        "quality_score": 107.45120747868395
+    },
+    {
+        "id": "sens_1777582908_308",
+        "title": "Óleo de Massagem Coporal Red Apple Relaxante Hidratante Aromático Perfumado Provoke-me",
+        "price": 71.9,
+        "old_price": 97.07,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf34tifhiqkm2a",
+        "link": "https://s.shopee.com.br/2VoCcc40eZ?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 115.90640746341828
     },
     {
         "id": "sens_1777582912_529",
@@ -184,7 +65,7 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 149.75434619739542
+        "quality_score": 140.45208762136937
     },
     {
         "id": "sens_1777582895_783",
@@ -201,7 +82,75 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 100.25290854162171
+        "quality_score": 101.0016509275377
+    },
+    {
+        "id": "sens_1777582915_924",
+        "title": "Cuide Se Cereja de Fases Hidratante, Sabonete Intimo e Spray Intimo",
+        "price": 44.9,
+        "old_price": 60.62,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820mb-mlao3308ibrb43",
+        "link": "https://s.shopee.com.br/9UxwxU85e7?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 103.29367271116986
+    },
+    {
+        "id": "sens_1777582915_387",
+        "title": "Kit Cuidado Íntimo Feminino 5 Produtos Higiene Diária Sabonete Íntimo Hidratante Gel Loção Spray Refrescante",
+        "price": 51.99,
+        "old_price": 70.19,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lq-mnnjcrf0ow044f",
+        "link": "https://s.shopee.com.br/AKX3x14uxI?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 100.05957904956932
+    },
+    {
+        "id": "sens_1777582915_913",
+        "title": "Spray Intimo INTIMAMENT SERUM HIDRATANTE REJUVENESCEDOR INTIMO FEMININO 60ML Menopausa",
+        "price": 36.79,
+        "old_price": 49.67,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mahmf5rifxfd6d",
+        "link": "https://s.shopee.com.br/9fHN9n7SJ6?utm_source=an_18318830863",
+        "tags": [
+            "#care"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 104.24183092021457
+    },
+    {
+        "id": "sens_1777582908_660",
+        "title": "Oleo Corporal Perfumado Massagem Body Seduction Celebration Grandha 130 ML",
+        "price": 140.86,
+        "old_price": 190.16,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-mcjj38lk59fl88",
+        "link": "https://s.shopee.com.br/1gF5d57BLS?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 177.55268519739252
     },
     {
         "id": "sens_1777582915_916",
@@ -218,109 +167,7 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 239.02764696486477
-    },
-    {
-        "id": "sens_1777582902_287",
-        "title": "3 Robe luxo noiva/debutante ,roupão  cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono",
-        "price": 108.64,
-        "old_price": 146.66,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m1o7q4ewo4co80",
-        "link": "https://s.shopee.com.br/3VgjoRZBYD?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 151.6907025260038
-    },
-    {
-        "id": "sens_1777582902_844",
-        "title": "10 Robe noiva/debutante BORDADO ,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono",
-        "price": 605.0,
-        "old_price": 816.75,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lqxyadmbt2bx1d",
-        "link": "https://s.shopee.com.br/5AoxnVSqAR?utm_source=an_18318830863",
-        "tags": [
-            "#boutique"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 534.3712164818016
-    },
-    {
-        "id": "sens_1777582915_753",
-        "title": "Kit Cereja de Fases Completo Hidratante + Body Splash + Spray Íntimo + Sabonete Feminino Doce",
-        "price": 200.0,
-        "old_price": 270.0,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-820mh-mlff3zjstwxyfd",
-        "link": "https://s.shopee.com.br/9zuDYP6BdG?utm_source=an_18318830863",
-        "tags": [
-            "#care"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 230.26484174200021
-    },
-    {
-        "id": "sens_1777582912_229",
-        "title": "Vela De Massagem Com Cera De Soja-57g De Aroma De Rosa E Ébano , Derrete Em Óleo Quente , Fragrância Doméstica De Aromat",
-        "price": 39.51,
-        "old_price": 53.34,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-81ztr-mmjzh4jtqtc638",
-        "link": "https://s.shopee.com.br/5q4eak8qjl?utm_source=an_18318830863",
-        "tags": [
-            "#zen"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 98.45362249606904
-    },
-    {
-        "id": "sens_1777582912_287",
-        "title": "Kit Básico Velas Aromáticas Massagem - 70ml",
-        "price": 267.8,
-        "old_price": 361.53,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m1cozdov0twg46",
-        "link": "https://s.shopee.com.br/6VKLNy6JNp?utm_source=an_18318830863",
-        "tags": [
-            "#zen"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 269.4048700697097
-    },
-    {
-        "id": "sens_1777582895_661",
-        "title": "Camisola Cetim Com Renda Luxo Seda Feminina Vestido Curto + Touca Anti frizz",
-        "price": 29.9,
-        "old_price": 40.37,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m1li4s6j6aayf4",
-        "link": "https://s.shopee.com.br/BQHqJLTcH?utm_source=an_18318830863",
-        "tags": [
-            "#sleepwear"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 95.72913538914148
+        "quality_score": 229.1172198393017
     },
     {
         "id": "sens_1777582899_787",
@@ -337,58 +184,109 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 124.04825030488084
+        "quality_score": 116.53267012095132
     },
     {
-        "id": "sens_1777582908_250",
-        "title": "Óleo Corporal de Massagem Belga Perfumado Hidratação Relaxa Provoke-me",
-        "price": 71.9,
-        "old_price": 97.07,
-        "discount": 35,
-        "store": "Shopee",
-        "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf4j835e15hj44",
-        "link": "https://s.shopee.com.br/1LcFET8S1M?utm_source=an_18318830863",
-        "tags": [
-            "#elixir"
-        ],
-        "reason": "Titanium Choice: Bem-Estar Íntimo",
-        "added_date": "2026-04-30",
-        "quality_score": 125.0830120955521
-    },
-    {
-        "id": "sens_1777582902_413",
-        "title": "kit noiva/debutante,7 Robe BORDADO ,roupão em cetim LUXO ,noiva ,casamento,madrinha,camisola,hobby,pijama,seda,kimono",
-        "price": 438.9,
-        "old_price": 592.51,
+        "id": "sens_1777582899_648",
+        "title": "Body Fetiche Erótico Feminino Renda Sensual Coleção Íntima de Luxo Aberta Noite Especial Espera Marido Luxo",
+        "price": 18.99,
+        "old_price": 25.64,
         "discount": 35,
         "store": "Shopee",
         "category": "Moda & Luxo",
-        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-lr7ef7fw4cgdc7",
-        "link": "https://s.shopee.com.br/2qR31Dbiu1?utm_source=an_18318830863",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81zth-mkv8ulxq0zyb41",
+        "link": "https://s.shopee.com.br/9zuDYNxn6v?utm_source=an_18318830863",
         "tags": [
-            "#boutique"
+            "#fashion"
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 373.06970147172046
+        "quality_score": 78.20709953056715
     },
     {
-        "id": "sens_1777582912_569",
-        "title": "57g Scarlet Rose & Ebony Massage Candle 2 Em 1 Aromaterapia Vela De Cera De Soja E Óleo De Massagem Para Relaxamento Spa",
-        "price": 44.09,
-        "old_price": 59.52,
+        "id": "sens_1777582899_707",
+        "title": "Body De Renda Sensual Coleção Íntima de Luxo Espera Marido Sem Bojo Aberto Transparente Feminino Moda Íntima Luxo",
+        "price": 18.99,
+        "old_price": 25.64,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81zte-mkv8bmpi6ebk18",
+        "link": "https://s.shopee.com.br/9UxwxSzh7s?utm_source=an_18318830863",
+        "tags": [
+            "#fashion"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 77.76444284089412
+    },
+    {
+        "id": "sens_1777582899_396",
+        "title": "Kit Com 5 Body Renda Luxo Coleção Íntima de Luxo Sensual Casual Bore Rendado Blusinha Look Ano Novo",
+        "price": 124.9,
+        "old_price": 168.62,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/53771084dcec220b1ceebc988aa3b365",
+        "link": "https://s.shopee.com.br/AADdkgx9lw?utm_source=an_18318830863",
+        "tags": [
+            "#fashion"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 146.05492054613373
+    },
+    {
+        "id": "sens_1777582912_287",
+        "title": "Kit Básico Velas Aromáticas Massagem - 70ml",
+        "price": 267.8,
+        "old_price": 361.53,
         "discount": 35,
         "store": "Shopee",
         "category": "Cosmética Sensorial",
-        "image": "https://cf.shopee.com.br/file/sg-11134201-81ztr-mmjzh4jtqtc638",
-        "link": "https://s.shopee.com.br/5L8NzpAkkg?utm_source=an_18318830863",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-m1cozdov0twg46",
+        "link": "https://s.shopee.com.br/6VKLNy6JNp?utm_source=an_18318830863",
         "tags": [
             "#zen"
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 102.16697455222788
+        "quality_score": 265.9679307001516
+    },
+    {
+        "id": "sens_1777582895_461",
+        "title": "Kit 2 Camisolas e 2 Robes com Renda e Cetim – Roupa de Dormir Sexy Pijama Feminino Confortável Luxo Elegante",
+        "price": 99.99,
+        "old_price": 134.99,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81ztc-mjk81jpr98ub11",
+        "link": "https://s.shopee.com.br/W38EvKCwN?utm_source=an_18318830863",
+        "tags": [
+            "#sleepwear"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 143.7007195005833
+    },
+    {
+        "id": "sens_1777582892_567",
+        "title": "Camisola Sexy Preta Renda Luxo Curta Coleção Íntima de Luxo Transparente Sensual Luvas + Calcinha Fio Dental",
+        "price": 103.7,
+        "old_price": 140.0,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/br-11134201-7r98o-mdun35gqbquxa0",
+        "link": "https://s.shopee.com.br/AADdkgRBrV?utm_source=an_18318830863",
+        "tags": [
+            "#lingerie"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 149.99240204806455
     },
     {
         "id": "sens_1777582908_634",
@@ -405,6 +303,108 @@
         ],
         "reason": "Titanium Choice: Bem-Estar Íntimo",
         "added_date": "2026-04-30",
-        "quality_score": 105.80672417522332
+        "quality_score": 108.1041054629708
+    },
+    {
+        "id": "sens_1777582895_119",
+        "title": "Nova camisola de cetim com renda estilo francês, luxo leve de alta qualidade, com costas bonitas, sutiã com bojo integra",
+        "price": 55.59,
+        "old_price": 75.05,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-820mu-mnbtjglvwq9s91",
+        "link": "https://s.shopee.com.br/Lji2cKqHK?utm_source=an_18318830863",
+        "tags": [
+            "#sleepwear"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 116.44474290809761
+    },
+    {
+        "id": "sens_1777582899_205",
+        "title": "Body Feminino Renda Sexy Transparente Coleção Íntima de Luxo Sensual Sem Bojo Luxo Cavado Costa Nua Com Amarração",
+        "price": 21.9,
+        "old_price": 29.57,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81zty-mky4a6ybu48w25",
+        "link": "https://s.shopee.com.br/AUqU9Ivt62?utm_source=an_18318830863",
+        "tags": [
+            "#fashion"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 87.67999570731997
+    },
+    {
+        "id": "sens_1777582908_740",
+        "title": "Creme Hidratante Perfumado Sebo de Carneiro com Óleo de Argan 150g - Bio Instinto",
+        "price": 15.99,
+        "old_price": 21.59,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-7r98o-md0jfxkbsrup49",
+        "link": "https://s.shopee.com.br/1qYVpO6Y0V?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 76.21680015724253
+    },
+    {
+        "id": "sens_1777582908_250",
+        "title": "Óleo Corporal de Massagem Belga Perfumado Hidratação Relaxa Provoke-me",
+        "price": 71.9,
+        "old_price": 97.07,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/br-11134207-81z1k-mf4j835e15hj44",
+        "link": "https://s.shopee.com.br/1LcFET8S1M?utm_source=an_18318830863",
+        "tags": [
+            "#elixir"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 108.68467537113791
+    },
+    {
+        "id": "sens_1777582905_819",
+        "title": "Gel Sérum de Conforto Íntimo Intimo Base Agua Premium Deslize Suave Conforto Casal P/ Chegar Apice Prazer 250g",
+        "price": 24.0,
+        "old_price": 32.4,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Cosmética Sensorial",
+        "image": "https://cf.shopee.com.br/file/sg-11134201-8260n-mlp6xbug5csof6",
+        "link": "https://s.shopee.com.br/7VCsZnX9oR?utm_source=an_18318830863",
+        "tags": [
+            "#conforto"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 89.58438067459436
+    },
+    {
+        "id": "sens_1777582892_968",
+        "title": "🖤 Conjunto Coleção Íntima de Luxo Preta Renda Luxo Corselet + Calcinha Ajustável",
+        "price": 100.0,
+        "old_price": 135.0,
+        "discount": 35,
+        "store": "Shopee",
+        "category": "Moda & Luxo",
+        "image": "https://cf.shopee.com.br/file/br-11134207-820lu-mmkognycim132c",
+        "link": "https://s.shopee.com.br/9UxwxSTjDR?utm_source=an_18318830863",
+        "tags": [
+            "#lingerie"
+        ],
+        "reason": "Titanium Choice: Bem-Estar Íntimo",
+        "added_date": "2026-04-30",
+        "quality_score": 140.48283326427668
     }
 ]
